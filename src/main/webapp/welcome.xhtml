@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui = "http://java.sun.com/jsf/facelets">
+   <h:head>
+      <title>Scott Reid</title>
+   </h:head>
+   <h:body>
+      <h:form>  
+         <h:dataTable value="#{employeeList.list}" var="e"
+			styleClass="products" columnClasses="odd,even">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Edit" style="font-weight: bold" />
+				</f:facet>
+				<h:selectBooleanCheckbox value="#{e.editable}" onclick="submit()" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Employee ID"
+						style="font-weight: bold" />
+				</f:facet>
+				<h:outputText value="#{e.id}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Salary"
+						style="font-weight: bold" />
+				</f:facet>
+				<h:inputText value="#{e.salary}" rendered="#{e.editable}"
+					size="10" />
+				<h:outputText value="#{e.salary}" rendered="#{not e.editable}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Benefits"
+						style="font-weight: bold" />
+				</f:facet>
+				<h:inputText value="#{e.benefits}" rendered="#{e.editable}"
+					size="10" />
+				<h:outputText value="#{e.benefits}" rendered="#{not e.editable}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="NetRate"
+						style="font-weight: bold" />
+				</f:facet>
+				<h:inputText value="#{e.netRate}" rendered="#{e.editable}"
+					size="10" />
+				<h:outputText value="#{e.netRate}" rendered="#{not e.editable}" />
+			</h:column>
+			
+		</h:dataTable>
+      </h:form>
+      
+   </h:body>
+</html>
