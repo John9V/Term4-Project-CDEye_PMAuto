@@ -2,8 +2,8 @@ CREATE DATABASE nwhacks;
 
 CREATE USER IF NOT EXISTS 'test'@'localhost' IDENTIFIED BY 'test';
 CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';
-GRANT ALL ON records.* TO 'test'@'localhost';
-GRANT ALL ON records.* TO 'test'@'%';
+GRANT ALL ON nwhacks.* TO 'test'@'localhost';
+GRANT ALL ON nwhacks.* TO 'test'@'%';
 
 USE nwhacks;
 

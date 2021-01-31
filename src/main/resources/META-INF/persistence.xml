@@ -2,7 +2,7 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="inventory-jpa">
 
-	    <jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
+	    <jta-data-source>java:jboss/datasources/inventory-jpa</jta-data-source>
 	      <class>CDEye_PMAuto.backend.employee.Employee</class>
       <properties>
          <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
