@@ -9,20 +9,20 @@
    </h:head>
    <h:body>
       <h:form>  
-         <h:dataTable value="#{employeeList.list}" var="e"
+         <h:dataTable value="#{paygradeList.list}" var="p"
 			styleClass="products" columnClasses="odd,even">
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="Edit" style="font-weight: bold" />
 				</f:facet>
-				<h:selectBooleanCheckbox value="#{e.editable}" onclick="submit()" />
+				<h:selectBooleanCheckbox value="#{p.editable}" onclick="submit()" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">
-					<h:outputText value="Employee ID"
+					<h:outputText value="Paygrade ID"
 						style="font-weight: bold" />
 				</f:facet>
-				<h:outputText value="#{e.id}" />
+				<h:outputText value="#{p.id}" />
 			</h:column>
 
 			<h:column>
@@ -30,31 +30,24 @@
 					<h:outputText value="Salary"
 						style="font-weight: bold" />
 				</f:facet>
-				<h:inputText value="#{e.salary}" rendered="#{e.editable}"
+				<h:inputText value="#{p.salary}" rendered="#{p.editable}"
 					size="10" />
-				<h:outputText value="#{e.salary}" rendered="#{not e.editable}" />
+				<h:outputText value="#{p.salary}" rendered="#{not p.editable}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">
-					<h:outputText value="Benefits"
+					<h:outputText value="Paygrade Name"
 						style="font-weight: bold" />
 				</f:facet>
-				<h:inputText value="#{e.benefits}" rendered="#{e.editable}"
+				<h:inputText value="#{p.name}" rendered="#{p.name}"
 					size="10" />
-				<h:outputText value="#{e.benefits}" rendered="#{not e.editable}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="NetRate"
-						style="font-weight: bold" />
-				</f:facet>
-				<h:inputText value="#{e.netRate}" rendered="#{e.editable}"
-					size="10" />
-				<h:outputText value="#{e.netRate}" rendered="#{not e.editable}" />
+				<h:outputText value="#{p.name}" rendered="#{not p.name}" />
 			</h:column>
 			
 		</h:dataTable>
-		<h:commandButton action="paygrades" value="paygrades" />
+		
+		<h:commandButton action="#{paygradeList.submit()}" value="Update Paygrades" />
+		
       </h:form>
       
    </h:body>
