@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,8 +19,12 @@ import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="paygrades")
+@Named("paygrade")
+@RequestScoped
 public class Paygrade implements Serializable {
-
+	@Transient
+	@Inject @Dependent private PaygradeManager paygradeManager;
+	
 	@Id
 	@Column(name="id")
 	@Type(type = "uuid-char")
@@ -30,7 +36,11 @@ public class Paygrade implements Serializable {
 	@Column(name="salary")
 	protected BigDecimal salary;
 
-	public Paygrade() {}
+	public Paygrade() {
+		this.id = UUID.randomUUID();
+		this.name = "";
+		this.salary = new BigDecimal(1000);
+	}
 	
 	public Paygrade(Paygrade p) {
 		this.id = p.id;
@@ -69,6 +79,8 @@ public class Paygrade implements Serializable {
 		this.salary = salary;
 	}
 	
-	
+	public void add() {
+		paygradeManager.persist(this);
+	}
 	
 }

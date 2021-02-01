@@ -30,5 +30,10 @@ public class PaygradeManager implements Serializable {
 	public void updatePaygrade(Paygrade p) {
 		em.merge(p);
 	}
+	
+	public void persist(Paygrade p) {
+        em.persist(p);
+    }
+
 
 }

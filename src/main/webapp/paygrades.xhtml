@@ -49,6 +49,15 @@
 		<h:commandButton action="#{paygradeList.submit()}" value="Update Paygrades" />
 		
       </h:form>
+      <h:form>
+      
+      <h3>Paygrade Name</h3>
+         <p><h:inputText value="#{paygrade.name}"/></p>
+      <h3>Salary</h3>
+         <p><h:inputText value="#{paygrade.salary}"/></p>
+      
+      <h:commandButton action="#{paygrade.add()}" value="Add Paygrade" />
+      </h:form>
       
    </h:body>
 </html>

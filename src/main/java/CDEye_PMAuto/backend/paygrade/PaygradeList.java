@@ -45,6 +45,7 @@ public class PaygradeList implements Serializable {
 				list.get(i).setEditable(false);
 			}
 		}
+		refreshList();
 		return "";
 	}
 	
