@@ -95,6 +95,30 @@ public class Employee implements Serializable {
 	public void setId(UUID id) {
 		this.id = id;
 	}
+	
+	public String getEmpNum() {
+	    return empNum;
+	}
+	
+	public void setEmpNum(String empNum) {
+	    this.empNum = empNum;
+	}
+	
+	public String getFirstName() {
+	    return firstName;
+	}
+	
+	public void setFirstName(String firstName) {
+	    this.firstName = firstName;
+	}
+	
+	public String getLastName() {
+	    return lastName;
+	}
+	
+	public void setLastName(String lastName) {
+	    this.lastName = lastName;
+	}
 
 	public BigDecimal getSalary() {
 		return salary;

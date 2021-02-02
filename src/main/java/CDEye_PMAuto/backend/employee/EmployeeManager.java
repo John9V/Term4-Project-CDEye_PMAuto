@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.Dependent;
@@ -41,7 +42,7 @@ public class EmployeeManager implements Serializable {
     }
     
     /**
-     * Gets the employee by first name.
+     * Gets an employee by first name.
      * 
      * @param firstName of the employee as a String
      * @return employee, Employeee
@@ -61,7 +62,7 @@ public class EmployeeManager implements Serializable {
     }
     
     /**
-     * Gets the employee by last name.
+     * Gets an employee by last name.
      * 
      * @param lastName of the employee as a String
      * @return employee, Employee
@@ -72,6 +73,28 @@ public class EmployeeManager implements Serializable {
         Root<Employee> itemRoot = criteriaQuery.from(Employee.class);
         
         Predicate predicateForName = criteriaBuilder.equal(itemRoot.get("lastName"), lastName);
+        
+        criteriaQuery.where(predicateForName);
+        
+        List<Employee> employee = em.createQuery(criteriaQuery).getResultList();
+
+        return employee.get(0);
+    }
+    
+    /**
+     * Gets an employee by UUID number
+     * 
+     * @param uuid as a string
+     * @return employee, Employee
+     */
+    public Employee getByUUID(String uuid) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
+        Root<Employee> itemRoot = criteriaQuery.from(Employee.class);
+        
+        UUID uuidAsString = UUID.fromString(uuid);
+        
+        Predicate predicateForName = criteriaBuilder.equal(itemRoot.get("id"), uuidAsString);
         
         criteriaQuery.where(predicateForName);
         

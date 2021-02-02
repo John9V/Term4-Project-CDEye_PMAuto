@@ -46,7 +46,7 @@ public class EmployeeList implements Serializable {
         return list;
     }
 
-    public Employee getEmployee() {      
+    public Employee getEmployee() {  
         return employee;
     }
 
