@@ -20,6 +20,7 @@ public class EmployeeList implements Serializable {
 	private EmployeeManager employeeManager;
 	
 	private List<EditableEmployee> list;
+	private Employee employee;
 	
 	@Inject 
 	Conversation conversation;
@@ -43,6 +44,14 @@ public class EmployeeList implements Serializable {
         }
         System.out.println("running");
         return list;
+    }
+
+    public Employee getEmployee() {      
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
 }
