@@ -14,9 +14,15 @@ import javax.inject.Named;
 @Named("employeeList")
 @ConversationScoped
 public class EmployeeList implements Serializable {
-	@Inject @Dependent private EmployeeManager employeeManager;
+    
+	@Inject 
+	@Dependent 
+	private EmployeeManager employeeManager;
+	
 	private List<EditableEmployee> list;
-	@Inject Conversation conversation;
+	
+	@Inject 
+	Conversation conversation;
 	
 	public List<EditableEmployee> getList() {
 		if(!conversation.isTransient()) {

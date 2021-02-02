@@ -4,6 +4,7 @@
 
 	    <jta-data-source>java:jboss/datasources/inventory-jpa</jta-data-source>
 	      <class>CDEye_PMAuto.backend.employee.Employee</class>
+	      <class>CDEye_PMAuto.backend.employee.Paygrades</class>
       <properties>
          <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
          <property name="hibernate.hbm2ddl.auto" value="validate"/>

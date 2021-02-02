@@ -2,6 +2,7 @@ package CDEye_PMAuto.backend.employee;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public class EditableEmployee extends Employee implements Serializable {
 	private boolean editable = false;
@@ -12,11 +13,12 @@ public class EditableEmployee extends Employee implements Serializable {
 	}
 
 	public EditableEmployee(Employee e) {
-		super(e.id, e.salary, e.benefits, e.netRate);
+		super(e.id, e.empNum, e.firstName, e.lastName, e.salary, e.benefits, e.netRate, e.active, e.payGrade);
 	}
 
-	public EditableEmployee(String id, BigDecimal salary, BigDecimal benefits, Short netRate) {
-		super(id, salary, benefits, netRate);
+	public EditableEmployee(UUID id, String empNum, String firstName, String lastName, BigDecimal salary, 
+	        BigDecimal benefits, Short netRate, Boolean active, String payGrade) {
+		super(id, empNum, firstName, empNum, salary, benefits, netRate, active, payGrade);
 	}
 
 	public boolean isEditable() {

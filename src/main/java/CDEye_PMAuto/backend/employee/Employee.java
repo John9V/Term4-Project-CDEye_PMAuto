@@ -1,7 +1,9 @@
 package CDEye_PMAuto.backend.employee;
 
 import java.io.Serializable;
+
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -12,6 +14,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
+
+/**
+ * Contains employee information.
+ * 
+ * @author travisblack and wilsonzhu
+ */
 @Entity
 @Table(name="employees")
 @Named("employee")
@@ -22,33 +31,65 @@ public class Employee implements Serializable {
 	@Inject private EmployeeManager employeeManager;
 	
 	@Id
+	@Type(type = "uuid-char")
 	@Column(name="id")
-	protected String id;
+	protected UUID id;
 	
+    /** The employee's employee number. Assigned by HR, indicates num and department */
+	@Column(name="empnumber")
+    protected String empNum;
+    
+    /** The employee's name. */
+	@Column(name="firstname")
+    protected String firstName;
+    
+    /** The employee's name. */
+	@Column(name="lastname")
+    protected String lastName;
+	
+    /** The employee's salary **/
 	@Column(name="salary")
 	protected BigDecimal salary;
 	
+	/** The employee's benefits remaining **/
 	@Column(name="benefits")
 	protected BigDecimal benefits;
 	
+	/**The employee's hourly net rate**/
 	@Column(name="netrate")
 	protected Short netRate;
 	
+	/** Indicates whether the employee is active or not within the company**/
+	@Column(name="active")
+	protected Boolean active;
+	
+	/** Employees Paygrade (Position/Salary) **/
+	@Column(name="paygrades")
+
+	protected String payGrade;
+	
 	public Employee() {}
 
-	public Employee(String id, BigDecimal salary, BigDecimal benefits, Short netRate) {
+
+	public Employee(UUID id, String empNum, String firstName, String lastName, 
+	        BigDecimal salary, BigDecimal benefits, Short netRate, Boolean active, String paygrades) {
 		super();
 		this.id = id;
+		this.empNum = empNum;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.salary = salary;
 		this.benefits = benefits;
 		this.netRate = netRate;
+		this.active = active;
+		this.payGrade = paygrades;
 	}
 
-	public String getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
@@ -75,7 +116,23 @@ public class Employee implements Serializable {
 	public void setNetRate(Short netRate) {
 		this.netRate = netRate;
 	}
+	
+	public Boolean getActive() {
+	    return active;
+	}
+	
+	public void setActive(Boolean active) {
+	    this.active = active;
+	}
 
+	public String getPayGrade() {
+	    return payGrade;
+	}
+	
+	public void setPayGrade(String paygrade) {
+	    this.payGrade = paygrade;
+	}
+	
 	
 	
 }
