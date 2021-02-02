@@ -9,8 +9,11 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -64,15 +67,15 @@ public class Employee implements Serializable {
 	protected Boolean active;
 	
 	/** Employees Paygrade (Position/Salary) **/
-	@Column(name="paygrades")
-
-	protected String payGrade;
+	@ManyToOne
+	@JoinColumn(name="paygrades")
+	protected Paygrade payGrade;
 	
 	public Employee() {}
 
 
 	public Employee(UUID id, String empNum, String firstName, String lastName, 
-	        BigDecimal salary, BigDecimal benefits, Short netRate, Boolean active, String paygrades) {
+	        BigDecimal salary, BigDecimal benefits, Short netRate, Boolean active, Paygrade paygrades) {
 		super();
 		this.id = id;
 		this.empNum = empNum;
@@ -125,11 +128,11 @@ public class Employee implements Serializable {
 	    this.active = active;
 	}
 
-	public String getPayGrade() {
+	public Paygrade getPayGrade() {
 	    return payGrade;
 	}
 	
-	public void setPayGrade(String paygrade) {
+	public void setPayGrade(Paygrade paygrade) {
 	    this.payGrade = paygrade;
 	}
 	

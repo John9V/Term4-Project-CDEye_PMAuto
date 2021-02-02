@@ -17,7 +17,7 @@ public class EditableEmployee extends Employee implements Serializable {
 	}
 
 	public EditableEmployee(UUID id, String empNum, String firstName, String lastName, BigDecimal salary, 
-	        BigDecimal benefits, Short netRate, Boolean active, String payGrade) {
+	        BigDecimal benefits, Short netRate, Boolean active, Paygrade payGrade) {
 		super(id, empNum, firstName, empNum, salary, benefits, netRate, active, payGrade);
 	}
 

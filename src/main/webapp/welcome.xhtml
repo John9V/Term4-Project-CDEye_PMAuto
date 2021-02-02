@@ -54,12 +54,21 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">
-					<h:outputText value="PayGrade"
+					<h:outputText value="PayGradeName"
 						style="font-weight: bold" />
 				</f:facet>
-				<h:inputText value="#{e.payGrade}" rendered="#{e.editable}"
+				<h:inputText value="#{e.payGrade.name}" rendered="#{e.editable}"
 					size="10" />
-				<h:outputText value="#{e.payGrade}" rendered="#{not e.editable}" />
+				<h:outputText value="#{e.payGrade.name}" rendered="#{not e.editable}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="PayGradeSalary"
+						style="font-weight: bold" />
+				</f:facet>
+				<h:inputText value="#{e.payGrade.salary}" rendered="#{e.editable}"
+					size="10" />
+				<h:outputText value="#{e.payGrade.salary}" rendered="#{not e.editable}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">
