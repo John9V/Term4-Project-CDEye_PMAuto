@@ -1,8 +1,10 @@
 package CDEye_PMAuto.backend.employee;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;

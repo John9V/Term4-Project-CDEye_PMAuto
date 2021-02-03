@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Type;
 
 /**
@@ -27,6 +28,7 @@ import org.hibernate.annotations.Type;
 @Entity
 @Table(name="employees")
 @Named("employee")
+@DynamicUpdate
 @SessionScoped
 public class Employee implements Serializable {
 

@@ -8,7 +8,10 @@ import java.util.UUID;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.Dependent;
+import javax.persistence.Column;
 import javax.persistence.EntityManager;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -103,9 +106,16 @@ public class EmployeeManager implements Serializable {
         return employee.get(0);
     }
     
+    /**
+     * Gets an employee by its id number and makes any changes differing from the original.
+     * Nulls will be persisted to db.
+     * 
+     * @param changesToEmployee, the changes to make to an employee, as Employee
+     * @return the changed employee, as an Employee
+     */
+    public Employee editEmployee(Employee changesToEmployee) {
+        return em.merge(changesToEmployee);
+    }
 
-    
-    
-   
 
 }
