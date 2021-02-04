@@ -9,7 +9,7 @@ import javax.inject.Named;
  */
 @Named("editCredentialBean")
 @RequestScoped
-public class EditCredentials extends Credentials implements Serializable {
+public class EditCredentials extends Credential implements Serializable {
 
     /**
      * Method that instructs the credentials list to persist an updated

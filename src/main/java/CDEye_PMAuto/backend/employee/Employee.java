@@ -58,6 +58,10 @@ public class Employee implements Serializable {
 	@Column(name="active")
 	protected Boolean active;
 	
+	/** Indicates whether the employee is active or not within the company**/
+	@Column(name="username")
+	protected String userName;
+	
 	/** Employees Paygrade (Position/Salary) **/
 	@ManyToOne
 	@JoinColumn(name="paygrades")
@@ -66,13 +70,14 @@ public class Employee implements Serializable {
 	public Employee() {}
 
 
-	public Employee(UUID id, String empNum, String firstName, String lastName, 
+	public Employee(UUID id, String empNum, String firstName, String lastName, String userName,
 	       Boolean active, Paygrade paygrades) {
 		super();
 		this.id = id;
 		this.empNum = empNum;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.userName = userName;
 		this.active = active;
 		this.payGrade = paygrades;
 	}
@@ -124,7 +129,13 @@ public class Employee implements Serializable {
 	public void setPayGrade(Paygrade paygrade) {
 	    this.payGrade = paygrade;
 	}
-	
-	
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUsername(String userName) {
+		this.userName = userName;
+	}
 	
 }

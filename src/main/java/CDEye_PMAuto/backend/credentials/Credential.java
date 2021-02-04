@@ -1,86 +1,63 @@
-package com.corejsf;
+package CDEye_PMAuto.backend.credentials;
 
 import java.io.Serializable;
-import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import java.util.UUID;
 
-@Named("credential")
-@RequestScoped
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 /**
- * The Credential class is created for CreateEmployee and EditEmployee demo purpose.
- * Delete this file once Backend team setup the models.
+ * Login credentials.
  */
+@Entity
+@Table(name="credentials")
+@Named("credentials")
+@SessionScoped
 public class Credential implements Serializable {
-    private int empNo;
-    private String userName;
-    private String password;
-    private String confirmPassword;
-    private String firstName;
-    private String lastName;
-    private boolean active = true;
+    
+	@Id
+	@Type(type = "uuid-char")
+	@Column(name="id")
+	protected UUID id;
+    
+	/** The employee's name. */
+	@Column(name="userName")
+    protected String userName;
+	
+    /** The password. */
+    @Column(name="password")
+    protected String password;
 
-    public String createEmployee() {
-        return "CREATE_EMPLOYEE";
-    }
+	public UUID getId() {
+		return id;
+	}
 
-    public String editEmployee() {
-        return "EDIT_EMPLOYEE";
-    }
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
-    public boolean isActive() {
-        return active;
-    }
+	public String getUserName() {
+		return userName;
+	}
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    public int getEmpNo() {
-        return empNo;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setEmpNo(int empNo) {
-        this.empNo = empNo;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
+    
+   
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 }

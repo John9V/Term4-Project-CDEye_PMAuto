@@ -23,15 +23,15 @@
         </h1>
         <div class="form-group">
             <h:outputLabel for="userName" value="ID"/>
-            <h:inputText id="userName" class="form-control" required="true"/>
+            <h:inputText id="userName" value="#{activeEmployeeBean.userName}" class="form-control" required="true"/>
         </div>
         <br/>
         <div class="form-group">
             <h:outputLabel for="password" value="Password"/>
-            <h:inputText id="password" class="form-control" required="true"/>
+            <h:inputText id="password" value="#{activeEmployeeBean.password}" class="form-control" required="true"/>
         </div>
         <br/>
-        <h:commandButton value="Sign in" class="w-100 btn btn-lg btn-primary"/>
+        <h:commandButton value="Sign in" class="w-100 btn btn-lg btn-primary" action="#{activeEmployeeBean.login}"/>
     </h:form>
 
     <!-- Optional JavaScript -->

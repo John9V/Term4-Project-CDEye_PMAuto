@@ -22,6 +22,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
+
 @Dependent
 @Stateless
 public class EmployeeManager implements Serializable {
@@ -116,6 +117,15 @@ public class EmployeeManager implements Serializable {
     public Employee editEmployee(Employee changesToEmployee) {
         return em.merge(changesToEmployee);
     }
+
+	public Employee getEmployeeByUserName(String userName) {
+		TypedQuery<Employee> query = em.createQuery(
+    			"SELECT e FROM Employee e WHERE e.userName LIKE :userName", Employee.class)
+    			.setParameter("userName", "%" + userName + "%");
+    	List<Employee> employees = query.getResultList();
+    	
+        return employees.get(0);
+	}
 
 
 }

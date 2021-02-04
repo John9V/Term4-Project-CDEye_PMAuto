@@ -10,7 +10,7 @@ import javax.inject.Named;
  */
 @Named("editOwnCredentials")
 @RequestScoped
-public class EditOwnCredentials extends Credentials implements Serializable {
+public class EditOwnCredentials extends Credential implements Serializable {
     @Inject CredentialManager credentialManager;
     /**
      * @param userName is the userName of the user editing their own
@@ -18,7 +18,7 @@ public class EditOwnCredentials extends Credentials implements Serializable {
      * @return a string which will reload the current page.
      */
     public String updateOwnCredentials(String userName) {
-        Credentials cred = credentialManager.find(userName);
+        Credential cred = credentialManager.find(userName);
         cred.setPassword(this.getPassword());
         credentialManager.merge(cred);
         return "";

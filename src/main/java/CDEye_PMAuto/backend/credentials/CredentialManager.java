@@ -5,9 +5,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
+import CDEye_PMAuto.backend.employee.Employee;
+
 import javax.ejb.Stateless;
 import javax.enterprise.context.Dependent;
 
@@ -27,8 +32,8 @@ public class CredentialManager implements Serializable {
      * @param username primary key for record.
      * @return the Credential record with key = username, null if not found.
      */
-    public Credentials find(String username) {
-        return em.find(Credentials.class, username);
+    public Credential find(String username) {
+        return em.find(Credential.class, username);
     }
 
     /**
@@ -36,7 +41,7 @@ public class CredentialManager implements Serializable {
      * 
      * @param credential the record to be persisted.
      */
-    public void persist(Credentials credential) {
+    public void persist(Credential credential) {
         em.persist(credential);
     }
 
@@ -45,7 +50,7 @@ public class CredentialManager implements Serializable {
      * 
      * @param credential the record to be merged.
      */
-    public void merge(Credentials credential) {
+    public void merge(Credential credential) {
         em.merge(credential);
     }
 
@@ -54,7 +59,7 @@ public class CredentialManager implements Serializable {
      * 
      * @param credential record to be removed from database
      */
-    public void remove(Credentials credential) {
+    public void remove(Credential credential) {
         // attach credential
         credential = find(credential.getUserName());
         em.remove(credential);
@@ -65,11 +70,11 @@ public class CredentialManager implements Serializable {
      * 
      * @return Credential[] of all records in Categories table
      */
-    public Credentials[] getAll() {
+    public Credential[] getAll() {
         // need to make sure the table name matches the one in the database
-        TypedQuery<Credentials> query = em.createQuery("select c from Credentials c", Credentials.class);
-        java.util.List<Credentials> credentialsList = query.getResultList();
-        Credentials[] credentials = new Credentials[credentialsList.size()];
+        TypedQuery<Credential> query = em.createQuery("select c from Credentials c", Credential.class);
+        java.util.List<Credential> credentialsList = query.getResultList();
+        Credential[] credentials = new Credential[credentialsList.size()];
         for (int i = 0; i < credentials.length; i++) {
             credentials[i] = credentialsList.get(i);
         }
@@ -82,13 +87,19 @@ public class CredentialManager implements Serializable {
      * @param credentials credentials entered by the user.
      * @return boolean for whether the credentials are valid.
      */
-    public boolean validCredentials(Credentials credentials) {
-        Credentials cred;
-        cred = em.find(Credentials.class, credentials.getUserName());
+    public boolean validCredentials(Credential c) {
+    	System.out.println("username: " + c.userName);
+    	System.out.println("password: " + c.password);
+    	TypedQuery<Credential> query = em.createQuery(
+    			"SELECT c FROM Credential c WHERE c.userName LIKE :userName", Credential.class)
+    			.setParameter("userName", "%" + c.getUserName() + "%");
+    	List<Credential> credentials = query.getResultList();
+    	
+        Credential cred = credentials.get(0);
         // if credentials not in database
         if (cred == null) {
             return false;
         }
-        return credentials.getPassword().equals(cred.getPassword());
+        return c.getPassword().equals(cred.getPassword());
     }
 }

@@ -45,9 +45,9 @@ public class CredentialsList implements Serializable {
      *                 credentials for.
      * @return the Ceredentials of the passed in employee.
      */
-    public Credentials findCredentials(final String userName) {
+    public Credential findCredentials(final String userName) {
         if (credentialsList.containsKey(userName)) {
-            Credentials c = new Credentials();
+            Credential c = new Credential();
             c.setUserName(userName);
             c.setPassword(credentialsList.get(userName));
             return c;
@@ -62,7 +62,7 @@ public class CredentialsList implements Serializable {
      * @param credentials to validate, entered into the front end.
      * @return a boolean representing whether the credentials are valid.
      */
-    public boolean validCredentials(Credentials credentials) {
+    public boolean validCredentials(Credential credentials) {
         // ensure username exists in credentials list
         if (!credentialsList.containsKey(credentials.getUserName())) {
             return false;
@@ -75,7 +75,7 @@ public class CredentialsList implements Serializable {
      * 
      * @param credentials to add to the list of credentials.
      */
-    public void addCredentials(final Credentials credentials) {
+    public void addCredentials(final Credential credentials) {
         credentialsList.put(credentials.getUserName(), credentials.getPassword());
     }
 
@@ -85,7 +85,7 @@ public class CredentialsList implements Serializable {
      * @param credentials is a set of credentials with an existing username and a
      *                    new password.
      */
-    public void updateCredentials(Credentials credentials) {
+    public void updateCredentials(Credential credentials) {
         credentialsList.replace(credentials.getUserName(), credentials.getPassword());
     }
 
@@ -95,7 +95,7 @@ public class CredentialsList implements Serializable {
      * @param credentials a set of credentials to be removed from the list of
      *                    credentials.
      */
-    public void deleteCredentials(Credentials credentials) {
+    public void deleteCredentials(Credential credentials) {
         credentialsList.remove(credentials.getUserName());
     }
 
