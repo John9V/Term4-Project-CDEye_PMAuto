@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<h:outputStylesheet library="css" name="styles.css"/>
+	<title>Project Management System</title>
+</h:head>
+<h:body>
+<!--	The EditEmployee page has same layout and functionality as CreateEmployee page.-->
+<!--	This page is only for test database purpose.-->
+<!--	After the front-end developer should combine this page with CreateEmployye page and use-->
+<!--	Bean to control which components to be displayed.-->
+<!--	For detailed documents please refer to CreateEmployee.xhtml-->
+	<div class="side-bar">
+
+	</div>
+
+	<div class="header-bar">
+		<h3>EDIT EMPLOYEE</h3>
+	</div>
+
+	<div class="form-container">
+		<h:form>
+			<div class="input-row">
+				<p>Employee Number</p>
+				<h:graphicImage library="images" name="user.png"/>
+				<h:inputText value="#{credential.empNo}" disabled="true"/>
+			</div>
+
+			<div class="input-row">
+				<p>User Name</p>
+				<h:graphicImage library="images" name="password.png"/>
+				<h:inputText value="#{credential.userName}" />
+			</div>
+
+			<div class="input-row">
+				<p>Password</p>
+				<h:graphicImage library="images" name="password.png"/>
+				<h:inputText value="#{credential.password}" />
+			</div>
+
+			<div class="input-row">
+				<p>First Name</p>
+				<h:graphicImage library="images" name="password.png"/>
+				<h:inputText value="#{credential.firstName}" />
+			</div>
+
+			<div class="input-row">
+				<p>Last Name</p>
+				<h:graphicImage library="images" name="password.png"/>
+				<h:inputText value="#{credential.lastName}" />
+			</div>
+
+			<h:selectBooleanCheckbox value="#{credential.active}" />
+			<p>Active</p>
+
+			<div class="button-container">
+				<h:commandButton value="SAVE" action="${credential.createEmployee}" />
+			</div>
+		</h:form>
+	</div>
+</h:body>
+</html>
