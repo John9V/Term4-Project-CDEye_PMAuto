@@ -27,31 +27,24 @@
 
 			<h:column>
 				<f:facet name="header">
-					<h:outputText value="Salary"
+					<h:outputText value="First Name"
 						style="font-weight: bold" />
 				</f:facet>
-				<h:inputText value="#{e.salary}" rendered="#{e.editable}"
+				<h:inputText value="#{e.firstName}" rendered="#{e.editable}"
 					size="10" />
-				<h:outputText value="#{e.salary}" rendered="#{not e.editable}" />
+				<h:outputText value="#{e.firstName}" rendered="#{not e.editable}" />
 			</h:column>
+			
 			<h:column>
 				<f:facet name="header">
-					<h:outputText value="Benefits"
+					<h:outputText value="Last Name"
 						style="font-weight: bold" />
 				</f:facet>
-				<h:inputText value="#{e.benefits}" rendered="#{e.editable}"
+				<h:inputText value="#{e.lastName}" rendered="#{e.editable}"
 					size="10" />
-				<h:outputText value="#{e.benefits}" rendered="#{not e.editable}" />
+				<h:outputText value="#{e.lastName}" rendered="#{not e.editable}" />
 			</h:column>
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="NetRate"
-						style="font-weight: bold" />
-				</f:facet>
-				<h:inputText value="#{e.netRate}" rendered="#{e.editable}"
-					size="10" />
-				<h:outputText value="#{e.netRate}" rendered="#{not e.editable}" />
-			</h:column>
+			
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="PayGradeName"

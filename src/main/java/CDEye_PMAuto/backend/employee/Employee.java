@@ -20,6 +20,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Type;
 
+import CDEye_PMAuto.backend.paygrade.Paygrade;
+
 /**
  * Contains employee information.
  * 
@@ -52,18 +54,6 @@ public class Employee implements Serializable {
 	@Column(name="lastname")
     protected String lastName;
 	
-    /** The employee's salary **/
-	@Column(name="salary")
-	protected BigDecimal salary;
-	
-	/** The employee's benefits remaining **/
-	@Column(name="benefits")
-	protected BigDecimal benefits;
-	
-	/**The employee's hourly net rate**/
-	@Column(name="netrate")
-	protected Short netRate;
-	
 	/** Indicates whether the employee is active or not within the company**/
 	@Column(name="active")
 	protected Boolean active;
@@ -77,15 +67,12 @@ public class Employee implements Serializable {
 
 
 	public Employee(UUID id, String empNum, String firstName, String lastName, 
-	        BigDecimal salary, BigDecimal benefits, Short netRate, Boolean active, Paygrade paygrades) {
+	       Boolean active, Paygrade paygrades) {
 		super();
 		this.id = id;
 		this.empNum = empNum;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.salary = salary;
-		this.benefits = benefits;
-		this.netRate = netRate;
 		this.active = active;
 		this.payGrade = paygrades;
 	}
@@ -120,30 +107,6 @@ public class Employee implements Serializable {
 	
 	public void setLastName(String lastName) {
 	    this.lastName = lastName;
-	}
-
-	public BigDecimal getSalary() {
-		return salary;
-	}
-
-	public void setSalary(BigDecimal salary) {
-		this.salary = salary;
-	}
-
-	public BigDecimal getBenefits() {
-		return benefits;
-	}
-
-	public void setBenefits(BigDecimal benefits) {
-		this.benefits = benefits;
-	}
-
-	public Short getNetRate() {
-		return netRate;
-	}
-
-	public void setNetRate(Short netRate) {
-		this.netRate = netRate;
 	}
 	
 	public Boolean getActive() {

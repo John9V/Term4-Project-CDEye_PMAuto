@@ -4,7 +4,7 @@
 
 	    <jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
 	      <class>CDEye_PMAuto.backend.employee.Employee</class>
-	      <class>CDEye_PMAuto.backend.employee.Paygrades</class>
+	      <class>CDEye_PMAuto.backend.paygrades.Paygrades</class>
       <properties>
          <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
          <property name="hibernate.hbm2ddl.auto" value="validate"/>
