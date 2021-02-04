@@ -1,8 +1,10 @@
 package CDEye_PMAuto.backend.employee;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -14,9 +16,16 @@ import javax.inject.Named;
 @Named("employeeList")
 @ConversationScoped
 public class EmployeeList implements Serializable {
-	@Inject @Dependent private EmployeeManager employeeManager;
+    
+	@Inject 
+	@Dependent 
+	private EmployeeManager employeeManager;
+	
 	private List<EditableEmployee> list;
-	@Inject Conversation conversation;
+	private Employee employee;
+	
+	@Inject 
+	Conversation conversation;
 	
 	public List<EditableEmployee> getList() {
 		if(!conversation.isTransient()) {
@@ -37,6 +46,14 @@ public class EmployeeList implements Serializable {
         }
         System.out.println("running");
         return list;
+    }
+
+    public Employee getEmployee() {  
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
 }
