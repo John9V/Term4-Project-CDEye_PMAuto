@@ -1,76 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html">
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
 	<h:outputStylesheet library="css" name="styles.css"/>
 	<title>Project Management System</title>
 </h:head>
+
+<!--http://localhost:8080/CDEye_PMAuto/CreateEmployee.xhtml-->
 <h:body>
-<!--	Side bar panel will control the navigation of the application-->
-<!--	For now just a placeholder.-->
+	<!-- Side bar panel will control the navigation of the application-->
 	<div class="side-bar">
 
 	</div>
 
-<!--	Header bar display the current page the user located-->
+	<!-- The current route -->
 	<div class="header-bar">
 		<h3>CREATE A NEW EMPLOYEE</h3>
 	</div>
 
-<!--	Form Container: reusable horizontal row input style-->
-<!--	If you want to test database please replace the input value-->
-<!--	with respected Class memebrs.-->
+	<!-- Form Container: reusable horizontal row input style-->
+	<!-- Need to replace the input value with Employee class members.-->
 	<div class="form-container">
 		<h:form>
-<!--			Employee Number input-->
-<!--			Validate if emp exist in db and digits only-->
+			<!-- Employee Number -->
 			<div class="input-row">
 				<p>Employee Number</p>
 				<h:graphicImage library="images" name="user.png"/>
 				<h:inputText value="#{credential.empNo}" />
 			</div>
 
-<!--			User Name input-->
-<!--			Need to be unique in database, can be combination of digits and letters-->
+			<!-- User Name -->
 			<div class="input-row">
 				<p>User Name</p>
 				<h:graphicImage library="images" name="password.png"/>
 				<h:inputText value="#{credential.userName}" />
 			</div>
 
-<!--			Password input-->
+			<!-- Password secret input-->
 			<div class="input-row">
 				<p>Password</p>
 				<h:graphicImage library="images" name="password.png"/>
-				<h:inputText value="#{credential.password}" />
+				<h:inputSecret value="#{credential.password}" />
 			</div>
 
-<!--			Confirm password input, compare with previous password-->
+			<!-- Confirm password, compare with previous password -->
 			<div class="input-row">
 				<p>Confirm Password</p>
 				<h:graphicImage library="images" name="password.png"/>
-				<h:inputText value="#{credential.confirmPassword}" />
+				<h:inputSecret value="#{credential.confirmPassword}" />
 			</div>
 
-<!--			First Name input-->
+			<!-- First Name -->
 			<div class="input-row">
 				<p>First Name</p>
 				<h:graphicImage library="images" name="password.png"/>
 				<h:inputText value="#{credential.firstName}" />
 			</div>
 
-<!--			Last Name input-->
+			<!-- Last Name -->
 			<div class="input-row">
 				<p>Last Name</p>
 				<h:graphicImage library="images" name="password.png"/>
 				<h:inputText value="#{credential.lastName}" />
 			</div>
 
-<!--			Active check box, not sure if needed in create employee page-->
-			<h:selectBooleanCheckbox value="#{credential.active}" />
-			<p>Active</p>
+			<div class="horizontal-grid">
+				<!-- Is employee Active -->
+				<div class="input-selector">
+					<h:selectBooleanCheckbox value="#{credential.active}" />
+					<p>Active</p>
+				</div>
 
+				<!-- Is the employee HR: NEED TO REPLACE WITH isHr afterwards-->
+				<div class="input-selector">
+					<h:selectBooleanCheckbox value="#{credential.active}" />
+					<p>Is HR</p>
+				</div>
+
+				<!-- 9 Paygrade selection items -->
+				<!-- Currently use userName for placeholder, need to repalce later -->
+				<div class="input-selector">
+					<h:selectOneMenu value="#{employee.userName}" required="true">
+						<f:selectItems value="#{employee.paygradeItems}" />
+					</h:selectOneMenu>
+					<p>PayGrade</p>
+				</div>
+			</div>
+
+			<!-- Create Employee: Add DB-->
 			<div class="button-container">
 				<h:commandButton value="CREATE" action="${credential.createEmployee}" />
 			</div>
