@@ -58,6 +58,10 @@ public class Employee implements Serializable {
 	@Column(name="active")
 	protected Boolean active;
 	
+	/** Indicates whether the employee is HR **/
+    @Column(name="hr")
+    protected Boolean hr;
+	
 	/** Indicates whether the employee is active or not within the company**/
 	@Column(name="username")
 	protected String userName;
@@ -71,7 +75,7 @@ public class Employee implements Serializable {
 
 
 	public Employee(UUID id, String empNum, String firstName, String lastName, String userName,
-	       Boolean active, Paygrade paygrades) {
+	       Boolean active,  Boolean hr, Paygrade paygrades) {
 		super();
 		this.id = id;
 		this.empNum = empNum;
@@ -79,6 +83,7 @@ public class Employee implements Serializable {
 		this.lastName = lastName;
 		this.userName = userName;
 		this.active = active;
+		this.hr = hr;
 		this.payGrade = paygrades;
 	}
 
@@ -121,6 +126,14 @@ public class Employee implements Serializable {
 	public void setActive(Boolean active) {
 	    this.active = active;
 	}
+	
+	public Boolean getHr() {
+        return hr;
+	}
+	    
+	public void setHr(Boolean hr) {
+        this.hr = hr;
+    }
 
 	public Paygrade getPayGrade() {
 	    return payGrade;
