@@ -15,11 +15,11 @@ public class EditableEmployee extends Employee implements Serializable {
 	}
 
 	public EditableEmployee(Employee e) {
-		super(e.id, e.empNum, e.firstName, e.lastName, e.userName, e.active, e.payGrade);
+		super(e.id, e.empNum, e.firstName, e.lastName, e.userName, e.active, e.hr, e.payGrade);
 	}
 
-	public EditableEmployee(UUID id, String empNum, String firstName, String lastName, String userName, Boolean active, Paygrade payGrade) {
-		super(id, empNum, firstName, lastName, userName, active, payGrade);
+	public EditableEmployee(UUID id, String empNum, String firstName, String lastName, String userName, Boolean active, Boolean hr, Paygrade payGrade) {
+		super(id, empNum, firstName, lastName, userName, active, hr, payGrade);
 	}
 
 	public boolean isEditable() {

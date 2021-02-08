@@ -72,6 +72,15 @@
 					size="10" />
 				<h:outputText value="#{e.active}" rendered="#{not e.editable}" />
 			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="HR"
+						style="font-weight: bold" />
+				</f:facet>
+				<h:inputText value="#{e.hr}" rendered="#{e.editable}"
+					size="10" />
+				<h:outputText value="#{e.hr}" rendered="#{not e.editable}" />
+			</h:column>
 		</h:dataTable>
 		<h:commandButton action="paygrades" value="paygrades" />
       </h:form>
