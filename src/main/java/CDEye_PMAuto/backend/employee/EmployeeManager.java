@@ -22,6 +22,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
+import CDEye_PMAuto.backend.credentials.Credential;
+
 
 @Dependent
 @Stateless
@@ -125,6 +127,11 @@ public class EmployeeManager implements Serializable {
     	List<Employee> employees = query.getResultList();
     	
         return employees.get(0);
+	}
+	
+	
+	public void addEmployee(Employee e) {
+		em.persist(e);
 	}
 
 

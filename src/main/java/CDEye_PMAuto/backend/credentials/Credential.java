@@ -34,6 +34,14 @@ public class Credential implements Serializable {
     @Column(name="password")
     protected String password;
 
+    public Credential() {}
+    
+    public Credential(String userName, String password) {
+    	id = UUID.randomUUID();
+    	this.userName = userName;
+    	this.password = password;
+    }
+    
 	public UUID getId() {
 		return id;
 	}

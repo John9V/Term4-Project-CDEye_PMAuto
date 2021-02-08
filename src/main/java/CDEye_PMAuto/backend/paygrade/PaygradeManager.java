@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import CDEye_PMAuto.backend.credentials.Credential;
+
 @Dependent
 @Stateless
 public class PaygradeManager implements Serializable {
@@ -34,6 +36,16 @@ public class PaygradeManager implements Serializable {
 	public void persist(Paygrade p) {
         em.persist(p);
     }
+	
+	public Paygrade findPaygrade(String paygradeName) {
+		TypedQuery<Paygrade> query = em.createQuery(
+				"SELECT p FROM Paygrade p WHERE p.name LIKE :name", Paygrade.class)
+				.setParameter("name", "%" + paygradeName + "%");
+		List<Paygrade> paygrades = query.getResultList();
+		return paygrades.get(0);
+	}
+	
+
 
 
 }
