@@ -32,8 +32,6 @@ public class CreateEmployeeBean extends Employee implements Serializable {
 	 * Also, please add isHR memeber and getter and setters to Employee model and database as well.
 	 */
 
-	
-	
 	protected String paygradeName;
 	
 	protected String password;
