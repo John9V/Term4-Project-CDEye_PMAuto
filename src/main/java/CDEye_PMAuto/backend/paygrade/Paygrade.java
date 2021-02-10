@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Column;
@@ -78,9 +77,14 @@ public class Paygrade implements Serializable {
 	public void setSalary(BigDecimal salary) {
 		this.salary = salary;
 	}
-	
-	public void add() {
+
+	/**
+	 * Add new paygrade to db
+	 * @return refresh page
+	 */
+	public String add() {
 		paygradeManager.persist(this);
+		return "";
 	}
 	
 }

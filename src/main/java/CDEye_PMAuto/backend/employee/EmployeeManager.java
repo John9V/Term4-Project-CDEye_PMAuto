@@ -134,5 +134,31 @@ public class EmployeeManager implements Serializable {
 		em.persist(e);
 	}
 
+    /**
+     * Delete selected employee in db
+     * @param employeeToDelete
+     */
+    public void deleteEmployee(Employee employeeToDelete) {
+        Employee e = em.find(Employee.class, employeeToDelete.getId());
+        em.remove(e);
+        System.out.println("Delete employee " + e.firstName + " successfully");
+    }
 
+    /**
+     * There's a bug when use em.merge(Employee) if Employee is EditableEmployee
+     * Currently just hardcode update attribute
+     * Need to fix JPA later
+     * @param employeeToUpdate
+     */
+    public void updateEmployee(Employee employeeToUpdate) {
+        Employee e = em.find(Employee.class, employeeToUpdate.getId());
+        e.firstName = employeeToUpdate.firstName;
+        e.lastName = employeeToUpdate.lastName;
+        e.payGrade = employeeToUpdate.payGrade;
+        e.active = employeeToUpdate.active;
+        e.hr = employeeToUpdate.hr;
+        em.merge(e);
+
+        System.out.println("Update employee " + e.firstName + " successfully");
+    }
 }
