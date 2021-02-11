@@ -29,27 +29,27 @@
 					<h:outputText value="WPNum"
 						style="font-weight: bold" />
 				</f:facet>
-				<h:inputText value="#{e.workPackageNumber}" rendered="#{e.editable}"
+				<h:inputText value="#{e.id}" rendered="#{e.editable}"
 					size="10" />
-				<h:outputText value="#{e.workPackageNumber}" rendered="#{not e.editable}" />
+				<h:outputText value="#{e.id}" rendered="#{not e.editable}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="PersonDayEstimate"
 						style="font-weight: bold" />
 				</f:facet>
-				<h:inputText value="#{e.personDayEstimate}" rendered="#{e.editable}"
+				<h:inputText value="#{e.employee.firstName}" rendered="#{e.editable}"
 					size="10" />
-				<h:outputText value="#{e.personDayEstimate}" rendered="#{not e.editable}" />
+				<h:outputText value="#{e.employee.firstName}" rendered="#{not e.editable}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value=""
 						style="font-weight: bold" />
 				</f:facet>
-				<h:inputText value="#{e.budgetEstimate}" rendered="#{e.editable}"
+				<h:inputText value="#{e.paygrade.name}" rendered="#{e.editable}"
 					size="10" />
-				<h:outputText value="#{e.budgetEstimate}" rendered="#{not e.editable}" />
+				<h:outputText value="#{e.paygrade.name}" rendered="#{not e.editable}" />
 			</h:column>	
 		</h:dataTable>
       </h:form>

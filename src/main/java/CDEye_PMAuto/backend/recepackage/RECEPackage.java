@@ -7,6 +7,7 @@ import java.util.Hashtable;
 import java.util.UUID;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -24,16 +25,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Type;
 
+import CDEye_PMAuto.backend.employee.Employee;
 import CDEye_PMAuto.backend.paygrade.Paygrade;
 import CDEye_PMAuto.backend.workpackage.WorkPackage;
 
-
 @Entity
 @Table(name="recepackage")
-@Named("recePackage")
-@RequestScoped
+@Named("recepackage")
+@DynamicUpdate
+@SessionScoped
 public class RECEPackage implements Serializable {
 
     @Id
@@ -41,37 +44,30 @@ public class RECEPackage implements Serializable {
     @Type(type = "uuid-char")
     protected UUID id;
     
-    @Column(name="workpackagenumber")
-    protected String workPackageNumber;
-    
-    @OneToOne
     @JoinColumn(name="parentwp")
+    @ManyToOne
     protected WorkPackage parentWp;
-    
-    @Column(name="budgetestimate")
-    protected BigDecimal budgetEstimate;
+  
+    @JoinColumn(name="paygrade")
+    @ManyToOne
+    protected Paygrade paygrade;
     
     @Column(name="persondayestimate")
     protected BigDecimal personDayEstimate;
     
+    @JoinColumn(name="employeeId")
+    @ManyToOne
+    protected Employee employee;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "RECE_Breakdown_mapping", 
-      joinColumns = {@JoinColumn(name = "RECE_id", referencedColumnName = "id")},
-      inverseJoinColumns = {@JoinColumn(name = "Breakdown_id", referencedColumnName = "id")})
-    @MapKey(name = "numberofdays")
-    protected HashMap<Paygrade, Integer> paygradeDaysBreakdown;
     
     public RECEPackage() {};
     
-    public RECEPackage(UUID id, String workpackagenumber, WorkPackage parentwp, 
-            BigDecimal budgetEstimate, BigDecimal personDayEstimate, HashMap<Paygrade, Integer> paygradeDaysBreakdown) {
+    public RECEPackage(UUID id, WorkPackage parentWp, Paygrade paygrade, BigDecimal personDayEstimate, Employee employee) {
         this.id = id;
-        this.workPackageNumber = workpackagenumber;
-        this.parentWp = parentwp;
-        this.budgetEstimate = budgetEstimate;
+        this.parentWp = parentWp;
+        this.paygrade = paygrade;
         this.personDayEstimate = personDayEstimate;
-        this.paygradeDaysBreakdown = paygradeDaysBreakdown;
+        this.employee = employee;
     }
     
     /**Ensures that associated package cost estimates sum to 
@@ -88,16 +84,8 @@ public class RECEPackage implements Serializable {
     public void setId(UUID id) {
         this.id = id;
     }
-    
-    public String getWorkPackageNumber() {
-        return workPackageNumber;
-    }
-    
-    public void setWorkPackageNumber(String workPackageNumber) {
-        this.workPackageNumber = workPackageNumber;
-    }
-    
-    public WorkPackage getParentWp () {
+     
+    public WorkPackage getParentWp() {
         return parentWp;
     }
     
@@ -105,14 +93,14 @@ public class RECEPackage implements Serializable {
         this.parentWp = parentWp;
     }
     
-    public BigDecimal getBudgetEstimate() {
-        return budgetEstimate;
+    public Paygrade getPaygrade() {
+        return paygrade;
     }
     
-    public void setBudgetEstimate(BigDecimal budgetEstimate) {
-        this.budgetEstimate = budgetEstimate;
+    public void setPaygrage(Paygrade paygrade) {
+        this.paygrade = paygrade;
     }
-    
+ 
     public BigDecimal getPersonDayEstimate() {
         return personDayEstimate;
     }
@@ -121,16 +109,13 @@ public class RECEPackage implements Serializable {
         this.personDayEstimate = personDayEstimate;
     }
    
-    public HashMap<Paygrade, Integer> getPaygradeDaysBreakdown() {
-        return this.paygradeDaysBreakdown;
+    public Employee getEmployee() {
+        return employee;
     }
     
-    public void setPaygradeDaysBreakdown(HashMap<Paygrade, Integer> paygradeDaysBreakdown) {
-        this.paygradeDaysBreakdown = paygradeDaysBreakdown;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
-    
-    
-    
     
     
     

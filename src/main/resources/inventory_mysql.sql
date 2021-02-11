@@ -44,12 +44,7 @@ CREATE TABLE workpackages(id TINYTEXT, workpackagenumber TINYTEXT, parentwp TINY
 INSERT INTO workpackages VALUES("123e4567-e89b-12d3-a456-556342440300", "1100", NULL, 150, 150, 15, 15);
 
 DROP TABLE IF EXISTS recepackage;
-CREATE TABLE recepackage(id TINYTEXT, parentwp TINYTEXT, budgetestimate DECIMAL(10,2), persondayestimate DECIMAL(10,2));
+CREATE TABLE recepackage(id TINYTEXT, parentwp TINYTEXT, paygrade TINYTEXT, persondayestimate DECIMAL(10,2), employeeId TINYTEXT);
 
-INSERT INTO recepackage VALUES("123e4537-e89b-12d4-a456-556642431111", "123e4567-e89b-12d3-a456-556342440300", 500, 1);
+INSERT INTO recepackage VALUES("123e4537-e89b-12d4-a456-556642431111", "123e4567-e89b-12d3-a456-556342440300", "123e4567-e89b-12d3-a456-556642440000", 1, "623e4567-e89b-12d3-a456-556642440710");
 
-
-DROP TABLE IF EXISTS recepackagepaygrade;
-CREATE TABLE recepackagepaygrade(id TINYTEXT, paygrade TINYTEXT, numberofdays DECIMAL(10,2));
-
-INSERT INTO recepackagepaygrade VALUES("123e4537-e89b-12d4-a456-556642431111", "123e4567-e89b-12d3-a456-556642440000", 1);

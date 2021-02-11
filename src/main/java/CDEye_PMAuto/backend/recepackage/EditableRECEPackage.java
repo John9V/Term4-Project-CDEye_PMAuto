@@ -1,9 +1,9 @@
 package CDEye_PMAuto.backend.recepackage;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.UUID;
 
+import CDEye_PMAuto.backend.employee.Employee;
 import CDEye_PMAuto.backend.paygrade.Paygrade;
 import CDEye_PMAuto.backend.workpackage.WorkPackage;
 
@@ -17,12 +17,11 @@ public class EditableRECEPackage extends RECEPackage {
     }
     
     public EditableRECEPackage(RECEPackage r) {
-        super(r.id, r.workPackageNumber, r.parentWp, r.budgetEstimate, r.personDayEstimate, r.paygradeDaysBreakdown);
+        super(r.id, r.parentWp, r.paygrade, r.personDayEstimate, r.employee);
     };
     
-    public EditableRECEPackage(UUID id, String workpackagenumber, WorkPackage parentwp, 
-            BigDecimal budgetEstimate, BigDecimal personDayEstimate, HashMap<Paygrade, Integer> paygradeDaysBreakdown) {
-        super(id, workpackagenumber, parentwp, budgetEstimate, personDayEstimate, paygradeDaysBreakdown);
+    public EditableRECEPackage(UUID id, WorkPackage parentwp, Paygrade paygrade, BigDecimal personDayEstimate, Employee employee) {
+        super(id, parentwp, paygrade, personDayEstimate, employee);
     }
     
     public boolean isEditable() {

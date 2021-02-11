@@ -20,7 +20,7 @@ public class RECEManager {
      * @return an array of RECEPackage, as an [RECEPackage]
      */
     public RECEPackage[] getAll() {
-        TypedQuery<RECEPackage> query = em.createQuery("select p from recepackage p", RECEPackage.class); 
+        TypedQuery<RECEPackage> query = em.createQuery("select p from RECEPackage p", RECEPackage.class); 
         List<RECEPackage> packages = query.getResultList();
         RECEPackage[] packageArr = new RECEPackage[packages.size()];
         for (int i = 0; i < packageArr.length; i++) {
