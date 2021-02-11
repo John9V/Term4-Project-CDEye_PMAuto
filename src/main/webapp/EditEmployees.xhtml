@@ -24,7 +24,7 @@
             <h:dataTable value="#{employeeList.list}" var="e" styleClass="data-table">
                 <h:column>
                     <f:facet name="header">Employee Id</f:facet>
-                    #{e.id}
+                    #{e.empNum}
                 </h:column>
                 <h:column>
                     <f:facet name="header">First Name</f:facet>
@@ -68,10 +68,6 @@
                                      rendered="#{e.editable}"/>
                     <h:commandButton styleClass="command-button" value="Edit" action="#{employeeList.editSelectedEmployee(e)}"
                                      rendered="#{not e.editable}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Delete Employee</f:facet>
-                    <h:commandButton styleClass="command-button" value="Delete" action="#{employeeList.deleteSelectedEmployee(e)}"/>
                 </h:column>
             </h:dataTable>
         </h:form>
