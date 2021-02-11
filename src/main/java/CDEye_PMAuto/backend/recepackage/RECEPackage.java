@@ -39,29 +39,46 @@ import CDEye_PMAuto.backend.workpackage.WorkPackage;
 @SessionScoped
 public class RECEPackage implements Serializable {
 
+    /** The ID of the RECE **/
     @Id
     @Column(name="id")
     @Type(type = "uuid-char")
     protected UUID id;
     
+    /**  The parent workpackage **/
     @JoinColumn(name="parentwp")
     @ManyToOne
     protected WorkPackage parentWp;
   
+    /** The paygrade that is associated with this RECE **/
     @JoinColumn(name="paygrade")
     @ManyToOne
     protected Paygrade paygrade;
     
+    /** Number of days estimated at this paygrade for the package **/
     @Column(name="persondayestimate")
     protected BigDecimal personDayEstimate;
     
+    /** Employee assigned to work on this project **/
     @JoinColumn(name="employeeId")
     @ManyToOne
     protected Employee employee;
 
     
+    /**
+     * Empty Default Constructor
+     */
     public RECEPackage() {};
     
+    /**
+     * RECEPackage Constructor
+     * 
+     * @param id of the package, as a UUID
+     * @param parentWp, the parent of the RECE, as a WorkPackage
+     * @param paygrade, the paygrade associated with the RECE as a Paygrade
+     * @param personDayEstimate, the number of days estimated to be spent on the project at this paygrade, as a BigDecimal
+     * @param employee, the employee assigned to the package at the chosen paygrade
+     */
     public RECEPackage(UUID id, WorkPackage parentWp, Paygrade paygrade, BigDecimal personDayEstimate, Employee employee) {
         this.id = id;
         this.parentWp = parentWp;

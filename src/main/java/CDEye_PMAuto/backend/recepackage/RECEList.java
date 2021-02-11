@@ -14,15 +14,21 @@ import javax.inject.Named;
 @ConversationScoped
 public class RECEList implements Serializable {
     
+    /** The RECEManage used to access the DB **/
     @Inject 
     @Dependent 
     private RECEManager receManager;
     
+    /** A list of editable rece packages **/
     private List<EditableRECEPackage> list;
     
     @Inject 
     Conversation conversation;
     
+    /**
+     * Gets a list of RECEPackages. Will call refreshList() if the list is currently null.
+     * @return a list of EditableRecePackage, List<EditableRECEPackage>
+     */
     public List<EditableRECEPackage> getList() {
         if(!conversation.isTransient()) {
             conversation.end();
@@ -34,6 +40,12 @@ public class RECEList implements Serializable {
         return list;
     }
 
+    /**
+     * Accesses the RECEManager Class to get all EditableRECEPackages. This function is used by 
+     * getList().
+     * 
+     * @return a list of EditableREcePackage, List<EditableRECEPackage>
+     */
     public List<EditableRECEPackage> refreshList() {
         RECEPackage[] packages = receManager.getAll();
         list = new ArrayList<EditableRECEPackage>();
