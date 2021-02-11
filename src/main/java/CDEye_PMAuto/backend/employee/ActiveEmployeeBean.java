@@ -33,25 +33,22 @@ public class ActiveEmployeeBean extends Employee implements Serializable {
 	 * type of user that just logged in.
 	 */
 	public String login() {
-		System.out.println("login called");
 		Credential c = new Credential();
 		c.setUserName(userName);
 		c.setPassword(password);
 		credentialManager.validCredentials(c);
-		if(credentialManager.validCredentials(c)) {
-			System.out.println("These are valid credentials");
-		} else {
-			System.out.println("These are not valid credentials");
-		}
 		if (credentialManager.validCredentials(c)) {
 			Employee loggedInEmployee = employeeManager
 			        .getEmployeeByUserName(userName);
-			if (loggedInEmployee.hr) {
-				return "HRHome";
+			if (loggedInEmployee.active) {
+				if (loggedInEmployee.hr) {
+					return "HRHome";
+				} else {
+					return "Home";
+				}
 			} else {
-				return "Home";
+				return "invalidCredentials";
 			}
-//			return "welcome";
 		} else {
 			return "invalidCredentials";
 		}

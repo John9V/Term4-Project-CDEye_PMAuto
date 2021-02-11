@@ -2,14 +2,92 @@ package CDEye_PMAuto.backend.employee;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.UUID;
 
+import CDEye_PMAuto.backend.credentials.Credential;
 import CDEye_PMAuto.backend.paygrade.Paygrade;
+import CDEye_PMAuto.backend.paygrade.PaygradeManager;
+import org.hibernate.sql.Select;
 
+import javax.enterprise.context.RequestScoped;
+import javax.faces.model.SelectItem;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+@Named("editEmployee")
+@RequestScoped
 public class EditableEmployee extends Employee implements Serializable {
-	private boolean editable = false;
-	private boolean deletable = false;
-	
+	private boolean editable;
+	private boolean deletable;
+
+	@Inject
+	private PaygradeManager paygradeManager;
+
+	private String paygradeName;
+
+	public String getPaygradeName() {
+		return paygradeName;
+	}
+	public void setPaygradeName(String paygradeName) {
+		this.payGrade = paygradeManager.findPaygrade(paygradeName);
+		this.paygradeName = paygradeName;
+	}
+	public enum PAYGRADE {
+		P1,
+		P2,
+		P3,
+		P4,
+		P5,
+		P6,
+		DS,
+		JS,
+		XS,
+	}
+
+	/**
+	 * HR dropdown list
+	 */
+	private static Collection<SelectItem> hrList;
+	static {
+		hrList = new ArrayList<SelectItem>();
+		hrList.add(new SelectItem(true));
+		hrList.add(new SelectItem(false));
+	}
+
+	/**
+	 * Active dropdown list
+	 */
+	private static Collection<SelectItem> activeList;
+	static {
+		activeList = new ArrayList<SelectItem>();
+		activeList.add(new SelectItem(true));
+		activeList.add(new SelectItem(false));
+	}
+
+	/**
+	 * Paygrade dropdown list
+	 */
+	private static Collection<SelectItem> paygradeList;
+	static {
+		paygradeList = new ArrayList<SelectItem>();
+
+		for (PAYGRADE p : PAYGRADE.values()) {
+			paygradeList.add(new SelectItem((p)));
+		}
+	}
+	public Collection<SelectItem> getPaygradeItems() {
+		return paygradeList;
+	}
+	public Collection<SelectItem> getHRItems() {
+		return hrList;
+	}
+	public Collection<SelectItem> getActiveItems() {
+		return activeList;
+	}
+
+
 	public EditableEmployee() {
 		super();
 	}
@@ -37,5 +115,5 @@ public class EditableEmployee extends Employee implements Serializable {
 	public void setDeletable(boolean deletable) {
 		this.deletable = deletable;
 	}
-	
+
 }

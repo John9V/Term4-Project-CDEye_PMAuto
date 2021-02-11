@@ -48,6 +48,36 @@ public class EmployeeList implements Serializable {
         return list;
     }
 
+    /**
+     * Save selected employee info and update to db
+     * @return on page refresh
+     */
+    public String saveSelectedEmployee(EditableEmployee e) {
+        employeeManager.updateEmployee(e);
+        e.setEditable(false);
+        return "";
+    }
+
+    /**
+     * Edit selected employe row, disable employee id.
+     * Can edit other field
+     * @return on page refresh
+     */
+    public String editSelectedEmployee(EditableEmployee e) {
+        e.setEditable(true);
+        return "";
+    }
+
+    /**
+     * Delete selected employee
+     * @return on page refresh
+     */
+    public String deleteSelectedEmployee(EditableEmployee e) {
+        employeeManager.deleteEmployee(e);
+        refreshList();
+        return "";
+    }
+
     public Employee getEmployee() {  
         return employee;
     }
