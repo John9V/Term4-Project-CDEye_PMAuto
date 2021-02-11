@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+    <h:outputStylesheet library="css" name="styles.css"/>
+    <title>Project Management System</title>
+</h:head>
+
+<!--http://localhost:8080/CDEye_PMAuto/CreateEmployee.xhtml-->
+<h:body>
+    <!-- Side bar panel will control the navigation of the application-->
+    <div class="side-bar">
+
+    </div>
+
+    <!-- The current route -->
+    <div class="header-bar">
+        <h3>CHANGE PASSWORD</h3>
+    </div>
+
+    <!-- Form Container: reusable horizontal row input style-->
+    <!-- Need to replace the input value with Employee class members.-->
+    <div class="form-container">
+        <h:form>
+
+            <!-- Password secret input-->
+            <div class="input-row">
+                <p>Old password</p>
+                <h:graphicImage library="images" name="password.png"/>
+                <h:inputSecret value="#{activeEmployeeBean.password}" required="true"/>
+            </div>
+
+            <!-- First Name -->
+            <div class="input-row">
+                <p>New password</p>
+                <h:graphicImage library="images" name="password.png"/>
+                <h:inputSecret value="#{activeEmployeeBean.newPassword}" required="true"/>
+            </div>
+
+            <!-- Last Name -->
+            <div class="input-row">
+                <p>Confirm password</p>
+                <h:graphicImage library="images" name="password.png"/>
+                <h:inputText value="#{activeEmployeeBean.confirmPassword}" required="true"/>
+            </div>
+
+            <!-- Create Employee: Add DB-->
+            <div class="button-container">
+                <h:commandButton value="CHANGE" action="${activeEmployeeBean.changePassword}" />
+            </div>
+        </h:form>
+    </div>
+</h:body>
+</html>

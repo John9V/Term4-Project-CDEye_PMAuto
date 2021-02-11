@@ -26,6 +26,12 @@ public class ActiveEmployeeBean extends Employee implements Serializable {
 	 */
 	private String password;
 
+	private String newPassword = null;
+
+
+
+	private String confirmPassword = null;
+
 	/**
 	 * Login method. Validates that credentials are correct, and, if so,
 	 * loads that user's data from the employee list into this bean.
@@ -52,6 +58,30 @@ public class ActiveEmployeeBean extends Employee implements Serializable {
 		} else {
 			return "invalidCredentials";
 		}
+	}
+
+	public String changePassword() {
+		Credential[] crdAry = credentialManager.getAll();
+		for (int i=0; i < crdAry.length; i++)
+			if (crdAry[i].getUserName().contains(userName))
+			{
+				crdAry[i].setPassword(password);
+				credentialManager.validCredentials(crdAry[i]);
+				System.out.println(credentialManager.validCredentials(crdAry[i]));
+				if (credentialManager.validCredentials(crdAry[i]))
+				{
+					if (newPassword.equals(confirmPassword))
+					{
+						setPassword(newPassword);
+						crdAry[i].setPassword(newPassword);
+						setNewPassword(null);
+						setConfirmPassword(null);
+						credentialManager.merge(crdAry[i]);
+						return "Home";
+					}
+				}
+			}
+		return "changePw";
 	}
 
 	
@@ -83,5 +113,20 @@ public class ActiveEmployeeBean extends Employee implements Serializable {
 		this.password = password;
 	}
 
-	
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
 }

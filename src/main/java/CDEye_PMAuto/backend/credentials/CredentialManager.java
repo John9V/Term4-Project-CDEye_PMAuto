@@ -72,7 +72,7 @@ public class CredentialManager implements Serializable {
      */
     public Credential[] getAll() {
         // need to make sure the table name matches the one in the database
-        TypedQuery<Credential> query = em.createQuery("select c from Credentials c", Credential.class);
+        TypedQuery<Credential> query = em.createQuery("select c from Credential c", Credential.class);
         java.util.List<Credential> credentialsList = query.getResultList();
         Credential[] credentials = new Credential[credentialsList.size()];
         for (int i = 0; i < credentials.length; i++) {
