@@ -36,9 +36,70 @@ INSERT INTO packagecostestimate VALUES("123e4567-e89b-12d3-a456-556642430000", "
 INSERT INTO packagecostestimate VALUES("123e4537-e89b-12d4-a456-556642430000", "123e4567-e89b-12d3-a456-556342440300", NULL, 
 	"123e4567-e89b-12d3-a456-556642440000", 5, 50);
 
+--DROP TABLE IF EXISTS workpackages;
+--CREATE TABLE workpackages(id TINYTEXT, workpackagenumber TINYTEXT, parentwp TINYTEXT, 
+--	budgetestimate DECIMAL(10,2), budgetactual DECIMAL(10,2), persondayestimate DECIMAL(10,2), 
+--	persondayactual DECIMAL(10,2));
+--	
+--INSERT INTO workpackages VALUES("123e4567-e89b-12d3-a456-556342440300", "1100", NULL, 150, 150, 15, 15);
+
+
+-- 'workpackages' column is the parent workpackage uuid.
 DROP TABLE IF EXISTS workpackages;
-CREATE TABLE workpackages(id TINYTEXT, workpackagenumber TINYTEXT, parentwp TINYTEXT, 
-	budgetestimate DECIMAL(10,2), budgetactual DECIMAL(10,2), persondayestimate DECIMAL(10,2), 
-	persondayactual DECIMAL(10,2));
+CREATE TABLE workpackages(
+	id TINYTEXT PRIMARY KEY NOT NULL,
+	workpackagenumber TINYTEXT,
+	workpackages TINYTEXT, 
+	unallocatedbudget DECIMAL(10,2),
+	allocatedbudget DECIMAL(10,2),
+	allocatedpersondays DECIMAL(10,2), 
+	respengpersondayestimate DECIMAL(10,2),
+	respengbudgetestimate DECIMAL(10,2), 
+	completedbudget DECIMAL(10,2),
+	completedpersondays DECIMAL(10,2),
+	completedvarianceprojectpd DECIMAL(10,2),
+	completedvarianceprojectbudget DECIMAL(10,2),
+	respengestvarianceprojectpd DECIMAL(10,2),
+	respengestvarianceprojectbudget DECIMAL(10,2),
+	startdate DATE,
+	enddate DATE,
+	isleaf BOOLEAN,
+	FOREIGN KEY (workpackages) REFERENCES workpackages(id)
+);
 	
-INSERT INTO workpackages VALUES("123e4567-e89b-12d3-a456-556342440300", "1100", NULL, 150, 150, 15, 15);
+INSERT INTO workpackages VALUES(
+	"123e4567-e89b-12d3-a456-599342400001",
+	"11000",
+	NULL,
+	1500, 900, 15, 15, 800, 310, 6, 0, 0, 0, 0,
+	TO_DATE('2009-03-30', 'YYYY-MM-DD'),
+	TO_DATE('2025-03-30', 'YYYY-MM-DD'),
+	FALSE
+);
+INSERT INTO workpackages VALUES(
+	"123e4567-e89b-12d3-a456-599342400002",
+	"11100",
+	"123e4567-e89b-12d3-a456-599342400001",
+	1800, 800, 22, 25, 400, 320, 10, 0, 0, 0, 0,
+	TO_DATE('2011-03-30', 'YYYY-MM-DD'),
+	TO_DATE('2026-03-30', 'YYYY-MM-DD'),
+	TRUE
+);
+INSERT INTO workpackages VALUES(
+	"123e4567-e89b-12d3-a456-599342400003",
+	"11200",
+	"123e4567-e89b-12d3-a456-599342400001",
+	1802, 804, 23, 22, 403, 321, 11, 0, 0, 0, 0,
+	TO_DATE('2015-03-30', 'YYYY-MM-DD'),
+	TO_DATE('2022-03-30', 'YYYY-MM-DD'),
+	FALSE
+);
+INSERT INTO workpackages VALUES(
+	"123e4567-e89b-12d3-a456-599342400004",
+	"11210",
+	"123e4567-e89b-12d3-a456-599342400003",
+	1807, 801, 21, 25, 402, 322, 14, 0, 0, 0, 0,
+	TO_DATE('2016-03-30', 'YYYY-MM-DD'),
+	TO_DATE('2022-03-30', 'YYYY-MM-DD'),
+	TRUE
+);
