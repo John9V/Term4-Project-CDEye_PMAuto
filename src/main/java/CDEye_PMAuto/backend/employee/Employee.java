@@ -41,7 +41,6 @@ public class Employee implements Serializable {
 	@Transient
 	@Inject private EmployeeManager employeeManager;
 	
-	
 	@Id
 	@Type(type = "uuid-char")
 	@Column(name="id")

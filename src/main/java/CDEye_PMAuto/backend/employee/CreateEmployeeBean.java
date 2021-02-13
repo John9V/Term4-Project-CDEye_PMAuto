@@ -21,23 +21,12 @@ public class CreateEmployeeBean extends Employee implements Serializable {
 	@Inject private PaygradeManager paygradeManager;
 	@Inject private EmployeeManager employeeManager;
 	@Inject private CredentialManager credentialManager;
-	//========================  PLEASE REVIEW CODE AND COMMENT BELOW FOR PAYGRADE DROPDOWN LIST FEATURE ==========================
-	/**
-	 * The dropdown list <h:selectOneMenu>need a string set the paygrades that the user select
-	 * The paygrades above is an object with the details of the Paygrade
-	 * So I create a String paygrade for set and get paygrade that user select from dropdown list
-	 * To not mess up with backend-team and database models, the paygrade member and getter setters
-	 * are commented out because it need to be added in employee table
-	 *
-	 * Also, please add isHR memeber and getter and setters to Employee model and database as well.
-	 */
 
 	protected String paygradeName;
 	
 	protected String password;
 
 	/** Get selected paygrade from dropdown list. */
-
 	public String getPaygradeName() {
 		return paygradeName;
 	}
@@ -77,9 +66,7 @@ public class CreateEmployeeBean extends Employee implements Serializable {
 	public Collection<SelectItem> getPaygradeItems() {
 		return paygradeList;
 	}
-	//======================== END ===================================================================================
 
-	
 	
 	public void add() {
 		Employee e = new Employee(this);

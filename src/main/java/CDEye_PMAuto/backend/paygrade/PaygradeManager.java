@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import CDEye_PMAuto.backend.credentials.Credential;
+import CDEye_PMAuto.backend.employee.Employee;
 
 @Dependent
 @Stateless
@@ -29,10 +30,6 @@ public class PaygradeManager implements Serializable {
         return paygradeArr;
 	}
 
-	public void updatePaygrade(Paygrade p) {
-		em.merge(p);
-	}
-	
 	public void persist(Paygrade p) {
         em.persist(p);
     }
@@ -44,8 +41,26 @@ public class PaygradeManager implements Serializable {
 		List<Paygrade> paygrades = query.getResultList();
 		return paygrades.get(0);
 	}
-	
 
+	/**
+	 * Delete paygrade in db
+	 * @param paygradeToDelete
+	 */
+	public void deletePaygrade(Paygrade paygradeToDelete) {
+		Paygrade p = em.find(Paygrade.class, paygradeToDelete.getId());
+		em.remove(p);
+	}
+
+	/**
+	 * Update paygrade in db
+	 * @param paygradeToUpdate
+	 */
+	public void updatePaygrade(Paygrade paygradeToUpdate) {
+		Paygrade p = em.find(Paygrade.class, paygradeToUpdate.getId());
+		p.name = paygradeToUpdate.name;
+		p.salary = paygradeToUpdate.salary;
+		em.merge(p);
+	}
 
 
 }

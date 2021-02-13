@@ -12,6 +12,8 @@ import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -33,25 +35,26 @@ public class Project implements Serializable {
 	@Type(type = "uuid-char")
 	protected UUID id;
 
-	@Column(name = "projectName")
+	@Column(name = "projectname")
 	protected String projectName;
 
-	@Column(name = "projectNumber")
+	@Column(name = "projectnumber")
 	protected String projectNumber;
 
-	@Column(name = "projManager")
+	@ManyToOne
+	@JoinColumn(name = "projmanager")
 	protected Employee projManager;
 
-	@Column(name = "startDate")
+	@Column(name = "startdate")
 	protected Date startDate;
 
-	@Column(name = "endDate")
+	@Column(name = "enddate")
 	protected Date endDate;
 
-	@Column(name = "estimateBudget")
+	@Column(name = "estimatebudget")
 	protected BigDecimal estimateBudget;
 	
-	@Column(name = "markUpRate")
+	@Column(name = "markuprate")
 	protected BigDecimal markUpRate;
 
 	public Project() {}
