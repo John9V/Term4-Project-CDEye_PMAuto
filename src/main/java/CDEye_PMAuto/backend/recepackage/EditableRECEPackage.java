@@ -3,6 +3,8 @@ package CDEye_PMAuto.backend.recepackage;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import javax.persistence.Transient;
+
 import CDEye_PMAuto.backend.employee.Employee;
 import CDEye_PMAuto.backend.paygrade.Paygrade;
 import CDEye_PMAuto.backend.workpackage.WorkPackage;
@@ -10,9 +12,11 @@ import CDEye_PMAuto.backend.workpackage.WorkPackage;
 public class EditableRECEPackage extends RECEPackage {
 
     /** Determines if the RECE is editable, true = yes, false = no **/
+    @Transient
     private boolean editable = false;
     
     /** Determines if the RECE is deletable, true = yes, false = no **/
+    @Transient
     private boolean deletable = false;
     
     /** No-Param Constructor */

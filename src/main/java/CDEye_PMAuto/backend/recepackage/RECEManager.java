@@ -8,6 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import CDEye_PMAuto.backend.employee.Employee;
+
 @Dependent
 @Stateless
 public class RECEManager {
@@ -29,8 +31,35 @@ public class RECEManager {
         return packageArr;
     }
     
-    //TODO: Create Package
-    //TODO: Edit Package
-    //TODO: Remove Package
+    /**
+     * Creates a RECE in the db
+     * 
+     * @param p, a RECEPackage
+     */
+    public void createRECE(RECEPackage p) {
+        em.persist(p);
+    }
+
+    /**
+     * Gets a RECE by its id number and makes any changes differing from the original.
+     * Nulls will be persisted to db.
+     * 
+     * @param p, the changes to make to a RECE, as RECEPackage
+     * @return the changed RECEPackage, as a RECEPackage
+     */
+    public RECEPackage editEmployee(RECEPackage p) {
+        return em.merge(p);
+    }
+    
+    /**
+     * Removes a RECE from the db
+     * 
+     * @param p, the RECE to remove
+     */
+    public void deleteRECE(RECEPackage p) {
+        RECEPackage rece = em.find(RECEPackage.class, p.getId());
+        em.remove(rece);
+    }
+
     
 }
