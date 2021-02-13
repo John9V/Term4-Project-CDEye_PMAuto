@@ -3,7 +3,6 @@ package CDEye_PMAuto.backend.workpackage;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
-
 import javax.ejb.Stateless;
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
@@ -13,8 +12,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import CDEye_PMAuto.backend.employee.Employee;
 
 @Dependent
 @Stateless
@@ -28,7 +25,7 @@ public class WorkPackageManager implements Serializable {
      * @return an array of packages
      */
     public WorkPackage[] getAll() {
-        TypedQuery<WorkPackage> query = em.createQuery("select wp from workpackages wp",
+        TypedQuery<WorkPackage> query = em.createQuery("select wp from WorkPackage wp",
                 WorkPackage.class); 
         List<WorkPackage> workPackages = query.getResultList();
         WorkPackage[] wpArr = new WorkPackage[workPackages.size()];
@@ -60,13 +57,41 @@ public class WorkPackageManager implements Serializable {
         return workPackage.get(0);
     }
     
+    public WorkPackage[] getByPackageNumber(String packageNumber) {
+        TypedQuery<WorkPackage> query = em.createQuery(
+                "SELECT wp FROM WorkPackage wp WHERE workpackagenumber LIKE :packageNumber", WorkPackage.class)
+                .setParameter("packageNumber", "%" + packageNumber + "%");
+        List<WorkPackage> workPackages = query.getResultList();
+        
+        WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
+        for (int i = 0; i < packageArr.length; i++) {
+            packageArr[i] = workPackages.get(i);
+        }
+        
+        return packageArr;
+    }
+    
+    public WorkPackage[] getByParentId(String parentId) {
+        TypedQuery<WorkPackage> query = em.createQuery(
+                "SELECT wp FROM WorkPackage wp WHERE parentworkpackage LIKE :parentId", WorkPackage.class)
+                .setParameter("parentId", "%" + parentId + "%");
+        List<WorkPackage> workPackages = query.getResultList();
+        
+        WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
+        for (int i = 0; i < packageArr.length; i++) {
+            packageArr[i] = workPackages.get(i);
+        }
+        
+        return packageArr;
+    }
+    
     /**
      * Uses a modified workPackage to update a workPackage in the database.
      * 
      * @param modifiedWP the work package with modifications
      * @return the modified work package
      */
-    public WorkPackage editWorkPackage(WorkPackage modifiedWP) {
+    public WorkPackage updateWorkPackage(WorkPackage modifiedWP) {
         return em.merge(modifiedWP);
     }
     
@@ -83,7 +108,7 @@ public class WorkPackageManager implements Serializable {
      * @param wp the work package to delete
      */
     public void deleteWorkPackage(WorkPackage wp) {
-        em.remove(wp);
+        em.remove(em.contains(wp) ? wp : em.merge(wp));
     }
     
 }

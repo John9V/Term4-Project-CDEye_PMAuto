@@ -2,15 +2,26 @@ package CDEye_PMAuto.backend.workpackage;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.UUID;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * Editable version of work package.
  */
+@Named("editableWorkPackage")
+@SessionScoped
 public class EditableWorkPackage extends WorkPackage implements Serializable {
+    
     private boolean editable = false;
     private boolean deletable = false;
+    
+    @Inject 
+    @Dependent 
+    private WorkPackageManager workPackageManager;
     
     EditableWorkPackage() {
         super();
@@ -47,12 +58,26 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
             BigDecimal allocatedBudget, BigDecimal allocatedPersonDays, BigDecimal respEngPersonDayEstimate,
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
-            BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, Date startDate,
-            Date endDate, boolean isLeaf) {
+            BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
+            LocalDate endDate, boolean isLeaf) {
         super(id, workPackageNumber, parentWp, unAllocatedBudget, allocatedBudget, allocatedPersonDays,
                 respEngPersonDayEstimate, respEngBudgetEstimate, completedBudget, completedPersonDays,
                 completedVarianceProjectPD, completedVarianceProjectBudget, respEngEstVarianceProjectPD,
                 respEngEstVarianceProjectBudget, startDate, endDate, isLeaf);
+    }
+    
+    public void saveEdit() {
+        workPackageManager.updateWorkPackage(new WorkPackage(this));
+        editable = false;
+    }
+    
+    public String delete() {
+        workPackageManager.deleteWorkPackage(new WorkPackage(this));
+        return "testWPs";
+    }
+    
+    public void startEdit() {
+        editable = true;
     }
 
     /**
