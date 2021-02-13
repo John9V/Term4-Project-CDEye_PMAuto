@@ -3,9 +3,12 @@ package CDEye_PMAuto.backend.employee;
 import java.io.Serializable;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.UUID;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Column;
@@ -21,6 +24,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Type;
 
 import CDEye_PMAuto.backend.paygrade.Paygrade;
+import CDEye_PMAuto.backend.paygrade.PaygradeManager;
 
 /**
  * Contains employee information.
@@ -58,6 +62,10 @@ public class Employee implements Serializable {
 	@Column(name="active")
 	protected Boolean active;
 	
+	/** Indicates whether the employee is HR **/
+    @Column(name="hr")
+    protected Boolean hr;
+	
 	/** Indicates whether the employee is active or not within the company**/
 	@Column(name="username")
 	protected String userName;
@@ -67,11 +75,11 @@ public class Employee implements Serializable {
 	@JoinColumn(name="paygrades")
 	protected Paygrade payGrade;
 	
+
 	public Employee() {}
 
-
 	public Employee(UUID id, String empNum, String firstName, String lastName, String userName,
-	       Boolean active, Paygrade paygrades) {
+	       Boolean active,  Boolean hr, Paygrade payGrade) {
 		super();
 		this.id = id;
 		this.empNum = empNum;
@@ -79,8 +87,21 @@ public class Employee implements Serializable {
 		this.lastName = lastName;
 		this.userName = userName;
 		this.active = active;
-		this.payGrade = paygrades;
+		this.hr = hr;
+		this.payGrade = payGrade;
 	}
+	
+	public Employee(CreateEmployeeBean ceb) {
+		super();
+		this.id = UUID.randomUUID();
+		this.empNum = ceb.empNum;
+		this.firstName = ceb.firstName;
+		this.lastName = ceb.lastName;
+		this.userName = ceb.userName;
+		this.active = ceb.active;
+		this.hr = ceb.hr;
+		this.payGrade = ceb.payGrade;
+		}
 
 	public UUID getId() {
 		return id;
@@ -121,6 +142,14 @@ public class Employee implements Serializable {
 	public void setActive(Boolean active) {
 	    this.active = active;
 	}
+	
+	public Boolean getHr() {
+        return hr;
+	}
+	    
+	public void setHr(Boolean hr) {
+        this.hr = hr;
+    }
 
 	public Paygrade getPayGrade() {
 	    return payGrade;
@@ -129,12 +158,12 @@ public class Employee implements Serializable {
 	public void setPayGrade(Paygrade paygrade) {
 	    this.payGrade = paygrade;
 	}
-
+	
 	public String getUserName() {
 		return userName;
 	}
 
-	public void setUsername(String userName) {
+	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 	

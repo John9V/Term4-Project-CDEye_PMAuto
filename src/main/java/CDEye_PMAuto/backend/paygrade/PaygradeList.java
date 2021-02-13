@@ -1,5 +1,7 @@
 package CDEye_PMAuto.backend.paygrade;
 
+import CDEye_PMAuto.backend.employee.EditableEmployee;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,38 @@ public class PaygradeList implements Serializable {
 				list.get(i).setEditable(false);
 			}
 		}
+		refreshList();
+		return "";
+	}
+
+	/**
+	 * Updated selected paygrade object, set the selected paygrade to non-edit
+	 * @param p selected EditablePaygrade
+	 * @return refresh page diplay updated list
+	 */
+	public String saveSelectedPaygrade(EditablePaygrade p) {
+		paygradeManager.updatePaygrade(p);
+		p.setEditable(false);
+		return "";
+	}
+
+	/**
+	 * Enable the selected paygrade to edit mode
+	 * @param p seleced EditablePaygrade
+	 * @return refresh page
+	 */
+	public String editSelectedPaygrade(EditablePaygrade p) {
+		p.setEditable(true);
+		return "";
+	}
+
+	/**
+	 * Delete the selected paygrade from db
+	 * @param p selected EditablePaygrade
+	 * @return refresh page
+	 */
+	public String deleteSelectedPaygrade(EditablePaygrade p) {
+		paygradeManager.deletePaygrade(p);
 		refreshList();
 		return "";
 	}
