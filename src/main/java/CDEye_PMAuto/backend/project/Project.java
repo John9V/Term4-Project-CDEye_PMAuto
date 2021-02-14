@@ -87,7 +87,14 @@ public class Project implements Serializable {
 		this.markUpRate = markUpRate;
 		this.projectBudget = projectBudget;
 	}
-
+	
+	 public Project(CreateProjectBean cpb) {
+	        super();
+	        this.id = UUID.randomUUID();
+	        this.projectNumber = cpb.projectNumber;
+	        this.projectName = cpb.projectName;
+	}
+	
 	public UUID getId() {
 		return id;
 	}
