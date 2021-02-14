@@ -17,6 +17,7 @@
 				</f:facet>
 				<h:selectBooleanCheckbox value="#{e.editable}" onclick="submit()" />
 			</h:column>
+			
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="Package ID"
@@ -24,6 +25,7 @@
 				</f:facet>
 				<h:outputText value="#{e.id}" />
 			</h:column>
+			
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="WPNum"
@@ -33,6 +35,7 @@
 					size="10" />
 				<h:outputText value="#{e.id}" rendered="#{not e.editable}" />
 			</h:column>
+			
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="PersonDayEstimate"
@@ -42,6 +45,7 @@
 					size="10" />
 				<h:outputText value="#{e.employee.firstName}" rendered="#{not e.editable}" />
 			</h:column>
+			
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value=""
@@ -51,7 +55,17 @@
 					size="10" />
 				<h:outputText value="#{e.paygrade.name}" rendered="#{not e.editable}" />
 			</h:column>	
+			
 		</h:dataTable>
       </h:form>
+      
+        <h:form>
+        	<h:inputText value="#{recePackageBean.id}"/>
+        	<h:inputText value="#{recePackageBean.parentWp}"/>
+        	<h:inputText value="#{recePackageBean.paygrade}"/>
+        	<h:inputText value="#{recePackageBean.personDayEstimate}"/>
+        	<h:inputText value="#{recePackageBean.employee}"/>
+      		<h:commandButton type="submit" value="Test" action="#{recePackageBean.add()}"></h:commandButton>
+     	 </h:form>
    </h:body>
 </html>

@@ -4,10 +4,14 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import javax.persistence.Transient;
+
 import CDEye_PMAuto.backend.paygrade.Paygrade;
 
 public class EditableEmployee extends Employee implements Serializable {
-	private boolean editable = false;
+	@Transient
+    private boolean editable = false;
+	@Transient
 	private boolean deletable = false;
 	
 	public EditableEmployee() {

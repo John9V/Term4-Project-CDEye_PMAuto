@@ -21,7 +21,7 @@ public class RECEList implements Serializable {
     
     /** A list of editable rece packages **/
     private List<EditableRECEPackage> list;
-    
+        
     @Inject 
     Conversation conversation;
     
@@ -54,6 +54,6 @@ public class RECEList implements Serializable {
         }
         return list;
     }
-
+    
 
 }

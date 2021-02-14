@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -87,10 +88,18 @@ public class RECEPackage implements Serializable {
         this.employee = employee;
     }
     
-    /**Ensures that associated package cost estimates sum to 
-     * estimated budget - cannot save if false*/
-    public boolean valid() { return true; }
-    
+    /**
+     * RECEPackage constructor, used to translate RecePackageBean into RECEPackage
+     * @param recePackageBean
+     */
+    @Inject
+    public RECEPackage(RECEPackageBean recePackageBean) {
+        this.id = recePackageBean.id;
+        this.parentWp = recePackageBean.parentWp;
+        this.paygrade = recePackageBean.paygrade;
+        this.personDayEstimate = recePackageBean.personDayEstimate;
+        this.employee = recePackageBean.employee;
+    }
     
     // Getters and Setters ====================================================
     
