@@ -44,6 +44,15 @@ public class RECEManager {
         em.persist(p);
     }
 
+    /**
+     * Creates a RECE in the DB
+     * 
+     * @param id of the RECE as a UUID
+     * @param wpId, of the parentWP as a UUID
+     * @param paygradeId, of the Paygrade as a UUID
+     * @param workDays, the estimated number of days that will be spent on project, as a BigDecimal
+     * @param empId, of the Employee as a UUID
+     */
     public void createReceFromIds(UUID id, UUID wpId, UUID paygradeId, BigDecimal workDays, UUID empId ) {
         WorkPackage wp = em.getReference(WorkPackage.class, wpId);
         Paygrade paygrade= em.getReference(Paygrade.class, paygradeId);
