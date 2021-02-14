@@ -1,6 +1,8 @@
 package CDEye_PMAuto.backend.recepackage;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.Dependent;
@@ -9,6 +11,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import CDEye_PMAuto.backend.employee.Employee;
+import CDEye_PMAuto.backend.paygrade.Paygrade;
+import CDEye_PMAuto.backend.workpackage.WorkPackage;
 
 @Dependent
 @Stateless
@@ -40,6 +44,17 @@ public class RECEManager {
         em.persist(p);
     }
 
+    public void createReceFromIds(UUID id, UUID wpId, UUID paygradeId, BigDecimal workDays, UUID empId ) {
+        WorkPackage wp = em.getReference(WorkPackage.class, wpId);
+        Paygrade paygrade= em.getReference(Paygrade.class, paygradeId);
+        Employee emp = em.getReference(Employee.class, empId);
+        
+        em.persist(
+            new RECEPackage(id, wp, paygrade, workDays, emp)
+        );
+
+    }
+
     /**
      * Gets a RECE by its id number and makes any changes differing from the original.
      * Nulls will be persisted to db.
@@ -56,8 +71,8 @@ public class RECEManager {
      * 
      * @param p, the RECE to remove
      */
-    public void deleteRECE(RECEPackage p) {
-        RECEPackage rece = em.find(RECEPackage.class, p.getId());
+    public void deleteRECE(UUID id) {
+        RECEPackage rece = em.find(RECEPackage.class, id);
         em.remove(rece);
     }
 

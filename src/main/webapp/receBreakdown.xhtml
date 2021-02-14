@@ -20,7 +20,7 @@
 			
 			<h:column>
 				<f:facet name="header">
-					<h:outputText value="Package ID"
+					<h:outputText value="RECE ID"
 						style="font-weight: bold" />
 				</f:facet>
 				<h:outputText value="#{e.id}" />
@@ -28,12 +28,10 @@
 			
 			<h:column>
 				<f:facet name="header">
-					<h:outputText value="WPNum"
+					<h:outputText value="PersonDayEstimate"
 						style="font-weight: bold" />
 				</f:facet>
-				<h:inputText value="#{e.id}" rendered="#{e.editable}"
-					size="10" />
-				<h:outputText value="#{e.id}" rendered="#{not e.editable}" />
+				<h:outputText value="#{e.personDayEstimate}" />
 			</h:column>
 			
 			<h:column>
@@ -60,12 +58,12 @@
       </h:form>
       
         <h:form>
-        	<h:inputText value="#{recePackageBean.id}"/>
-        	<h:inputText value="#{recePackageBean.parentWp}"/>
-        	<h:inputText value="#{recePackageBean.paygrade}"/>
-        	<h:inputText value="#{recePackageBean.personDayEstimate}"/>
-        	<h:inputText value="#{recePackageBean.employee}"/>
-      		<h:commandButton type="submit" value="Test" action="#{recePackageBean.add()}"></h:commandButton>
+        	<h:inputText value="#{recePackageBean.idAsString}" />
+        	<h:inputText value="#{recePackageBean.personDayEstimate}" />
+        	<h:inputText value="#{recePackageBean.parentWpId}" />
+        	<h:inputText value="#{recePackageBean.empId}" />
+        	<h:inputText value="#{recePackageBean.paygradeId}" />
+      		<h:commandButton type="submit" value="Test" action="#{recePackageBean.delete()}"></h:commandButton>
      	 </h:form>
    </h:body>
 </html>

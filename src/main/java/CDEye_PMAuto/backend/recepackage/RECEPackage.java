@@ -43,7 +43,7 @@ public class RECEPackage implements Serializable {
     /** The ID of the RECE **/
     @Id
     @Column(name="id")
-    @Type(type = "uuid-char")
+    @Type(type="uuid-char")
     protected UUID id;
     
     /**  The parent workpackage **/
