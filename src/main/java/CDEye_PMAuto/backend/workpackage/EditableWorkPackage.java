@@ -49,6 +49,7 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
         this.startDate = wp.startDate;
         this.endDate = wp.endDate;
         this.isLeaf = wp.isLeaf;
+        this.projectBudget = wp.projectBudget;
     }
     
     /**
@@ -59,11 +60,11 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
             BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
-            LocalDate endDate, boolean isLeaf) {
+            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget) {
         super(id, workPackageNumber, parentWp, unAllocatedBudget, allocatedBudget, allocatedPersonDays,
                 respEngPersonDayEstimate, respEngBudgetEstimate, completedBudget, completedPersonDays,
                 completedVarianceProjectPD, completedVarianceProjectBudget, respEngEstVarianceProjectPD,
-                respEngEstVarianceProjectBudget, startDate, endDate, isLeaf);
+                respEngEstVarianceProjectBudget, startDate, endDate, isLeaf, projectBudget);
     }
     
     public void saveEdit() {

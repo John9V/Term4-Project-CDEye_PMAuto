@@ -37,7 +37,7 @@ import CDEye_PMAuto.backend.workpackage.WorkPackage;
 @Named("recepackage")
 @DynamicUpdate
 @SessionScoped
-public class RECEPackage implements Serializable {
+public class RespEngCostEstimate implements Serializable {
 
     /** The ID of the RECE **/
     @Id
@@ -68,7 +68,7 @@ public class RECEPackage implements Serializable {
     /**
      * Empty Default Constructor
      */
-    public RECEPackage() {};
+    public RespEngCostEstimate() {};
     
     /**
      * RECEPackage Constructor
@@ -79,7 +79,7 @@ public class RECEPackage implements Serializable {
      * @param personDayEstimate, the number of days estimated to be spent on the project at this paygrade, as a BigDecimal
      * @param employee, the employee assigned to the package at the chosen paygrade
      */
-    public RECEPackage(UUID id, WorkPackage parentWp, Paygrade paygrade, BigDecimal personDayEstimate, Employee employee) {
+    public RespEngCostEstimate(UUID id, WorkPackage parentWp, Paygrade paygrade, BigDecimal personDayEstimate, Employee employee) {
         this.id = id;
         this.parentWp = parentWp;
         this.paygrade = paygrade;

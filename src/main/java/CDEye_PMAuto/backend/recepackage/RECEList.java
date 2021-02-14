@@ -20,7 +20,7 @@ public class RECEList implements Serializable {
     private RECEManager receManager;
     
     /** A list of editable rece packages **/
-    private List<EditableRECEPackage> list;
+    private List<EditableRECE> list;
     
     @Inject 
     Conversation conversation;
@@ -29,7 +29,7 @@ public class RECEList implements Serializable {
      * Gets a list of RECEPackages. Will call refreshList() if the list is currently null.
      * @return a list of EditableRecePackage, List<EditableRECEPackage>
      */
-    public List<EditableRECEPackage> getList() {
+    public List<EditableRECE> getList() {
         if(!conversation.isTransient()) {
             conversation.end();
         }
@@ -46,11 +46,11 @@ public class RECEList implements Serializable {
      * 
      * @return a list of EditableREcePackage, List<EditableRECEPackage>
      */
-    public List<EditableRECEPackage> refreshList() {
-        RECEPackage[] packages = receManager.getAll();
-        list = new ArrayList<EditableRECEPackage>();
+    public List<EditableRECE> refreshList() {
+        RespEngCostEstimate[] packages = receManager.getAll();
+        list = new ArrayList<EditableRECE>();
         for (int i = 0; i < packages.length; i++) {
-            list.add(new EditableRECEPackage(packages[i]));
+            list.add(new EditableRECE(packages[i]));
         }
         return list;
     }

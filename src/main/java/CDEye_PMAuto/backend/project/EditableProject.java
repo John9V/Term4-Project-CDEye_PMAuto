@@ -17,12 +17,12 @@ public class EditableProject extends Project implements Serializable {
 
 	public EditableProject(Project p) {
 		super(p.id, p.projectName, p.projectNumber, p.projManager, p.startDate, p.endDate, p.estimateBudget,
-				p.markUpRate);
+				p.markUpRate, p.projectBudget);
 	}
 
 	public EditableProject(UUID id, String projectName, String projectNumber, Employee projectManager, Date startDate,
-			Date endDate, BigDecimal estimateBudget, BigDecimal markUpRate) {
-		super(id, projectName, projectNumber, projectManager, startDate, endDate, estimateBudget, markUpRate);
+			Date endDate, BigDecimal estimateBudget, BigDecimal markUpRate, BigDecimal projectBudget) {
+		super(id, projectName, projectNumber, projectManager, startDate, endDate, estimateBudget, markUpRate, projectBudget);
 	}
 
 	public boolean isEditable() {

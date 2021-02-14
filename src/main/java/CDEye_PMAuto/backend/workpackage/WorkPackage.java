@@ -104,7 +104,9 @@ public class WorkPackage implements Serializable {
 	@Column(name="isleaf")
 	protected boolean isLeaf;
 
-
+	@Column(name="projectbudget")
+	protected BigDecimal projectBudget;
+	
 	/**
 	 * Default no parameter constructor.
 	 */
@@ -120,7 +122,7 @@ public class WorkPackage implements Serializable {
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
             BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
-            LocalDate endDate, boolean isLeaf) {
+            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget) {
         super();
         this.id = id;
         this.workPackageNumber = workPackageNumber;
@@ -139,6 +141,7 @@ public class WorkPackage implements Serializable {
         this.startDate = startDate;
         this.endDate = endDate;
         this.isLeaf = isLeaf;
+        this.projectBudget = projectBudget;
     }
 
     /**
@@ -149,8 +152,9 @@ public class WorkPackage implements Serializable {
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
             BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
-            LocalDate endDate, boolean isLeaf) {
+            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget) {
         super();
+        this.id = UUID.randomUUID();
         this.workPackageNumber = workPackageNumber;
         this.parentWp = parentWp;
         this.unAllocatedBudget = unAllocatedBudget;
@@ -167,6 +171,7 @@ public class WorkPackage implements Serializable {
         this.startDate = startDate;
         this.endDate = endDate;
         this.isLeaf = isLeaf;
+        this.projectBudget = projectBudget;
     }
     
     /**
@@ -191,6 +196,7 @@ public class WorkPackage implements Serializable {
         this.startDate = wp.startDate;
         this.endDate = wp.endDate;
         this.isLeaf = wp.isLeaf;
+        this.projectBudget = wp.projectBudget;
     }
     
     /**
@@ -215,6 +221,7 @@ public class WorkPackage implements Serializable {
         this.startDate = wp.startDate;
         this.endDate = wp.endDate;
         this.isLeaf = wp.isLeaf;
+        this.projectBudget = wp.projectBudget;
     }
     
     /**
@@ -238,6 +245,7 @@ public class WorkPackage implements Serializable {
         this.startDate = wp.startDate;
         this.endDate = wp.endDate;
         this.isLeaf = wp.isLeaf;
+        this.projectBudget = wp.projectBudget;
     }
 
     /**
@@ -477,5 +485,14 @@ public class WorkPackage implements Serializable {
     public void setLeaf(boolean isLeaf) {
         this.isLeaf = isLeaf;
     }
+
+	public BigDecimal isProjectBudget() {
+		return projectBudget;
+	}
+
+	public void setProjectBudget(BigDecimal projectBudget) {
+		this.projectBudget = projectBudget;
+	}
 	
+    
 }

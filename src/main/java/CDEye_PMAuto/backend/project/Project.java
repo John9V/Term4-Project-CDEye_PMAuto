@@ -56,6 +56,9 @@ public class Project implements Serializable {
 	
 	@Column(name = "markuprate")
 	protected BigDecimal markUpRate;
+	
+	@Column(name = "projectbudget")
+	protected BigDecimal projectBudget;
 
 	public Project() {}
 	
@@ -68,10 +71,11 @@ public class Project implements Serializable {
 		this.endDate = p.endDate;
 		this.estimateBudget = p.estimateBudget;
 		this.markUpRate = p.markUpRate;
+		this.projectBudget = p.projectBudget;
 	}
 
 	public Project(UUID id, String projectName, String projectNumber, Employee projManager, Date startDate,
-			Date endDate, BigDecimal estimateBudget, BigDecimal markUpRate) {
+			Date endDate, BigDecimal estimateBudget, BigDecimal markUpRate, BigDecimal projectBudget) {
 		super();
 		this.id = id;
 		this.projectName = projectName;
@@ -81,6 +85,7 @@ public class Project implements Serializable {
 		this.endDate = endDate;
 		this.estimateBudget = estimateBudget;
 		this.markUpRate = markUpRate;
+		this.projectBudget = projectBudget;
 	}
 
 	public UUID getId() {
@@ -147,5 +152,14 @@ public class Project implements Serializable {
 		this.markUpRate = markUpRate;
 	}
 
+	public BigDecimal getProjectBudget() {
+		return projectBudget;
+	}
+
+	public void setProjectBudget(BigDecimal projectBudget) {
+		this.projectBudget = projectBudget;
+	}
+
+	
 
 }

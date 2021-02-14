@@ -7,7 +7,7 @@ import CDEye_PMAuto.backend.employee.Employee;
 import CDEye_PMAuto.backend.paygrade.Paygrade;
 import CDEye_PMAuto.backend.workpackage.WorkPackage;
 
-public class EditableRECEPackage extends RECEPackage {
+public class EditableRECE extends RespEngCostEstimate {
 
     /** Determines if the RECE is editable, true = yes, false = no **/
     private boolean editable = false;
@@ -16,7 +16,7 @@ public class EditableRECEPackage extends RECEPackage {
     private boolean deletable = false;
     
     /** No-Param Constructor */
-    public EditableRECEPackage() {
+    public EditableRECE() {
         super();
     }
     
@@ -25,7 +25,7 @@ public class EditableRECEPackage extends RECEPackage {
      * 
      * @param r, a RECE Package
      */
-    public EditableRECEPackage(RECEPackage r) {
+    public EditableRECE(RespEngCostEstimate r) {
         super(r.id, r.parentWp, r.paygrade, r.personDayEstimate, r.employee);
     };
     
@@ -38,7 +38,7 @@ public class EditableRECEPackage extends RECEPackage {
      * @param personDayEstimate, number of days anticipated at the current paygrade, as a BigDecimal
      * @param employee chosen to work on the RECE at this Paygrade
      */
-    public EditableRECEPackage(UUID id, WorkPackage parentwp, Paygrade paygrade, BigDecimal personDayEstimate, Employee employee) {
+    public EditableRECE(UUID id, WorkPackage parentwp, Paygrade paygrade, BigDecimal personDayEstimate, Employee employee) {
         super(id, parentwp, paygrade, personDayEstimate, employee);
     }
     

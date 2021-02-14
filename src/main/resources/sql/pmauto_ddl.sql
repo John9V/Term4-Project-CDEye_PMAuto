@@ -44,11 +44,11 @@ INSERT INTO packagecostestimate VALUES("123e4537-e89b-12d4-a456-556642430000", "
 
 	DROP TABLE IF EXISTS projects;
 CREATE TABLE projects(id TINYTEXT, projectname TINYTEXT, projectnumber TINYTEXT, 
-	projmanager TINYTEXT, startdate DATE, enddate DATE, estimatebudget DECIMAL(10,2), markuprate DECIMAL(10,2));
+	projmanager TINYTEXT, startdate DATE, enddate DATE, estimatebudget DECIMAL(10,2), markuprate DECIMAL(10,2), projectbudget DECIMAL(10,2));
 	
 	INSERT INTO projects VALUES("12121212-e89b-12d3-a456-556642430000", "Death Star Dish", "12345", 
 	"623e4567-e89b-12d3-a456-556642440710", '2025-03-30',
-	'2025-03-30', 10000, 70);
+	'2025-03-30', 10000, 70, 10001);
 	
 	
 DROP TABLE IF EXISTS workpackages;
@@ -69,10 +69,14 @@ CREATE TABLE workpackages(
 	respengestvarianceprojectbudget DECIMAL(10,2),
 	startdate DATE,
 	enddate DATE,
-	isleaf BOOLEAN
+	isleaf BOOLEAN,
+	projectbudget DECIMAL(10,2)
 );
 	
+DROP TABLE IF EXISTS workpackageallocation;
+CREATE TABLE workpackageallocation(id TINYTEXT, workpackage TINYTEXT, paygrade TINYTEXT, persondaysestimate DECIMAL(10,2));
 
+INSERT INTO workpackageallocation VALUES("123e4537-e89b-12d4-a456-556642431111", "123e4567-e89b-12d3-a456-556342440300", "123e4567-e89b-12d3-a336-556642440000", 1);
 
 DROP TABLE IF EXISTS recepackage;
 CREATE TABLE recepackage(id TINYTEXT, parentwp TINYTEXT, paygrade TINYTEXT, persondayestimate DECIMAL(10,2), employeeId TINYTEXT);
@@ -86,7 +90,7 @@ INSERT INTO workpackages VALUES(
 	1500, 900, 15, 15, 800, 310, 6, 0, 0, 0, 0,
 	'2025-03-30',
 	'2025-03-30',
-    FALSE);
+    FALSE, 1000);
 
 INSERT INTO workpackages VALUES(
 	"123e4567-e89b-12d3-a456-599342400002",
@@ -95,7 +99,7 @@ INSERT INTO workpackages VALUES(
 	1800, 800, 22, 25, 400, 320, 10, 0, 0, 0, 0,
 	'2011-03-30',
 	'2026-03-30',
-	TRUE
+	TRUE, 2000
 );
 INSERT INTO workpackages VALUES(
 	"123e4567-e89b-12d3-a456-599342400003",
@@ -104,7 +108,7 @@ INSERT INTO workpackages VALUES(
 	1802, 804, 23, 22, 403, 321, 11, 0, 0, 0, 0,
 	'2015-03-30',
 	'2022-03-30',
-	FALSE
+	FALSE, 3000
 );
 INSERT INTO workpackages VALUES(
 	"123e4567-e89b-12d3-a456-599342400004",
@@ -113,5 +117,5 @@ INSERT INTO workpackages VALUES(
 	1807, 801, 21, 25, 402, 322, 14, 0, 0, 0, 0,
 	'2016-03-30',
 	'2022-03-30',
-	TRUE
+	TRUE, 4000
 );
