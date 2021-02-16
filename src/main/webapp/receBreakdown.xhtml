@@ -58,12 +58,34 @@
       </h:form>
       
         <h:form>
-        	<h:inputText value="#{recePackageBean.idAsString}" />
-        	<h:inputText value="#{recePackageBean.personDayEstimate}" />
-        	<h:inputText value="#{recePackageBean.parentWpId}" />
-        	<h:inputText value="#{recePackageBean.empId}" />
-        	<h:inputText value="#{recePackageBean.paygradeId}" />
-      		<h:commandButton type="submit" value="Test" action="#{recePackageBean.delete()}"></h:commandButton>
+        	<h:panelGrid columns="3">
+		        <h:outputLabel>RECE ID:</h:outputLabel>
+	        	<h:inputText value="#{recePackageBean.idAsString}" />
+   				<br />
+				<br />
+	        	
+	        	<h:outputLabel>Person Day Estimate:</h:outputLabel>
+	        	<h:inputText value="#{recePackageBean.personDayEstimate}" />
+   				<br />
+				<br />	        	
+	        	
+				<h:outputLabel>Parent WP ID:</h:outputLabel>
+	        	<h:inputText value="#{recePackageBean.parentWpId}" />
+   				<br />
+				<br />    	
+	        	
+	        	<h:outputLabel>Employee ID:</h:outputLabel>
+	        	<h:inputText value="#{recePackageBean.empId}" />
+   				<br />
+				<br />
+	        	
+	        	<h:outputLabel>Paygrade ID:</h:outputLabel>
+	        	<h:inputText value="#{recePackageBean.paygradeId}" />
+   				<br />
+				<br />
+	        	
+	      		<h:commandButton type="submit" value="Test" action="#{recePackageBean.delete()}"></h:commandButton>
+      		</h:panelGrid>
      	 </h:form>
    </h:body>
 </html>
