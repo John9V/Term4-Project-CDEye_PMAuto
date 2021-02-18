@@ -40,6 +40,14 @@ public class ActiveEmployeeBean extends Employee implements Serializable {
 		if (credentialManager.validCredentials(c)) {
 			Employee loggedInEmployee = employeeManager
 			        .getEmployeeByUserName(userName);
+			this.id = loggedInEmployee.id;
+			this.empNum = loggedInEmployee.empNum;
+			this.firstName = loggedInEmployee.firstName;
+			this.lastName = loggedInEmployee.lastName;
+			this.userName = loggedInEmployee.userName;
+			this.payGrade = loggedInEmployee.payGrade;
+			this.active = loggedInEmployee.active;
+			this.hr = loggedInEmployee.hr;
 			if (loggedInEmployee.active) {
 				if (loggedInEmployee.hr) {
 					return "HRHome";

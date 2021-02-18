@@ -13,6 +13,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import CDEye_PMAuto.backend.project.Project;
+
 @Dependent
 @Stateless
 public class WorkPackageManager implements Serializable {
@@ -75,6 +77,21 @@ public class WorkPackageManager implements Serializable {
         TypedQuery<WorkPackage> query = em.createQuery(
                 "SELECT wp FROM WorkPackage wp WHERE parentworkpackage LIKE :parentId", WorkPackage.class)
                 .setParameter("parentId", "%" + parentId + "%");
+        List<WorkPackage> workPackages = query.getResultList();
+        
+        WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
+        for (int i = 0; i < packageArr.length; i++) {
+            packageArr[i] = workPackages.get(i);
+        }
+        
+        return packageArr;
+    }
+    
+    public WorkPackage[] findWpsByProjectNumber(String projectNumber) {
+//    	String id = projectId.toString();
+        TypedQuery<WorkPackage> query = em.createQuery(
+                "SELECT wp FROM WorkPackage wp WHERE project.projectNumber = " + projectNumber, WorkPackage.class);
+//                .setParameter("projectNumber", "%" + projectNumber + "%");
         List<WorkPackage> workPackages = query.getResultList();
         
         WorkPackage[] packageArr = new WorkPackage[workPackages.size()];

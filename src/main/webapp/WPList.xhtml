@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<h:outputStylesheet library="css" name="styles.css"/>
+	<title>Project Management System</title>
+</h:head>
+
+<!--http://localhost:8080/CDEye_PMAuto/CreateEmployee.xhtml-->
+<h:body>
+	<!-- Side bar panel will control the navigation of the application-->
+	<div class="side-bar">
+
+	</div>
+
+	<!-- The current route -->
+	<div class="header-bar">
+		<h3>WP List</h3>
+	</div>
+
+	<!-- Form Container: reusable horizontal row input style-->
+	<!-- Need to replace the input value with Employee class members.-->
+	<div class="form-container">
+		<h:form>
+			<div class="button-container">
+				<p>"#{activeProjectBean.projectName}"</p>
+			</div>
+			
+			<h:dataTable value="#{workPackageList.getWpsByProj()}" var="wp" styleClass="data-table">
+                <h:column>
+                    <f:facet name="header">WP Id</f:facet>
+                    #{wp.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">WP Number</f:facet>
+                    <h:inputText styleClass="edit-input" value="#{wp.workPackageNumber}" rendered="#{wp.editable}"/>
+                    <h:outputText styleClass="edit-output" value="#{wp.workPackageNumber}" rendered="#{not wp.editable}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Last Name</f:facet>
+                    <h:inputText styleClass="edit-input" value="#{wp.project.projectName}" rendered="#{wp.editable}"/>
+                    <h:outputText styleClass="edit-output" value="#{wp.project.projectName}" rendered="#{not wp.editable}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">AllocatedBudget</f:facet>
+                    <h:inputText styleClass="edit-input" value="#{wp.allocatedBudget}" rendered="#{wp.editable}"/>
+                    <h:outputText styleClass="edit-output" value="#{wp.allocatedBudget}" rendered="#{not wp.editable}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Edit</f:facet>
+                    <h:commandButton styleClass="command-button" value="Save" action="#{employeeList.saveSelectedEmployee(e)}"
+                                     rendered="#{e.editable}"/>
+                    <h:commandButton styleClass="command-button" value="Edit" action="#{employeeList.editSelectedEmployee(e)}"
+                                     rendered="#{not e.editable}"/>
+                </h:column>
+            </h:dataTable>
+			
+		</h:form>
+	</div>
+</h:body>
+</html>

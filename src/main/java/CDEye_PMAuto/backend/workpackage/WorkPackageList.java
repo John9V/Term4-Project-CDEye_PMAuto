@@ -9,6 +9,11 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import CDEye_PMAuto.backend.employee.EditableEmployee;
+import CDEye_PMAuto.backend.employee.Employee;
+import CDEye_PMAuto.backend.project.ActiveProjectBean;
+import CDEye_PMAuto.backend.project.Project;
+
 @Named("workPackageList")
 @SessionScoped
 public class WorkPackageList implements Serializable {
@@ -16,6 +21,8 @@ public class WorkPackageList implements Serializable {
     @Inject 
     @Dependent 
     private WorkPackageManager workPackageManager;
+    
+    @Inject ActiveProjectBean apb;
     
     private List<EditableWorkPackage> list;
     
@@ -34,6 +41,16 @@ public class WorkPackageList implements Serializable {
         if (list == null) {
             refreshList();
         }
+        return list;
+    }
+    
+    public List<EditableWorkPackage> getWpsByProj() {
+    	WorkPackage[] wps = workPackageManager.findWpsByProjectNumber(apb.getProjectNumber());
+        list = new ArrayList<EditableWorkPackage>();
+        for (int i = 0; i < wps.length; i++) {
+            list.add(new EditableWorkPackage(wps[i]));
+        }
+        System.out.println("running");
         return list;
     }
 

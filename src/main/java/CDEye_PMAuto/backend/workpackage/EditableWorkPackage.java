@@ -9,6 +9,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import CDEye_PMAuto.backend.project.Project;
+
 /**
  * Editable version of work package.
  */
@@ -50,6 +52,7 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
         this.endDate = wp.endDate;
         this.isLeaf = wp.isLeaf;
         this.projectBudget = wp.projectBudget;
+        this.project = wp.project;
     }
     
     /**
@@ -60,11 +63,11 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
             BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
-            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget) {
+            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project) {
         super(id, workPackageNumber, parentWp, unAllocatedBudget, allocatedBudget, allocatedPersonDays,
                 respEngPersonDayEstimate, respEngBudgetEstimate, completedBudget, completedPersonDays,
                 completedVarianceProjectPD, completedVarianceProjectBudget, respEngEstVarianceProjectPD,
-                respEngEstVarianceProjectBudget, startDate, endDate, isLeaf, projectBudget);
+                respEngEstVarianceProjectBudget, startDate, endDate, isLeaf, projectBudget, project);
     }
     
     public void saveEdit() {

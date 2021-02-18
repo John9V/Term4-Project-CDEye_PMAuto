@@ -94,6 +94,19 @@ public class Project implements Serializable {
 	        this.projectNumber = cpb.projectNumber;
 	        this.projectName = cpb.projectName;
 	}
+	 
+	 public Project(ActiveProjectBean apb) {
+	        super();
+	        this.id = apb.id;
+			this.projectName = apb.projectName;
+			this.projectNumber = apb.projectNumber;
+			this.projManager = apb.projManager;
+			this.startDate = apb.startDate;
+			this.endDate = apb.endDate;
+			this.estimateBudget = apb.estimateBudget;
+			this.markUpRate = apb.markUpRate;
+			this.projectBudget = apb.projectBudget;
+	}
 	
 	public UUID getId() {
 		return id;

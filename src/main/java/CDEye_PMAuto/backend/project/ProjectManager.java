@@ -2,6 +2,8 @@ package CDEye_PMAuto.backend.project;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
+
 import javax.ejb.Stateless;
 import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
@@ -28,6 +30,10 @@ public class ProjectManager implements Serializable {
 
 	public void updateProject(Project p) {
 		em.merge(p);
+	}
+	
+	public Project find(UUID projectId) {
+		return em.find(Project.class, projectId);
 	}
 	
 	public void persist(Project p) {

@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
+import CDEye_PMAuto.backend.project.Project;
+
 @Entity
 @Table(name="workpackages")
 @Named("workPackage")
@@ -107,6 +109,10 @@ public class WorkPackage implements Serializable {
 	@Column(name="projectbudget")
 	protected BigDecimal projectBudget;
 	
+	@ManyToOne
+	@JoinColumn(name="project")
+	protected Project project;
+	
 	/**
 	 * Default no parameter constructor.
 	 */
@@ -122,7 +128,7 @@ public class WorkPackage implements Serializable {
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
             BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
-            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget) {
+            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project) {
         super();
         this.id = id;
         this.workPackageNumber = workPackageNumber;
@@ -142,6 +148,8 @@ public class WorkPackage implements Serializable {
         this.endDate = endDate;
         this.isLeaf = isLeaf;
         this.projectBudget = projectBudget;
+        this.project = project;
+        
     }
 
     /**
@@ -152,7 +160,7 @@ public class WorkPackage implements Serializable {
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
             BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
-            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget) {
+            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project) {
         super();
         this.id = UUID.randomUUID();
         this.workPackageNumber = workPackageNumber;
@@ -172,6 +180,7 @@ public class WorkPackage implements Serializable {
         this.endDate = endDate;
         this.isLeaf = isLeaf;
         this.projectBudget = projectBudget;
+        this.project = project;
     }
     
     /**
@@ -197,6 +206,7 @@ public class WorkPackage implements Serializable {
         this.endDate = wp.endDate;
         this.isLeaf = wp.isLeaf;
         this.projectBudget = wp.projectBudget;
+        this.project = wp.project;
     }
     
     /**
@@ -222,6 +232,7 @@ public class WorkPackage implements Serializable {
         this.endDate = wp.endDate;
         this.isLeaf = wp.isLeaf;
         this.projectBudget = wp.projectBudget;
+        this.project = wp.project;
     }
     
     /**
@@ -246,6 +257,7 @@ public class WorkPackage implements Serializable {
         this.endDate = wp.endDate;
         this.isLeaf = wp.isLeaf;
         this.projectBudget = wp.projectBudget;
+        this.project = wp.project;
     }
 
     /**
@@ -493,6 +505,19 @@ public class WorkPackage implements Serializable {
 	public void setProjectBudget(BigDecimal projectBudget) {
 		this.projectBudget = projectBudget;
 	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public BigDecimal getProjectBudget() {
+		return projectBudget;
+	}
+	
 	
     
 }
