@@ -1,10 +1,12 @@
 package CDEye_PMAuto.backend.workpackage;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import javax.ejb.Stateless;
 import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -14,6 +16,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import CDEye_PMAuto.backend.project.Project;
+import CDEye_PMAuto.backend.recepackage.RECEManager;
+import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
+import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocManager;
+import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocation;
 
 @Dependent
 @Stateless
@@ -21,6 +27,14 @@ public class WorkPackageManager implements Serializable {
     
     @PersistenceContext(unitName="inventory-jpa") 
     EntityManager em;
+    
+    @Inject 
+    @Dependent 
+    private WorkPackageAllocManager workPackageAllocManager;
+    
+    @Inject 
+    @Dependent 
+    private RECEManager receManager;
     
     /**
      * Gets all the work packages in the DB.
@@ -126,6 +140,106 @@ public class WorkPackageManager implements Serializable {
      */
     public void deleteWorkPackage(WorkPackage wp) {
         em.remove(em.contains(wp) ? wp : em.merge(wp));
+    }
+    
+    /**
+     * Looks to see if a work package is a leaf.
+     * @param wp work package to determine leaf status of
+     * @return boolean for whether the work package is a leaf or not
+     */
+    public boolean isLeaf(WorkPackage wp) {
+        WorkPackage[] childrenWPs = getByParentId(wp.id.toString());
+        return childrenWPs.length < 1;
+    }
+    
+    /**
+     * Sums all person day estimates from work package allocations for a specific
+     * work package.
+     * @param wp work package for which person day estimates are summed
+     * @return calculated allocated person days
+     */
+    public BigDecimal calculateAllocatedPersonDays2(WorkPackage wp) {
+        WorkPackageAllocation[] allocationsWP = workPackageAllocManager.getByWP(wp);
+        BigDecimal personDays = new BigDecimal(0);
+        
+        for (WorkPackageAllocation allocation : allocationsWP) {
+            personDays.add(allocation.getPersonDaysEstimate());
+        }
+        
+        wp.setAllocatedPersonDays(personDays);
+        return personDays;
+    }
+    
+    /**
+     * If it is a branch, recursively calculates and sets the allocated budget for
+     * a work package and its children by looking at its children. Otherwise, if it is
+     * a leaf, the paygrade salary and person days are multiplied to get the allocated
+     * budget.
+     * @param wp work package for which to calculate allocated budget
+     * @return allocated budget
+     */
+    public BigDecimal calculateAllocatedBudget(WorkPackage wp) {
+        BigDecimal budget = new BigDecimal(0);
+        
+        if (isLeaf(wp)) {
+            WorkPackageAllocation[] allocationsWP = workPackageAllocManager.getByWP(wp);
+            
+            for (WorkPackageAllocation allocation : allocationsWP) {
+                BigDecimal calculatedBudget = allocation.getPaygrade().getSalary()
+                        .multiply(allocation.getPersonDaysEstimate());
+                budget.add(calculatedBudget);
+            }
+        } else { // for a branch work package
+            WorkPackage[] childrenWPs = getByParentId(wp.id.toString());
+            
+            // sums all the children's allocated person days
+            for (WorkPackage child : childrenWPs) {
+                budget.add(calculateAllocatedBudget(child));
+            }
+        }
+        
+        wp.setAllocatedBudget(budget);
+        return budget;
+    }
+    
+    /**
+     * Sums all responsible engineer person day estimates for a specific
+     * work package. It is assumed this will be used only on leaf work
+     * packages.
+     * @param wp work package for which person day estimates are summed
+     * @return calculated responsible engineer person day estimate
+     */
+    public BigDecimal calculateREPDEstimate(WorkPackage wp) {
+        RespEngCostEstimate[] respEngPDEstimates = receManager.getByWP(wp);
+        BigDecimal personDays = new BigDecimal(0);
+        
+        for (RespEngCostEstimate estimatePD : respEngPDEstimates) {
+            personDays.add(estimatePD.getPersonDayEstimate());
+        }
+        
+        wp.setRespEngPersonDayEstimate(personDays);
+        return personDays;
+    }
+    
+    /**
+     * Sums all responsible engineer budget estimates for a specific
+     * work package. It is assumed this will be used only on leaf work
+     * packages.
+     * @param wp work package for which budget estimates are summed
+     * @return calculated responsible engineer budget estimate
+     */
+    public BigDecimal calculateREBudgetEstimate(WorkPackage wp) {
+        RespEngCostEstimate[] respEngCostEstimates = receManager.getByWP(wp);
+        BigDecimal budget = new BigDecimal(0);
+        
+        for (RespEngCostEstimate estimateCost : respEngCostEstimates) {
+            BigDecimal calculatedCost = estimateCost.getPaygrade().getSalary()
+                    .multiply(estimateCost.getPersonDayEstimate());
+            budget.add(calculatedCost);
+        }
+        
+        wp.setRespEngBudgetEstimate(budget);
+        return budget;
     }
     
 }
