@@ -212,16 +212,16 @@ public class Employee implements Serializable {
 	}
 
 	public Integer getFlextime() {
-        return flextime;
+        return flexTime;
     }
 
 	public void setFlextime(Integer flextime) {
 	    if (flextime > 10) {
-	        this.flextime = 10;
+	        this.flexTime = 10;
 	    } else if (flextime < -10) {
-	        this.flextime = -10;
+	        this.flexTime = -10;
 	    } else {
-	        this.flextime = flextime;
+	        this.flexTime = flextime;
 	    }
 	}
 	
