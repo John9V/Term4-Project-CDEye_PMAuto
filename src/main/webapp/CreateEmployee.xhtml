@@ -31,7 +31,15 @@
 				<h:inputText id="empId" value="#{createEmployee.empNum}" />
 				<h:message for="empId" style="color:red" />
 			</div>
-
+			
+			<!-- Manager -->
+			<div class="input-row">
+				<p>Manager</p>
+				<h:graphicImage library="images" name="user.png"/>
+				<h:inputText id="man" value="#{createEmployee.manager}" />
+				<h:message for="man" style="color:red" />
+			</div>	
+			
 			<!-- User Name -->
 			<div class="input-row">
 				<p>User Name</p>
