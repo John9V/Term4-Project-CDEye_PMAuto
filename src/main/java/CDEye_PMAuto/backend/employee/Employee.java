@@ -85,11 +85,11 @@ public class Employee implements Serializable {
 	protected Collection<Employee> peons;
     
     /** The employees flextime, can be no greater than 10 and no less than -10 **/
-    @Column(name="flexTime")
+    @Column(name="flexTime", columnDefinition = "TINYINT(4)")
     protected Integer flexTime;
     
     /** The employees vaction time, in days remaining **/
-    @Column(name="vacationTime")
+    @Column(name="vacationTime", columnDefinition = "TINYINT(4)")
     protected Integer vacationTime;
 
 
