@@ -29,6 +29,11 @@ public class WorkPackageAllocManager implements Serializable {
         return wpaArr;
     }
 	
+	public WorkPackageAllocation[] getByWP(WorkPackage wp) {
+	    // TODO
+	    return null;
+	}
+	
 	public void addWorkPackageAlloc(WorkPackageAllocation wpa) {
 		em.persist(wpa);
 	}

@@ -8,6 +8,7 @@ import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import CDEye_PMAuto.backend.workpackage.WorkPackage;
 
 @Dependent
 @Stateless
@@ -28,6 +29,11 @@ public class RECEManager implements Serializable {
             packageArr[i] = packages.get(i);
         }
         return packageArr;
+    }
+    
+    public RespEngCostEstimate[] getByWP(WorkPackage wp) {
+        // TODO
+        return null;
     }
     
     //TODO: Create Package
