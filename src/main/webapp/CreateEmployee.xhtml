@@ -98,7 +98,9 @@
 
 			<!-- Create Employee: Add DB-->
 			<div class="button-container">
-				<h:commandButton value="CREATE" action="${createEmployee.add}" />
+				<h:commandButton value="CREATE" action="home">
+					<f:actionListener binding="#{createEmployee.add}" />
+				</h:commandButton>
 			</div>
 		</h:form>
 	</div>

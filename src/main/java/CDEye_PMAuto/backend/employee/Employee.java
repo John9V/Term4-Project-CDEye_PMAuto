@@ -92,8 +92,6 @@ public class Employee implements Serializable {
     @Column(name="vacationTime", columnDefinition = "TINYINT(4)")
     protected Integer vacationTime;
 
-
-
     public Employee() {}
 
 	public Employee(UUID id, Integer empNum, String firstName, String lastName, String userName,
