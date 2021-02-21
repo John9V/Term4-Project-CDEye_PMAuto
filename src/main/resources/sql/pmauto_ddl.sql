@@ -10,7 +10,7 @@ USE pmauto;
 DROP TABLE IF EXISTS employees;
 CREATE TABLE employees(id TINYTEXT, empnumber INT, firstname VARCHAR(30), lastname VARCHAR(30), username VARCHAR(30), paygrades TINYTEXT, active BOOLEAN, hr BOOLEAN, manager_id TINYTEXT, flexTime TINYINT, vacationTime TINYINT);
 
-INSERT INTO employees VALUES("623e4567-e89b-12d3-a456-556642440710", 123, "john", "ivaganov", "ivaganov", "123e4567-e89b-12d3-a453-556646440000", true, true, "123e4567-e89b-12d3-a452-556645440100", -7, 56);
+INSERT INTO employees VALUES("623e4567-e89b-12d3-a456-556642440710", 123, "john", "ivaganov", "ivaganov", "123e4567-e89b-12d3-a453-556646440000", true, true, "223e4567-e89b-12d3-a456-556642446010", -7, 56);
 INSERT INTO employees VALUES("223e4567-e89b-12d3-a456-556642446010", 153, "scott", "reid", "sreid", "123e4567-e89b-12d3-a452-556645440100", true, false, null, 5, 14);
 
 DROP TABLE IF EXISTS paygrades;
