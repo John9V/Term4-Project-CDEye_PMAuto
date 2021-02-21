@@ -3,6 +3,8 @@ package CDEye_PMAuto.backend.employee;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.UUID;
+
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
@@ -26,7 +28,7 @@ public class CreateEmployeeBean extends Employee implements Serializable {
 	
 	protected String password;
 
-	/** Get selected paygrade from dropdown list. */
+    /** Get selected paygrade from dropdown list. */
 	public String getPaygradeName() {
 		return paygradeName;
 	}
@@ -68,7 +70,7 @@ public class CreateEmployeeBean extends Employee implements Serializable {
 	}
 
 	
-	public void add() {
+	public void add() {	    
 		Employee e = new Employee(this);
 		Credential c = new Credential(this.userName, this.password);
 		employeeManager.addEmployee(e);

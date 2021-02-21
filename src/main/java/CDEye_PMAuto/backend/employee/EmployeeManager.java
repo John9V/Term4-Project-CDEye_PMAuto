@@ -98,9 +98,9 @@ public class EmployeeManager implements Serializable {
         CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
         Root<Employee> itemRoot = criteriaQuery.from(Employee.class);
         
-        UUID uuidAsString = UUID.fromString(uuid);
+        UUID uuidAsUuid = UUID.fromString(uuid);
         
-        Predicate predicateForName = criteriaBuilder.equal(itemRoot.get("id"), uuidAsString);
+        Predicate predicateForName = criteriaBuilder.equal(itemRoot.get("id"), uuidAsUuid);
         
         criteriaQuery.where(predicateForName);
         

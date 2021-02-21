@@ -36,7 +36,9 @@
 			<div class="input-row">
 				<p>Manager</p>
 				<h:graphicImage library="images" name="user.png"/>
-				<h:inputText id="man" value="#{createEmployee.manager}" />
+				<h:inputText id="man" value="#{createEmployee.manager}">
+					 <f:converter binding="#{employeeConverter}" />
+				</h:inputText>
 				<h:message for="man" style="color:red" />
 			</div>	
 			
@@ -99,7 +101,7 @@
 			<!-- Create Employee: Add DB-->
 			<div class="button-container">
 				<h:commandButton value="CREATE" action="home">
-					<f:actionListener binding="#{createEmployee.add}" />
+					<f:actionListener binding="#{createEmployee.add()}" />
 				</h:commandButton>
 			</div>
 		</h:form>
