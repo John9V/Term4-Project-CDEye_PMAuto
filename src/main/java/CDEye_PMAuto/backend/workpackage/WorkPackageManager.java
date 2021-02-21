@@ -2,6 +2,7 @@ package CDEye_PMAuto.backend.workpackage;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import javax.ejb.Stateless;
@@ -242,4 +243,104 @@ public class WorkPackageManager implements Serializable {
         return budget;
     }
     
+    /**
+     * Calculate unallocated budget of the WorkPackage
+     * 
+     * @param wp WorkPackage
+     * @return calculated unallocated budget
+     */
+    public BigDecimal calculateUnallocatedBudget(WorkPackage wp) {
+		return wp.projectBudget.subtract(calculateAllocatedBudget(wp));
+	}
+
+    /**
+     * Determine Parent WorkPackage Number
+     * 
+     * @param wp Any WorkPackage
+     * @return Parent WorkPackage Number
+     */
+	public String determineParentWPNum(WorkPackage wp) {
+		if (wp.getParentWp() == null) {
+			return null;
+		} else {
+			return wp.getParentWp().workPackageNumber;
+		}
+	}
+
+	/**
+	 * Determine WorkPackage Number from Parent
+	 * 
+	 * @param wp Any WorkPackage
+	 * @return Children WorkPackage Number(s)
+	 */
+	public String determineWPNumFromParent(WorkPackage wp) {
+		if (!wp.isLeaf) {
+			String WPNumFromParent = "";
+			WorkPackage[] workpackages = getByParentId(wp.workPackageNumber);
+			for (WorkPackage workpackage : workpackages) {
+				WPNumFromParent.concat(workpackage.workPackageNumber);
+				WPNumFromParent.concat("\n");
+			}
+			return WPNumFromParent;
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * Get WorkPackage(s) by StartDate
+	 * 
+	 * @param startDate Start Date
+	 * @return WorkPackage(s) by StartDate
+	 */
+	public WorkPackage[] getByStartDate(LocalDate startDate) {
+		TypedQuery<WorkPackage> query = em
+				.createQuery("SELECT wp FROM WorkPackage wp WHERE startdate LIKE :startDate", WorkPackage.class)
+				.setParameter("startDate", "%" + startDate + "%");
+		List<WorkPackage> workPackages = query.getResultList();
+
+		WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
+		for (int i = 0; i < packageArr.length; i++) {
+			packageArr[i] = workPackages.get(i);
+		}
+		return packageArr;
+	}
+
+	/**
+	 * Get WorkPackage(s) by EndDate
+	 * 
+	 * @param endDate End Date
+	 * @return WorkPackage(s) by EndDate
+	 */
+	public WorkPackage[] getByEndDate(LocalDate endDate) {
+		TypedQuery<WorkPackage> query = em
+				.createQuery("SELECT wp FROM WorkPackage wp WHERE enddate LIKE :endDate", WorkPackage.class)
+				.setParameter("endDate", "%" + endDate + "%");
+		List<WorkPackage> workPackages = query.getResultList();
+
+		WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
+		for (int i = 0; i < packageArr.length; i++) {
+			packageArr[i] = workPackages.get(i);
+		}
+		return packageArr;
+	}
+
+	/**
+	 * Get all leaves WorkPackage(s)
+	 * 
+	 * @param isLeaf isLeaf
+	 * @return All leaves WorkPackage(s)
+	 */
+	public WorkPackage[] getAllLeaves(boolean isLeaf) {
+		TypedQuery<WorkPackage> query = em
+				.createQuery("SELECT wp FROM WorkPackage wp WHERE isleaf LIKE :isLeaf", WorkPackage.class)
+				.setParameter("isLeaf", "%" + isLeaf + "%");
+		List<WorkPackage> workPackages = query.getResultList();
+
+		WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
+		for (int i = 0; i < packageArr.length; i++) {
+			packageArr[i] = workPackages.get(i);
+		}
+		return packageArr;
+	}
 }
