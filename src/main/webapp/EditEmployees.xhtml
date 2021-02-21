@@ -61,8 +61,12 @@
                                       
                 <h:column>
                     <f:facet name="header">Manager</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{e.manager}" rendered="#{e.editable}"/>
-                    <h:outputText styleClass="edit-output" value="#{e.manager}" rendered="#{not e.editable}"/>
+                    <h:inputText styleClass="edit-input" value="#{e.manager}" rendered="#{e.editable}">
+                    	<f:converter binding="#{employeeConverter}" />
+                    </h:inputText>	
+                    <h:outputText styleClass="edit-output" value="#{e.manager}" rendered="#{not e.editable}">
+                    	<f:converter binding="#{employeeConverter}" />
+                    </h:outputText>
                 </h:column>
 
                 <h:column>

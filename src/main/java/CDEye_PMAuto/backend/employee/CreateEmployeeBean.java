@@ -71,6 +71,8 @@ public class CreateEmployeeBean extends Employee implements Serializable {
 
 	
 	public void add() {	    
+	    flexTime = 0;
+	    vacationTime = 0;
 		Employee e = new Employee(this);
 		Credential c = new Credential(this.userName, this.password);
 		employeeManager.addEmployee(e);

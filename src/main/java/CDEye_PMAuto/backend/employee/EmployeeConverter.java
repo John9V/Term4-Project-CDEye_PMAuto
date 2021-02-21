@@ -42,14 +42,14 @@ public class EmployeeConverter implements Converter<Employee> {
     }
 
     /**
-     * Gets the ID of an employee as a string by using an Employee value.
+     * Gets the UserName of an employee as a string by using an Employee value.
      */
     @Override
     public String getAsString(FacesContext context, UIComponent component, Employee value) {
         if (!(value instanceof Employee) || (value == null)) {
             return null;
         }
-        return ((Employee)value).getId().toString();
+        return value.getUserName().toString();
     }
 
 
