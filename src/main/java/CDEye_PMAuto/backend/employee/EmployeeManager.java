@@ -110,6 +110,25 @@ public class EmployeeManager implements Serializable {
     }
     
     /**
+     * Gets an employee by Employee Number
+     * @param empNum, employee number of the employee as an Int
+     * @return an Employee object
+     */
+    public Employee getEmployeeByEmpNum(int empNum) {
+        TypedQuery<Employee> query = em.createQuery(
+                "SELECT e FROM Employee e WHERE e.empNum = :empNum", Employee.class)
+                .setParameter("empNum", empNum);
+        
+        List<Employee> employees = query.getResultList();
+        
+        if (employees.isEmpty()) {
+            return null;
+        }
+        
+        return employees.get(0);
+    }
+    
+    /**
      * Gets an employee by its id number and makes any changes differing from the original.
      * Nulls will be persisted to db.
      * 
@@ -120,16 +139,30 @@ public class EmployeeManager implements Serializable {
         return em.merge(changesToEmployee);
     }
 
+    /**
+     * Gets an employee by its username
+     * @param userName, the employees username as a string.
+     * 
+     * @return an Employee object
+     */
 	public Employee getEmployeeByUserName(String userName) {
 		TypedQuery<Employee> query = em.createQuery(
     			"SELECT e FROM Employee e WHERE e.userName LIKE :userName", Employee.class)
     			.setParameter("userName", "%" + userName + "%");
     	List<Employee> employees = query.getResultList();
     	
+        if (employees.isEmpty()) {
+            return null;
+        }
+        
         return employees.get(0);
 	}
 	
-	
+	/**
+	 * Adds an employee to the DB
+	 * 
+	 * @param e, an Employee object
+	 */
 	public void addEmployee(Employee e) {
 		em.persist(e);
 	}

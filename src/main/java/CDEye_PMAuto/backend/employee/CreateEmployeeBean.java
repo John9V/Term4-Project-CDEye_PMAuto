@@ -7,7 +7,13 @@ import java.util.UUID;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.faces.validator.FacesValidator;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -19,7 +25,8 @@ import CDEye_PMAuto.backend.paygrade.PaygradeManager;
 
 @Named("createEmployee")
 @RequestScoped
-public class CreateEmployeeBean extends Employee implements Serializable {
+public class CreateEmployeeBean extends Employee implements Serializable
+{
 	@Inject private PaygradeManager paygradeManager;
 	@Inject private EmployeeManager employeeManager;
 	@Inject private CredentialManager credentialManager;
@@ -70,7 +77,10 @@ public class CreateEmployeeBean extends Employee implements Serializable {
 	}
 
 	
-	public void add() {	    
+	public void add() {	  
+//	    if (!employeeInSystem()){
+//	        return false
+//	    }
 	    flexTime = 0;
 	    vacationTime = 0;
 		Employee e = new Employee(this);
@@ -86,5 +96,20 @@ public class CreateEmployeeBean extends Employee implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	//Validates that the employee username and number are not already in the system
+//	private boolean employeeInSystem() {
+//	     Employee one = employeeManager.getEmployeeByUserName(this.userName);
+//      Employee two = employeeManager.getEmployeeByEmpNum(this.empNum);
+//      
+//      System.out.println(one);
+//      System.out.println(two);
+//      
+//      if (one != null || two != null) {
+//          return true;
+//      }
+//	    
+//	    return false;
+//	}
 	
 }

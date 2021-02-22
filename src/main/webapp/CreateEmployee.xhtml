@@ -28,7 +28,7 @@
 			<div class="input-row">
 				<p>Employee Number</p>
 				<h:graphicImage library="images" name="user.png"/>
-				<h:inputText id="empId" value="#{createEmployee.empNum}" />
+				<h:inputText id="empId" value="#{createEmployee.empNum}" required="true" validator="#{employeeNumberValidator.validate}"/>
 				<h:message for="empId" style="color:red" />
 			</div>
 			
@@ -46,7 +46,8 @@
 			<div class="input-row">
 				<p>User Name</p>
 				<h:graphicImage library="images" name="password.png"/>
-				<h:inputText id="uName" value="#{createEmployee.userName}" />
+				<h:inputText id="uName" value="#{createEmployee.userName}" required="true" validator="#{usernameValidator.validate}" >
+				</h:inputText>	
 				<h:message for="uName" style="color:red" />
 			</div>
 
