@@ -92,8 +92,11 @@
                     <h:commandButton styleClass="command-button" value="Edit" action="#{employeeList.editSelectedEmployee(e)}"
                                      rendered="#{not e.editable}"/>
                 </h:column>
-                
             </h:dataTable>
+        </h:form>
+        <h:form> 
+        	<h:inputText styleClass="edit-input" value="#{employeeList.employee.userName}"> </h:inputText>
+        	<h:commandButton styleClass="command-button" value="Search" action="#{employeeList.findEmployee()}" />
         </h:form>
     </div>
 </h:body>

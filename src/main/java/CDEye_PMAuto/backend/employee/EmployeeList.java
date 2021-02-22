@@ -22,8 +22,14 @@ public class EmployeeList implements Serializable {
 	private EmployeeManager employeeManager;
 	
 	private List<EditableEmployee> list;
+	
+	@Inject
+	@Named("employee")
 	private Employee employee;
 	
+	public Employee getNewEmployee() {
+	    return new Employee();
+	}
 	@Inject 
 	Conversation conversation;
 	
@@ -78,6 +84,17 @@ public class EmployeeList implements Serializable {
         return "";
     }
 
+    /**
+     * Finds an employee by their username
+     * @return an Employee object if exists, else null
+     */
+    public Employee findEmployee() {
+        Employee employee = employeeManager.getEmployeeByUserName(this.employee.getUserName());
+        System.out.println(employee.getUserName());
+        return employee; 
+    }
+    
+    //GETTERS AND SETTERS ===============================================================================================
     public Employee getEmployee() {  
         return employee;
     }
