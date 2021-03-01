@@ -17,6 +17,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -48,7 +49,7 @@ public class Employee implements Serializable {
 	
     /** The employee's employee number. Assigned by HR, indicates num and department */
 	@Column(name="empnumber")
-    protected String empNum;
+    protected int empNum;
     
     /** The employee's name. */
 	@Column(name="firstname")
@@ -75,11 +76,26 @@ public class Employee implements Serializable {
 	@JoinColumn(name="paygrades")
 	protected Paygrade payGrade;
 	
+	/** An employee Manager **/
+	@ManyToOne
+	protected Employee manager;
 
-	public Employee() {}
+	/** The employees working under the manager **/
+    @OneToMany(mappedBy="manager")
+	protected Collection<Employee> peons;
+    
+    /** The employees flextime, can be no greater than 10 and no less than -10 **/
+    @Column(name="flexTime", columnDefinition = "TINYINT(4)")
+    protected Integer flexTime;
+    
+    /** The employees vaction time, in days remaining **/
+    @Column(name="vacationTime", columnDefinition = "TINYINT(4)")
+    protected Integer vacationTime;
 
-	public Employee(UUID id, String empNum, String firstName, String lastName, String userName,
-	       Boolean active,  Boolean hr, Paygrade payGrade) {
+    public Employee() {}
+
+	public Employee(UUID id, Integer empNum, String firstName, String lastName, String userName,
+	       Boolean active,  Boolean hr, Paygrade payGrade, Employee manager, Collection<Employee> peons, Integer flexTime, Integer vacationTime) {
 		super();
 		this.id = id;
 		this.empNum = empNum;
@@ -89,6 +105,10 @@ public class Employee implements Serializable {
 		this.active = active;
 		this.hr = hr;
 		this.payGrade = payGrade;
+		this.manager = manager;
+		this.peons = peons;
+		this.flexTime = flexTime;
+		this.vacationTime = vacationTime;
 	}
 	
 	public Employee(CreateEmployeeBean ceb) {
@@ -101,9 +121,15 @@ public class Employee implements Serializable {
 		this.active = ceb.active;
 		this.hr = ceb.hr;
 		this.payGrade = ceb.payGrade;
-		}
+		this.manager = ceb.manager;
+		this.peons = ceb.peons;
+		this.flexTime = ceb.flexTime;
+		this.vacationTime = ceb.vacationTime;
+	}
 
-	public UUID getId() {
+	// GETTERS AND SETTERS =============================================================================
+
+    public UUID getId() {
 		return id;
 	}
 
@@ -111,11 +137,11 @@ public class Employee implements Serializable {
 		this.id = id;
 	}
 	
-	public String getEmpNum() {
+	public Integer getEmpNum() {
 	    return empNum;
 	}
 	
-	public void setEmpNum(String empNum) {
+	public void setEmpNum(Integer empNum) {
 	    this.empNum = empNum;
 	}
 	
@@ -167,4 +193,59 @@ public class Employee implements Serializable {
 		this.userName = userName;
 	}
 	
+	public Employee getManager() {
+	    return manager;
+	}
+
+	public void setManager(Employee manager) {
+	    this.manager = manager;
+	}
+
+	public Collection<Employee> getPeons() {
+	    return peons;
+	}
+
+	public void setPeons(Collection<Employee> peons) {
+	    this.peons = peons;
+	}
+
+	public Integer getFlextime() {
+        return flexTime;
+    }
+
+	public void setFlextime(Integer flextime) {
+	    if (flextime > 10) {
+	        this.flexTime = 10;
+	    } else if (flextime < -10) {
+	        this.flexTime = -10;
+	    } else {
+	        this.flexTime = flextime;
+	    }
+	}
+	
+    public Integer getVacationTime() {
+        return vacationTime;
+    }
+
+    public void setVacationTime(Integer vacationTime) {
+        this.vacationTime = vacationTime;
+    }
 }
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
