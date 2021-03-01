@@ -98,15 +98,34 @@ public class EmployeeManager implements Serializable {
         CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
         Root<Employee> itemRoot = criteriaQuery.from(Employee.class);
         
-        UUID uuidAsString = UUID.fromString(uuid);
+        UUID uuidAsUuid = UUID.fromString(uuid);
         
-        Predicate predicateForName = criteriaBuilder.equal(itemRoot.get("id"), uuidAsString);
+        Predicate predicateForName = criteriaBuilder.equal(itemRoot.get("id"), uuidAsUuid);
         
         criteriaQuery.where(predicateForName);
         
         List<Employee> employee = em.createQuery(criteriaQuery).getResultList();
 
         return employee.get(0);
+    }
+    
+    /**
+     * Gets an employee by Employee Number
+     * @param empNum, employee number of the employee as an Int
+     * @return an Employee object
+     */
+    public Employee getEmployeeByEmpNum(int empNum) {
+        TypedQuery<Employee> query = em.createQuery(
+                "SELECT e FROM Employee e WHERE e.empNum = :empNum", Employee.class)
+                .setParameter("empNum", empNum);
+        
+        List<Employee> employees = query.getResultList();
+        
+        if (employees.isEmpty()) {
+            return null;
+        }
+        
+        return employees.get(0);
     }
     
     /**
@@ -120,16 +139,30 @@ public class EmployeeManager implements Serializable {
         return em.merge(changesToEmployee);
     }
 
+    /**
+     * Gets an employee by its username
+     * @param userName, the employees username as a string.
+     * 
+     * @return an Employee object
+     */
 	public Employee getEmployeeByUserName(String userName) {
 		TypedQuery<Employee> query = em.createQuery(
     			"SELECT e FROM Employee e WHERE e.userName LIKE :userName", Employee.class)
     			.setParameter("userName", "%" + userName + "%");
     	List<Employee> employees = query.getResultList();
     	
+        if (employees.isEmpty()) {
+            return null;
+        }
+        
         return employees.get(0);
 	}
 	
-	
+	/**
+	 * Adds an employee to the DB
+	 * 
+	 * @param e, an Employee object
+	 */
 	public void addEmployee(Employee e) {
 		em.persist(e);
 	}
