@@ -254,37 +254,28 @@ public class WorkPackageManager implements Serializable {
 	}
 
     /**
-     * Determine Parent WorkPackage Number
-     * 
-     * @param wp Any WorkPackage
-     * @return Parent WorkPackage Number
+     * INCORRECT
      */
 	public String determineParentWPNum(WorkPackage wp) {
-		if (wp.getParentWp() == null) {
-			return null;
-		} else {
-			return wp.getParentWp().workPackageNumber;
-		}
+		return null;
 	}
 
 	/**
-	 * Determine WorkPackage Number from Parent
-	 * 
-	 * @param wp Any WorkPackage
-	 * @return Children WorkPackage Number(s)
+	 *INCORRECT
 	 */
 	public String determineWPNumFromParent(WorkPackage wp) {
-		if (!wp.isLeaf) {
-			String WPNumFromParent = "";
-			WorkPackage[] workpackages = getByParentId(wp.workPackageNumber);
-			for (WorkPackage workpackage : workpackages) {
-				WPNumFromParent.concat(workpackage.workPackageNumber);
-				WPNumFromParent.concat("\n");
-			}
-			return WPNumFromParent;
-		} else {
-			return null;
-		}
+		return null;
+//		if (!wp.isLeaf) {
+//			String WPNumFromParent = "";
+//			WorkPackage[] workpackages = getByParentId(wp.workPackageNumber);
+//			for (WorkPackage workpackage : workpackages) {
+//				WPNumFromParent.concat(workpackage.workPackageNumber);
+//				WPNumFromParent.concat("\n");
+//			}
+//			return WPNumFromParent;
+//		} else {
+//			return null;
+//		}
 	}
 
 	/**
