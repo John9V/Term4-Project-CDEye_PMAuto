@@ -1,4 +1,4 @@
-CREATE DATABASE pmauto;
+CREATE DATABASE IF NOT EXISTS pmauto;
 
 CREATE USER IF NOT EXISTS 'test'@'localhost' IDENTIFIED BY 'test';
 CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';
@@ -57,7 +57,7 @@ CREATE TABLE projects(id TINYTEXT, projectname TINYTEXT, projectnumber TINYTEXT,
 DROP TABLE IF EXISTS workpackageallocation;
 CREATE TABLE workpackageallocation(id TINYTEXT, workpackage TINYTEXT, paygrade TINYTEXT, persondaysestimate DECIMAL(10,2));
 
-INSERT INTO workpackageallocation VALUES("123e4537-e89b-12d4-a456-556642431111", "123e4567-e89b-12d3-a456-556342440300", "123e4567-e89b-12d3-a336-556642440000", 1);
+INSERT INTO workpackageallocation VALUES("123e4537-e89b-12d4-a456-556642431111", "123e4567-e89b-12d3-a456-599342400003", "123e4567-e89b-12d3-a336-556642440000", 3);
 
 DROP TABLE IF EXISTS recepackage;
 CREATE TABLE recepackage(id TINYTEXT, parentwp TINYTEXT, paygrade TINYTEXT, persondayestimate DECIMAL(10,2), employeeId TINYTEXT, wp TINYTEXT);

@@ -8,6 +8,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -31,9 +32,9 @@ public class WorkPackageAllocation implements Serializable {
 	@Type(type = "uuid-char")
 	protected UUID id;
 	
-	@ManyToOne
-	@JoinColumn(name="workpackage")
-	protected WorkPackage workPackage;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="workpackage")
+    protected WorkPackage workPackage;
 	
 	@ManyToOne
 	@JoinColumn(name="paygrade")

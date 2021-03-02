@@ -51,6 +51,13 @@
       						</f:facet>
    							<h:outputText value="#{sheet.RECEs.size()}" />
        					</h:column>
+       					
+       					<h:column>
+         					<f:facet name="header">
+      							<h:outputText value="test alloc connections" />
+      						</f:facet>
+   							<h:outputText value="#{sheet.wpAllocs.size()}" />
+       					</h:column>
        	
        					<h:column>
    							<h:commandButton action="testWP" value="View/Edit" actionListener = "#{editableWorkPackage.usePackage(sheet)}" />

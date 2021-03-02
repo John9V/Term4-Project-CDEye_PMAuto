@@ -12,6 +12,7 @@ import javax.inject.Named;
 
 import CDEye_PMAuto.backend.project.Project;
 import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
+import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocation;
 
 /**
  * Editable version of work package.
@@ -56,6 +57,7 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
         this.projectBudget = wp.projectBudget;
         this.project = wp.project;
         this.RECEs = wp.RECEs;
+        this.wpAllocs = wp.wpAllocs;
     }
     
     /**
@@ -66,11 +68,12 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
             BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
-            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs) {
+            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs,
+            List<WorkPackageAllocation> wpAllocs) {
         super(id, workPackageNumber, parentWp, unAllocatedBudget, allocatedBudget, allocatedPersonDays,
                 respEngPersonDayEstimate, respEngBudgetEstimate, completedBudget, completedPersonDays,
                 completedVarianceProjectPD, completedVarianceProjectBudget, respEngEstVarianceProjectPD,
-                respEngEstVarianceProjectBudget, startDate, endDate, isLeaf, projectBudget, project, RECEs);
+                respEngEstVarianceProjectBudget, startDate, endDate, isLeaf, projectBudget, project, RECEs, wpAllocs);
     }
     
     public void saveEdit() {

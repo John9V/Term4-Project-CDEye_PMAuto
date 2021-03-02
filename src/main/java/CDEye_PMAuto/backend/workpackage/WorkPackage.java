@@ -15,10 +15,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 
 import CDEye_PMAuto.backend.project.Project;
 import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
+import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocation;
 
 @Entity
 @Table(name="workpackages")
@@ -117,8 +121,13 @@ public class WorkPackage implements Serializable {
 	@JoinColumn(name="project")
 	protected Project project;
 	
+	@Fetch(value = FetchMode.SUBSELECT)
 	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER)
 	protected List<RespEngCostEstimate> RECEs;
+	
+	@Fetch(value = FetchMode.SUBSELECT)
+	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER)
+    protected List<WorkPackageAllocation> wpAllocs;
 	
 	/**
 	 * Default no parameter constructor.
@@ -135,7 +144,8 @@ public class WorkPackage implements Serializable {
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
             BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
-            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs) {
+            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs,
+            List<WorkPackageAllocation> wpAllocs) {
         super();
         this.id = id;
         this.workPackageNumber = workPackageNumber;
@@ -157,6 +167,7 @@ public class WorkPackage implements Serializable {
         this.projectBudget = projectBudget;
         this.project = project;
         this.RECEs = RECEs;
+        this.wpAllocs = wpAllocs;
         
     }
 
@@ -168,7 +179,8 @@ public class WorkPackage implements Serializable {
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
             BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
-            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs) {
+            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs,
+            List<WorkPackageAllocation> wpAllocs) {
         super();
         this.id = UUID.randomUUID();
         this.workPackageNumber = workPackageNumber;
@@ -190,6 +202,7 @@ public class WorkPackage implements Serializable {
         this.projectBudget = projectBudget;
         this.project = project;
         this.RECEs = RECEs;
+        this.wpAllocs = wpAllocs;
     }
     
     /**
@@ -217,6 +230,7 @@ public class WorkPackage implements Serializable {
         this.projectBudget = wp.projectBudget;
         this.project = wp.project;
         this.RECEs = wp.RECEs;
+        this.wpAllocs = wp.wpAllocs;
     }
     
     /**
@@ -244,6 +258,7 @@ public class WorkPackage implements Serializable {
         this.projectBudget = wp.projectBudget;
         this.project = wp.project;
         this.RECEs = wp.RECEs;
+        this.wpAllocs = wp.wpAllocs;
     }
     
     /**
@@ -270,6 +285,7 @@ public class WorkPackage implements Serializable {
         this.projectBudget = wp.projectBudget;
         this.project = wp.project;
         this.RECEs = wp.RECEs;
+        this.wpAllocs = wp.wpAllocs;
     }
 
     /**
@@ -542,6 +558,20 @@ public class WorkPackage implements Serializable {
      */
     public void setRECEs(List<RespEngCostEstimate> rECEs) {
         RECEs = rECEs;
+    }
+
+    /**
+     * @return the wpAllocs
+     */
+    public List<WorkPackageAllocation> getWpAllocs() {
+        return wpAllocs;
+    }
+
+    /**
+     * @param wpAllocs the wpAllocs to set
+     */
+    public void setWpAllocs(List<WorkPackageAllocation> wpAllocs) {
+        this.wpAllocs = wpAllocs;
     }
 	
 	
