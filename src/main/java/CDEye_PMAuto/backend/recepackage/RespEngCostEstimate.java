@@ -14,6 +14,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -63,6 +64,10 @@ public class RespEngCostEstimate implements Serializable {
     @JoinColumn(name="employeeId")
     @ManyToOne
     protected Employee employee;
+    
+    @JoinColumn(name="wp")
+    @ManyToOne(fetch = FetchType.EAGER)
+    protected WorkPackage workPackage;
 
     
     /**
@@ -79,12 +84,13 @@ public class RespEngCostEstimate implements Serializable {
      * @param personDayEstimate, the number of days estimated to be spent on the project at this paygrade, as a BigDecimal
      * @param employee, the employee assigned to the package at the chosen paygrade
      */
-    public RespEngCostEstimate(UUID id, WorkPackage parentWp, Paygrade paygrade, BigDecimal personDayEstimate, Employee employee) {
+    public RespEngCostEstimate(UUID id, WorkPackage parentWp, Paygrade paygrade, BigDecimal personDayEstimate, Employee employee, WorkPackage workPackage) {
         this.id = id;
         this.parentWp = parentWp;
         this.paygrade = paygrade;
         this.personDayEstimate = personDayEstimate;
         this.employee = employee;
+        this.workPackage = workPackage;
     }
     
     /**Ensures that associated package cost estimates sum to 
@@ -132,6 +138,20 @@ public class RespEngCostEstimate implements Serializable {
     
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    /**
+     * @return the workPackage
+     */
+    public WorkPackage getWorkPackage() {
+        return workPackage;
+    }
+
+    /**
+     * @param workPackage the workPackage to set
+     */
+    public void setWorkPackage(WorkPackage workPackage) {
+        this.workPackage = workPackage;
     }
     
     

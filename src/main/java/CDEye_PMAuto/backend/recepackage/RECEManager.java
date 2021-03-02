@@ -22,7 +22,7 @@ public class RECEManager implements Serializable {
      * @return an array of RECEPackage, as an [RECEPackage]
      */
     public RespEngCostEstimate[] getAll() {
-        TypedQuery<RespEngCostEstimate> query = em.createQuery("select p from RECEPackage p", RespEngCostEstimate.class); 
+        TypedQuery<RespEngCostEstimate> query = em.createQuery("select p from RespEngCostEstimate p", RespEngCostEstimate.class); 
         List<RespEngCostEstimate> packages = query.getResultList();
         RespEngCostEstimate[] packageArr = new RespEngCostEstimate[packages.size()];
         for (int i = 0; i < packageArr.length; i++) {

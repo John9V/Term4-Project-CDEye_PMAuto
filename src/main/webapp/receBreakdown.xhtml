@@ -51,6 +51,20 @@
 					size="10" />
 				<h:outputText value="#{e.paygrade.name}" rendered="#{not e.editable}" />
 			</h:column>	
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="testing wp id"
+						style="font-weight: bold" />
+				</f:facet>
+				<h:outputText value="#{e.workPackage.id}" />
+			</h:column>	
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="testing wp number"
+						style="font-weight: bold" />
+				</f:facet>
+				<h:outputText value="#{e.workPackage.workPackageNumber}" />
+			</h:column>	
 		</h:dataTable>
       </h:form>
    </h:body>

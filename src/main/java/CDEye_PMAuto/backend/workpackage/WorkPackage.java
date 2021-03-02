@@ -3,18 +3,22 @@ package CDEye_PMAuto.backend.workpackage;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
 import CDEye_PMAuto.backend.project.Project;
+import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
 
 @Entity
 @Table(name="workpackages")
@@ -113,6 +117,9 @@ public class WorkPackage implements Serializable {
 	@JoinColumn(name="project")
 	protected Project project;
 	
+	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER)
+	protected List<RespEngCostEstimate> RECEs;
+	
 	/**
 	 * Default no parameter constructor.
 	 */
@@ -128,7 +135,7 @@ public class WorkPackage implements Serializable {
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
             BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
-            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project) {
+            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs) {
         super();
         this.id = id;
         this.workPackageNumber = workPackageNumber;
@@ -149,6 +156,7 @@ public class WorkPackage implements Serializable {
         this.isLeaf = isLeaf;
         this.projectBudget = projectBudget;
         this.project = project;
+        this.RECEs = RECEs;
         
     }
 
@@ -160,7 +168,7 @@ public class WorkPackage implements Serializable {
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
             BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
-            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project) {
+            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs) {
         super();
         this.id = UUID.randomUUID();
         this.workPackageNumber = workPackageNumber;
@@ -181,6 +189,7 @@ public class WorkPackage implements Serializable {
         this.isLeaf = isLeaf;
         this.projectBudget = projectBudget;
         this.project = project;
+        this.RECEs = RECEs;
     }
     
     /**
@@ -207,6 +216,7 @@ public class WorkPackage implements Serializable {
         this.isLeaf = wp.isLeaf;
         this.projectBudget = wp.projectBudget;
         this.project = wp.project;
+        this.RECEs = wp.RECEs;
     }
     
     /**
@@ -233,6 +243,7 @@ public class WorkPackage implements Serializable {
         this.isLeaf = wp.isLeaf;
         this.projectBudget = wp.projectBudget;
         this.project = wp.project;
+        this.RECEs = wp.RECEs;
     }
     
     /**
@@ -258,6 +269,7 @@ public class WorkPackage implements Serializable {
         this.isLeaf = wp.isLeaf;
         this.projectBudget = wp.projectBudget;
         this.project = wp.project;
+        this.RECEs = wp.RECEs;
     }
 
     /**
@@ -517,6 +529,20 @@ public class WorkPackage implements Serializable {
 	public BigDecimal getProjectBudget() {
 		return projectBudget;
 	}
+
+    /**
+     * @return the rECEs
+     */
+    public List<RespEngCostEstimate> getRECEs() {
+        return RECEs;
+    }
+
+    /**
+     * @param rECEs the rECEs to set
+     */
+    public void setRECEs(List<RespEngCostEstimate> rECEs) {
+        RECEs = rECEs;
+    }
 	
 	
     

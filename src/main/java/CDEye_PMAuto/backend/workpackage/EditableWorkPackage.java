@@ -3,6 +3,7 @@ package CDEye_PMAuto.backend.workpackage;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
@@ -10,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import CDEye_PMAuto.backend.project.Project;
+import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
 
 /**
  * Editable version of work package.
@@ -53,6 +55,7 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
         this.isLeaf = wp.isLeaf;
         this.projectBudget = wp.projectBudget;
         this.project = wp.project;
+        this.RECEs = wp.RECEs;
     }
     
     /**
@@ -63,11 +66,11 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
             BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
-            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project) {
+            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs) {
         super(id, workPackageNumber, parentWp, unAllocatedBudget, allocatedBudget, allocatedPersonDays,
                 respEngPersonDayEstimate, respEngBudgetEstimate, completedBudget, completedPersonDays,
                 completedVarianceProjectPD, completedVarianceProjectBudget, respEngEstVarianceProjectPD,
-                respEngEstVarianceProjectBudget, startDate, endDate, isLeaf, projectBudget, project);
+                respEngEstVarianceProjectBudget, startDate, endDate, isLeaf, projectBudget, project, RECEs);
     }
     
     public void saveEdit() {

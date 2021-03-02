@@ -44,6 +44,13 @@
       						</f:facet>
    							<h:outputText value="#{sheet.startDate}" />
        					</h:column>
+       					
+       					<h:column>
+         					<f:facet name="header">
+      							<h:outputText value="test rece conections" />
+      						</f:facet>
+   							<h:outputText value="#{sheet.RECEs.size()}" />
+       					</h:column>
        	
        					<h:column>
    							<h:commandButton action="testWP" value="View/Edit" actionListener = "#{editableWorkPackage.usePackage(sheet)}" />

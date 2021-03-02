@@ -26,7 +26,7 @@ public class EditableRECE extends RespEngCostEstimate {
      * @param r, a RECE Package
      */
     public EditableRECE(RespEngCostEstimate r) {
-        super(r.id, r.parentWp, r.paygrade, r.personDayEstimate, r.employee);
+        super(r.id, r.parentWp, r.paygrade, r.personDayEstimate, r.employee, r.workPackage);
     };
     
     /**
@@ -38,8 +38,8 @@ public class EditableRECE extends RespEngCostEstimate {
      * @param personDayEstimate, number of days anticipated at the current paygrade, as a BigDecimal
      * @param employee chosen to work on the RECE at this Paygrade
      */
-    public EditableRECE(UUID id, WorkPackage parentwp, Paygrade paygrade, BigDecimal personDayEstimate, Employee employee) {
-        super(id, parentwp, paygrade, personDayEstimate, employee);
+    public EditableRECE(UUID id, WorkPackage parentwp, Paygrade paygrade, BigDecimal personDayEstimate, Employee employee, WorkPackage workPackage) {
+        super(id, parentwp, paygrade, personDayEstimate, employee, workPackage);
     }
     
     // Getters and Setters ====================================================
