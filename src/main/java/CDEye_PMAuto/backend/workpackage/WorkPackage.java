@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,7 +41,7 @@ public class WorkPackage implements Serializable {
 	protected String workPackageNumber;
 	
 	/** Parent WorkPackage. */
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="parentworkpackage")
 	protected WorkPackage parentWp;
 	
@@ -117,16 +118,16 @@ public class WorkPackage implements Serializable {
 	@Column(name="projectbudget")
 	protected BigDecimal projectBudget;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="project")
 	protected Project project;
 	
 	@Fetch(value = FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	protected List<RespEngCostEstimate> RECEs;
 	
 	@Fetch(value = FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     protected List<WorkPackageAllocation> wpAllocs;
 	
 	/**

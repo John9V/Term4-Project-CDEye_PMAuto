@@ -17,11 +17,12 @@ public class ActiveProjectBean extends Project implements Serializable {
 
 	@Inject ProjectManager projectManager;
 	
-	public String setActiveProjectBean() {
-		UUID uid = UUID.fromString("12121212-e89b-12d3-a456-556642430000");  
-		this.id = uid;
+	public String setActiveProjectBean(EditableProject ep) {
+		this.id = ep.getId();
 		Project activeProject = projectManager.find(this.id);
+		System.out.println("set active project bean to: " + activeProject.projectName);
 		this.id = activeProject.id;
+		System.out.println("set active project id: " + activeProject.id);
 		this.projectName = activeProject.projectName;
 		this.projectNumber = activeProject.projectNumber;
 		this.projManager = activeProject.projManager;

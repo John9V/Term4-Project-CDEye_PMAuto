@@ -45,7 +45,8 @@ public class WorkPackageList implements Serializable {
     }
     
     public List<EditableWorkPackage> getWpsByProj() {
-    	WorkPackage[] wps = workPackageManager.findWpsByProjectNumber(apb.getProjectNumber());
+    	Project activeProj = new Project(apb);
+    	WorkPackage[] wps = workPackageManager.findWpsByProject(activeProj);
         list = new ArrayList<EditableWorkPackage>();
         for (int i = 0; i < wps.length; i++) {
             list.add(new EditableWorkPackage(wps[i]));
@@ -55,25 +56,18 @@ public class WorkPackageList implements Serializable {
     }
 
     public List<EditableWorkPackage> refreshList() {
-        // Checks if there are search criteria. Gets the searched ones if the was
-        // search, otherwise gets all
-        WorkPackage[] workPackages;
-        if (searchId != null && searchId.length() >= 1) {
-            workPackages = new WorkPackage[1];
-            workPackages[0] = workPackageManager.getByUUID(searchId);
-            System.out.println("get WP by uuid");
-        } else if (searchParentPackageId != null
-                && searchParentPackageId.length() >= 1) {
-            System.out.println("get WP by parent uuid");
-            workPackages = workPackageManager.getByParentId(searchParentPackageId);
-        } else if (searchPackageNumber != null
+    	System.out.println("Refreshing the wp list - the apb is " + apb.getProjectName());
+    	System.out.println("Refreshing the wp list - the apb id is " + apb.getId());
+    	Project activeProj = new Project(apb.getId(), apb.getProjectName(), apb.getProjectNumber(), 
+    			apb.getProjManager(), apb.getStartDate(), apb.getEndDate(), apb.getEstimateBudget(), 
+    			apb.getMarkUpRate(), apb.getProjectBudget());
+    	System.out.println("go look for projects with id " + activeProj.getId());
+        WorkPackage[] workPackages = workPackageManager.findWpsByProject(activeProj);
+        if (searchPackageNumber != null
                 && searchPackageNumber.length() >= 1) {
-            System.out.println("get WP by package num");
-            workPackages = workPackageManager.getByPackageNumber(searchPackageNumber);
-        } else {
-            System.out.println("get all WP");
-            workPackages = workPackageManager.getAll();
-        }
+            workPackages = workPackageManager.findWpsByPkgNumAndProj(searchPackageNumber, activeProj);
+        	
+        } 
         
         list = new ArrayList<EditableWorkPackage>();
         for (int i = 0; i < workPackages.length; i++) {

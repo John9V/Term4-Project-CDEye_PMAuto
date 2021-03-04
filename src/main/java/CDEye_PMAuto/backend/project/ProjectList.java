@@ -16,6 +16,7 @@ public class ProjectList implements Serializable {
 	@Inject @Dependent private ProjectManager projectManager;
 	private List<EditableProject> list;
 	@Inject Conversation conversation;
+	@Inject ActiveProjectBean apb;
 	
 	public List<EditableProject> getList() {
 		if (!conversation.isTransient()) {
@@ -37,12 +38,22 @@ public class ProjectList implements Serializable {
         return list;
     }
 	
-	public String submit() {
+	public String viewProjectWPs(EditableProject p) {
+		System.out.println("calling set active project bean for: " + p.getProjectName());
+		conversation.end();
+		return apb.setActiveProjectBean(p);
+	}
+	
+	public String save() {
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).isEditable()) {
 				Project p = new Project(list.get(i));
 				projectManager.updateProject(p);
 				list.get(i).setEditable(false);
+			}
+			if (list.get(i).isDeletable()) {
+				Project p = new Project(list.get(i));
+				projectManager.delete(p);
 			}
 		}
 		refreshList();

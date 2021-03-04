@@ -40,6 +40,10 @@ public class ProjectManager implements Serializable {
         em.persist(p);
     }
 	
+	public void delete(Project p) {
+        em.remove(p);
+    }
+	
 	public Project findProject(String projectName) {
 		TypedQuery<Project> query = em.createQuery(
 				"SELECT p FROM Project p WHERE p.projectName LIKE :projectName", Project.class)

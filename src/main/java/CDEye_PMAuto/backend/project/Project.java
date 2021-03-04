@@ -9,6 +9,7 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -41,7 +42,7 @@ public class Project implements Serializable {
 	@Column(name = "projectnumber")
 	protected String projectNumber;
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "projmanager")
 	protected Employee projManager;
 
@@ -97,7 +98,9 @@ public class Project implements Serializable {
 	 
 	 public Project(ActiveProjectBean apb) {
 	        super();
+	        System.out.println("constructor before assignment: " + apb.id);
 	        this.id = apb.id;
+	        System.out.println("constructor after assignment: " + this.id);
 			this.projectName = apb.projectName;
 			this.projectNumber = apb.projectNumber;
 			this.projManager = apb.projManager;

@@ -102,14 +102,35 @@ public class WorkPackageManager implements Serializable {
         return packageArr;
     }
     
-    public WorkPackage[] findWpsByProjectNumber(String projectNumber) {
-//    	String id = projectId.toString();
+    public WorkPackage[] findWpsByProject(Project p) {
+    	System.out.println("-----------------");
+    	System.out.println("projid: " + p.getId());
+    	System.out.println("-----------------");
         TypedQuery<WorkPackage> query = em.createQuery(
-                "SELECT wp FROM WorkPackage wp WHERE project.projectNumber = " + projectNumber, WorkPackage.class);
-//                .setParameter("projectNumber", "%" + projectNumber + "%");
+                "SELECT wp FROM WorkPackage wp WHERE wp.project.id = :projectId", WorkPackage.class)
+                .setParameter("projectId", p.getId());
         List<WorkPackage> workPackages = query.getResultList();
         
         WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
+        for (int i = 0; i < packageArr.length; i++) {
+            packageArr[i] = workPackages.get(i);
+        }
+        
+        return packageArr;
+    }
+    
+    public WorkPackage[] findWpsByPkgNumAndProj(String workPackageNumber, Project p) {
+    	System.out.println("-----------------");
+    	System.out.println("wpnum: " + workPackageNumber);
+    	System.out.println("projid: " + p.getId());
+    	System.out.println("-----------------");
+    	TypedQuery<WorkPackage> query = em.createQuery(
+                "SELECT wp FROM WorkPackage wp WHERE wp.workPackageNumber = :workPackageNumber AND wp.project.id = :projectId", WorkPackage.class)
+    			.setParameter("workPackageNumber", workPackageNumber)
+    			.setParameter("projectId", p.getId());
+    	List<WorkPackage> workPackages = query.getResultList();
+
+    	WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
         for (int i = 0; i < packageArr.length; i++) {
             packageArr[i] = workPackages.get(i);
         }
