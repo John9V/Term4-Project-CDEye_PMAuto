@@ -24,7 +24,6 @@ public class ProjectManager implements Serializable {
         for (int i = 0; i < projectArr.length; i++) {
         	projectArr[i] = projects.get(i);
         }
-        System.out.println("Found projects: " + projects);
         return projectArr;
 	}
 

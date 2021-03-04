@@ -10,19 +10,19 @@ import javax.inject.Named;
 import CDEye_PMAuto.backend.credentials.Credential;
 import CDEye_PMAuto.backend.credentials.CredentialManager;
 import CDEye_PMAuto.backend.employee.Employee;
+import CDEye_PMAuto.backend.workpackage.WorkPackageList;
 
 @Named("activeProjectBean")
 @SessionScoped
 public class ActiveProjectBean extends Project implements Serializable {
 
 	@Inject ProjectManager projectManager;
+	@Inject WorkPackageList wpl;
 	
 	public String setActiveProjectBean(EditableProject ep) {
 		this.id = ep.getId();
 		Project activeProject = projectManager.find(this.id);
-		System.out.println("set active project bean to: " + activeProject.projectName);
 		this.id = activeProject.id;
-		System.out.println("set active project id: " + activeProject.id);
 		this.projectName = activeProject.projectName;
 		this.projectNumber = activeProject.projectNumber;
 		this.projManager = activeProject.projManager;
@@ -31,6 +31,7 @@ public class ActiveProjectBean extends Project implements Serializable {
 		this.estimateBudget = activeProject.estimateBudget;
 		this.markUpRate = activeProject.markUpRate;
 		this.projectBudget = activeProject.projectBudget;
+		wpl.refreshList();
 		
 		return "WPList";
 	}

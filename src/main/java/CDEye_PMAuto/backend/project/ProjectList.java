@@ -39,7 +39,6 @@ public class ProjectList implements Serializable {
     }
 	
 	public String viewProjectWPs(EditableProject p) {
-		System.out.println("calling set active project bean for: " + p.getProjectName());
 		conversation.end();
 		return apb.setActiveProjectBean(p);
 	}

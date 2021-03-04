@@ -98,9 +98,7 @@ public class Project implements Serializable {
 	 
 	 public Project(ActiveProjectBean apb) {
 	        super();
-	        System.out.println("constructor before assignment: " + apb.id);
 	        this.id = apb.id;
-	        System.out.println("constructor after assignment: " + this.id);
 			this.projectName = apb.projectName;
 			this.projectNumber = apb.projectNumber;
 			this.projManager = apb.projManager;

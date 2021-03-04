@@ -51,13 +51,11 @@ public class WorkPackageList implements Serializable {
         for (int i = 0; i < wps.length; i++) {
             list.add(new EditableWorkPackage(wps[i]));
         }
-        System.out.println("running");
         return list;
     }
 
     public List<EditableWorkPackage> refreshList() {
-    	System.out.println("Refreshing the wp list - the apb is " + apb.getProjectName());
-    	System.out.println("Refreshing the wp list - the apb id is " + apb.getId());
+//    	conversation.end();
     	Project activeProj = new Project(apb.getId(), apb.getProjectName(), apb.getProjectNumber(), 
     			apb.getProjManager(), apb.getStartDate(), apb.getEndDate(), apb.getEstimateBudget(), 
     			apb.getMarkUpRate(), apb.getProjectBudget());
@@ -73,7 +71,7 @@ public class WorkPackageList implements Serializable {
         for (int i = 0; i < workPackages.length; i++) {
             list.add(new EditableWorkPackage(workPackages[i]));
         }
-        System.out.println("running after refreshList()");
+        System.out.println("found workpackages for project: " + workPackages[0].project.getProjectName());
         return list;
     }
     
