@@ -2,7 +2,7 @@ package CDEye_PMAuto.backend.workpackage;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import javax.enterprise.context.RequestScoped;
@@ -104,11 +104,11 @@ public class WorkPackage implements Serializable {
 	
     /** Start date of the package. */
 	@Column(name="startdate")
-    protected LocalDate startDate;
+    protected Date startDate;
     
 	/** End date of the package. */
     @Column(name="enddate")
-    protected LocalDate endDate;
+    protected Date endDate;
     
 	
     /** Boolean for identifying if the package has children or not. */
@@ -144,8 +144,8 @@ public class WorkPackage implements Serializable {
             BigDecimal allocatedBudget, BigDecimal allocatedPersonDays, BigDecimal respEngPersonDayEstimate,
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
-            BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
-            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs,
+            BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, Date startDate,
+            Date endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs,
             List<WorkPackageAllocation> wpAllocs) {
         super();
         this.id = id;
@@ -179,8 +179,8 @@ public class WorkPackage implements Serializable {
             BigDecimal allocatedBudget, BigDecimal allocatedPersonDays, BigDecimal respEngPersonDayEstimate,
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
-            BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
-            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs,
+            BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, Date startDate,
+            Date endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs,
             List<WorkPackageAllocation> wpAllocs) {
         super();
         this.id = UUID.randomUUID();
@@ -488,28 +488,28 @@ public class WorkPackage implements Serializable {
     /**
      * @return the startDate
      */
-    public LocalDate getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
     /**
      * @param startDate the startDate to set
      */
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
     /**
      * @return the endDate
      */
-    public LocalDate getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
     /**
      * @param endDate the endDate to set
      */
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 

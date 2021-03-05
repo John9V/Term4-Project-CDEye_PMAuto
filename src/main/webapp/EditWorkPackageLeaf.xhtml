@@ -22,53 +22,47 @@
     <div class="subcontainer">
         <h:form>
             <!-- The header input for workpackage?-->
-            <div>
-                <div class="input-column">
-                    <p>Unallocated Budget from Parent</p>
-                    <h:inputText value="#{editableWorkPackage.unAllocatedBudget}"/>
-                </div>
-
-                <div class="input-column">
-                    <p>Parent Work Package:</p>
-                    <h:inputText value="#{editableWorkPackage.parentWp}"/>
-                </div>
                 <div class="input-column">
                     <p>WorkPackage Number:</p>
-                    <h:inputText value="#{editableWorkPackage.workPackageNumber}"/>
+                    <h:outputText value="#{activeWpBean.workPackageNumber}"/>
+                </div>
+                <div class="input-column">
+                    <p>Unallocated Budget from Parent</p>
+                    <h:inputText value="#{activeWpBean.unAllocatedBudget}"/>
                 </div>
                 <div class="input-column">
                     <p>Begin Date:</p>
-                    <h:inputText value="#{editableWorkPackage.startDate}"/>
+                    <h:inputText value="#{activeWpBean.startDate}">
+                    	<f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </h:inputText>
                 </div>
                 <div class="input-column">
                     <p>End Date:</p>
-                    <h:inputText value="#{editableWorkPackage.endDate}"/>
+                    <h:inputText value="#{activeWpBean.endDate}">
+                    	<f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </h:inputText>
                 </div>
-            </div>
-        </h:form>
-    </div>
-
-    <!-- Another row of input not sure what it does -->
-    <div class="subcontainer">
-        <h:form>
-            <div>
+                <div>
                 <div class="input-column">
                     <p>Project Budget</p>
-                    <h:inputText value="#{editableWorkPackage.projectBudget}"/>
+                    <h:inputText value="#{activeWpBean.projectBudget}"/>
                 </div>
 
                 <div class="input-column">
                     <p>Completed PB:</p>
-                    <h:inputText value="#{editableWorkPackage.completedBudget}"/>
+                    <h:inputText value="#{activeWpBean.completedBudget}"/>
                 </div>
             </div>
+            <div class="button-container">
+        <h:commandButton value="SUBMIT" action="#{activeWpBean.mergeActive()}"/>
+    	</div>
         </h:form>
-    </div>
+        </div>
+
+    <!-- Another row of input not sure what it does -->
 
     <!-- Submit button container -->
-    <div class="button-container">
-        <h:commandButton value="SUBMIT" action="EditWorkPackageBranch"/>
-    </div>
+    
 
 </h:body>
 </html>
