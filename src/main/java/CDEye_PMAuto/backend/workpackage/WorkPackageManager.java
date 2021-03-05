@@ -52,6 +52,10 @@ public class WorkPackageManager implements Serializable {
         return wpArr;
     }
     
+    public WorkPackage find(WorkPackage wp) {
+    	return em.find(WorkPackage.class, wp.getId());
+    }
+    
     /**
      * Gets a workPackage by UUID number.
      * 
@@ -275,14 +279,24 @@ public class WorkPackageManager implements Serializable {
 	}
 
     /**
-     * INCORRECT
+     * bottom up approach
+     * User enters a work package number in the create wp screen, without entering a parent
+     * ex user enters 11100 - parent wp is 11000
+     * recursively create up the chain until parent is 00000
+     * 13141 - parent wp is 13140 (that one's parent is 13100) 
+     * - each recursion - check if parent wp number exists
      */
-	public String determineParentWPNum(WorkPackage wp) {
+	public String determineParentWPNum(WorkPackage parentWorkPackage) {
 		return null;
 	}
 
 	/**
-	 *INCORRECT
+	 * top down
+	 *User enters a parent wp number
+	 *we need to find out how much of THIS wp's wpnumber we can autofill
+	 *user enters parent wp 22000 - 
+	 *user enters x in this work package num - other 4 digfits are autofilled 22 x 00
+	 * 
 	 */
 	public String determineWPNumFromParent(WorkPackage wp) {
 		return null;
