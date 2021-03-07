@@ -18,15 +18,15 @@ public class WorkPackageAllocManager implements Serializable {
 	@PersistenceContext(unitName="inventory-jpa") 
     EntityManager em;
 	
-	public WorkPackageAllocation[] getAll() {
+	public List<WorkPackageAllocation> getAll() {
         TypedQuery<WorkPackageAllocation> query = em.createQuery("select wpa from WorkPackageAllocation wpa",
         		WorkPackageAllocation.class); 
         List<WorkPackageAllocation> workPackages = query.getResultList();
-        WorkPackageAllocation[] wpaArr = new WorkPackageAllocation[workPackages.size()];
-        for (int i = 0; i < wpaArr.length; i++) {
-            wpaArr[i] = workPackages.get(i);
-        }
-        return wpaArr;
+//        WorkPackageAllocation[] wpaArr = new WorkPackageAllocation[workPackages.size()];
+//        for (int i = 0; i < wpaArr.length; i++) {
+//            wpaArr[i] = workPackages.get(i);
+//        }
+        return workPackages;
     }
 	
 	public WorkPackageAllocation[] getByWP(WorkPackage wp) {

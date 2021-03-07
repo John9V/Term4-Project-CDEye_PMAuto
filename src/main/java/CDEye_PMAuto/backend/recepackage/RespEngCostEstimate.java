@@ -26,6 +26,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import CDEye_PMAuto.backend.workpackage.EditableWorkPackage;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Type;
 
@@ -74,7 +75,15 @@ public class RespEngCostEstimate implements Serializable {
      * Empty Default Constructor
      */
     public RespEngCostEstimate() {};
-    
+
+    public RespEngCostEstimate(EditableWorkPackage wp, Paygrade paygrade) {
+        this.id = UUID.randomUUID();
+        this.workPackage = wp;
+        this.paygrade = paygrade;
+        this.personDayEstimate = new BigDecimal(0);
+    }
+
+
     /**
      * RECEPackage Constructor
      * 

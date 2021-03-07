@@ -39,12 +39,13 @@ public class WorkPackageAllocList implements Serializable {
     }
     
     public List<EditableWorkPackageAlloc> refreshList() {
-        WorkPackageAllocation[] packages = wpaManager.getAll();
+        List <WorkPackageAllocation> packages = wpaManager.getAll();
         list = new ArrayList<EditableWorkPackageAlloc>();
-        for (int i = 0; i < packages.length; i++) {
-            list.add(new EditableWorkPackageAlloc(packages[i]));
+        for (int i = 0; i < packages.size(); i++) {
+            list.add(new EditableWorkPackageAlloc(packages.get(i)));
         }
         return list;
     }
-	
+
+
 }

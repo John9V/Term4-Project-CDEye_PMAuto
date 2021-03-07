@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,12 +17,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import CDEye_PMAuto.backend.workpackage.EditableWorkPackage;
 import org.hibernate.annotations.Type;
 
 import CDEye_PMAuto.backend.employee.Employee;
 import CDEye_PMAuto.backend.paygrade.Paygrade;
 import CDEye_PMAuto.backend.workpackage.WorkPackage;
+import org.hibernate.jdbc.Work;
 
+@SessionScoped
 @Entity
 @Table(name="workpackageallocation")
 @Named("workPackageAllocation")
@@ -42,7 +46,16 @@ public class WorkPackageAllocation implements Serializable {
 	
 	@Column(name="persondaysestimate")
 	protected BigDecimal personDaysEstimate;
-	
+
+	public WorkPackageAllocation() { }
+
+	public WorkPackageAllocation(EditableWorkPackage wp, Paygrade paygrade) {
+		this.id = UUID.randomUUID();
+		this.workPackage = wp;
+		this.paygrade = paygrade;
+		this.personDaysEstimate = new BigDecimal(0);
+	}
+
 	//constructor without id
 	public WorkPackageAllocation(WorkPackage workPackage, Paygrade paygrade, BigDecimal personDaysEstimate) {
 		super();
@@ -82,8 +95,7 @@ public class WorkPackageAllocation implements Serializable {
 		this.paygrade = wpa.paygrade;
 		this.personDaysEstimate = wpa.personDaysEstimate;
 	}
-	
-	WorkPackageAllocation() {}
+
 	
 	public WorkPackageAllocation(UUID id, WorkPackage workPackage, Paygrade paygrade, BigDecimal personDaysEstimate) {
 		super();

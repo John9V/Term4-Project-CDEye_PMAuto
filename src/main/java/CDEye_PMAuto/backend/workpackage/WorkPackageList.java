@@ -2,25 +2,30 @@ package CDEye_PMAuto.backend.workpackage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import javax.enterprise.context.Conversation;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.SessionScoped;
+import java.util.UUID;
+import javax.enterprise.context.*;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import CDEye_PMAuto.backend.employee.EditableEmployee;
-import CDEye_PMAuto.backend.employee.Employee;
+import CDEye_PMAuto.backend.paygrade.Paygrade;
+import CDEye_PMAuto.backend.paygrade.PaygradeManager;
 import CDEye_PMAuto.backend.project.ActiveProjectBean;
 import CDEye_PMAuto.backend.project.Project;
+import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
+import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocation;
 
 @Named("workPackageList")
-@SessionScoped
+@RequestScoped
 public class WorkPackageList implements Serializable {
-    
-    @Inject 
+
+    @Inject
     @Dependent 
     private WorkPackageManager workPackageManager;
+
+    @Inject
+    private PaygradeManager paygradeManager;
     
     @Inject ActiveProjectBean apb;
     
@@ -28,8 +33,8 @@ public class WorkPackageList implements Serializable {
     
     private String searchId; // = "123e4567-e89b-12d3-a456-599342400003";
     private String searchParentPackageId; // = "123e4567-e89b-12d3-a456-599342400001";
-    private String searchPackageNumber; // = "111"; 
-    
+    private String searchPackageNumber; // = "111";
+
     @Inject 
     Conversation conversation;
     
@@ -55,7 +60,6 @@ public class WorkPackageList implements Serializable {
     }
 
     public List<EditableWorkPackage> refreshList() {
-//    	conversation.end();
     	Project activeProj = new Project(apb.getId(), apb.getProjectName(), apb.getProjectNumber(), 
     			apb.getProjManager(), apb.getStartDate(), apb.getEndDate(), apb.getEstimateBudget(), 
     			apb.getMarkUpRate(), apb.getProjectBudget());
@@ -68,9 +72,44 @@ public class WorkPackageList implements Serializable {
         } 
         
         list = new ArrayList<EditableWorkPackage>();
+
+        // Retrieve exist allocated budget breakdown and responsible enginner
+        // If not exist, init new paygrade
         for (int i = 0; i < workPackages.length; i++) {
-            list.add(new EditableWorkPackage(workPackages[i]));
+            EditableWorkPackage wp = new EditableWorkPackage(workPackages[i]);
+
+            // Init hash table to store exist paygrades and person day
+            HashMap<String, WorkPackageAllocation> mp = new HashMap<>();
+            HashMap<String, RespEngCostEstimate> remap = new HashMap<>();
+            for (WorkPackageAllocation w : workPackages[i].getWpAllocs()) {
+                mp.put(w.getPaygrade().getName(), w);
+            }
+            for (RespEngCostEstimate r : workPackages[i].getRECEs()) {
+                remap.put(r.getPaygrade().getName(), r);
+            }
+
+            // Init from P1 - P9 row and update person day if exist
+            List<WorkPackageAllocation> wpa = new ArrayList<WorkPackageAllocation>();
+            List<RespEngCostEstimate> receList = new ArrayList<RespEngCostEstimate>();
+            for (Paygrade p : paygradeManager.getAll()) {
+                if (mp.containsKey(p.getName())) {
+                    wpa.add(mp.get(p.getName()));
+                } else {
+                    wpa.add(new WorkPackageAllocation(wp, p));
+                }
+                if (remap.containsKey(p.getName())) {
+                    receList.add(remap.get(p.getName()));
+                } else {
+                    receList.add(new RespEngCostEstimate(wp, p));
+                }
+            }
+
+            // Update allocated budget breakdown list and responsible enginner list
+            wp.setWpAllocs(wpa);
+            wp.setRECEs(receList);
+            list.add(wp);
         }
+
         System.out.println("found workpackages for project: " + workPackages[0].project.getProjectName());
         return list;
     }
@@ -130,5 +169,5 @@ public class WorkPackageList implements Serializable {
     public void setSearchPackageNumber(String searchPackageNumber) {
         this.searchPackageNumber = searchPackageNumber;
     }
-    
+
 }

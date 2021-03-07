@@ -11,7 +11,6 @@
 <h:body>
     <!-- Side bar panel will control the navigation of the application-->
     <div class="side-bar">
-
     </div>
 
     <!-- The current route -->
@@ -19,56 +18,125 @@
         <h3>EDIT WORKPACKAGE (LEAF)</h3>
     </div>
 
-    <div class="subcontainer">
-        <h:form>
-            <!-- The header input for workpackage?-->
+    <h:form>
+        <div class="subcontainer">
+            <!-- Work Package Detail Input Field -->
             <div>
-                <div class="input-column">
-                    <p>Unallocated Budget from Parent</p>
-                    <h:inputText value="#{editableWorkPackage.unAllocatedBudget}"/>
+                <div class="subtable-container">
+                    <div class="input-column">
+                        <p class="sub-title">Unallocated Budget from Parent</p>
+                        <h:inputText id="unallocatedbudget"
+                                     value="#{editableWpLeaf.unAllocatedBudget}"
+                                     required="true"/>
+                        <h:message for="unallocatedbudget" style="color: red"/>
+                    </div>
+                    <div class="input-column">
+                        <p class="sub-title">Parent WorkPackage Number: </p>
+                        <h:inputText value="#{editableWpLeaf.parentWp.workPackageNumber}" disabled="true"/>
+                    </div>
+                    <div class="input-column">
+                        <p class="sub-title">WorkPackage Number:</p>
+                        <h:inputText id="wpnumber" value="#{editableWpLeaf.workPackageNumber}"
+                                     required="true"/>
+                        <h:message for="wpnumber" style="color: red"/>
+                    </div>
                 </div>
-
-                <div class="input-column">
-                    <p>Parent Work Package:</p>
-                    <h:inputText value="#{editableWorkPackage.parentWp}"/>
-                </div>
-                <div class="input-column">
-                    <p>WorkPackage Number:</p>
-                    <h:inputText value="#{editableWorkPackage.workPackageNumber}"/>
-                </div>
-                <div class="input-column">
-                    <p>Begin Date:</p>
-                    <h:inputText value="#{editableWorkPackage.startDate}"/>
-                </div>
-                <div class="input-column">
-                    <p>End Date:</p>
-                    <h:inputText value="#{editableWorkPackage.endDate}"/>
+                <div class="subtable-container">
+                    <div class="input-column">
+                        <p class="sub-title">Begin Date:</p>
+                        <h:inputText id="begindate" value="#{editableWpLeaf.startDate}"
+                                     required="true">
+                            <f:convertDateTime pattern="yyyy-MM-dd" type="date"/>
+                        </h:inputText>
+                        <h:message for="begindate" style="color: red"/>
+                    </div>
+                    <div class="input-column">
+                        <p class="sub-title">End Date:</p>
+                        <h:inputText id="enddate" value="#{editableWpLeaf.endDate}" required="true">
+                            <f:convertDateTime pattern="yyyy-MM-dd" type="date"/>
+                        </h:inputText>
+                        <h:message for="enddate" style="color: red"/>
+                    </div>
+                    <div class="input-column">
+                        <p class="sub-title">Project Budget</p>
+                        <h:inputText value="#{editableWpLeaf.projectBudget}"/>
+                    </div>
+                    <div class="input-column">
+                        <p class="sub-title">Completed PB:</p>
+                        <h:inputText value="#{editableWpLeaf.completedBudget}"/>
+                    </div>
                 </div>
             </div>
-        </h:form>
-    </div>
-
-    <!-- Another row of input not sure what it does -->
-    <div class="subcontainer">
-        <h:form>
-            <div>
-                <div class="input-column">
-                    <p>Project Budget</p>
-                    <h:inputText value="#{editableWorkPackage.projectBudget}"/>
+        </div>
+        <div class="bottom-container">
+            <div class="subtable-container">
+                <!-- Allocated Budget Breakdown Inner Table-->
+                <div class="subtable">
+                    <h2>Allocated Budget Breakdown</h2>
+                    <h:dataTable value="#{editableWpLeaf.wpAllocs}" var="w" styleClass="data-table">
+                        <h:column>
+                            <f:facet name="header">Pay Grade</f:facet>
+                            #{w.paygrade.name}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Person Days</f:facet>
+                            <h:inputText styleClass="edit-input" value="#{w.personDaysEstimate}"/>
+                        </h:column>
+                    </h:dataTable>
+                    <div class="subtable-summary">
+                        <div class="input-column">
+                            <p class="sub-title">Budget Estimate</p>
+                            <h:inputText value="#{editableWpLeaf.allocatedBudget}" disabled="true"/>
+                        </div>
+                        <div class="input-column">
+                            <p class="sub-title">Person Day</p>
+                            <h:inputText value="#{editableWpLeaf.allocatedPersonDays}" disabled="true"/>
+                        </div>
+                        <h:commandButton value="Refresh" action="#{editableWpLeaf.refreshAllocatedBudgetCalculation}" styleClass="command-button"/>
+                    </div>
                 </div>
-
-                <div class="input-column">
-                    <p>Completed PB:</p>
-                    <h:inputText value="#{editableWorkPackage.completedBudget}"/>
+                <!-- Responsible Engineer Estimate Inner Table -->
+                <div class="subtable">
+                    <h2>Responsible Engineer Estimate</h2>
+                    <h:dataTable value="#{editableWpLeaf.RECEs}" var="r" styleClass="data-table">
+                        <h:column>
+                            <f:facet name="header">Pay Grade</f:facet>
+                            #{r.paygrade.name}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Person Days</f:facet>
+                            <h:inputText styleClass="edit-input" value="#{r.personDayEstimate}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Assignee</f:facet>
+                            <h:commandButton styleClass="secondary-command-button" value="ASSIGN" action="#{editableWpLeaf.assignResponsibleEngineer}">
+                                <f:ajax event="click" listener="#{editableWpLeaf.assignResponsibleEngineer}"/>
+                            </h:commandButton>
+                        </h:column>
+                    </h:dataTable>
+                    <div class="subtable-summary">
+                        <div class="input-column">
+                            <p class="sub-title">Budget Estimate</p>
+                            <h:inputText value="#{editableWpLeaf.respEngBudgetEstimate}" disabled="true"/>
+                        </div>
+                        <div class="input-column">
+                            <p class="sub-title">Person Day</p>
+                            <h:inputText value="#{editableWpLeaf.respEngPersonDayEstimate}" disabled="true"/>
+                        </div>
+                        <h:commandButton value="Refresh" action="#{editableWpLeaf.refreshResponsibleEngineerCalculation}" styleClass="command-button"/>
+                    </div>
                 </div>
             </div>
-        </h:form>
-    </div>
-
-    <!-- Submit button container -->
-    <div class="button-container">
-        <h:commandButton value="SUBMIT" action="EditWorkPackageBranch"/>
-    </div>
-
+            <!-- Submit button container -->
+            <div class="button-row">
+                <div class="button-container">
+                    <h:commandButton value="SUBMIT" action="#{editableWpLeaf.saveEditedWorkPackageLeaf}" />
+                </div>
+                <div class="button-container">
+                    <h:commandButton value="CANCEL" action="#{editableWpLeaf.cancelEditedWorkPackageLeaf}" />
+                </div>
+            </div>
+        </div>
+    </h:form>
 </h:body>
 </html>

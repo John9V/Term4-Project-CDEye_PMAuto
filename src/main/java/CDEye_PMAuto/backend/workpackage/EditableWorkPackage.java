@@ -6,9 +6,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.Date;
 
 import CDEye_PMAuto.backend.project.Project;
 import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
@@ -18,12 +20,13 @@ import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocation;
  * Editable version of work package.
  */
 @Named("editableWorkPackage")
-@SessionScoped
+@RequestScoped
 public class EditableWorkPackage extends WorkPackage implements Serializable {
     
     private boolean editable = false;
     private boolean deletable = false;
-    
+
+
     @Inject 
     @Dependent 
     private WorkPackageManager workPackageManager;
@@ -67,8 +70,8 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
             BigDecimal allocatedBudget, BigDecimal allocatedPersonDays, BigDecimal respEngPersonDayEstimate,
             BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
             BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
-            BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, LocalDate startDate,
-            LocalDate endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs,
+            BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, Date startDate,
+            Date endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs,
             List<WorkPackageAllocation> wpAllocs) {
         super(id, workPackageNumber, parentWp, unAllocatedBudget, allocatedBudget, allocatedPersonDays,
                 respEngPersonDayEstimate, respEngBudgetEstimate, completedBudget, completedPersonDays,
@@ -117,5 +120,8 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
     public void setDeletable(boolean deletable) {
         this.deletable = deletable;
     }
+
+
+
     
 }
