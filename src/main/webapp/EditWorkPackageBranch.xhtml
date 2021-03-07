@@ -13,51 +13,49 @@
     </div>
 
     <div class="header-bar">
-        <h3>EDIT WORKPACKAGE (LEAF)</h3>
+        <h3>EDIT WORKPACKAGE (BRANCH)</h3>
     </div>
 
     <div class="form-container">
         <h:form>
             <div class="input-row">
                 <p>WorkPackage Number</p>
-                <h:inputText id="empId" value="#{editableWorkPackage.workPackageNumber}" />
+                <h:inputText id="empId" value="#{activeWpBean.workPackageNumber}" />
                 <h:message for="empId" style="color:red" />
             </div>
 
             <div class="input-row">
-                <p>Parent WorkPackage</p>
-                <h:inputText id="uName" value="#{editableWorkPackage.parentWp}" />
-                <h:message for="uName" style="color:red" />
-            </div>
-
-            <div class="input-row">
                 <p>Begin Date</p>
-                <h:inputSecret id="pw" value="#{editableWorkPackage.startDate}" />
+                <h:inputText id="pw" value="#{activeWpBean.startDate}" >
+                    	<f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </h:inputText>
                 <h:message for="pw" style="color:red" />
             </div>
 
             <div class="input-row">
                 <p>End Date</p>
-                <h:inputText id="fn" value="#{editableWorkPackage.endDate}" />
+                <h:inputText id="fn" value="#{activeWpBean.endDate}" >
+                    	<f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </h:inputText>
                 <h:message for="fn" style="color:red" />
             </div>
 
             <div class="input-row">
                 <p>Allocated WorkPackage Budget</p>
-                <h:inputText id="ln" value="#{editableWorkPackage.allocatedBudget}" />
+                <h:inputText id="ln" value="#{activeWpBean.allocatedBudget}" />
                 <h:message for="ln" style="color:red" />
             </div>
 
             <div class="horizontal-grid">
                 <div class="input-selector">
-                    <h:selectBooleanCheckbox value="#{editableWorkPackage.leaf}" />
+                    <h:selectBooleanCheckbox value="#{activeWpBean.leaf}" />
                     <p>Is Leaf</p>
                 </div>
 
             </div>
 
             <div class="button-container">
-                <h:commandButton value="Edit" action="${editableWorkPackage.saveEdit()}" />
+                <h:commandButton value="Edit" action="${activeWpBean.mergeActive()}" />
                 <h:commandButton value="Create Child" action="${editableWorkPackage.saveEdit()}" />
             </div>
         </h:form>
