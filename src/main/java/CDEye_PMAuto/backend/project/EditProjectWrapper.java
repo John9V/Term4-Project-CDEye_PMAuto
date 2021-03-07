@@ -3,6 +3,9 @@ package CDEye_PMAuto.backend.project;
 import CDEye_PMAuto.backend.employee.Employee;
 import CDEye_PMAuto.backend.employee.EmployeeManager;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;

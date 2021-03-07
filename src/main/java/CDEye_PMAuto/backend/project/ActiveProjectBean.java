@@ -17,7 +17,7 @@ public class ActiveProjectBean extends Project implements Serializable {
 
 	@Inject ProjectManager projectManager;
 	
-	public String setActiveProjectBean() {
+	public String setActiveProjectBean(EditableProject ep) {
 		UUID uid = UUID.fromString("12121212-e89b-12d3-a456-556642430000");  
 		this.id = uid;
 		Project activeProject = projectManager.find(this.id);

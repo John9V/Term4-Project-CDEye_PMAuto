@@ -48,5 +48,5 @@ public class ProjectDashboard implements Serializable {
 		conversation.end();
 		return epb.setActiveProjectBean(p);
 	}
-	
+
 }
