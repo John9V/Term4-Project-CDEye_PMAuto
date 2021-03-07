@@ -35,7 +35,8 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
      * @param selectedWp selected EditableWorkPackage from WPList View
      * @return Edit selected workpackage leaf
      */
-    public String editSelectedWP(EditableWorkPackage selectedWp) {
+    public String editSelectedWP(WorkPackage selectedWp) {
+    	
         this.id = selectedWp.id;
         this.workPackageNumber = selectedWp.workPackageNumber;
         this.parentWp = selectedWp.parentWp;
@@ -57,8 +58,16 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
         this.project = selectedWp.project;
         this.RECEs = selectedWp.RECEs;
         this.wpAllocs = selectedWp.wpAllocs;
-
-        return "EDIT_WP_LEAF";
+        
+        if (this.isLeaf) {
+        	return "EDIT_WP_LEAF";
+        } else {
+        	return "EditWorkPackageBranch";
+        }
+        
+        
+        
+        
     }
 
     /**
