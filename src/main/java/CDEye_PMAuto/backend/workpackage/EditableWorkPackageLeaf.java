@@ -20,7 +20,7 @@ import java.util.List;
  * Handles the input forms of selected editable work package leaf
  */
 @Named("editableWpLeaf")
-@ApplicationScoped
+@SessionScoped
 public class EditableWorkPackageLeaf extends WorkPackage implements Serializable {
     @Inject
     private WorkPackageManager workPackageManager;
@@ -57,6 +57,10 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
         this.projectBudget = selectedWp.projectBudget;
         this.project = selectedWp.project;
         this.RECEs = selectedWp.RECEs;
+//        System.out.println("WORK PACKAGE ALLOCS");
+//        for (WorkPackageAllocation w : this.getWpAllocs()) {
+//            System.out.println(w.getPaygrade().getName() + ": " + w.getPersonDaysEstimate());
+//        }
         this.wpAllocs = selectedWp.wpAllocs;
         
         if (this.isLeaf) {
@@ -90,13 +94,14 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
             + "\nRECE Budget: " + this.respEngBudgetEstimate
             + "\nRECE Person Days: " + this.respEngPersonDayEstimate);
         // Workpackage Allocation DEBUG
+        System.out.println("WORK PACKAGE ALLOCS");
         for (WorkPackageAllocation w : this.getWpAllocs()) {
             System.out.println(w.getPaygrade().getName() + ": " + w.getPersonDaysEstimate());
         }
         // Responsible Engineer DEBUG
-        for (RespEngCostEstimate r : this.getRECEs()) {
-            System.out.println(r.getPaygrade().getName() + ": " + r.getPersonDayEstimate());
-        }
+//        for (RespEngCostEstimate r : this.getRECEs()) {
+//            System.out.println(r.getPaygrade().getName() + ": " + r.getPersonDayEstimate());
+//        }
 
         // Update this selected workpackage leaf data into database
         workPackageManager.updateWorkPackageLeaf(this);

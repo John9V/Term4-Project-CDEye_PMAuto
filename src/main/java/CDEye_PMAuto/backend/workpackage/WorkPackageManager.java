@@ -103,9 +103,6 @@ public class WorkPackageManager implements Serializable {
     }
     
     public WorkPackage[] findWpsByProject(Project p) {
-    	System.out.println("-----------------");
-    	System.out.println("projid: " + p.getId());
-    	System.out.println("-----------------");
         TypedQuery<WorkPackage> query = em.createQuery(
                 "SELECT wp FROM WorkPackage wp WHERE wp.project.id = :projectId", WorkPackage.class)
                 .setParameter("projectId", p.getId());
@@ -120,10 +117,6 @@ public class WorkPackageManager implements Serializable {
     }
     
     public WorkPackage[] findWpsByPkgNumAndProj(String workPackageNumber, Project p) {
-    	System.out.println("-----------------");
-    	System.out.println("wpnum: " + workPackageNumber);
-    	System.out.println("projid: " + p.getId());
-    	System.out.println("-----------------");
     	TypedQuery<WorkPackage> query = em.createQuery(
                 "SELECT wp FROM WorkPackage wp WHERE wp.workPackageNumber = :workPackageNumber AND wp.project.id = :projectId", WorkPackage.class)
     			.setParameter("workPackageNumber", workPackageNumber)

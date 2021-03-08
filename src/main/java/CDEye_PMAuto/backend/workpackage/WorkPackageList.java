@@ -63,7 +63,6 @@ public class WorkPackageList implements Serializable {
     	Project activeProj = new Project(apb.getId(), apb.getProjectName(), apb.getProjectNumber(), 
     			apb.getProjManager(), apb.getStartDate(), apb.getEndDate(), apb.getEstimateBudget(), 
     			apb.getMarkUpRate(), apb.getProjectBudget());
-    	System.out.println("go look for projects with id " + activeProj.getId());
         WorkPackage[] workPackages = workPackageManager.findWpsByProject(activeProj);
         if (searchPackageNumber != null
                 && searchPackageNumber.length() >= 1) {
@@ -109,16 +108,11 @@ public class WorkPackageList implements Serializable {
             wp.setRECEs(receList);
             list.add(wp);
         }
-
-        System.out.println("found workpackages for project: " + workPackages[0].project.getProjectName());
         return list;
     }
     
     public void search() {
-        System.out.println("custom search method start");
         refreshList();
-        System.out.println("refreshing list");
-        System.out.println("custom search method finish");
     }
     
     public void clearSearch() {

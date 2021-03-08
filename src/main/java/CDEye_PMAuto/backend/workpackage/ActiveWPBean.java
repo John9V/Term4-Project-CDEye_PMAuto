@@ -45,7 +45,6 @@ public class ActiveWPBean extends WorkPackage implements Serializable {
         this.RECEs = wp.RECEs;
         this.wpAllocs = wp.wpAllocs;
         
-		System.out.println("Set active wp - number is " + wp.workPackageNumber);
 		if (wp.isLeaf) {
 			ewpl.editSelectedWP(this);
 			return "EditWorkPackageLeaf";
@@ -55,7 +54,6 @@ public class ActiveWPBean extends WorkPackage implements Serializable {
 	}
 	
 	public String mergeActive() {
-	    System.out.println("Calling merge");
 	    WorkPackage newWp = new WorkPackage();
 	    newWp.id = this.id;
 	    newWp.workPackageNumber = this.workPackageNumber;
@@ -78,21 +76,12 @@ public class ActiveWPBean extends WorkPackage implements Serializable {
 	    newWp.project = this.project;
 	    newWp.RECEs = this.RECEs;
 	    newWp.wpAllocs = this.wpAllocs;
-	    System.out.println("Before merge " + newWp.getWorkPackageNumber());
 	    wpm.updateWorkPackage(newWp);
-	        System.out.println("Done merge " + newWp.getWorkPackageNumber());
 	        return "WPList";
 	    
 	}
 
 
-//	   public String getNewparentwpnum() {
-//	        return newparentwpnum;
-//	    }
-//
-//	    public void setNewparentwpnum(String newparentwpnum) {
-//	        this.newparentwpnum = newparentwpnum;
-//	    }
 
 	
 	

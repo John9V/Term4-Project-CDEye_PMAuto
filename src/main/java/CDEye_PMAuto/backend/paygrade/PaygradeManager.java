@@ -26,7 +26,6 @@ public class PaygradeManager implements Serializable {
         for (int i = 0; i < paygradeArr.length; i++) {
         	paygradeArr[i] = paygrades.get(i);
         }
-        System.out.println("Found paygrades: " + paygrades);
         return paygradeArr;
 	}
 
