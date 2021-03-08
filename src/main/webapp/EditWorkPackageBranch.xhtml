@@ -42,7 +42,7 @@
 
             <div class="input-row">
                 <p>Allocated WorkPackage Budget</p>
-                <h:inputText id="ln" value="#{activeWpBean.allocatedBudget}" />
+                <h:outputText id="ln" value="#{activeWpBean.calcAllocatedBudget()}" />
                 <h:message for="ln" style="color:red" />
             </div>
 

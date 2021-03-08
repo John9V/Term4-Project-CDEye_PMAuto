@@ -40,17 +40,8 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
         this.id = selectedWp.id;
         this.workPackageNumber = selectedWp.workPackageNumber;
         this.parentWp = selectedWp.parentWp;
-        this.unAllocatedBudget = selectedWp.unAllocatedBudget;
-        this.allocatedBudget = selectedWp.allocatedBudget;
-        this.allocatedPersonDays = selectedWp.allocatedPersonDays;
-        this.respEngPersonDayEstimate = selectedWp.respEngPersonDayEstimate;
-        this.respEngBudgetEstimate = selectedWp.respEngBudgetEstimate;
         this.completedBudget = selectedWp.completedBudget;
         this.completedPersonDays = selectedWp.completedPersonDays;
-        this.completedVarianceProjectPD = selectedWp.completedVarianceProjectPD;
-        this.completedVarianceProjectBudget = selectedWp.completedVarianceProjectBudget;
-        this.respEngEstVarianceProjectPD = selectedWp.respEngEstVarianceProjectPD;
-        this.respEngEstVarianceProjectBudget = selectedWp.respEngEstVarianceProjectBudget;
         this.startDate = selectedWp.startDate;
         this.endDate = selectedWp.endDate;
         this.isLeaf = selectedWp.isLeaf;
@@ -68,10 +59,6 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
         } else {
         	return "EditWorkPackageBranch";
         }
-        
-        
-        
-        
     }
 
     /**
@@ -83,16 +70,12 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
         calculateResponsibleEngineer();
 
         // WorkPackage detail DEBUG
-        System.out.println("Unallocated Budget: " + this.unAllocatedBudget
+        System.out.println("Unallocated Budget: "
             + "\nWork package Number: " + this.workPackageNumber
             + "\nBegin Date: " + this.startDate
             + "\nEnd Date: " + this.endDate
             + "\nProject Budget: " + this.projectBudget
-            + "\nCompleted Project Budget: " + this.completedBudget
-            + "\nAllocated Budget Estimate: " + this.allocatedBudget
-            + "\nAllocated Budget Person Days: " + this.allocatedPersonDays
-            + "\nRECE Budget: " + this.respEngBudgetEstimate
-            + "\nRECE Person Days: " + this.respEngPersonDayEstimate);
+            + "\nCompleted Project Budget: " + this.completedBudget);
         // Workpackage Allocation DEBUG
         System.out.println("WORK PACKAGE ALLOCS");
         for (WorkPackageAllocation w : this.getWpAllocs()) {
@@ -142,8 +125,6 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
             budgetEstimate = budgetEstimate.add(res);
             personDays = personDays.add(w.getPersonDaysEstimate());
         }
-        this.allocatedPersonDays = personDays;
-        this.allocatedBudget = budgetEstimate;
     }
 
     /**
@@ -161,8 +142,6 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
             budgetEstimate = budgetEstimate.add(res);
             personDays = personDays.add(r.getPersonDayEstimate());
         }
-        this.respEngBudgetEstimate = budgetEstimate;
-        this.respEngPersonDayEstimate = personDays;
     }
 
     // TODO

@@ -3,6 +3,7 @@ package CDEye_PMAuto.backend.workpackage;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +24,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 
+import CDEye_PMAuto.backend.employee.Employee;
 import CDEye_PMAuto.backend.project.Project;
 import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
 import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocation;
@@ -47,29 +49,8 @@ public class WorkPackage implements Serializable {
 	@JoinColumn(name="parentworkpackage")
 	protected WorkPackage parentWp;
 	
-	
-	/** Budget that this WP has, but is not yet allocated further. */
-	@Column(name="unallocatedbudget")
-    protected BigDecimal unAllocatedBudget;
-	
-	
-	/** Budget that this WP has and is allocated further. */
-	@Column(name="allocatedbudget")
-	protected BigDecimal allocatedBudget;
-	
-	/** Person days this WP has that are allocated further. */
-	@Column(name="allocatedpersondays")
-    protected BigDecimal allocatedPersonDays;
-	
-	
-	/** Person days amount that the responsible engineer has estimated. */
-	@Column(name="respengpersondayestimate")
-    protected BigDecimal respEngPersonDayEstimate;
-    
-	/** Budget amount that the the responsible engineer has estimated. */
-    @Column(name="respengbudgetestimate")
-    protected BigDecimal respEngBudgetEstimate;
-	
+	@Column(name="projectbudget")
+	protected BigDecimal projectBudget;
 	
     /**
      * Budget sum from this and all children WP that has been used up / is payable to the
@@ -85,25 +66,6 @@ public class WorkPackage implements Serializable {
 	@Column(name="completedpersondays")
 	protected BigDecimal completedPersonDays; //sum
 	
-	
-	/** Variance of allocated person days and completed person days. */
-	@Column(name="completedvarianceprojectpd")
-    protected BigDecimal completedVarianceProjectPD;
-	
-	/** Variance of allocated budget and completed budget. */
-	@Column(name="completedvarianceprojectbudget")
-    protected BigDecimal completedVarianceProjectBudget;
-	
-	
-	/** Variance of person days relating to the responsible engineer estimate. */
-	@Column(name="respengestvarianceprojectpd")
-    protected BigDecimal respEngEstVarianceProjectPD;
-    
-	/** Variance of budget relating to the responsible engineer estimate. */
-    @Column(name="respengestvarianceprojectbudget")
-    protected BigDecimal respEngEstVarianceProjectBudget;
-	
-	
     /** Start date of the package. */
 	@Column(name="startdate")
     protected Date startDate;
@@ -112,14 +74,10 @@ public class WorkPackage implements Serializable {
     @Column(name="enddate")
     protected Date endDate;
     
-	
     /** Boolean for identifying if the package has children or not. */
 	@Column(name="isleaf")
 	protected boolean isLeaf;
 
-	@Column(name="projectbudget")
-	protected BigDecimal projectBudget;
-	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="project")
 	protected Project project;
@@ -132,6 +90,10 @@ public class WorkPackage implements Serializable {
 	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     protected List<WorkPackageAllocation> wpAllocs;
 	
+	@Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(mappedBy="parentWp", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	protected List<WorkPackage> childPackages;
+	
 	/**
 	 * Default no parameter constructor.
 	 */
@@ -142,28 +104,16 @@ public class WorkPackage implements Serializable {
     /**
      * Constructor with all parameters.
      */
-    public WorkPackage(UUID id, String workPackageNumber, WorkPackage parentWp, BigDecimal unAllocatedBudget,
-            BigDecimal allocatedBudget, BigDecimal allocatedPersonDays, BigDecimal respEngPersonDayEstimate,
-            BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
-            BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
-            BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, Date startDate,
+    public WorkPackage(UUID id, String workPackageNumber, WorkPackage parentWp, BigDecimal completedBudget, BigDecimal completedPersonDays,
+            Date startDate,
             Date endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs,
-            List<WorkPackageAllocation> wpAllocs) {
+            List<WorkPackageAllocation> wpAllocs, List<WorkPackage> childPackages) {
         super();
         this.id = id;
         this.workPackageNumber = workPackageNumber;
         this.parentWp = parentWp;
-        this.unAllocatedBudget = unAllocatedBudget;
-        this.allocatedBudget = allocatedBudget;
-        this.allocatedPersonDays = allocatedPersonDays;
-        this.respEngPersonDayEstimate = respEngPersonDayEstimate;
-        this.respEngBudgetEstimate = respEngBudgetEstimate;
         this.completedBudget = completedBudget;
         this.completedPersonDays = completedPersonDays;
-        this.completedVarianceProjectPD = completedVarianceProjectPD;
-        this.completedVarianceProjectBudget = completedVarianceProjectBudget;
-        this.respEngEstVarianceProjectPD = respEngEstVarianceProjectPD;
-        this.respEngEstVarianceProjectBudget = respEngEstVarianceProjectBudget;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isLeaf = isLeaf;
@@ -171,34 +121,22 @@ public class WorkPackage implements Serializable {
         this.project = project;
         this.RECEs = RECEs;
         this.wpAllocs = wpAllocs;
-        
+        this.childPackages = childPackages;
     }
 
     /**
      * Constructor without the id parameter.
      */
-    public WorkPackage(String workPackageNumber, WorkPackage parentWp, BigDecimal unAllocatedBudget,
-            BigDecimal allocatedBudget, BigDecimal allocatedPersonDays, BigDecimal respEngPersonDayEstimate,
-            BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
-            BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
-            BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, Date startDate,
+    public WorkPackage(String workPackageNumber, WorkPackage parentWp, BigDecimal completedBudget, BigDecimal completedPersonDays,
+            Date startDate,
             Date endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs,
-            List<WorkPackageAllocation> wpAllocs) {
+            List<WorkPackageAllocation> wpAllocs, List<WorkPackage> childPackages) {
         super();
         this.id = UUID.randomUUID();
         this.workPackageNumber = workPackageNumber;
         this.parentWp = parentWp;
-        this.unAllocatedBudget = unAllocatedBudget;
-        this.allocatedBudget = allocatedBudget;
-        this.allocatedPersonDays = allocatedPersonDays;
-        this.respEngPersonDayEstimate = respEngPersonDayEstimate;
-        this.respEngBudgetEstimate = respEngBudgetEstimate;
         this.completedBudget = completedBudget;
         this.completedPersonDays = completedPersonDays;
-        this.completedVarianceProjectPD = completedVarianceProjectPD;
-        this.completedVarianceProjectBudget = completedVarianceProjectBudget;
-        this.respEngEstVarianceProjectPD = respEngEstVarianceProjectPD;
-        this.respEngEstVarianceProjectBudget = respEngEstVarianceProjectBudget;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isLeaf = isLeaf;
@@ -206,6 +144,7 @@ public class WorkPackage implements Serializable {
         this.project = project;
         this.RECEs = RECEs;
         this.wpAllocs = wpAllocs;
+        this.childPackages = childPackages;
     }
     
     /**
@@ -216,17 +155,8 @@ public class WorkPackage implements Serializable {
         this.id = wp.id;
         this.workPackageNumber = wp.workPackageNumber;
         this.parentWp = wp.parentWp;
-        this.unAllocatedBudget = wp.unAllocatedBudget;
-        this.allocatedBudget = wp.allocatedBudget;
-        this.allocatedPersonDays = wp.allocatedPersonDays;
-        this.respEngPersonDayEstimate = wp.respEngPersonDayEstimate;
-        this.respEngBudgetEstimate = wp.respEngBudgetEstimate;
         this.completedBudget = wp.completedBudget;
         this.completedPersonDays = wp.completedPersonDays;
-        this.completedVarianceProjectPD = wp.completedVarianceProjectPD;
-        this.completedVarianceProjectBudget = wp.completedVarianceProjectBudget;
-        this.respEngEstVarianceProjectPD = wp.respEngEstVarianceProjectPD;
-        this.respEngEstVarianceProjectBudget = wp.respEngEstVarianceProjectBudget;
         this.startDate = wp.startDate;
         this.endDate = wp.endDate;
         this.isLeaf = wp.isLeaf;
@@ -234,6 +164,7 @@ public class WorkPackage implements Serializable {
         this.project = wp.project;
         this.RECEs = wp.RECEs;
         this.wpAllocs = wp.wpAllocs;
+        this.childPackages = wp.childPackages;
     }
     
     /**
@@ -244,17 +175,8 @@ public class WorkPackage implements Serializable {
         this.id = wp.id;
         this.workPackageNumber = wp.workPackageNumber;
         this.parentWp = wp.parentWp;
-        this.unAllocatedBudget = wp.unAllocatedBudget;
-        this.allocatedBudget = wp.allocatedBudget;
-        this.allocatedPersonDays = wp.allocatedPersonDays;
-        this.respEngPersonDayEstimate = wp.respEngPersonDayEstimate;
-        this.respEngBudgetEstimate = wp.respEngBudgetEstimate;
         this.completedBudget = wp.completedBudget;
         this.completedPersonDays = wp.completedPersonDays;
-        this.completedVarianceProjectPD = wp.completedVarianceProjectPD;
-        this.completedVarianceProjectBudget = wp.completedVarianceProjectBudget;
-        this.respEngEstVarianceProjectPD = wp.respEngEstVarianceProjectPD;
-        this.respEngEstVarianceProjectBudget = wp.respEngEstVarianceProjectBudget;
         this.startDate = wp.startDate;
         this.endDate = wp.endDate;
         this.isLeaf = wp.isLeaf;
@@ -262,6 +184,7 @@ public class WorkPackage implements Serializable {
         this.project = wp.project;
         this.RECEs = wp.RECEs;
         this.wpAllocs = wp.wpAllocs;
+        this.childPackages = wp.childPackages;
     }
     
     /**
@@ -271,17 +194,8 @@ public class WorkPackage implements Serializable {
         this.id = wp.id;
         this.workPackageNumber = wp.workPackageNumber;
         this.parentWp = wp.parentWp;
-        this.unAllocatedBudget = wp.unAllocatedBudget;
-        this.allocatedBudget = wp.allocatedBudget;
-        this.allocatedPersonDays = wp.allocatedPersonDays;
-        this.respEngPersonDayEstimate = wp.respEngPersonDayEstimate;
-        this.respEngBudgetEstimate = wp.respEngBudgetEstimate;
         this.completedBudget = wp.completedBudget;
         this.completedPersonDays = wp.completedPersonDays;
-        this.completedVarianceProjectPD = wp.completedVarianceProjectPD;
-        this.completedVarianceProjectBudget = wp.completedVarianceProjectBudget;
-        this.respEngEstVarianceProjectPD = wp.respEngEstVarianceProjectPD;
-        this.respEngEstVarianceProjectBudget = wp.respEngEstVarianceProjectBudget;
         this.startDate = wp.startDate;
         this.endDate = wp.endDate;
         this.isLeaf = wp.isLeaf;
@@ -289,8 +203,77 @@ public class WorkPackage implements Serializable {
         this.project = wp.project;
         this.RECEs = wp.RECEs;
         this.wpAllocs = wp.wpAllocs;
+        this.childPackages = wp.childPackages;
+    }
+    
+    public BigDecimal calcAllocatedBudget() {
+    	if (this.isLeaf) {
+    		BigDecimal personDays = new BigDecimal(0);
+            BigDecimal budgetEstimate = new BigDecimal(0);
+            for (WorkPackageAllocation w : this.getWpAllocs()) {
+                BigDecimal salary = w.getPaygrade().getSalary();
+                BigDecimal days = w.getPersonDaysEstimate();
+                BigDecimal res = salary.multiply(days);
+
+                budgetEstimate = budgetEstimate.add(res);
+                personDays = personDays.add(w.getPersonDaysEstimate());
+            }
+            return budgetEstimate;
+    	} else {
+    		BigDecimal budgetEstimate = new BigDecimal(0);
+            for (WorkPackage w : this.childPackages) {
+                budgetEstimate = budgetEstimate.add(w.calcAllocatedBudget());
+            }
+            return budgetEstimate;
+    	}
+    }
+    
+    public BigDecimal calcUnallocatedBudget() {
+    	return this.projectBudget.subtract(calcAllocatedBudget());
     }
 
+    public BigDecimal calcAllocatedPersonDays() {
+    	BigDecimal personDays = new BigDecimal(0);
+        BigDecimal budgetEstimate = new BigDecimal(0);
+        for (WorkPackageAllocation w : this.getWpAllocs()) {
+            BigDecimal salary = w.getPaygrade().getSalary();
+            BigDecimal days = w.getPersonDaysEstimate();
+            BigDecimal res = salary.multiply(days);
+
+            budgetEstimate = budgetEstimate.add(res);
+            personDays = personDays.add(w.getPersonDaysEstimate());
+        }
+        return personDays;
+    }
+    
+    public BigDecimal calcRespEngBudget() {
+    	BigDecimal personDays = new BigDecimal(0);
+        BigDecimal budgetEstimate = new BigDecimal(0);
+        for (RespEngCostEstimate r : this.RECEs) {
+            BigDecimal salary = r.getPaygrade().getSalary();
+            BigDecimal days = r.getPersonDayEstimate();
+            BigDecimal res = salary.multiply(days);
+
+            budgetEstimate = budgetEstimate.add(res);
+            personDays = personDays.add(r.getPersonDayEstimate());
+        }
+        return budgetEstimate;
+    }
+    
+    public BigDecimal calcRespEngPersonDays() {
+    	BigDecimal personDays = new BigDecimal(0);
+        BigDecimal budgetEstimate = new BigDecimal(0);
+        for (RespEngCostEstimate r : this.RECEs) {
+            BigDecimal salary = r.getPaygrade().getSalary();
+            BigDecimal days = r.getPersonDayEstimate();
+            BigDecimal res = salary.multiply(days);
+
+            budgetEstimate = budgetEstimate.add(res);
+            personDays = personDays.add(r.getPersonDayEstimate());
+        }
+        return personDays;
+    }
+    
     /**
      * @return the id
      */
@@ -334,76 +317,6 @@ public class WorkPackage implements Serializable {
     }
 
     /**
-     * @return the unAllocatedBudget
-     */
-    public BigDecimal getUnAllocatedBudget() {
-        return unAllocatedBudget;
-    }
-
-    /**
-     * @param unAllocatedBudget the unAllocatedBudget to set
-     */
-    public void setUnAllocatedBudget(BigDecimal unAllocatedBudget) {
-        this.unAllocatedBudget = unAllocatedBudget;
-    }
-
-    /**
-     * @return the allocatedBudget
-     */
-    public BigDecimal getAllocatedBudget() {
-        return allocatedBudget;
-    }
-
-    /**
-     * @param allocatedBudget the allocatedBudget to set
-     */
-    public void setAllocatedBudget(BigDecimal allocatedBudget) {
-        this.allocatedBudget = allocatedBudget;
-    }
-
-    /**
-     * @return the allocatedPersonDays
-     */
-    public BigDecimal getAllocatedPersonDays() {
-        return allocatedPersonDays;
-    }
-
-    /**
-     * @param allocatedPersonDays the allocatedPersonDays to set
-     */
-    public void setAllocatedPersonDays(BigDecimal allocatedPersonDays) {
-        this.allocatedPersonDays = allocatedPersonDays;
-    }
-
-    /**
-     * @return the respEngPersonDayEstimate
-     */
-    public BigDecimal getRespEngPersonDayEstimate() {
-        return respEngPersonDayEstimate;
-    }
-
-    /**
-     * @param respEngPersonDayEstimate the respEngPersonDayEstimate to set
-     */
-    public void setRespEngPersonDayEstimate(BigDecimal respEngPersonDayEstimate) {
-        this.respEngPersonDayEstimate = respEngPersonDayEstimate;
-    }
-
-    /**
-     * @return the respEngBudgetEstimate
-     */
-    public BigDecimal getRespEngBudgetEstimate() {
-        return respEngBudgetEstimate;
-    }
-
-    /**
-     * @param respEngBudgetEstimate the respEngBudgetEstimate to set
-     */
-    public void setRespEngBudgetEstimate(BigDecimal respEngBudgetEstimate) {
-        this.respEngBudgetEstimate = respEngBudgetEstimate;
-    }
-
-    /**
      * @return the completedBudget
      */
     public BigDecimal getCompletedBudget() {
@@ -429,62 +342,6 @@ public class WorkPackage implements Serializable {
      */
     public void setCompletedPersonDays(BigDecimal completedPersonDays) {
         this.completedPersonDays = completedPersonDays;
-    }
-
-    /**
-     * @return the completedVarianceProjectPD
-     */
-    public BigDecimal getCompletedVarianceProjectPD() {
-        return completedVarianceProjectPD;
-    }
-
-    /**
-     * @param completedVarianceProjectPD the completedVarianceProjectPD to set
-     */
-    public void setCompletedVarianceProjectPD(BigDecimal completedVarianceProjectPD) {
-        this.completedVarianceProjectPD = completedVarianceProjectPD;
-    }
-
-    /**
-     * @return the completedVarianceProjectBudget
-     */
-    public BigDecimal getCompletedVarianceProjectBudget() {
-        return completedVarianceProjectBudget;
-    }
-
-    /**
-     * @param completedVarianceProjectBudget the completedVarianceProjectBudget to set
-     */
-    public void setCompletedVarianceProjectBudget(BigDecimal completedVarianceProjectBudget) {
-        this.completedVarianceProjectBudget = completedVarianceProjectBudget;
-    }
-
-    /**
-     * @return the respEngEstVarianceProjectPD
-     */
-    public BigDecimal getRespEngEstVarianceProjectPD() {
-        return respEngEstVarianceProjectPD;
-    }
-
-    /**
-     * @param respEngEstVarianceProjectPD the respEngEstVarianceProjectPD to set
-     */
-    public void setRespEngEstVarianceProjectPD(BigDecimal respEngEstVarianceProjectPD) {
-        this.respEngEstVarianceProjectPD = respEngEstVarianceProjectPD;
-    }
-
-    /**
-     * @return the respEngEstVarianceProjectBudget
-     */
-    public BigDecimal getRespEngEstVarianceProjectBudget() {
-        return respEngEstVarianceProjectBudget;
-    }
-
-    /**
-     * @param respEngEstVarianceProjectBudget the respEngEstVarianceProjectBudget to set
-     */
-    public void setRespEngEstVarianceProjectBudget(BigDecimal respEngEstVarianceProjectBudget) {
-        this.respEngEstVarianceProjectBudget = respEngEstVarianceProjectBudget;
     }
 
     /**

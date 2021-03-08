@@ -47,8 +47,7 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">AllocatedBudget</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{wp.allocatedBudget}" rendered="#{wp.editable}"/>
-                    <h:outputText styleClass="edit-output" value="#{wp.allocatedBudget}" rendered="#{not wp.editable}"/>
+                    <h:outputText styleClass="edit-output" value="#{wp.calcAllocatedBudget()}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Edit</f:facet>

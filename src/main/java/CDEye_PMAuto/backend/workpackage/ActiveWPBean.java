@@ -26,17 +26,8 @@ public class ActiveWPBean extends WorkPackage implements Serializable {
         this.id = wp.id;
         this.workPackageNumber = wp.workPackageNumber;
         this.parentWp = wp.parentWp;
-        this.unAllocatedBudget = wp.unAllocatedBudget;
-        this.allocatedBudget = wp.allocatedBudget;
-        this.allocatedPersonDays = wp.allocatedPersonDays;
-        this.respEngPersonDayEstimate = wp.respEngPersonDayEstimate;
-        this.respEngBudgetEstimate = wp.respEngBudgetEstimate;
         this.completedBudget = wp.completedBudget;
         this.completedPersonDays = wp.completedPersonDays;
-        this.completedVarianceProjectPD = wp.completedVarianceProjectPD;
-        this.completedVarianceProjectBudget = wp.completedVarianceProjectBudget;
-        this.respEngEstVarianceProjectPD = wp.respEngEstVarianceProjectPD;
-        this.respEngEstVarianceProjectBudget = wp.respEngEstVarianceProjectBudget;
         this.startDate = wp.startDate;
         this.endDate = wp.endDate;
         this.isLeaf = wp.isLeaf;
@@ -44,6 +35,7 @@ public class ActiveWPBean extends WorkPackage implements Serializable {
         this.project = wp.project;
         this.RECEs = wp.RECEs;
         this.wpAllocs = wp.wpAllocs;
+        this.childPackages = wp.childPackages;
         
 		if (wp.isLeaf) {
 			ewpl.editSelectedWP(this);
@@ -58,17 +50,8 @@ public class ActiveWPBean extends WorkPackage implements Serializable {
 	    newWp.id = this.id;
 	    newWp.workPackageNumber = this.workPackageNumber;
 	    newWp.parentWp = this.parentWp;
-	    newWp.unAllocatedBudget = this.unAllocatedBudget;
-	    newWp.allocatedBudget = this.allocatedBudget;
-	    newWp.allocatedPersonDays = this.allocatedPersonDays;
-	    newWp.respEngPersonDayEstimate = this.respEngPersonDayEstimate;
-	    newWp.respEngBudgetEstimate = this.respEngBudgetEstimate;
 	    newWp.completedBudget = this.completedBudget;
 	    newWp.completedPersonDays = this.completedPersonDays;
-	    newWp.completedVarianceProjectPD = this.completedVarianceProjectPD;
-	    newWp.completedVarianceProjectBudget = this.completedVarianceProjectBudget;
-	    newWp.respEngEstVarianceProjectPD = this.respEngEstVarianceProjectPD;
-	    newWp.respEngEstVarianceProjectBudget = this.respEngEstVarianceProjectBudget;
 	    newWp.startDate = this.startDate;
 	    newWp.endDate = this.endDate;
 	    newWp.isLeaf = this.isLeaf;
@@ -76,6 +59,7 @@ public class ActiveWPBean extends WorkPackage implements Serializable {
 	    newWp.project = this.project;
 	    newWp.RECEs = this.RECEs;
 	    newWp.wpAllocs = this.wpAllocs;
+	    newWp.childPackages = this.childPackages;
 	    wpm.updateWorkPackage(newWp);
 	        return "WPList";
 	    

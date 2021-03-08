@@ -43,17 +43,8 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
         this.id = wp.id;
         this.workPackageNumber = wp.workPackageNumber;
         this.parentWp = wp.parentWp;
-        this.unAllocatedBudget = wp.unAllocatedBudget;
-        this.allocatedBudget = wp.allocatedBudget;
-        this.allocatedPersonDays = wp.allocatedPersonDays;
-        this.respEngPersonDayEstimate = wp.respEngPersonDayEstimate;
-        this.respEngBudgetEstimate = wp.respEngBudgetEstimate;
         this.completedBudget = wp.completedBudget;
         this.completedPersonDays = wp.completedPersonDays;
-        this.completedVarianceProjectPD = wp.completedVarianceProjectPD;
-        this.completedVarianceProjectBudget = wp.completedVarianceProjectBudget;
-        this.respEngEstVarianceProjectPD = wp.respEngEstVarianceProjectPD;
-        this.respEngEstVarianceProjectBudget = wp.respEngEstVarianceProjectBudget;
         this.startDate = wp.startDate;
         this.endDate = wp.endDate;
         this.isLeaf = wp.isLeaf;
@@ -61,22 +52,17 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
         this.project = wp.project;
         this.RECEs = wp.RECEs;
         this.wpAllocs = wp.wpAllocs;
+        this.childPackages = wp.childPackages;
     }
     
     /**
      * Constructor with all parameters.
      */
-    public EditableWorkPackage(UUID id, String workPackageNumber, WorkPackage parentWp, BigDecimal unAllocatedBudget,
-            BigDecimal allocatedBudget, BigDecimal allocatedPersonDays, BigDecimal respEngPersonDayEstimate,
-            BigDecimal respEngBudgetEstimate, BigDecimal completedBudget, BigDecimal completedPersonDays,
-            BigDecimal completedVarianceProjectPD, BigDecimal completedVarianceProjectBudget,
-            BigDecimal respEngEstVarianceProjectPD, BigDecimal respEngEstVarianceProjectBudget, Date startDate,
+    public EditableWorkPackage(UUID id, String workPackageNumber, WorkPackage parentWp, BigDecimal completedBudget, BigDecimal completedPersonDays,
+            Date startDate,
             Date endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs,
-            List<WorkPackageAllocation> wpAllocs) {
-        super(id, workPackageNumber, parentWp, unAllocatedBudget, allocatedBudget, allocatedPersonDays,
-                respEngPersonDayEstimate, respEngBudgetEstimate, completedBudget, completedPersonDays,
-                completedVarianceProjectPD, completedVarianceProjectBudget, respEngEstVarianceProjectPD,
-                respEngEstVarianceProjectBudget, startDate, endDate, isLeaf, projectBudget, project, RECEs, wpAllocs);
+            List<WorkPackageAllocation> wpAllocs, List<WorkPackage> childPackages) {
+        super(id, workPackageNumber, parentWp, completedBudget, completedPersonDays, startDate, endDate, isLeaf, projectBudget, project, RECEs, wpAllocs, childPackages);
     }
     
     public void saveEdit() {

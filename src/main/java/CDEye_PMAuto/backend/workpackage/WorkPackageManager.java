@@ -181,7 +181,6 @@ public class WorkPackageManager implements Serializable {
             personDays.add(allocation.getPersonDaysEstimate());
         }
         
-        wp.setAllocatedPersonDays(personDays);
         return personDays;
     }
     
@@ -213,7 +212,6 @@ public class WorkPackageManager implements Serializable {
             }
         }
         
-        wp.setAllocatedBudget(budget);
         return budget;
     }
     
@@ -232,7 +230,6 @@ public class WorkPackageManager implements Serializable {
             personDays.add(estimatePD.getPersonDayEstimate());
         }
         
-        wp.setRespEngPersonDayEstimate(personDays);
         return personDays;
     }
     
@@ -253,7 +250,6 @@ public class WorkPackageManager implements Serializable {
             budget.add(calculatedCost);
         }
         
-        wp.setRespEngBudgetEstimate(budget);
         return budget;
     }
     
@@ -355,18 +351,14 @@ public class WorkPackageManager implements Serializable {
      */
 	public void updateWorkPackageLeaf(EditableWorkPackageLeaf w) {
         WorkPackage wp = getByUUID(String.valueOf(w.getId()));
-        wp.unAllocatedBudget = w.unAllocatedBudget;
         wp.workPackageNumber = w.workPackageNumber;
         wp.startDate = w.startDate;
         wp.endDate = w.endDate;
         wp.projectBudget = w.projectBudget;
         wp.completedBudget = w.completedBudget;
-        wp.allocatedBudget = w.allocatedBudget;
-        wp.allocatedPersonDays = w.allocatedPersonDays;
-        wp.respEngPersonDayEstimate = w.respEngPersonDayEstimate;
-        wp.respEngBudgetEstimate = w.respEngBudgetEstimate;
         wp.RECEs = w.RECEs;
         wp.wpAllocs = w.wpAllocs;
+        wp.childPackages = w.childPackages;
         em.merge(wp);
         System.out.println("Update work package leaf" + wp.workPackageNumber);
     }
