@@ -83,11 +83,11 @@ public class WorkPackage implements Serializable {
 	protected Project project;
 	
 	@Fetch(value = FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	protected List<RespEngCostEstimate> RECEs;
 	
 	@Fetch(value = FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     protected List<WorkPackageAllocation> wpAllocs;
 	
 	@Fetch(value = FetchMode.SUBSELECT)

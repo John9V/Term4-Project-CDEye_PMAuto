@@ -1,13 +1,20 @@
 package CDEye_PMAuto.backend.workpackage;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.UUID;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import CDEye_PMAuto.backend.paygrade.Paygrade;
+import CDEye_PMAuto.backend.paygrade.PaygradeManager;
 import CDEye_PMAuto.backend.project.ActiveProjectBean;
 import CDEye_PMAuto.backend.project.Project;
+import CDEye_PMAuto.backend.recepackage.RECEManager;
+import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
+import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocManager;
+import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocation;
 
 /**
  * For creating new work packages and temporarily storing their information.
@@ -20,6 +27,10 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 	private WorkPackageManager workPackageManager;
 	@Inject
 	ActiveProjectBean apb;
+	@Inject PaygradeManager pgm;
+	@Inject WorkPackageAllocManager wpam;
+	@Inject RECEManager recem;
+	
 
 	String parentWpNumber = "";
 
@@ -39,10 +50,43 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
         }
 		wp.setId(UUID.randomUUID());
 		wp.setLeaf(false);
+		
 		workPackageManager.addWorkPackage(wp);
+		WorkPackage addedWp = workPackageManager.getByUUID(wp.id.toString());
+		System.out.println("committed work package");
+		createWpAllocs(addedWp);
+		createRECEs(addedWp);
 		return "WPList";
 	}
 
+	//create a wpalloc for each paygrade
+	public void createWpAllocs(WorkPackage addedWp) {
+		Paygrade[] paygradeArr = pgm.getAll();
+		for (Paygrade p : paygradeArr) {
+			WorkPackageAllocation wpa = new WorkPackageAllocation();
+			wpa.setId(UUID.randomUUID());
+			wpa.setWorkPackage(addedWp);
+			wpa.setPaygrade(p);
+			wpa.setPersonDaysEstimate(new BigDecimal(0));
+			System.out.println("right before comitting wpa");
+			wpam.addWorkPackageAlloc(wpa);
+			System.out.println("committed wpa");
+		}
+	}
+	
+	//create a RECE for each paygrade
+	public void createRECEs(WorkPackage addedWp) {
+		Paygrade[] paygradeArr = pgm.getAll();
+		for (Paygrade p : paygradeArr) {
+			RespEngCostEstimate rece = new RespEngCostEstimate();
+			rece.setId(UUID.randomUUID());
+			rece.setWorkPackage(addedWp);
+			rece.setPaygrade(p);
+			rece.setPersonDayEstimate(new BigDecimal(0));
+			recem.persist(rece);
+		}
+	}
+	
 	public String getParentWpNumber() {
 		return parentWpNumber;
 	}

@@ -129,7 +129,7 @@ public class RespEngCostEstimate implements Serializable {
         return paygrade;
     }
     
-    public void setPaygrage(Paygrade paygrade) {
+    public void setPaygrade(Paygrade paygrade) {
         this.paygrade = paygrade;
     }
  

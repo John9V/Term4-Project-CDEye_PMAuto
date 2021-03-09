@@ -36,6 +36,10 @@ public class RECEManager implements Serializable {
         return null;
     }
     
+    public void persist(RespEngCostEstimate rece) {
+    	em.persist(rece);
+    }
+    
     //TODO: Create Package
     //TODO: Edit Package
     //TODO: Remove Package
