@@ -32,23 +32,30 @@
 
             <h:dataTable value="#{workPackageList.list}" var="wp" styleClass="data-table">
                 <h:column>
-                    <f:facet name="header">WP Id</f:facet>
-                    #{wp.id}
-                </h:column>
-                <h:column>
                     <f:facet name="header">WP Number</f:facet>
                     <h:inputText styleClass="edit-input" value="#{wp.workPackageNumber}" rendered="#{wp.editable}"/>
                     <h:outputText styleClass="edit-output" value="#{wp.workPackageNumber}" rendered="#{not wp.editable}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Last Name</f:facet>
+                    <f:facet name="header">Project Name</f:facet>
                     <h:inputText styleClass="edit-input" value="#{wp.project.projectName}" rendered="#{wp.editable}"/>
                     <h:outputText styleClass="edit-output" value="#{wp.project.projectName}" rendered="#{not wp.editable}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">AllocatedBudget</f:facet>
-                    <h:outputText styleClass="edit-output" value="#{wp.calcAllocatedBudget()}"/>
+                    <f:facet name="header">Project Budget</f:facet>
+                    <h:inputText styleClass="edit-input" value="#{wp.project.projectBudget}" rendered="#{wp.editable}"/>
+                    <h:outputText styleClass="edit-output" value="#{wp.project.projectBudget}" rendered="#{not wp.editable}"/>
                 </h:column>
+                <h:column>
+                    <f:facet name="header">unallocatedBudget</f:facet>
+                    <h:inputText styleClass="edit-input" value="#{wp.calcUnallocatedBudget()}" rendered="#{wp.editable}"/>
+                    <h:outputText styleClass="edit-output" value="#{wp.calcUnallocatedBudget()}" rendered="#{not wp.editable}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">AllocatedBudget</f:facet>
+                    <h:inputText styleClass="edit-input" value="#{wp.calcAllocatedBudget()}" rendered="#{wp.editable}"/>
+                    <h:outputText styleClass="edit-output" value="#{wp.calcAllocatedBudget()}" rendered="#{not wp.editable}"/>
+                </h:column>            
                 <h:column>
                     <f:facet name="header">Edit</f:facet>
                     <h:commandButton styleClass="command-button" value="Edit" action="#{activeWpBean.setActiveWorkPackage(wp)}"/>
