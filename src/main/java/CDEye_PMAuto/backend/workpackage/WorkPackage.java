@@ -45,7 +45,7 @@ public class WorkPackage implements Serializable {
 	protected String workPackageNumber;
 	
 	/** Parent WorkPackage. */
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="parentworkpackage")
 	protected WorkPackage parentWp;
 	
@@ -78,20 +78,20 @@ public class WorkPackage implements Serializable {
 	@Column(name="isleaf")
 	protected boolean isLeaf;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="project")
 	protected Project project;
 	
 	@Fetch(value = FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER)
 	protected List<RespEngCostEstimate> RECEs;
 	
 	@Fetch(value = FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER)
     protected List<WorkPackageAllocation> wpAllocs;
 	
 	@Fetch(value = FetchMode.SUBSELECT)
-    @OneToMany(mappedBy="parentWp", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="parentWp", fetch = FetchType.EAGER)
 	protected List<WorkPackage> childPackages;
 	
 	/**

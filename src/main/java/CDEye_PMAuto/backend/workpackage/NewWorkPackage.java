@@ -27,17 +27,16 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 	 * Used to persist the new work package.
 	 */
 	public String add() {
-		Project activeProj = new Project(apb);
-		System.out.println(parentWpNumber);
-		System.out.println(activeProj);
+		Project activeProj = new Project();
+		activeProj.setId(apb.getId());
 		WorkPackage[] parentWp = workPackageManager.findWpsByPkgNumAndProj(parentWpNumber, activeProj);
 
-		if (parentWp[0] != null) {
-			System.out.println(parentWp[0]);
-		}
-
 		WorkPackage wp = new WorkPackage(this);
-//        wp.setParentWp(parentWp);
+		wp.setProject(activeProj);
+		//make sure it found a parent lol
+        if (parentWp.length >= 1) {
+        	wp.setParentWp(parentWp[0]);
+        }
 		wp.setId(UUID.randomUUID());
 		wp.setLeaf(false);
 		workPackageManager.addWorkPackage(wp);

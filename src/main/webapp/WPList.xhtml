@@ -42,19 +42,17 @@
                     <h:outputText styleClass="edit-output" value="#{wp.project.projectName}" rendered="#{not wp.editable}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Project Budget</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{wp.project.projectBudget}" rendered="#{wp.editable}"/>
-                    <h:outputText styleClass="edit-output" value="#{wp.project.projectBudget}" rendered="#{not wp.editable}"/>
+                    <f:facet name="header">Work Package Budget</f:facet>
+                    <h:inputText styleClass="edit-input" value="#{wp.projectBudget}" rendered="#{wp.editable}"/>
+                    <h:outputText styleClass="edit-output" value="#{wp.projectBudget}" rendered="#{not wp.editable}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">unallocatedBudget</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{wp.calcUnallocatedBudget()}" rendered="#{wp.editable}"/>
-                    <h:outputText styleClass="edit-output" value="#{wp.calcUnallocatedBudget()}" rendered="#{not wp.editable}"/>
+                    <h:outputText styleClass="edit-output" value="#{wp.calcUnallocatedBudget()}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">AllocatedBudget</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{wp.calcAllocatedBudget()}" rendered="#{wp.editable}"/>
-                    <h:outputText styleClass="edit-output" value="#{wp.calcAllocatedBudget()}" rendered="#{not wp.editable}"/>
+                    <h:outputText styleClass="edit-output" value="#{wp.calcAllocatedBudget()}"/>
                 </h:column>            
                 <h:column>
                     <f:facet name="header">Edit</f:facet>
