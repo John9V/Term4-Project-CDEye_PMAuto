@@ -206,6 +206,7 @@ public class WorkPackage implements Serializable {
         this.childPackages = wp.childPackages;
     }
     
+    
     public BigDecimal calcAllocatedBudget() {
     	if (this.isLeaf) {
     		BigDecimal personDays = new BigDecimal(0);
@@ -219,11 +220,15 @@ public class WorkPackage implements Serializable {
                 personDays = personDays.add(w.getPersonDaysEstimate());
             }
             return budgetEstimate;
+          //this needs to sum children's wp budgets, not children's allocations
     	} else {
     		BigDecimal budgetEstimate = new BigDecimal(0);
-            for (WorkPackage w : this.childPackages) {
-                budgetEstimate = budgetEstimate.add(w.calcAllocatedBudget());
+    		for (WorkPackage w : this.childPackages) {
+                budgetEstimate = budgetEstimate.add(w.projectBudget);
             }
+//            for (WorkPackage w : this.childPackages) {
+//                budgetEstimate = budgetEstimate.add(w.calcAllocatedBudget());
+//            }
             return budgetEstimate;
     	}
     }
