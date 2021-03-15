@@ -107,6 +107,79 @@ INSERT INTO workpackageallocation VALUES("123e4537-e89b-eee7-a456-556642431111",
 INSERT INTO workpackageallocation VALUES("123e4537-e89b-eee8-a456-556642431111", "123e4537-e89b-e5e5-a456-556642431111", "123e4567-e89b-12d3-a456-556649440100", 8);
 INSERT INTO workpackageallocation VALUES("123e4537-e89b-eee9-a456-556642431111", "123e4537-e89b-e5e5-a456-556642431111", "123e4567-e89b-12d3-a457-556641140100", 9);
 
+DROP TABLE IF EXISTS timesheets;
+CREATE TABLE timesheets(id TINYTEXT, employee TINYTEXT, end_date DATE, sick DECIMAL(10,2),
+	flex DECIMAL(10,2));
+
+INSERT INTO timesheets VALUES("111a1111-e89b-12d4-a456-556642431111", "123e4567-e89b-12d3-8888-556642440100", '2021-03-28', 0, 0);
+INSERT INTO timesheets VALUES("111a2222-e89b-12d4-a456-556642431111", "123e4567-e89b-12d3-8888-556642440100", '2021-03-07', 1, 1);
+
+DROP TABLE IF EXISTS timesheetrow;
+CREATE TABLE timesheetrow (
+	id TINYTEXT,
+	parent_sheet TINYTEXT,
+	comments TINYTEXT, 
+	mon DECIMAL(10,2),
+	tue DECIMAL(10,2),
+	wed DECIMAL(10,2),
+	thu DECIMAL(10,2),
+	fri DECIMAL(10,2),
+	sat DECIMAL(10,2),
+	sun DECIMAL(10,2)
+);
+
+INSERT INTO timesheetrow VALUES(
+	"123e4537-999b-99a1-a456-556642431111",
+	"111a1111-e89b-12d4-a456-556642431111",
+	"comments were made",
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0
+);
+
+INSERT INTO timesheetrow VALUES(
+	"123e4537-888b-88a1-a456-556642431111",
+	"111a1111-e89b-12d4-a456-556642431111",
+	"comments were not made",
+	0,
+	0,
+	3,
+	0,
+	0,
+	5,
+	0
+);
+
+INSERT INTO timesheetrow VALUES(
+	"123e4537-997c-76a1-a456-556642431111",
+	"111a2222-e89b-12d4-a456-556642431111",
+	"comments here",
+	0,
+	0,
+	3,
+	0,
+	0,
+	0,
+	2
+);
+
+INSERT INTO timesheetrow VALUES(
+	"123e4537-854b-54a1-a456-556642431111",
+	"111a2222-e89b-12d4-a456-556642431111",
+	"comments out here",
+	0,
+	6,
+	0,
+	0,
+	0,
+	7,
+	0
+);
+
 DROP TABLE IF EXISTS recepackage;
 CREATE TABLE recepackage(id TINYTEXT, parentwp TINYTEXT, paygrade TINYTEXT, persondayestimate DECIMAL(10,2), employeeId TINYTEXT, wp TINYTEXT);
 

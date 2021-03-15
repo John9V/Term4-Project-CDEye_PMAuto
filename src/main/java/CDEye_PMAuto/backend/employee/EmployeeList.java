@@ -50,7 +50,6 @@ public class EmployeeList implements Serializable {
         for (int i = 0; i < employees.length; i++) {
             list.add(new EditableEmployee(employees[i]));
         }
-        System.out.println("running");
         return list;
     }
 
@@ -90,7 +89,6 @@ public class EmployeeList implements Serializable {
      */
     public Employee findEmployee() {
         Employee employee = employeeManager.getEmployeeByUserName(this.employee.getUserName());
-        System.out.println(employee.getUserName());
         return employee; 
     }
     
