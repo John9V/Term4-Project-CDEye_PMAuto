@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <h:outputStylesheet library="css" name="styles.css"/>
+    <title>Project Management System</title>
+</h:head>
+<h:body>
+	<!-- Side bar panel will control the navigation of the application-->
+	<div class="side-bar">
+
+	</div>
+
+	<!-- The current route -->
+	<div class="header-bar">
+		<h3>Timesheet List</h3>
+	</div>
+
+	<div class="container">
+        <h:form>
+            <h:dataTable value="#{timesheetList.getList}" var="t" styleClass="data-table">
+                <h:column>
+                    <f:facet name="header">End Date</f:facet>
+                    <h:inputText styleClass="edit-input" value="#{t.endDate}" rendered="#{t.editable}"/>
+                    <h:outputText styleClass="edit-output" value="#{t.endDate}" rendered="#{not t.editable}"/>
+                </h:column>
+                <f:facet name="header">
+                    <h:outputText value="Edit"/>
+                    </f:facet>
+                      <h:selectBooleanCheckbox value="#{t.editable}" onclick="submit()" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                    <h:outputText value="Delete"/>
+                    </f:facet>
+                      <h:selectBooleanCheckbox value="#{t.deletable}" onclick="submit()" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">View/Update Timesheet</f:facet>
+                    <h:commandButton styleClass="command-button" value="View" action="#{activeTimesheetBean.setActiveTimesheetBean(t)}"/>
+                </h:column>
+            </h:dataTable>
+            <h:commandButton styleClass="command-button" value="Save" action="#{timesheetList.save()}" />
+        </h:form>
+
+        	
+    </div>
+</h:body>
+</html>

@@ -13,6 +13,7 @@ import javax.inject.Named;
 import CDEye_PMAuto.backend.employee.EditableEmployee;
 import CDEye_PMAuto.backend.employee.Employee;
 import CDEye_PMAuto.backend.employee.EmployeeManager;
+import CDEye_PMAuto.backend.project.Project;
 
 @Named("timesheetList")
 @ConversationScoped
@@ -39,13 +40,29 @@ public class TimesheetList implements Serializable {
     }
 	
 	public List<EditableTimesheet> refreshList() {
-		Timesheet[] timesheets = timesheetManager.getAll();
+		Timesheet[] timesheets = timesheetManager.getAllForCurrentEmployee();
         list = new ArrayList<EditableTimesheet>();
         for (int i = 0; i < timesheets.length; i++) {
             list.add(new EditableTimesheet(timesheets[i]));
         }
         return list;
     }
+	
+	public String save() {
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).isEditable()) {
+				Timesheet t = new Timesheet(list.get(i));
+				timesheetManager.updateTimesheet(t);
+				list.get(i).setEditable(false);
+			}
+			if (list.get(i).isDeletable()) {
+				Timesheet t = new Timesheet(list.get(i));
+				timesheetManager.delete(t);
+			}
+		}
+		refreshList();
+		return "";
+	}
 	
 	
 	
