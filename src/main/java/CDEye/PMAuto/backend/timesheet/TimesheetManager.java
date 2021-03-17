@@ -43,17 +43,17 @@ public class TimesheetManager implements Serializable {
 	public Timesheet[] getAllForCurrentEmployee() {
 		Employee currentEmp = new Employee();
 		currentEmp.setId(aeb.getId());
-		currentEmp.setEmpNum(aeb.getEmpNum());
-		currentEmp.setFirstName(aeb.getFirstName());
-		currentEmp.setLastName(aeb.getLastName());
-		currentEmp.setActive(aeb.getActive());
-		currentEmp.setHr(aeb.getHr());
-		currentEmp.setUserName(aeb.getUserName());
-		currentEmp.setPayGrade(aeb.getPayGrade());
-		currentEmp.setManager(aeb.getManager());
-		currentEmp.setPeons(aeb.getPeons());
-		currentEmp.setFlextime(aeb.getFlextime());
-		currentEmp.setVacationTime(aeb.getVacationTime());
+//		currentEmp.setEmpNum(aeb.getEmpNum());
+//		currentEmp.setFirstName(aeb.getFirstName());
+//		currentEmp.setLastName(aeb.getLastName());
+//		currentEmp.setActive(aeb.getActive());
+//		currentEmp.setHr(aeb.getHr());
+//		currentEmp.setUserName(aeb.getUserName());
+//		currentEmp.setPayGrade(aeb.getPayGrade());
+//		currentEmp.setManager(aeb.getManager());
+//		currentEmp.setPeons(aeb.getPeons());
+//		currentEmp.setFlextime(aeb.getFlextime());
+//		currentEmp.setVacationTime(aeb.getVacationTime());
 		
 		TypedQuery<Timesheet> query = em.createQuery("select t from Timesheet t where t.employee = :emp",
         		Timesheet.class).setParameter("emp", currentEmp); 

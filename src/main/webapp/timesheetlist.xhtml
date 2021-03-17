@@ -21,12 +21,13 @@
 
 	<div class="container">
         <h:form>
-            <h:dataTable value="#{timesheetList.getList}" var="t" styleClass="data-table">
+            <h:dataTable value="#{timesheetList.getList()}" var="t" styleClass="data-table">
                 <h:column>
                     <f:facet name="header">End Date</f:facet>
                     <h:inputText styleClass="edit-input" value="#{t.endDate}" rendered="#{t.editable}"/>
                     <h:outputText styleClass="edit-output" value="#{t.endDate}" rendered="#{not t.editable}"/>
                 </h:column>
+                <h:column>
                 <f:facet name="header">
                     <h:outputText value="Edit"/>
                     </f:facet>
@@ -44,6 +45,7 @@
                 </h:column>
             </h:dataTable>
             <h:commandButton styleClass="command-button" value="Save" action="#{timesheetList.save()}" />
+            <h:commandButton styleClass="command-button" value="Save" action="NewTimesheetScreen" />
         </h:form>
 
         	
