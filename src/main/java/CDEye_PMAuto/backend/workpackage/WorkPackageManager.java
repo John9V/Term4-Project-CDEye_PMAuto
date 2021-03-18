@@ -124,12 +124,10 @@ public class WorkPackageManager implements Serializable {
     			.setParameter("workPackageNumber", workPackageNumber)
     			.setParameter("projectId", p.getId());
     	List<WorkPackage> workPackages = query.getResultList();
-
     	WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
         for (int i = 0; i < packageArr.length; i++) {
             packageArr[i] = workPackages.get(i);
         }
-        
         return packageArr;
     }
     

@@ -41,7 +41,7 @@ public class TimesheetManager implements Serializable {
 	}
 	
 	public void deleteTimesheet(Timesheet t) {
-		em.merge(t);
+		em.remove(t);
 	}
 	
 	public Timesheet[] getAllForCurrentEmployee() {

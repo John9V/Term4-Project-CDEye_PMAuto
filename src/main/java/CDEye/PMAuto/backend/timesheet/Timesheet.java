@@ -66,7 +66,7 @@ public class Timesheet {
     protected LocalDate endDate;
     
     @Fetch(value = FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="timesheet", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="timesheet", fetch = FetchType.EAGER, cascade=CascadeType.MERGE)
     /** The List of all details (i.e. rows) that the form contains. */
     protected List<TimesheetRow> details;
     

@@ -50,6 +50,13 @@ public class ProjectManager implements Serializable {
 		List<Project> projects = query.getResultList();
 		return projects.get(0);
 	}
-	
+
+	public Project findProjectByNum(String projectNum) {
+		TypedQuery<Project> query = em.createQuery(
+				"SELECT p FROM Project p WHERE p.projectNumber LIKE :projectNumber", Project.class)
+				.setParameter("projectNumber", "%" + projectNum + "%");
+		List<Project> projects = query.getResultList();
+		return projects.get(0);
+	}
 	//TODO add lookup method by project number
 }
