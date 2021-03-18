@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -74,9 +75,13 @@ public class Timesheet {
 	@Column(name="flex")
 	protected BigDecimal flex;
 
-    public Timesheet() {}
+    public Timesheet() {
+		this.id = UUID.randomUUID();
+		this.details = new ArrayList<TimesheetRow>();
+		this.details.add(new TimesheetRow(this));
+	}
     
-    public Timesheet(NewTimesheet nts) {
+    public Timesheet(CreateTimesheetBean nts) {
     	this.id = UUID.randomUUID();
 		this.employee = nts.employee;
 		this.endDate = nts.endDate;
@@ -146,11 +151,4 @@ public class Timesheet {
 	public void setDetails(List<TimesheetRow> details) {
 		this.details = details;
 	}
-
-
-
-    
-    
-    
-	
 }

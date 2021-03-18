@@ -5,9 +5,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import CDEye_PMAuto.backend.project.EditableProject;
-
-@Named("activeTimesheetBean")
+@Named("activeTimesheet")
 @SessionScoped
 public class ActiveTimesheetBean extends Timesheet implements Serializable {
 

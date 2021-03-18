@@ -42,28 +42,25 @@ public class TimesheetList implements Serializable {
 	public List<EditableTimesheet> refreshList() {
 		Timesheet[] timesheets = timesheetManager.getAllForCurrentEmployee();
         list = new ArrayList<EditableTimesheet>();
-        for (int i = 0; i < timesheets.length; i++) {
-            list.add(new EditableTimesheet(timesheets[i]));
-        }
+		for (Timesheet timesheet : timesheets) {
+			list.add(new EditableTimesheet(timesheet));
+		}
         return list;
     }
 	
 	public String save() {
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).isEditable()) {
-				Timesheet t = new Timesheet(list.get(i));
+		for (EditableTimesheet editableTimesheet : list) {
+			if (editableTimesheet.isEditable()) {
+				Timesheet t = new Timesheet(editableTimesheet);
 				timesheetManager.updateTimesheet(t);
-				list.get(i).setEditable(false);
+				editableTimesheet.setEditable(false);
 			}
-			if (list.get(i).isDeletable()) {
-				Timesheet t = new Timesheet(list.get(i));
-				timesheetManager.delete(t);
+			if (editableTimesheet.isDeletable()) {
+				Timesheet t = new Timesheet(editableTimesheet);
+				timesheetManager.deleteTimesheet(t);
 			}
 		}
 		refreshList();
 		return "";
 	}
-	
-	
-	
 }

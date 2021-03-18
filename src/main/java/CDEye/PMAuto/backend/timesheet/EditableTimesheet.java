@@ -6,12 +6,12 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 @Named("editableTimesheet")
-
+@RequestScoped
 public class EditableTimesheet extends Timesheet implements Serializable {
-
 	private boolean editable;
 	private boolean deletable;
-	
+
+	public EditableTimesheet() {}
 	public EditableTimesheet(Timesheet t) {
 		super(t);
 	}
@@ -31,7 +31,5 @@ public class EditableTimesheet extends Timesheet implements Serializable {
 	public void setDeletable(boolean deletable) {
 		this.deletable = deletable;
 	}
-	
-	
 
 }

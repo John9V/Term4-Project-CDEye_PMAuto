@@ -41,14 +41,12 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">View/Update Timesheet</f:facet>
-                    <h:commandButton styleClass="command-button" value="View" action="#{activeTimesheetBean.setActiveTimesheetBean(t)}"/>
+                    <h:commandButton styleClass="command-button" value="View" action="#{activeTimesheet.setActiveTimesheetBean(t)}"/>
                 </h:column>
             </h:dataTable>
             <h:commandButton styleClass="command-button" value="Save" action="#{timesheetList.save()}" />
             <h:commandButton styleClass="command-button" value="Save" action="NewTimesheetScreen" />
         </h:form>
-
-        	
     </div>
 </h:body>
 </html>

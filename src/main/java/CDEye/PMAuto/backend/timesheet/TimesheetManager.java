@@ -23,20 +23,24 @@ public class TimesheetManager implements Serializable {
 	
 	public Timesheet[] getAll() {
         TypedQuery<Timesheet> query = em.createQuery("select t from Timesheet t",
-        		Timesheet.class); 
-        List<Timesheet> timesheet = query.getResultList();
-        Timesheet[] timesheetArr = new Timesheet[timesheet.size()];
-        for (int i = 0; i < timesheetArr.length; i++) {
-        	timesheetArr[i] = timesheet.get(i);
-        }
-        return timesheetArr;
-    }
-	
+        		Timesheet.class);
+		return getTimesheets(query);
+	}
+
+	private Timesheet[] getTimesheets(TypedQuery<Timesheet> query) {
+		List<Timesheet> timesheet = query.getResultList();
+		Timesheet[] timesheetArr = new Timesheet[timesheet.size()];
+		for (int i = 0; i < timesheetArr.length; i++) {
+			timesheetArr[i] = timesheet.get(i);
+		}
+		return timesheetArr;
+	}
+
 	public void updateTimesheet(Timesheet t) {
 		em.merge(t);
 	}
 	
-	public void delete(Timesheet t) {
+	public void deleteTimesheet(Timesheet t) {
 		em.merge(t);
 	}
 	
@@ -56,12 +60,9 @@ public class TimesheetManager implements Serializable {
 //		currentEmp.setVacationTime(aeb.getVacationTime());
 		
 		TypedQuery<Timesheet> query = em.createQuery("select t from Timesheet t where t.employee = :emp",
-        		Timesheet.class).setParameter("emp", currentEmp); 
-        List<Timesheet> timesheet = query.getResultList();
-        Timesheet[] timesheetArr = new Timesheet[timesheet.size()];
-        for (int i = 0; i < timesheetArr.length; i++) {
-        	timesheetArr[i] = timesheet.get(i);
-        }
-        return timesheetArr;
+        		Timesheet.class).setParameter("emp", currentEmp);
+		return getTimesheets(query);
 	}
+
+	public void addTimesheet(Timesheet t) { em.persist(t);}
 }
