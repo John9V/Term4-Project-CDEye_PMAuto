@@ -27,7 +27,7 @@
             <!-- Employee Number -->
             <div class="input-row">
                 <p>Week Ending</p>
-                <h:inputText value="#{createTimesheet.sheetDate}" required="true">
+                <h:inputText value="#{createTimesheet.sheetDate}">
                     <f:convertDateTime type="localDate"/>
                 </h:inputText>
             </div>
@@ -90,13 +90,14 @@
                     </h:column>
                 </h:dataTable>
             </div>
+            
             <div class="button-container">
-                <h:form>
+                
                     <h:commandButton value="ADD ROW" action="#{createTimesheet.addRow()}"/>
                     <h:commandButton value="CREATE" action="#{createTimesheet.add()}"/>
-                </h:form>
+                
             </div>
-        </h:form>
+            </h:form>
     </div>
 </h:body>
 </html>

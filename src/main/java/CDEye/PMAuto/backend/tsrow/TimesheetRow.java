@@ -56,9 +56,19 @@ public class TimesheetRow {
 	protected BigDecimal sun;
 
 	public TimesheetRow() {
-
+		this.id = UUID.randomUUID();
+		project = new Project();
+		workPackage = new WorkPackage();
+		setFri(new BigDecimal(0));
+		setSat(new BigDecimal(0));
+		setSun(new BigDecimal(0));
+		setMon(new BigDecimal(0));
+		setTue(new BigDecimal(0));
+		setWed(new BigDecimal(0));
+		setThu(new BigDecimal(0));
 	}
 
+	//TODO check
 	public TimesheetRow(Timesheet t) {
 		this.id = UUID.randomUUID();
 		this.timesheet = t;
