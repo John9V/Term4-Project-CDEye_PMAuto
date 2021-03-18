@@ -50,4 +50,6 @@ public class ProjectManager implements Serializable {
 		List<Project> projects = query.getResultList();
 		return projects.get(0);
 	}
+	
+	//TODO add lookup method by project number
 }

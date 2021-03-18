@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import CDEye_PMAuto.backend.project.Project;
 import org.hibernate.annotations.Type;
@@ -39,6 +40,12 @@ public class TimesheetRow {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="workpackage")
 	protected WorkPackage workPackage;
+	
+	@Transient
+	protected String creationProjNum;
+	
+	@Transient
+	protected String creationWpNum;
 
 	@Column(name="mon")
 	protected BigDecimal mon;
@@ -57,8 +64,6 @@ public class TimesheetRow {
 
 	public TimesheetRow() {
 		this.id = UUID.randomUUID();
-		project = new Project();
-		workPackage = new WorkPackage();
 		setFri(new BigDecimal(0));
 		setSat(new BigDecimal(0));
 		setSun(new BigDecimal(0));
@@ -72,8 +77,6 @@ public class TimesheetRow {
 	public TimesheetRow(Timesheet t) {
 		this.id = UUID.randomUUID();
 		this.timesheet = t;
-		project = new Project();
-		workPackage = new WorkPackage();
 		setFri(new BigDecimal(0));
 		setSat(new BigDecimal(0));
 		setSun(new BigDecimal(0));
@@ -178,4 +181,22 @@ public class TimesheetRow {
 	public void setSun(BigDecimal sun) {
 		this.sun = sun;
 	}
+
+	public String getCreationProjNum() {
+		return creationProjNum;
+	}
+
+	public void setCreationProjNum(String creationProjNum) {
+		this.creationProjNum = creationProjNum;
+	}
+
+	public String getCreationWpNum() {
+		return creationWpNum;
+	}
+
+	public void setCreationWpNum(String creationWpNum) {
+		this.creationWpNum = creationWpNum;
+	}
+	
+	
 }

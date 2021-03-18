@@ -78,7 +78,7 @@ public class Timesheet {
     public Timesheet() {
 		this.id = UUID.randomUUID();
 		this.details = new ArrayList<TimesheetRow>();
-		this.details.add(new TimesheetRow(this));
+//		this.details.add(new TimesheetRow(this));
 	}
     
     public Timesheet(CreateTimesheetBean nts) {
