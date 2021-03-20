@@ -18,13 +18,89 @@
 	<div class="header-bar">
 		<h3>Edit Timesheet</h3>
 	</div>
-
 	<div class="container">
-        <h:form>
-            <h:outputText styleClass="edit-output" value="#{activeTimesheetBean.endDate}"/>
-        </h:form>
-
-        	
-    </div>
+		<h:form>
+			<h:dataTable value="#{timesheetRowList.getRowList(activeTimesheet)}" var="r" styleClass="data-table">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Edit"/>
+					</f:facet>
+					<h:selectBooleanCheckbox value="#{r.editable}" onclick="submit()" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">PROJECT</f:facet>
+					<h:inputText styleClass="edit-input" value="#{r.creationProjNum}" required="true" rendered="#{r.editable}"/>
+					<h:outputText styleClass="edit-output" value="#{r.creationProjNum}" rendered="#{not r.editable}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">WP</f:facet>
+					<h:inputText styleClass="edit-input" value="#{r.creationWpNum}" required="true" rendered="#{r.editable}"/>
+					<h:outputText styleClass="edit-output" value="#{r.creationWpNum}" rendered="#{not r.editable}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Mon</f:facet>
+					<h:inputText styleClass="edit-input" value="#{r.mon}" rendered="#{r.editable}" converter="weeklyHours">
+					<f:validateDoubleRange minimum="0.0" maximum="24.0"/>
+					</h:inputText>
+					<h:outputText styleClass="edit-output" value="#{r.mon}" rendered="#{not r.editable}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Tue</f:facet>
+					<h:inputText styleClass="edit-input" value="#{r.tue}" rendered="#{r.editable}" converter="weeklyHours">
+					<f:validateDoubleRange minimum="0.0" maximum="24.0"/>
+					</h:inputText>
+					<h:outputText styleClass="edit-output" value="#{r.tue}" rendered="#{not r.editable}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Wed</f:facet>
+					<h:inputText styleClass="edit-input" value="#{r.wed}" rendered="#{r.editable}" converter="weeklyHours">
+					<f:validateDoubleRange minimum="0.0" maximum="24.0"/>
+					</h:inputText>
+					<h:outputText styleClass="edit-output" value="#{r.wed}" rendered="#{not r.editable}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Thu</f:facet>
+					<h:inputText styleClass="edit-input" value="#{r.thu}" rendered="#{r.editable}" converter="weeklyHours">
+					<f:validateDoubleRange minimum="0.0" maximum="24.0"/>
+					</h:inputText>
+					<h:outputText styleClass="edit-output" value="#{r.thu}" rendered="#{not r.editable}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Fri</f:facet>
+					<h:inputText styleClass="edit-input" value="#{r.fri}" rendered="#{r.editable}" converter="weeklyHours">
+					<f:validateDoubleRange minimum="0.0" maximum="24.0"/>
+					</h:inputText>
+					<h:outputText styleClass="edit-output" value="#{r.fri}" rendered="#{not r.editable}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Sat</f:facet>
+					<h:inputText styleClass="edit-input" value="#{r.sat}" rendered="#{r.editable}" converter="weeklyHours">
+					<f:validateDoubleRange minimum="0.0" maximum="24.0"/>
+					</h:inputText>
+					<h:outputText styleClass="edit-output" value="#{r.sat}" rendered="#{not r.editable}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Sun</f:facet>
+					<h:inputText styleClass="edit-input" value="#{r.sun}" rendered="#{r.editable}" converter="weeklyHours">
+					<f:validateDoubleRange minimum="0.0" maximum="24.0"/>
+					</h:inputText>
+					<h:outputText styleClass="edit-output" value="#{r.sun}" rendered="#{not r.editable}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Comments</f:facet>
+					<h:inputText styleClass="edit-input" value="#{r.comments}" rendered="#{r.editable}"/>
+					<h:outputText styleClass="edit-output" value="#{r.comments}" rendered="#{not r.editable}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Delete"/>
+					</f:facet>
+					<h:selectBooleanCheckbox value="#{r.deletable}" onclick="submit()" />
+				</h:column>
+			</h:dataTable>
+			<h:commandButton styleClass="command-button" value="Save" action="#{timesheetRowList.save()}" />
+			<h:commandButton styleClass="command-button" value="Back" action="TimesheetList" />
+		</h:form>
+	</div>
 </h:body>
 </html>

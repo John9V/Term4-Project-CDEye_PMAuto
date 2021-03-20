@@ -52,14 +52,6 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 	}
 
 	public String add() {
-//		Timesheet t = new Timesheet();
-//		Employee e = new Employee();
-//		e.setId(aeb.getId());
-//		t.setEmployee(e);
-//		t.setEndDate(sheetDate);
-//
-//		t.setDetails(this.getDetails());
-
 		for (TimesheetRow r : this.getDetails()) {
 			Project p = projectManager.findProjectByNum(r.getCreationProjNum());
 			WorkPackage[] wp = wpManager.findWpsByPkgNumAndProj(r.getCreationWpNum(), p);
@@ -69,20 +61,11 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 			} else System.out.println("Not found");
 			rowManager.addRow(r);
 		}
-		//manager.addTimesheet(t);
-
-
-		//go through all the timesheet rows in t.details and add them one at a time
-		//see new work package bean for logic to add details one at a time
-		
-		// add cascade?? to entity class
-		return "timesheetlist";
+		return "TimesheetList";
 	}
 
 	public void addRow() {
 		this.getDetails().add(new TimesheetRow(this));
-		//look up and set (use crud method in projectManager class) project for each row based on creationprojnum (write CRUD method)
-		//look up and set work package for each row based on creationWpNum (use findWpsByPkgNumAndProj)
 	}
 
 	public LocalDate getSheetDate() {

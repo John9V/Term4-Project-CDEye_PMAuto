@@ -27,23 +27,23 @@
             <!-- Employee Number -->
             <div class="input-row">
                 <p>Week Ending</p>
-                <h:inputText id="sheetDate" value="#{createTimesheet.endDate}" required = "true">
+                <h:inputText id="sheetDate" value="#{createTimesheet.endDate}" required="true">
                     <f:convertDateTime type="localDate"/>
                 </h:inputText>
-                <h:message for="sheetDate" style="color:red" />
+                <h:message for="sheetDate" style="color:red"/>
             </div>
             <div>
                 <h:dataTable value="#{createTimesheet.details}"
                              var="timesheetRow">
                     <h:column>
                         <f:facet name="header">PROJECT</f:facet>
-                        <h:inputText id="projectNum" value="#{timesheetRow.creationProjNum}" required = "true"/>
-                        <h:message for="projectNum" style="color:red" />
+                        <h:inputText id="projectNum" value="#{timesheetRow.creationProjNum}" required="true"/>
+                        <h:message for="projectNum" style="color:red"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Work Pacakge</f:facet>
-                        <h:inputText id="wpNum" value="#{timesheetRow.creationWpNum}" required = "true"/>
-                        <h:message for="wpNum" style="color:red" />
+                        <h:inputText id="wpNum" value="#{timesheetRow.creationWpNum}" required="true"/>
+                        <h:message for="wpNum" style="color:red"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Sat</f:facet>
@@ -93,14 +93,12 @@
                     </h:column>
                 </h:dataTable>
             </div>
-            
+
             <div class="button-container">
-                
-                    <h:commandButton value="ADD ROW" action="#{createTimesheet.addRow()}"/>
-                    <h:commandButton value="CREATE" action="#{createTimesheet.add()}"/>
-                
+                <h:commandButton value="ADD ROW" action="#{createTimesheet.addRow()}"/>
+                <h:commandButton value="CREATE" action="#{createTimesheet.add()}"/>
             </div>
-            </h:form>
+        </h:form>
     </div>
 </h:body>
 </html>

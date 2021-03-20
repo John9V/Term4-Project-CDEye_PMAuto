@@ -66,7 +66,7 @@ public class Timesheet {
     protected LocalDate endDate;
     
     @Fetch(value = FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="timesheet", fetch = FetchType.EAGER, cascade=CascadeType.MERGE)
+	@OneToMany(mappedBy="timesheet", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     /** The List of all details (i.e. rows) that the form contains. */
     protected List<TimesheetRow> details;
     
@@ -91,7 +91,7 @@ public class Timesheet {
     }
     
     public Timesheet(EditableTimesheet ets) {
-    	this.id = UUID.randomUUID();
+    	this.id = ets.getId();
 		this.employee = ets.employee;
 		this.endDate = ets.endDate;
 		this.details = ets.details;

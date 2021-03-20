@@ -10,12 +10,7 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import CDEye_PMAuto.backend.employee.EditableEmployee;
-import CDEye_PMAuto.backend.employee.Employee;
-import CDEye_PMAuto.backend.employee.EmployeeManager;
-import CDEye_PMAuto.backend.project.Project;
-
-@Named("timesheetList")
+@Named
 @ConversationScoped
 public class TimesheetList implements Serializable {
 
@@ -33,10 +28,7 @@ public class TimesheetList implements Serializable {
 			conversation.end();
 		}
 		conversation.begin();
-        if (list == null) {
-            refreshList();
-        }
-        return list;
+        return refreshList();
     }
 	
 	public List<EditableTimesheet> refreshList() {

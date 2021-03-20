@@ -9,17 +9,17 @@
     <title>Project Management System</title>
 </h:head>
 <h:body>
-	<!-- Side bar panel will control the navigation of the application-->
-	<div class="side-bar">
+    <!-- Side bar panel will control the navigation of the application-->
+    <div class="side-bar">
 
-	</div>
+    </div>
 
-	<!-- The current route -->
-	<div class="header-bar">
-		<h3>Timesheet List</h3>
-	</div>
+    <!-- The current route -->
+    <div class="header-bar">
+        <h3>Timesheet List</h3>
+    </div>
 
-	<div class="container">
+    <div class="container">
         <h:form>
             <h:dataTable value="#{timesheetList.getList()}" var="t" styleClass="data-table">
                 <h:column>
@@ -28,24 +28,25 @@
                     <h:outputText styleClass="edit-output" value="#{t.endDate}" rendered="#{not t.editable}"/>
                 </h:column>
                 <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Edit"/>
+                    <f:facet name="header">
+                        <h:outputText value="Edit"/>
                     </f:facet>
-                      <h:selectBooleanCheckbox value="#{t.editable}" onclick="submit()" />
+                    <h:selectBooleanCheckbox value="#{t.editable}" onclick="submit()"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
-                    <h:outputText value="Delete"/>
+                        <h:outputText value="Delete"/>
                     </f:facet>
-                      <h:selectBooleanCheckbox value="#{t.deletable}" onclick="submit()" />
+                    <h:selectBooleanCheckbox value="#{t.deletable}" onclick="submit()"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">View/Update Timesheet</f:facet>
-                    <h:commandButton styleClass="command-button" value="View" action="#{activeTimesheet.setActiveTimesheetBean(t)}"/>
+                    <h:commandButton styleClass="command-button" value="View"
+                                     action="#{activeTimesheet.setActiveTimesheetBean(t)}"/>
                 </h:column>
             </h:dataTable>
-            <h:commandButton styleClass="command-button" value="Save" action="#{timesheetList.save()}" />
-            <h:commandButton styleClass="command-button" value="Save" action="NewTimesheetScreen" />
+            <h:commandButton styleClass="command-button" value="Save" action="#{timesheetList.save()}"/>
+            <h:commandButton styleClass="command-button" value="Back" action="HRHome"/>
         </h:form>
     </div>
 </h:body>

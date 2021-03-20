@@ -9,8 +9,8 @@ import javax.inject.Named;
 @SessionScoped
 public class ActiveTimesheetBean extends Timesheet implements Serializable {
 
-	@Inject TimesheetList tsl;
-	
+	@Inject TimesheetList editableTimesheetList;
+
 	public String setActiveTimesheetBean(EditableTimesheet ets) {
 		this.id = ets.id;
 		this.employee = ets.employee;
@@ -18,9 +18,7 @@ public class ActiveTimesheetBean extends Timesheet implements Serializable {
 		this.details = ets.details;
 		this.sick = ets.sick;
 		this.flex = ets.flex;
-		tsl.refreshList();
-		
+		editableTimesheetList.refreshList();
 		return "TimesheetDetails";
 	}
-	
 }

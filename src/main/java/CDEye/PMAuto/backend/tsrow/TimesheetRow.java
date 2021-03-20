@@ -3,14 +3,7 @@ package CDEye.PMAuto.backend.tsrow;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import CDEye_PMAuto.backend.project.Project;
 import org.hibernate.annotations.Type;
@@ -26,7 +19,7 @@ public class TimesheetRow {
 	@Type(type = "uuid-char")
 	protected UUID id;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="parent_sheet")
     protected Timesheet timesheet;
 
@@ -84,6 +77,40 @@ public class TimesheetRow {
 		setTue(new BigDecimal(0));
 		setWed(new BigDecimal(0));
 		setThu(new BigDecimal(0));
+	}
+
+	public TimesheetRow(Timesheet parent, TimesheetRow row) {
+		this.id = row.getId();
+		this.timesheet = parent;
+		this.comments = row.getComments();
+		this.project = row.getProject();
+		this.workPackage = row.getWorkPackage();
+		this.creationProjNum = row.getCreationProjNum();
+		this.creationWpNum = row.getCreationWpNum();
+		this.fri = row.getFri();
+		this.sat = row.getSat();
+		this.sun = row.getSun();
+		this.mon = row.getMon();
+		this.tue = row.getTue();
+		this.wed = row.getWed();
+		this.thu = row.getThu();
+	}
+
+	public TimesheetRow(EditableTimesheetRow edited) {
+		this.id = edited.getId();
+		this.timesheet = edited.getTimesheet();
+		this.comments = edited.getComments();
+		this.project = edited.getProject();
+		this.workPackage = edited.getWorkPackage();
+		this.creationProjNum = edited.getCreationProjNum();
+		this.creationWpNum = edited.getCreationWpNum();
+		this.fri = edited.getFri();
+		this.sat = edited.getSat();
+		this.sun = edited.getSun();
+		this.mon = edited.getMon();
+		this.tue = edited.getTue();
+		this.wed = edited.getWed();
+		this.thu = edited.getThu();
 	}
 
 	public String getComments() {

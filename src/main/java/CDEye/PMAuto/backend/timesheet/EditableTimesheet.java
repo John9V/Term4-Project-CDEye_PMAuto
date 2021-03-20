@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
-@Named("editableTimesheet")
+@Named
 @RequestScoped
 public class EditableTimesheet extends Timesheet implements Serializable {
 	private boolean editable;
