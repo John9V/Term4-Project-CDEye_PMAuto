@@ -107,3 +107,12 @@ html,body{
     margin: 0 auto;
     cursor: pointer;
 }
+
+.button-flex {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: space-around;
+}
+
+
