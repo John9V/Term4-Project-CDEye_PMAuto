@@ -1,6 +1,10 @@
 package CDEye.PMAuto.backend.tsrow;
 
 import CDEye.PMAuto.backend.timesheet.Timesheet;
+import CDEye_PMAuto.backend.project.Project;
+import CDEye_PMAuto.backend.project.ProjectManager;
+import CDEye_PMAuto.backend.workpackage.WorkPackage;
+import CDEye_PMAuto.backend.workpackage.WorkPackageManager;
 
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -17,6 +21,10 @@ public class TimesheetRowList implements Serializable {
 
     @Inject @Dependent
     private TimesheetRowManager rowManager;
+    @Inject
+    ProjectManager projectManager;
+    @Inject
+    WorkPackageManager workPackageManager;
 
     @Inject
     Conversation conversation;
@@ -42,9 +50,18 @@ public class TimesheetRowList implements Serializable {
 
     public String save() {
         for (EditableTimesheetRow edited : rowList) {
-            TimesheetRow row = new TimesheetRow(edited);
-            rowManager.updateRow(row);
-            edited.setEditable(false);
+            Project p = projectManager.findProjectByNum(edited.getProjectNumber());
+            WorkPackage[] wp = workPackageManager.findWpsByPkgNumAndProj(edited.getWorkPackageNumber(), p);
+            if (wp.length > 0) {
+                edited.setProject(p);
+                edited.setWorkPackage(wp[0]);
+                TimesheetRow row = new TimesheetRow(edited);
+                rowManager.updateRow(row);
+                edited.setEditable(false);
+            } else System.out.println("Not found");
+        }
+        if (!conversation.isTransient()) {
+            conversation.end();
         }
         return "TimesheetList";
     }

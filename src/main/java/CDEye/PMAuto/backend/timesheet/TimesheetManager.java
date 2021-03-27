@@ -64,5 +64,9 @@ public class TimesheetManager implements Serializable {
 		return getTimesheets(query);
 	}
 
-	public void addTimesheet(Timesheet t) { em.persist(t);}
+	public void addTimesheet(Timesheet t) {
+		em.persist(t);
+		System.out.println(t);
+		System.out.println("Timesheet added.");
+	}
 }

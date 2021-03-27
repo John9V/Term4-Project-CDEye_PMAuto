@@ -33,16 +33,16 @@
                 <h:message for="sheetDate" style="color:red"/>
             </div>
             <div>
-                <h:dataTable value="#{createTimesheet.details}"
+                <h:dataTable value="#{createTimesheet.editableRows}"
                              var="timesheetRow">
                     <h:column>
                         <f:facet name="header">PROJECT</f:facet>
-                        <h:inputText id="projectNum" value="#{timesheetRow.creationProjNum}" required="true"/>
+                        <h:inputText id="projectNum" value="#{timesheetRow.projectNumber}" required="true"/>
                         <h:message for="projectNum" style="color:red"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Work Pacakge</f:facet>
-                        <h:inputText id="wpNum" value="#{timesheetRow.creationWpNum}" required="true"/>
+                        <h:inputText id="wpNum" value="#{timesheetRow.workPackageNumber}" required="true"/>
                         <h:message for="wpNum" style="color:red"/>
                     </h:column>
                     <h:column>

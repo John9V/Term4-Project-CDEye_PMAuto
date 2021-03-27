@@ -3,8 +3,10 @@ package CDEye.PMAuto.backend.timesheet;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -78,10 +80,11 @@ public class Timesheet {
     public Timesheet() {
 		this.id = UUID.randomUUID();
 		this.details = new ArrayList<TimesheetRow>();
-//		this.details.add(new TimesheetRow(this));
+		this.endDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
     
     public Timesheet(CreateTimesheetBean nts) {
+    	super();
     	this.id = UUID.randomUUID();
 		this.employee = nts.employee;
 		this.endDate = nts.endDate;

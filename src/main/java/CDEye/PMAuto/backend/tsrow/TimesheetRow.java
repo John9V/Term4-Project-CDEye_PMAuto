@@ -33,12 +33,6 @@ public class TimesheetRow {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="workpackage")
 	protected WorkPackage workPackage;
-	
-	@Transient
-	protected String creationProjNum;
-	
-	@Transient
-	protected String creationWpNum;
 
 	@Column(name="mon")
 	protected BigDecimal mon;
@@ -85,8 +79,6 @@ public class TimesheetRow {
 		this.comments = row.getComments();
 		this.project = row.getProject();
 		this.workPackage = row.getWorkPackage();
-		this.creationProjNum = row.getCreationProjNum();
-		this.creationWpNum = row.getCreationWpNum();
 		this.fri = row.getFri();
 		this.sat = row.getSat();
 		this.sun = row.getSun();
@@ -102,8 +94,6 @@ public class TimesheetRow {
 		this.comments = edited.getComments();
 		this.project = edited.getProject();
 		this.workPackage = edited.getWorkPackage();
-		this.creationProjNum = edited.getCreationProjNum();
-		this.creationWpNum = edited.getCreationWpNum();
 		this.fri = edited.getFri();
 		this.sat = edited.getSat();
 		this.sun = edited.getSun();
@@ -208,22 +198,4 @@ public class TimesheetRow {
 	public void setSun(BigDecimal sun) {
 		this.sun = sun;
 	}
-
-	public String getCreationProjNum() {
-		return creationProjNum;
-	}
-
-	public void setCreationProjNum(String creationProjNum) {
-		this.creationProjNum = creationProjNum;
-	}
-
-	public String getCreationWpNum() {
-		return creationWpNum;
-	}
-
-	public void setCreationWpNum(String creationWpNum) {
-		this.creationWpNum = creationWpNum;
-	}
-	
-	
 }

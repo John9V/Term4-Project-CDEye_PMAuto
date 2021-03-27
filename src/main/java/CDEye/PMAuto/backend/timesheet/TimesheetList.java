@@ -30,7 +30,8 @@ public class TimesheetList implements Serializable {
 		conversation.begin();
         return refreshList();
     }
-	
+
+	//Q: conversation ending?
 	public List<EditableTimesheet> refreshList() {
 		Timesheet[] timesheets = timesheetManager.getAllForCurrentEmployee();
         list = new ArrayList<EditableTimesheet>();
