@@ -11,6 +11,7 @@ import CDEye_PMAuto.backend.paygrade.Paygrade;
 import CDEye_PMAuto.backend.paygrade.PaygradeManager;
 import CDEye_PMAuto.backend.project.ActiveProjectBean;
 import CDEye_PMAuto.backend.project.Project;
+import CDEye_PMAuto.backend.project.ProjectManager;
 import CDEye_PMAuto.backend.recepackage.RECEManager;
 import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
 import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocManager;
@@ -40,19 +41,27 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 	public String add() {
 		Project activeProj = new Project();
 		activeProj.setId(apb.getId());
+		
 		WorkPackage[] parentWp = workPackageManager.findWpsByPkgNumAndProj(parentWpNumber, activeProj);
 
 		WorkPackage wp = new WorkPackage(this);
-		wp.setProject(activeProj);
+//		wp.setProject(activeProj);
+		
+		String testParentWPNum = workPackageManager.determineParentWPNum(workPackageNumber);
 		//make sure it found a parent lol
-        if (parentWp.length >= 1) {
-        	wp.setParentWp(parentWp[0]);
+        if (parentWp.length == 0) {
+            workPackageManager.checkAndCreateWP(testParentWPNum);
+            // Parent should now be created, check for a parent again
+            parentWp = workPackageManager.getByPackageNumber(parentWpNumber);
         }
+ 
+        wp.setParentWp(parentWp[0]);
 		wp.setId(UUID.randomUUID());
 		wp.setLeaf(false);
 		
 		workPackageManager.addWorkPackage(wp);
-		WorkPackage addedWp = workPackageManager.getByUUID(wp.id.toString());
+		
+		WorkPackage addedWp = workPackageManager.getByUUID(wp.getId().toString());
 		System.out.println("committed work package");
 		createWpAllocs(addedWp);
 		createRECEs(addedWp);

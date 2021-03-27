@@ -356,15 +356,23 @@ public class WorkPackageManager implements Serializable {
         String schrodingersWp = determineParentWPNum(wpToCreate);
         
         // Checks to see if the supposed to exist WP really does exist
-        WorkPackage parentWP = getByPackageNumber(schrodingersWp)[0];
+        WorkPackage[] arrayOfParentWPs = getByPackageNumber(schrodingersWp);
         
         // Checks to see if parentless WorkPackages parent has a WP
-        if (parentWP == null) { checkAndCreateWP(schrodingersWp); }
+        if (arrayOfParentWPs.length == 0) { 
+            checkAndCreateWP(schrodingersWp); 
+            // Parent should now be created, check for a parent again
+            arrayOfParentWPs = getByPackageNumber(schrodingersWp);
+        }
+        
+        ArrayList<WorkPackageAllocation> wpAllocation = new ArrayList<WorkPackageAllocation>();
         
         // Creates a WorkPackage with a parent that exists
-        WorkPackage newWorkPackage = new WorkPackage(wpToCreate, parentWP, null, null, 
-                null, null, false, null, parentWP.getProject(), null, null, null);
-                
+//        WorkPackage newWorkPackage = new WorkPackage(wpToCreate, arrayOfParentWPs[0], null, null, 
+//                null, null, false, null, arrayOfParentWPs[0].getProject(), null, wpAllocation, null);
+        WorkPackage newWorkPackage = new WorkPackage(wpToCreate, arrayOfParentWPs[0], BigDecimal.valueOf(0), BigDecimal.valueOf(0), 
+                new Date(), new Date(), false, BigDecimal.valueOf(0), arrayOfParentWPs[0].getProject(), null, wpAllocation, null);
+        
         addWorkPackage(newWorkPackage);
     }
     
