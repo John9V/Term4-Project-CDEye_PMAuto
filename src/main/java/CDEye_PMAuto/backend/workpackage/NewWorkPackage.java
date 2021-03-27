@@ -41,20 +41,18 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 	public String add() {
 		Project activeProj = new Project();
 		activeProj.setId(apb.getId());
-		
 		WorkPackage[] parentWp = workPackageManager.findWpsByPkgNumAndProj(parentWpNumber, activeProj);
-
-		WorkPackage wp = new WorkPackage(this);
-//		wp.setProject(activeProj);
 		
-		String testParentWPNum = workPackageManager.determineParentWPNum(workPackageNumber);
 		//make sure it found a parent lol
         if (parentWp.length == 0) {
+            String testParentWPNum = workPackageManager.determineParentWPNum(workPackageNumber);
             workPackageManager.checkAndCreateWP(testParentWPNum);
             // Parent should now be created, check for a parent again
-            parentWp = workPackageManager.getByPackageNumber(parentWpNumber);
+            parentWp = workPackageManager.getByPackageNumber(testParentWPNum);
         }
- 
+        
+        WorkPackage wp = new WorkPackage(this);
+        wp.setProject(parentWp[0].project);
         wp.setParentWp(parentWp[0]);
 		wp.setId(UUID.randomUUID());
 		wp.setLeaf(false);

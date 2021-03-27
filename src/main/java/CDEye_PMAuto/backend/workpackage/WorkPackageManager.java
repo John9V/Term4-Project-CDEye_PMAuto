@@ -368,8 +368,6 @@ public class WorkPackageManager implements Serializable {
         ArrayList<WorkPackageAllocation> wpAllocation = new ArrayList<WorkPackageAllocation>();
         
         // Creates a WorkPackage with a parent that exists
-//        WorkPackage newWorkPackage = new WorkPackage(wpToCreate, arrayOfParentWPs[0], null, null, 
-//                null, null, false, null, arrayOfParentWPs[0].getProject(), null, wpAllocation, null);
         WorkPackage newWorkPackage = new WorkPackage(wpToCreate, arrayOfParentWPs[0], BigDecimal.valueOf(0), BigDecimal.valueOf(0), 
                 new Date(), new Date(), false, BigDecimal.valueOf(0), arrayOfParentWPs[0].getProject(), null, wpAllocation, null);
         
