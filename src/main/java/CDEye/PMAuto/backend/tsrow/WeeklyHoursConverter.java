@@ -1,6 +1,7 @@
 package CDEye.PMAuto.backend.tsrow;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -15,7 +16,9 @@ public class WeeklyHoursConverter implements Converter<BigDecimal> {
         if (value == null || value.isEmpty()) {
             return BigDecimal.ZERO;
         }
-        return BigDecimal.valueOf(Long.valueOf(value));
+
+        //return BigDecimal.valueOf(Long.parseLong(value));
+        return new BigDecimal(value);
     }
 
     @Override

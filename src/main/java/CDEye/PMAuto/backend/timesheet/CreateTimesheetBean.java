@@ -2,13 +2,13 @@ package CDEye.PMAuto.backend.timesheet;
 
 import CDEye.PMAuto.backend.tsrow.EditableTimesheetRow;
 import CDEye.PMAuto.backend.tsrow.TimesheetRow;
+import CDEye.PMAuto.backend.tsrow.TimesheetRowManager;
 import CDEye_PMAuto.backend.employee.Employee;
 import CDEye_PMAuto.backend.employee.EmployeeManager;
 import CDEye_PMAuto.backend.project.Project;
 import CDEye_PMAuto.backend.project.ProjectManager;
 import CDEye_PMAuto.backend.workpackage.WorkPackage;
 import CDEye_PMAuto.backend.workpackage.WorkPackageManager;
-import org.hibernate.jdbc.Work;
 
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -28,6 +28,8 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 	@Inject WorkPackageManager workPackageManager;
 	@Inject EmployeeManager employeeManager;
 	@Inject Conversation conversation;
+	@Inject
+	TimesheetRowManager rowManager;
 
 	private LocalDate sheetDate;
 	private List<EditableTimesheetRow> editableRows;
@@ -41,36 +43,28 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 			conversation.end();
 		}
 		conversation.begin();
+
 		Employee activeEmployee = employeeManager.getEmployeeByUserName(activeUserName);
 		this.setEmployee(activeEmployee);
 		this.editableRows = new ArrayList<>();
+		System.out.println("initialized");
 		return "CreateTimesheet";
 	}
 
-//	public String createTimesheet() {
-//		Timesheet t = new Timesheet();
-//		Employee e = new Employee();
-//		e.setId(activeEmployee.getId());
-//		t.setEmployee(e);
-//		Date date = new Date();
-//		t.setEndDate(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-//		this.employee = e;
-//		this.endDate = t.getEndDate();
-//		manager.addTimesheet(t);
-//		return "CreateTimesheet";
-//	}
-
 	public String add() {
-		setTimesheetRow();
-		Timesheet timesheet = new Timesheet(this);
-		timesheetManager.addTimesheet(timesheet);
+		timesheetManager.addTimesheet(new Timesheet(this));
+		saveTimesheetRow();
 		if (!conversation.isTransient()) {
 			conversation.end();
 		}
 		return "TimesheetList";
 	}
 
-	private void setTimesheetRow() {
+	private void saveTimesheetRow() {
+		//System.out.println(this.getId());
+		//Timesheet t = timesheetManager.find(this.getId());
+		//System.out.println(t.getId());
+
 		for (EditableTimesheetRow er : getEditableRows()) {
 			Project p = projectManager.findProjectByNum(er.getProjectNumber());
 			WorkPackage[] wp = workPackageManager.findWpsByPkgNumAndProj(er.getWorkPackageNumber(), p);
@@ -78,10 +72,15 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 				er.setProject(p);
 				er.setWorkPackage(wp[0]);
 				er.setTimesheet(this);
-				this.getDetails().add(new TimesheetRow(er));
+				TimesheetRow tsr = new TimesheetRow(er);
+				this.getDetails().add(tsr);
+				rowManager.addRow(tsr);
 			} else System.out.println("Not found");
 		}
 	}
+
+	//ADD button edit page
+	//Create an approval
 
 	public void addRow() {
 		this.editableRows.add(new EditableTimesheetRow());

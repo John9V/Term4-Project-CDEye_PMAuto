@@ -19,7 +19,7 @@ public class TimesheetRow {
 	@Type(type = "uuid-char")
 	protected UUID id;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="parent_sheet")
     protected Timesheet timesheet;
 

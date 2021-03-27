@@ -68,7 +68,7 @@ public class Timesheet {
     protected LocalDate endDate;
     
     @Fetch(value = FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="timesheet", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="timesheet", fetch = FetchType.EAGER)
     /** The List of all details (i.e. rows) that the form contains. */
     protected List<TimesheetRow> details;
     
@@ -82,10 +82,10 @@ public class Timesheet {
 		this.details = new ArrayList<TimesheetRow>();
 		this.endDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
-    
+
     public Timesheet(CreateTimesheetBean nts) {
     	super();
-    	this.id = UUID.randomUUID();
+    	this.id = nts.getId();
 		this.employee = nts.employee;
 		this.endDate = nts.endDate;
 		this.details = nts.details;

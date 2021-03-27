@@ -2,6 +2,7 @@ package CDEye.PMAuto.backend.timesheet;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.Dependent;
@@ -68,5 +69,10 @@ public class TimesheetManager implements Serializable {
 		em.persist(t);
 		System.out.println(t);
 		System.out.println("Timesheet added.");
+	}
+
+	public Timesheet find(UUID id) {
+		System.out.println("Manager Class :" + id);
+		return em.find(Timesheet.class, id);
 	}
 }

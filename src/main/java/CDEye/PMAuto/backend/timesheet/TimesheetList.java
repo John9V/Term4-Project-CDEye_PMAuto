@@ -28,10 +28,10 @@ public class TimesheetList implements Serializable {
 			conversation.end();
 		}
 		conversation.begin();
-        return refreshList();
+		if (list == null) refreshList();
+        return list;
     }
 
-	//Q: conversation ending?
 	public List<EditableTimesheet> refreshList() {
 		Timesheet[] timesheets = timesheetManager.getAllForCurrentEmployee();
         list = new ArrayList<EditableTimesheet>();
@@ -54,6 +54,16 @@ public class TimesheetList implements Serializable {
 			}
 		}
 		refreshList();
-		return "";
+		if (!conversation.isTransient()) {
+			conversation.end();
+		}
+		return "TimesheetList";
+	}
+
+	public String back() {
+		if (!conversation.isTransient()) {
+			conversation.end();
+		}
+		return "HRHome";
 	}
 }
