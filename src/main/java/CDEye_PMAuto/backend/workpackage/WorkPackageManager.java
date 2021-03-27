@@ -3,6 +3,8 @@ package CDEye_PMAuto.backend.workpackage;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import javax.ejb.Stateless;
@@ -265,31 +267,6 @@ public class WorkPackageManager implements Serializable {
 		return wp.projectBudget.subtract(calculateAllocatedBudget(wp));
 	}
 
-    /**
-     * INCORRECT
-     */
-	public String determineParentWPNum(WorkPackage wp) {
-		return null;
-	}
-
-	/**
-	 *INCORRECT
-	 */
-	public String determineWPNumFromParent(WorkPackage wp) {
-		return null;
-//		if (!wp.isLeaf) {
-//			String WPNumFromParent = "";
-//			WorkPackage[] workpackages = getByParentId(wp.workPackageNumber);
-//			for (WorkPackage workpackage : workpackages) {
-//				WPNumFromParent.concat(workpackage.workPackageNumber);
-//				WPNumFromParent.concat("\n");
-//			}
-//			return WPNumFromParent;
-//		} else {
-//			return null;
-//		}
-	}
-
 	/**
 	 * Get WorkPackage(s) by StartDate
 	 * 
@@ -363,5 +340,106 @@ public class WorkPackageManager implements Serializable {
         wp.childPackages = w.childPackages;
         em.merge(wp);
         System.out.println("Update work package leaf" + wp.workPackageNumber);
+    }
+	
+	// HELPER FUNCTIONS
+	
+    /**
+     * A RECURSIVE function that checks to see if a WorkPackage has a parent, if not, 
+     * check parent to see if the parent has a parent. Once the function finds a WorkPackage 
+     * with a parent, creates the desired WorkPackage
+     *
+     * @param wpToCreate, the WorkPackage number, as a String, of the WorkPackage to create
+     */
+    public void checkAndCreateWP(String wpToCreate) {
+        // Determines the wpNum of the WorkPackage that is SUPPOSED to exist
+        String schrodingersWp = determineParentWPNum(wpToCreate);
+        
+        // Checks to see if the supposed to exist WP really does exist
+        WorkPackage parentWP = getByPackageNumber(schrodingersWp)[0];
+        
+        // Checks to see if parentless WorkPackages parent has a WP
+        if (parentWP == null) { checkAndCreateWP(schrodingersWp); }
+        
+        // Creates a WorkPackage with a parent that exists
+        WorkPackage newWorkPackage = new WorkPackage(wpToCreate, parentWP, null, null, 
+                null, null, false, null, parentWP.getProject(), null, null, null);
+                
+        addWorkPackage(newWorkPackage);
+    }
+    
+    //TODO: Need to account for edge cases
+    /**
+     * Returns the parent Workpackage of any given workpackage
+     * ex) 13100 return 13000, 14200 return 14000
+     * 
+     * @param wp, the child Workpackage as a WorkPackage
+     * @return the parent work package wpnum, as a string
+     */
+    public String determineParentWPNum(String wpNumber) {
+        //Gets the WP Number(10000) -> 11000, 12000, 13000, 14000, 1500 -> 11100 , 11200
+        String wpNum = wpNumber;
+        
+        //Concatenates any non 0 digit to the blank string (This assumes a wp must have all trailing 0s at the end)
+        String blankString = "";
+        for (int i = 0; i < wpNum.length(); i++) {
+            if (wpNum.charAt(i) != '0') {
+                blankString += wpNum.charAt(i);
+            }
+        }
+       
+        //Parse the wpNum into an int
+        int wpNumAsInt = Integer.parseInt(blankString);
+        //Divide the integer by 10 in order to get the parent WP (Truncates and decimals)
+        int parentWpNumAsInt = wpNumAsInt / 10; 
+        //Convert parentWPNumAsInt back to string
+        String parentWpNumAsString = Integer.toString(parentWpNumAsInt);
+        
+        //Adds the trailing 0s back on (This assumes all wp have 5 digits, can add count variable into first four loop if not
+        while(parentWpNumAsString.length() < 5) {
+            parentWpNumAsString += "0";
+        }
+        
+//      Fetches WP from DB if needed
+//      WorkPackage[] parentWp = getByPackageNumber(Integer.toString(parentWpNumAsInt));
+//      String parentWpNumAsString = parentWp[0].workPackageNumber;
+        
+        return parentWpNumAsString;
+    }
+
+    //TODO: Need to account for edge cases
+    /**
+     * Determines the children WP of any given WP
+     * ex) 13100 return 13110 13120 13130 etc
+     * 
+     * @param wp, the parent WorkPackage, as a WorkPackage
+     * @return an array of child work package numbers, as strings 
+     */
+    public ArrayList<String> determineWPNumFromParent(String wpNum) {
+        //ArrayList containing strings of all ChildWPNums
+        ArrayList<String> potentialWorkPackages = new ArrayList<String>();
+        //The wp num of the ParentWP
+        String parentWpNum = wpNum;
+        
+        //Maintains a count of what char we are at
+        int count = 0;
+        //Counts each non 0 number in the string, in order to get to where the Child WP should be
+        for (int i = 0; i < parentWpNum.length(); i++) {
+            if (parentWpNum.charAt(i) != '0') {
+                count++;
+            } 
+        }
+        
+        //Adds one to the count in order to get to the child work package digit
+        count++;
+        
+        //Replaces each var at count with a num from 1-9 (10000) -> 11000, 12000, 13000
+        for (int i = 1; i < 10; i++) {
+            StringBuilder stringBuilderWP = new StringBuilder(parentWpNum);
+            stringBuilderWP.setCharAt(count, (char)(i + 48));
+            potentialWorkPackages.add(new String(stringBuilderWP.toString()));
+        }
+        
+        return potentialWorkPackages;
     }
 }
