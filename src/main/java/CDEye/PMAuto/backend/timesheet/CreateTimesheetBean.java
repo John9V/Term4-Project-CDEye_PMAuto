@@ -83,7 +83,7 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 	//Create an approval
 
 	public void addRow() {
-		this.editableRows.add(new EditableTimesheetRow());
+		this.editableRows.add(new EditableTimesheetRow(projectManager.getAll()));
 	}
 
 	public LocalDate getSheetDate() {

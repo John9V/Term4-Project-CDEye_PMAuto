@@ -29,8 +29,11 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">PROJECT</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{row.projectNumber}" required="true"
-                                 rendered="#{row.editable}"/>
+<!--                    <h:inputText styleClass="edit-input" value="#{row.projectNumber}" required="true"-->
+<!--                                 rendered="#{row.editable}"/>-->
+                    <h:selectOneMenu value="#{row.projectNumber}" styleClass="edit-input" rendered="#{row.editable}">
+                        <f:selectItems value="#{row.availProjects}" var="p" itemLabel="#{p.availProjectName}" itemValue="#{p.availProjectNumber}"/>
+                    </h:selectOneMenu>
                     <h:outputText styleClass="edit-output" value="#{row.projectNumber}" rendered="#{not row.editable}"/>
                 </h:column>
                 <h:column>

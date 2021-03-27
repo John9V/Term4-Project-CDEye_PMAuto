@@ -1,8 +1,12 @@
 package CDEye.PMAuto.backend.tsrow;
 
 import CDEye.PMAuto.backend.timesheet.Timesheet;
+import CDEye_PMAuto.backend.project.Project;
+import CDEye_PMAuto.backend.project.ProjectManager;
 
+import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 
@@ -14,12 +18,47 @@ public class EditableTimesheetRow extends TimesheetRow implements Serializable {
     private boolean deletable;
     private String projectNumber;
     private String workPackageNumber;
+    private Project[] projects;
+    private availProject[] projectNameList;
 
-    public EditableTimesheetRow() {}
+    public EditableTimesheetRow(){}
+    public EditableTimesheetRow(Project[] projects) {
+        this.projects = projects;
+    }
+
     public EditableTimesheetRow(Timesheet parent, TimesheetRow target) {
         super(parent, target);
         setProjectNumber(target.project.getProjectNumber());
         setWorkPackageNumber(target.workPackage.getWorkPackageNumber());
+    }
+
+    public static class availProject{
+        public String availProjectName;
+        public String availProjectNumber;
+
+        public availProject(String name, String num) {
+            this.availProjectName = name;
+            this.availProjectNumber = num;
+        }
+
+        public String getAvailProjectNumber() {
+            return availProjectNumber;
+        }
+
+        public String getAvailProjectName() {
+            return availProjectName;
+        }
+    }
+
+    public availProject[] getAvailProjects() {
+        projectNameList = new availProject[projects.length];
+        for (int i=0; i < projectNameList.length; i++) {
+            projectNameList[i] = new availProject(
+                    projects[i].getProjectName(),
+                    projects[i].getProjectNumber()
+            );
+        }
+        return projectNameList;
     }
 
     public boolean isEditable() {

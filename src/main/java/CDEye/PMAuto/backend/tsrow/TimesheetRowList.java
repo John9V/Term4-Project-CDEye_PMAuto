@@ -24,7 +24,7 @@ public class TimesheetRowList implements Serializable {
     @Inject WorkPackageManager workPackageManager;
     @Inject Conversation conversation;
 
-    private Timesheet parent;
+    private Timesheet parentSheet;
     private List<EditableTimesheetRow> rowList;
 
     public List<EditableTimesheetRow> getRowList(Timesheet parent) {
@@ -37,7 +37,7 @@ public class TimesheetRowList implements Serializable {
     }
 
     public void refreshRowList(Timesheet parent) {
-        this.parent = parent;
+        this.parentSheet = parent;
         TimesheetRow[] rows = rowManager.getRowsForTimesheet(parent);
         rowList = new ArrayList<>();
         for (TimesheetRow row : rows) {
@@ -46,11 +46,9 @@ public class TimesheetRowList implements Serializable {
     }
 
     public void addRow() {
-        TimesheetRow row = new TimesheetRow(parent);
-        row.setProject(new Project());
-        row.setWorkPackage(new WorkPackage());
-        EditableTimesheetRow etr = new EditableTimesheetRow(parent, row);
+        EditableTimesheetRow etr = new EditableTimesheetRow(projectManager.getAll());
         etr.setEditable(true);
+        etr.setTimesheet(parentSheet);
         rowList.add(etr);
     }
 
