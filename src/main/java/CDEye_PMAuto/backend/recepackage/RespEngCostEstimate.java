@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -25,14 +26,17 @@ import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import CDEye_PMAuto.backend.workpackage.EditableWorkPackage;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Type;
 
 import CDEye_PMAuto.backend.employee.Employee;
+import CDEye_PMAuto.backend.employee.EmployeeManager;
 import CDEye_PMAuto.backend.paygrade.Paygrade;
 import CDEye_PMAuto.backend.workpackage.WorkPackage;
+import CDEye_PMAuto.backend.workpackage.WorkPackageManager;
 
 @Entity
 @Table(name="recepackage")
@@ -41,6 +45,9 @@ import CDEye_PMAuto.backend.workpackage.WorkPackage;
 @SessionScoped
 public class RespEngCostEstimate implements Serializable {
 
+    @Inject @Transient
+    private EmployeeManager employeeManager;
+    
     /** The ID of the RECE **/
     @Id
     @Column(name="id")
@@ -65,6 +72,9 @@ public class RespEngCostEstimate implements Serializable {
     @JoinColumn(name="employeeId")
     @ManyToOne
     protected Employee employee;
+    
+//    @Transient
+//    protected String empUserName = "hihey";
     
     @JoinColumn(name="wp")
     @ManyToOne(fetch = FetchType.EAGER)
@@ -162,6 +172,32 @@ public class RespEngCostEstimate implements Serializable {
     public void setWorkPackage(WorkPackage workPackage) {
         this.workPackage = workPackage;
     }
+
+//    /**
+//     * @return the empUserName
+//     */
+//    public String getEmpUserName() {
+//        System.out.println("returning empUserName: " + empUserName);
+//        return empUserName;
+//    }
+//
+//    /**
+//     * @param empUserName the empUserName to set
+//     */
+//    public void setEmpUserName(String empUserName) {
+//        System.out.println("this: " + this);
+//        System.out.println("empUserName:" + empUserName);
+//        this.empUserName = "";
+//        System.out.println("empUserName:" + empUserName);
+//        
+//        System.out.println("employeeManager:" + employeeManager);
+//        System.out.println("employeeManager:" + employeeManager);
+//        
+//        this.empUserName = empUserName;
+////        this.employee = employeeManager.getEmployeeByUserName(empUserName);
+//        
+//        System.out.println("made it to the end yay");
+//    }
     
     
     

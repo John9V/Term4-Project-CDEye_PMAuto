@@ -2,6 +2,7 @@ package CDEye_PMAuto.backend.workpackage;
 
 import CDEye_PMAuto.backend.paygrade.Paygrade;
 import CDEye_PMAuto.backend.paygrade.PaygradeManager;
+import CDEye_PMAuto.backend.recepackage.RECEList;
 import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
 import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocation;
 
@@ -24,6 +25,9 @@ import java.util.List;
 public class EditableWorkPackageLeaf extends WorkPackage implements Serializable {
     @Inject
     private WorkPackageManager workPackageManager;
+    
+    @Inject
+    private RECEList receList;
 
     @Inject
     private PaygradeManager paygradeManager;
@@ -47,7 +51,7 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
         this.isLeaf = selectedWp.isLeaf;
         this.projectBudget = selectedWp.projectBudget;
         this.project = selectedWp.project;
-        this.RECEs = selectedWp.RECEs;
+        this.RECEs = receList.refreshRespEngCostEstimate();
 //        System.out.println("WORK PACKAGE ALLOCS");
 //        for (WorkPackageAllocation w : this.getWpAllocs()) {
 //            System.out.println(w.getPaygrade().getName() + ": " + w.getPersonDaysEstimate());
@@ -147,7 +151,7 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
     // TODO
     // Not sure for now
     public void assignResponsibleEngineer() {
-
+        
     }
 
     /**
@@ -157,4 +161,19 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
     public String cancelEditedWorkPackageLeaf() {
         return "RETURN_WP_LIST";
     }
+
+    /**
+     * @return the receList
+     */
+    public RECEList getReceList() {
+        return receList;
+    }
+
+    /**
+     * @param receList the receList to set
+     */
+    public void setReceList(RECEList receList) {
+        this.receList = receList;
+    }
+    
 }

@@ -187,6 +187,23 @@ public class WorkPackage implements Serializable {
         this.childPackages = wp.childPackages;
     }
     
+    public WorkPackage(ActiveWPBean wp) {
+        super();
+        this.id = wp.id;
+        this.workPackageNumber = wp.workPackageNumber;
+        this.parentWp = wp.parentWp;
+        this.completedBudget = wp.completedBudget;
+        this.completedPersonDays = wp.completedPersonDays;
+        this.startDate = wp.startDate;
+        this.endDate = wp.endDate;
+        this.isLeaf = wp.isLeaf;
+        this.projectBudget = wp.projectBudget;
+        this.project = wp.project;
+        this.RECEs = wp.RECEs;
+        this.wpAllocs = wp.wpAllocs;
+        this.childPackages = wp.childPackages;
+    }
+    
     /**
      * Sets all variables to the ones in the passed in work package.
      */

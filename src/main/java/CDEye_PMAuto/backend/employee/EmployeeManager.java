@@ -146,9 +146,10 @@ public class EmployeeManager implements Serializable {
      * @return an Employee object
      */
 	public Employee getEmployeeByUserName(String userName) {
+	    System.out.println("userName in manager class: " + userName);
 		TypedQuery<Employee> query = em.createQuery(
-    			"SELECT e FROM Employee e WHERE e.userName LIKE :userName", Employee.class)
-    			.setParameter("userName", "%" + userName + "%");
+    			"SELECT e FROM Employee e WHERE e.userName = :userName", Employee.class)
+    			.setParameter("userName", userName);
     	List<Employee> employees = query.getResultList();
     	
         if (employees.isEmpty()) {

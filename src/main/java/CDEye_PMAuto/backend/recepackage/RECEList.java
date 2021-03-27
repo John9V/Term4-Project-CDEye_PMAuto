@@ -2,6 +2,7 @@ package CDEye_PMAuto.backend.recepackage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.enterprise.context.Conversation;
@@ -9,6 +10,10 @@ import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import CDEye_PMAuto.backend.employee.EmployeeManager;
+import CDEye_PMAuto.backend.workpackage.ActiveWPBean;
+import CDEye_PMAuto.backend.workpackage.WorkPackage;
 
 @Named("receList")
 @ConversationScoped
@@ -18,6 +23,12 @@ public class RECEList implements Serializable {
     @Inject 
     @Dependent 
     private RECEManager receManager;
+    
+    @Inject
+    private EmployeeManager employeeManager;
+    
+    @Inject
+    private ActiveWPBean awp;
     
     /** A list of editable rece packages **/
     private List<EditableRECE> list;
@@ -39,6 +50,13 @@ public class RECEList implements Serializable {
         }
         return list;
     }
+    
+    public List<RespEngCostEstimate> refreshRespEngCostEstimate() {
+        WorkPackage wp = new WorkPackage();
+        wp.setId(awp.getId());
+        RespEngCostEstimate[] packages = receManager.getByWP(wp);
+        return Arrays.asList(packages);
+    }
 
     /**
      * Accesses the RECEManager Class to get all EditableRECEPackages. This function is used by 
@@ -47,10 +65,27 @@ public class RECEList implements Serializable {
      * @return a list of EditableREcePackage, List<EditableRECEPackage>
      */
     public List<EditableRECE> refreshList() {
-        RespEngCostEstimate[] packages = receManager.getAll();
+        WorkPackage wp = new WorkPackage();
+        wp.setId(awp.getId());
+//        wp.wo(awp.getId());
+//        wp.parentWp = awp.parentWp;
+//        wp.completedBudget = awp.completedBudget;
+//        wp.completedPersonDays = awp.completedPersonDays;
+//        wp.startDate = awp.startDate;
+//        wp.endDate = awp.endDate;
+//        wp.isLeaf = awp.isLeaf;
+//        wp.projectBudget = awp.projectBudget;
+//        wp.project = awp.project;
+//        wp.RECEs = awp.RECEs;
+//        wp.wpAllocs = awp.wpAllocs;
+//        wp.childPackages = awp.childPackages;
+        RespEngCostEstimate[] packages = receManager.getByWP(wp);
         list = new ArrayList<EditableRECE>();
         for (int i = 0; i < packages.length; i++) {
-            list.add(new EditableRECE(packages[i]));
+            EditableRECE editableRECE = new EditableRECE(packages[i]);
+            editableRECE.setEmployeeManager(employeeManager);
+            editableRECE.setReceManager(receManager);
+            list.add(editableRECE);
         }
         return list;
     }
