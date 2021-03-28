@@ -72,7 +72,7 @@ public class CredentialManager implements Serializable {
      */
     public Credential[] getAll() {
         // need to make sure the table name matches the one in the database
-        TypedQuery<Credential> query = em.createQuery("select c from Credentials c", Credential.class);
+        TypedQuery<Credential> query = em.createQuery("select c from Credential c", Credential.class);
         java.util.List<Credential> credentialsList = query.getResultList();
         Credential[] credentials = new Credential[credentialsList.size()];
         for (int i = 0; i < credentials.length; i++) {
@@ -94,12 +94,21 @@ public class CredentialManager implements Serializable {
     			"SELECT c FROM Credential c WHERE c.userName LIKE :userName", Credential.class)
     			.setParameter("userName", "%" + c.getUserName() + "%");
     	List<Credential> credentials = query.getResultList();
-    	
-        Credential cred = credentials.get(0);
+
+//        // if credentials not in database
+//        if (credentials == null) {
+//            return false;
+//        }
+
         // if credentials not in database
-        if (cred == null) {
+        if (credentials.isEmpty()) {
+            System.out.println("empty");
             return false;
+
         }
+
+        Credential cred = credentials.get(0);
+        System.out.println("get(0)");
         return c.getPassword().equals(cred.getPassword());
     }
 }
