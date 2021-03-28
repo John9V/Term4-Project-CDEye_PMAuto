@@ -32,9 +32,9 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 	@Inject WorkPackageAllocManager wpam;
 	@Inject RECEManager recem;
 	
-
+	
 	String parentWpNumber = "";
-
+    
 	/**
 	 * Used to persist the new work package.
 	 */
@@ -94,6 +94,14 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 		}
 	}
 	
+	/**
+	 * Gets the child WP number from a parent WP on keyup event from testCreateWP.xhtml
+	 */
+    public void ajaxEvent() {
+        System.out.println("Called: " + parentWpNumber);
+        workPackageNumber = workPackageManager.determineChildWPWithoutZeroes(parentWpNumber);
+     }
+    
 	public String getParentWpNumber() {
 		return parentWpNumber;
 	}

@@ -406,10 +406,6 @@ public class WorkPackageManager implements Serializable {
             parentWpNumAsString += "0";
         }
         
-//      Fetches WP from DB if needed
-//      WorkPackage[] parentWp = getByPackageNumber(Integer.toString(parentWpNumAsInt));
-//      String parentWpNumAsString = parentWp[0].workPackageNumber;
-        
         return parentWpNumAsString;
     }
 
@@ -447,5 +443,25 @@ public class WorkPackageManager implements Serializable {
         }
         
         return potentialWorkPackages;
+    }
+    
+    /** Gets rid of the 0s on a WorkPackage number **/
+    public String determineChildWPWithoutZeroes(String wpNum) {
+        //The wp num of the ParentWP
+        String parentWpNum = wpNum;
+        
+        String childWP = "";
+        
+        //For each number in the WpNum appends it to childWp, if it's not a 0.
+        //Once a 0 is encountered, breaks from the loop
+        for (int i = 0; i < parentWpNum.length(); i++) {
+            if (parentWpNum.charAt(i) != '0') {
+                childWP += parentWpNum.charAt(i);
+            } else {
+                break;
+            }
+        }
+        
+        return childWP;
     }
 }
