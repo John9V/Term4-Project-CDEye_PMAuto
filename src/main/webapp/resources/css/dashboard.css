@@ -48,9 +48,14 @@ html, body {
 	margin-left: 60px;
 }
 
+.header h3 {
+	font-size: 20px;
+	letter-spacing: 2px;
+	padding: 10px 0 0px 20px;
+}
+
 .cont_box {
 	width: 100%;
-	/*height: calc(100% - 40px);*/
 	height: 100%;
 	background-color: rgb(242, 242, 242);
 	display: flex;
@@ -130,4 +135,18 @@ html, body {
 	border-radius: 8px;
 	margin: 0 auto;
 	cursor: pointer;
+}
+
+.logout-button input {
+	position: absolute;
+	top: 6px;
+	right: 96px;
+	border-radius: 25px;
+	padding: 8px;
+	color: white;
+	background-color: #03a9f4;
+	border: 1px solid #03a9f4;
+	font-size: 16px;
+	width: 120px;
+	border-radius: 25px;
 }

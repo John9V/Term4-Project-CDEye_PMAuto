@@ -16,6 +16,14 @@
 	<!-- The current route -->
 	<div class="header-bar">
 		<h3>EMPLOYEE HOME</h3>
+		<div class="logout-button">
+			<h:form styleClass="">
+				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+					value="Logout" action="#{activeEmployeeBean.logout}" />
+				<h:commandButton rendered="#{empty activeEmployeeBean.userName}"
+					value="Login" action="login" />
+			</h:form>
+		</div>
 	</div>
 
 	<!-- Form Container: reusable horizontal row input style-->
@@ -33,10 +41,6 @@
 			<div class="button-container">
 				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
 					value="ProjectDashboard" action="ProjectDashboard" />
-				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
-					value="Logout" action="#{activeEmployeeBean.logout}" />
-				<h:commandButton rendered="#{empty activeEmployeeBean.userName}"
-					value="Login" action="login" />
 			</div>
 		</h:form>
 	</div>
