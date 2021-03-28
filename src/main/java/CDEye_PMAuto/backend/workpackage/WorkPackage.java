@@ -45,7 +45,7 @@ public class WorkPackage implements Serializable {
 	protected String workPackageNumber;
 	
 	/** Parent WorkPackage. */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="parentworkpackage")
 	protected WorkPackage parentWp;
 	
@@ -206,7 +206,6 @@ public class WorkPackage implements Serializable {
         this.childPackages = wp.childPackages;
     }
     
-    
     public BigDecimal calcAllocatedBudget() {
     	if (this.isLeaf) {
     		BigDecimal personDays = new BigDecimal(0);
@@ -278,6 +277,7 @@ public class WorkPackage implements Serializable {
         }
         return personDays;
     }
+    
     
     /**
      * @return the id

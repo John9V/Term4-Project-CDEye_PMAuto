@@ -45,13 +45,8 @@ public class WorkPackageManager implements Serializable {
      */
     public WorkPackage[] getAll() {
         TypedQuery<WorkPackage> query = em.createQuery("select wp from WorkPackage wp",
-                WorkPackage.class); 
-        List<WorkPackage> workPackages = query.getResultList();
-        WorkPackage[] wpArr = new WorkPackage[workPackages.size()];
-        for (int i = 0; i < wpArr.length; i++) {
-            wpArr[i] = workPackages.get(i);
-        }
-        return wpArr;
+                WorkPackage.class);
+        return getWorkPackages(query);
     }
     
     /**
@@ -80,42 +75,21 @@ public class WorkPackageManager implements Serializable {
         TypedQuery<WorkPackage> query = em.createQuery(
                 "SELECT wp FROM WorkPackage wp WHERE workpackagenumber LIKE :packageNumber", WorkPackage.class)
                 .setParameter("packageNumber", "%" + packageNumber + "%");
-        List<WorkPackage> workPackages = query.getResultList();
-        
-        WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
-        for (int i = 0; i < packageArr.length; i++) {
-            packageArr[i] = workPackages.get(i);
-        }
-        
-        return packageArr;
+        return getWorkPackages(query);
     }
     
     public WorkPackage[] getByParentId(String parentId) {
         TypedQuery<WorkPackage> query = em.createQuery(
                 "SELECT wp FROM WorkPackage wp WHERE parentworkpackage LIKE :parentId", WorkPackage.class)
                 .setParameter("parentId", "%" + parentId + "%");
-        List<WorkPackage> workPackages = query.getResultList();
-        
-        WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
-        for (int i = 0; i < packageArr.length; i++) {
-            packageArr[i] = workPackages.get(i);
-        }
-        
-        return packageArr;
+        return getWorkPackages(query);
     }
     
     public WorkPackage[] findWpsByProject(Project p) {
         TypedQuery<WorkPackage> query = em.createQuery(
-                "SELECT wp FROM WorkPackage wp WHERE wp.project.id = :projectId", WorkPackage.class)
+                "SELECT wp FROM WorkPackage wp WHERE wp.project.id = :projectId ORDER BY wp.workPackageNumber ASC", WorkPackage.class)
                 .setParameter("projectId", p.getId());
-        List<WorkPackage> workPackages = query.getResultList();
-        
-        WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
-        for (int i = 0; i < packageArr.length; i++) {
-            packageArr[i] = workPackages.get(i);
-        }
-        
-        return packageArr;
+        return getWorkPackages(query);
     }
     
     public WorkPackage[] findWpsByPkgNumAndProj(String workPackageNumber, Project p) {
@@ -125,16 +99,22 @@ public class WorkPackageManager implements Serializable {
                 "SELECT wp FROM WorkPackage wp WHERE wp.workPackageNumber = :workPackageNumber AND wp.project.id = :projectId", WorkPackage.class)
     			.setParameter("workPackageNumber", workPackageNumber)
     			.setParameter("projectId", p.getId());
-    	List<WorkPackage> workPackages = query.getResultList();
+        return getWorkPackages(query);
+    }
 
-    	WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
+    private WorkPackage[] getWorkPackages(TypedQuery<WorkPackage> query) {
+        List<WorkPackage> workPackages = query.getResultList();
+        WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
         for (int i = 0; i < packageArr.length; i++) {
             packageArr[i] = workPackages.get(i);
         }
-        
         return packageArr;
     }
     
+    public WorkPackage find(UUID id) {
+    	return em.find(WorkPackage.class, id);
+    }
+
     /**
      * Uses a modified workPackage to update a workPackage in the database.
      * 
@@ -277,14 +257,8 @@ public class WorkPackageManager implements Serializable {
 		TypedQuery<WorkPackage> query = em
 				.createQuery("SELECT wp FROM WorkPackage wp WHERE startdate LIKE :startDate", WorkPackage.class)
 				.setParameter("startDate", "%" + startDate + "%");
-		List<WorkPackage> workPackages = query.getResultList();
-
-		WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
-		for (int i = 0; i < packageArr.length; i++) {
-			packageArr[i] = workPackages.get(i);
-		}
-		return packageArr;
-	}
+        return getWorkPackages(query);
+    }
 
 	/**
 	 * Get WorkPackage(s) by EndDate
@@ -296,14 +270,8 @@ public class WorkPackageManager implements Serializable {
 		TypedQuery<WorkPackage> query = em
 				.createQuery("SELECT wp FROM WorkPackage wp WHERE enddate LIKE :endDate", WorkPackage.class)
 				.setParameter("endDate", "%" + endDate + "%");
-		List<WorkPackage> workPackages = query.getResultList();
-
-		WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
-		for (int i = 0; i < packageArr.length; i++) {
-			packageArr[i] = workPackages.get(i);
-		}
-		return packageArr;
-	}
+        return getWorkPackages(query);
+    }
 
 	/**
 	 * Get all leaves WorkPackage(s)
@@ -315,14 +283,8 @@ public class WorkPackageManager implements Serializable {
 		TypedQuery<WorkPackage> query = em
 				.createQuery("SELECT wp FROM WorkPackage wp WHERE isleaf LIKE :isLeaf", WorkPackage.class)
 				.setParameter("isLeaf", "%" + isLeaf + "%");
-		List<WorkPackage> workPackages = query.getResultList();
-
-		WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
-		for (int i = 0; i < packageArr.length; i++) {
-			packageArr[i] = workPackages.get(i);
-		}
-		return packageArr;
-	}
+        return getWorkPackages(query);
+    }
 
     /**
      * Updated selected Work Package Leaf details

@@ -28,16 +28,10 @@
         <br/>
         <div class="form-group">
             <h:outputLabel for="password" value="Password"/>
-            <h:inputText id="password" value="#{activeEmployeeBean.password}" class="form-control" required="true"/>
+            <h:inputSecret id="password" value="#{activeEmployeeBean.password}" class="form-control" required="true"/>
         </div>
         <br/>
         <h:commandButton value="Sign in" class="w-100 btn btn-lg btn-primary" action="#{activeEmployeeBean.login}"/>
     </h:form>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!--   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>-->
-    <!--   <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>-->
-    <!--   <script src="resources/js/bootstrap.min.js"></script>-->
 </h:body>
 </html>

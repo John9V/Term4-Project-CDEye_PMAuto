@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.CascadeType;
@@ -18,14 +19,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Type;
 
 import CDEye_PMAuto.backend.employee.Employee;
 
 @Entity
-@Table(name = "projects")
+@Table(name="projects")
 @Named("project")
-@RequestScoped
+@DynamicUpdate
+@SessionScoped
 public class Project implements Serializable {
 
 	@Transient

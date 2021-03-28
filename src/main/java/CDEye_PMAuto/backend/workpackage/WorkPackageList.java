@@ -49,14 +49,8 @@ public class WorkPackageList implements Serializable {
         return list;
     }
     
-    public List<EditableWorkPackage> getWpsByProj() {
-    	Project activeProj = new Project(apb);
-    	WorkPackage[] wps = workPackageManager.findWpsByProject(activeProj);
-        list = new ArrayList<EditableWorkPackage>();
-        for (int i = 0; i < wps.length; i++) {
-            list.add(new EditableWorkPackage(wps[i]));
-        }
-        return list;
+    public EditableWorkPackage getWpsBy(UUID id) {
+        return new EditableWorkPackage(workPackageManager.getByUUID(id.toString()));     
     }
 
     public List<EditableWorkPackage> refreshList() {

@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -30,42 +34,65 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 	private WorkPackageManager workPackageManager;
 	@Inject
 	ActiveProjectBean apb;
-	@Inject PaygradeManager pgm;
-	@Inject WorkPackageAllocManager wpam;
-	@Inject RECEManager recem;
-	
+	@Inject
+	PaygradeManager pgm;
+	@Inject
+	WorkPackageAllocManager wpam;
+	@Inject
+	RECEManager recem;
 	
 	String parentWpNumber = "";
     
+	public Boolean validateWorkPackageNumber() {
+		if (workPackageManager.getByPackageNumber(workPackageNumber).length != 0) {
+			System.out.println("already existing workPackage.");
+			return false;
+		}
+		return true;
+	}
+
+	public void validateWPNum(FacesContext context, UIComponent comp, Object value) {
+		String workPackageNumber = (String) value;
+
+		if (workPackageManager.getByPackageNumber(workPackageNumber).length != 0) {
+			((UIInput) comp).setValid(false);
+			FacesMessage message = new FacesMessage("already existing workPackage");
+			context.addMessage(comp.getClientId(context), message);
+		}
+	}
+
 	/**
 	 * Used to persist the new work package.
 	 */
 	public String add() {
 		Project activeProj = new Project();
 		activeProj.setId(apb.getId());
-		WorkPackage[] parentWp = workPackageManager.findWpsByPkgNumAndProj(parentWpNumber, activeProj);
 		
-		//make sure it found a parent lol
+		//if (validateWorkPackageNumber()) {
+			WorkPackage[] parentWp = workPackageManager.findWpsByPkgNumAndProj(parentWpNumber, activeProj);
         if (parentWp.length == 0) {
             String testParentWPNum = workPackageManager.determineParentWPNum(workPackageNumber);
             checkAndCreateWP(testParentWPNum);
             // Parent should now be created, check for a parent again
             parentWp = workPackageManager.getByPackageNumber(testParentWPNum);
-        }
+			}
         
         WorkPackage wp = new WorkPackage(this);
         wp.setProject(parentWp[0].project);
         wp.setParentWp(parentWp[0]);
-		wp.setId(UUID.randomUUID());
-		wp.setLeaf(false);
-		
-		workPackageManager.addWorkPackage(wp);
+			wp.setId(UUID.randomUUID());
+			//wp.setLeaf(false);
+
+			workPackageManager.addWorkPackage(wp);
 		
 		WorkPackage addedWp = workPackageManager.getByUUID(wp.getId().toString());
-		System.out.println("committed work package");
-		createWpAllocs(addedWp);
-		createRECEs(addedWp);
-		return "WPList";
+			System.out.println("committed work package");
+			createWpAllocs(addedWp);
+			createRECEs(addedWp);
+			return "WPList";
+		//} else {
+			//return "CreateWorkPackage";
+		//}
 	}
 	
     /**
@@ -101,7 +128,7 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
         createRECEs(addedWp);
     }
 
-	//create a wpalloc for each paygrade
+	// create a wpalloc for each paygrade
 	public void createWpAllocs(WorkPackage addedWp) {
 		Paygrade[] paygradeArr = pgm.getAll();
 		for (Paygrade p : paygradeArr) {
@@ -115,8 +142,8 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 			System.out.println("committed wpa");
 		}
 	}
-	
-	//create a RECE for each paygrade
+
+	// create a RECE for each paygrade
 	public void createRECEs(WorkPackage addedWp) {
 		Paygrade[] paygradeArr = pgm.getAll();
 		for (Paygrade p : paygradeArr) {
@@ -128,7 +155,7 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 			recem.persist(rece);
 		}
 	}
-	
+
 	/**
 	 * Gets the child WP number from a parent WP on keyup event from testCreateWP.xhtml
 	 */
