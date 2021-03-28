@@ -35,23 +35,29 @@
 			<div class="input-row">
 				<p>Project Number</p>
 				<h:graphicImage library="images" name="user.png" />
-				<h:inputText id="projNum" value="#{createProject.projectNumber}" />
-				<h:message for="projNum" style="color:red" />
+				<h:inputText id="projNum" value="#{createProject.projectNumber}"/>
+<!--				<h:message for="projNum" style="color:red" />-->
 			</div>
 
 			<div class="input-row">
 				<p>Project Name</p>
 				<h:graphicImage library="images" name="user.png" />
-				<h:inputText id="projName" value="#{createProject.projectName}" />
-				<h:message for="projName" style="color:red" />
+				<h:inputText id="projName" value="#{createProject.projectName}"/>
+<!--				<h:message for="projName" style="color:red" />-->
 			</div>
 
 			<!-- Create Employee: Add DB-->
 			<div class="button-container">
 				<h:commandButton value="CREATE" action="#{createProject.add}" />
 			</div>
+			<div class="error-container">
+				<h:panelGroup rendered="#{createProject.showError}">
+					<p class="error-msg">#{createProject.errorMsg}</p>
+				</h:panelGroup>
+			</div>
 		</h:form>
 	</div>
 </ui:fragment>
+	
 
 </html>

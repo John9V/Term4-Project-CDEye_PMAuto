@@ -3,6 +3,7 @@ package CDEye_PMAuto.backend.project;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named("projectDashboard")
-@ConversationScoped
+@RequestScoped
 public class ProjectDashboard implements Serializable {
 	@Inject @Dependent private ProjectManager projectManager;
 	private List<EditableProject> list;
