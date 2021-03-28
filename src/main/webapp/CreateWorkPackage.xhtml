@@ -29,8 +29,9 @@
 
 		<div class="create-wp-input-row">
 			<p>Parent W.P *</p>
-			<h:inputText id="parentWP"
-				value="#{newWorkPackage.parentWpNumber}" />
+			<h:inputText id="parentWP" value="#{newWorkPackage.parentWpNumber}" placeholder="Enter Text">  
+				<f:ajax event="keyup" render="wpNumber" listener="#{newWorkPackage.ajaxEvent()}" immediate="false"/>  
+			</h:inputText> 
 		</div>
 		<h:message for="parentWP" style="color:red" />
 
