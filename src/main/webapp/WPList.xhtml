@@ -47,13 +47,17 @@
                     <h:outputText styleClass="edit-output" value="#{wp.projectBudget}" rendered="#{not wp.editable}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">unallocatedBudget</f:facet>
+                    <f:facet name="header">Unallocated Budget</f:facet>
                     <h:outputText styleClass="edit-output" value="#{wp.calcUnallocatedBudget()}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">AllocatedBudget</f:facet>
+                    <f:facet name="header">Allocated Budget</f:facet>
                     <h:outputText styleClass="edit-output" value="#{wp.calcAllocatedBudget()}"/>
-                </h:column>            
+                </h:column> 
+                <h:column>
+                    <f:facet name="header">Parent WP Number</f:facet>
+                    <h:outputText styleClass="edit-output" value="#{wp.parentWp.workPackageNumber}" />
+                </h:column>             
                 <h:column>
                     <f:facet name="header">Edit</f:facet>
                     <h:commandButton styleClass="command-button" value="Edit" action="#{activeWpBean.setActiveWorkPackage(wp)}"/>

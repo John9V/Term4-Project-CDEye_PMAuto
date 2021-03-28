@@ -104,7 +104,7 @@ public class WorkPackageManager implements Serializable {
     
     public WorkPackage[] findWpsByProject(Project p) {
         TypedQuery<WorkPackage> query = em.createQuery(
-                "SELECT wp FROM WorkPackage wp WHERE wp.project.id = :projectId", WorkPackage.class)
+                "SELECT wp FROM WorkPackage wp WHERE wp.project.id = :projectId ORDER BY wp.workPackageNumber ASC", WorkPackage.class)
                 .setParameter("projectId", p.getId());
         List<WorkPackage> workPackages = query.getResultList();
         
@@ -129,7 +129,7 @@ public class WorkPackageManager implements Serializable {
         for (int i = 0; i < packageArr.length; i++) {
             packageArr[i] = workPackages.get(i);
         }
-        
+        System.out.println(packageArr);
         return packageArr;
     }
     
