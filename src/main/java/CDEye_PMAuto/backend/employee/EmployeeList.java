@@ -16,7 +16,8 @@ import javax.inject.Named;
 @Named("employeeList")
 @ConversationScoped
 public class EmployeeList implements Serializable {
-    
+    String search = "";
+
 	@Inject 
 	@Dependent 
 	private EmployeeManager employeeManager;
@@ -87,9 +88,15 @@ public class EmployeeList implements Serializable {
      * Finds an employee by their username
      * @return an Employee object if exists, else null
      */
-    public Employee findEmployee() {
-        Employee employee = employeeManager.getEmployeeByUserName(this.employee.getUserName());
-        return employee; 
+    public String findEmployee() {
+        Employee employee = employeeManager.getEmployeeByUserName(search);
+        list = new ArrayList<EditableEmployee>();
+        if (!search.isEmpty() && employee != null) {
+            list.add(new EditableEmployee((employee)));
+        } else {
+            refreshList();
+        }
+        return "";
     }
     
     //GETTERS AND SETTERS ===============================================================================================
@@ -101,4 +108,11 @@ public class EmployeeList implements Serializable {
         this.employee = employee;
     }
 
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
 }

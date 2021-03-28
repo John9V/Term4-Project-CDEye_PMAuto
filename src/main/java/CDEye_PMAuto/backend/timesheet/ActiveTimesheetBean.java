@@ -48,6 +48,12 @@ public class ActiveTimesheetBean extends Timesheet implements Serializable {
 				pdSum = wp.getCompletedPersonDays();
 			}
 			
+			if (wp.getCompletedBudget() == null) {
+				sum = new BigDecimal(0);
+			} else {
+				sum = wp.getCompletedBudget();
+			}
+			
 			//BigDecimal pdSum = wp.getCompletedPersonDays();
 			
 			sum = sum.add(tsr.getFri().multiply(this.employee.getPayGrade().getSalary()));
