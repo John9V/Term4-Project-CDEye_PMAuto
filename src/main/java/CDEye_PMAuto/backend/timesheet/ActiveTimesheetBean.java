@@ -1,4 +1,4 @@
-package CDEye.PMAuto.backend.timesheet;
+package CDEye_PMAuto.backend.timesheet;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -7,7 +7,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import CDEye.PMAuto.backend.tsrow.TimesheetRow;
+import CDEye_PMAuto.backend.tsrow.TimesheetRow;
 import CDEye_PMAuto.backend.workpackage.WorkPackage;
 import CDEye_PMAuto.backend.workpackage.WorkPackageManager;
 

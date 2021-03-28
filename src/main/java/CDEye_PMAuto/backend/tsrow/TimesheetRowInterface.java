@@ -1,8 +1,8 @@
-package CDEye.PMAuto.backend.tsrow;
+package CDEye_PMAuto.backend.tsrow;
 
 import java.util.UUID;
 
-import CDEye.PMAuto.backend.timesheet.Timesheet;
+import CDEye_PMAuto.backend.timesheet.Timesheet;
 
 public interface TimesheetRowInterface {
 

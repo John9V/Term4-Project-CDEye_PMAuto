@@ -1,6 +1,6 @@
-package CDEye.PMAuto.backend.tsrow;
+package CDEye_PMAuto.backend.tsrow;
 
-import CDEye.PMAuto.backend.timesheet.Timesheet;
+import CDEye_PMAuto.backend.timesheet.Timesheet;
 import CDEye_PMAuto.backend.project.Project;
 import CDEye_PMAuto.backend.project.ProjectManager;
 import CDEye_PMAuto.backend.workpackage.WorkPackage;

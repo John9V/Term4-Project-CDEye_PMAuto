@@ -1,4 +1,4 @@
-package CDEye.PMAuto.backend.timesheet;
+package CDEye_PMAuto.backend.timesheet;
 
 import java.io.Serializable;
 import java.util.List;

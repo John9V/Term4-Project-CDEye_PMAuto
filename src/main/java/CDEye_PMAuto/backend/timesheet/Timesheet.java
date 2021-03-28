@@ -1,4 +1,4 @@
-package CDEye.PMAuto.backend.timesheet;
+package CDEye_PMAuto.backend.timesheet;
 
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
@@ -24,7 +24,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 
-import CDEye.PMAuto.backend.tsrow.TimesheetRow;
+import CDEye_PMAuto.backend.tsrow.TimesheetRow;
 import CDEye_PMAuto.backend.employee.Employee;
 
 @Entity

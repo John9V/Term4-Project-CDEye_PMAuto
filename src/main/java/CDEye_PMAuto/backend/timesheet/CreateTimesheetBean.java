@@ -1,8 +1,8 @@
-package CDEye.PMAuto.backend.timesheet;
+package CDEye_PMAuto.backend.timesheet;
 
-import CDEye.PMAuto.backend.tsrow.EditableTimesheetRow;
-import CDEye.PMAuto.backend.tsrow.TimesheetRow;
-import CDEye.PMAuto.backend.tsrow.TimesheetRowManager;
+import CDEye_PMAuto.backend.tsrow.EditableTimesheetRow;
+import CDEye_PMAuto.backend.tsrow.TimesheetRow;
+import CDEye_PMAuto.backend.tsrow.TimesheetRowManager;
 import CDEye_PMAuto.backend.employee.Employee;
 import CDEye_PMAuto.backend.employee.EmployeeManager;
 import CDEye_PMAuto.backend.project.Project;

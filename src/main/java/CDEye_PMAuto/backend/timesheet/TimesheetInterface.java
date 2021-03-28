@@ -1,4 +1,4 @@
-package CDEye.PMAuto.backend.timesheet;
+package CDEye_PMAuto.backend.timesheet;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.Dependent;

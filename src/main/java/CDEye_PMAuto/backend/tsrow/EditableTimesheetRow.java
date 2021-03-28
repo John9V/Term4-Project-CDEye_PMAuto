@@ -1,4 +1,4 @@
-package CDEye.PMAuto.backend.tsrow;
+package CDEye_PMAuto.backend.tsrow;
 
 import CDEye_PMAuto.backend.project.Project;
 import javax.enterprise.context.RequestScoped;

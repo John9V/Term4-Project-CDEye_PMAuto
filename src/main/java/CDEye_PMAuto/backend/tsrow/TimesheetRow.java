@@ -1,4 +1,4 @@
-package CDEye.PMAuto.backend.tsrow;
+package CDEye_PMAuto.backend.tsrow;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -8,7 +8,7 @@ import javax.persistence.*;
 import CDEye_PMAuto.backend.project.Project;
 import org.hibernate.annotations.Type;
 
-import CDEye.PMAuto.backend.timesheet.Timesheet;
+import CDEye_PMAuto.backend.timesheet.Timesheet;
 import CDEye_PMAuto.backend.workpackage.WorkPackage;
 
 @Entity
