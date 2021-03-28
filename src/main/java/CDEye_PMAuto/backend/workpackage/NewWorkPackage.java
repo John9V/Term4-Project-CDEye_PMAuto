@@ -49,7 +49,9 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
         	wp.setParentWp(parentWp[0]);
         }
 		wp.setId(UUID.randomUUID());
-		wp.setLeaf(false);
+		wp.setLeaf(wp.isLeaf);
+		
+		System.out.println("Leaf value is" + wp.isLeaf);
 		
 		workPackageManager.addWorkPackage(wp);
 		WorkPackage addedWp = workPackageManager.getByUUID(wp.id.toString());

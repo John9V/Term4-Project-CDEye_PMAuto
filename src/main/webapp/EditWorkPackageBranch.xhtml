@@ -23,6 +23,12 @@
                 <h:inputText id="empId" value="#{activeWpBean.workPackageNumber}" />
                 <h:message for="empId" style="color:red" />
             </div>
+            
+            <div class="input-row">
+                <p>Parent WP Number</p>
+                <h:inputText id="parentWp" value="#{activeWpBean.parentWp.workPackageNumber}" />
+                <h:message for="parentWp" style="color:red" />
+            </div>
 
             <div class="input-row">
                 <p>Begin Date</p>
@@ -38,6 +44,12 @@
                     	<f:convertDateTime pattern="yyyy-MM-dd"/>
                     </h:inputText>
                 <h:message for="fn" style="color:red" />
+            </div>
+            
+            <div class="input-row">
+                <p>Work Package Budget</p>
+                <h:inputText id="WpBudget" value="#{activeWpBean.projectBudget}" />
+                <h:message for="WpBudget" style="color:red" />
             </div>
 
             <div class="input-row">
