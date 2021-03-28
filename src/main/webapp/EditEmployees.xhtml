@@ -21,6 +21,10 @@
 
 	<div class="container">
         <h:form>
+            <h:inputText styleClass="edit-input" value="#{employeeList.search}"> </h:inputText>
+            <h:commandButton styleClass="command-button" value="Search" action="#{employeeList.findEmployee}" />
+        </h:form>
+        <h:form>
             <h:dataTable value="#{employeeList.list}" var="e" styleClass="data-table">
                 <h:column>
                     <f:facet name="header">Employee Id</f:facet>
@@ -93,10 +97,6 @@
                                      rendered="#{not e.editable}"/>
                 </h:column>
             </h:dataTable>
-        </h:form>
-        <h:form> 
-        	<h:inputText styleClass="edit-input" value="#{employeeList.employee.userName}"> </h:inputText>
-        	<h:commandButton styleClass="command-button" value="Search" action="#{employeeList.findEmployee()}" />
         </h:form>
     </div>
 </h:body>

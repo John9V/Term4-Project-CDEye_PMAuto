@@ -50,4 +50,32 @@ public class ProjectManager implements Serializable {
 		List<Project> projects = query.getResultList();
 		return projects.get(0);
 	}
+
+	/**
+	 * Return true if projectName already exist
+	 * @param projectName
+	 * @return
+	 */
+	public boolean isProjectNameExist(String projectName) {
+		TypedQuery<Project> query = em.createQuery(
+				"SELECT p FROM Project p WHERE p.projectName LIKE :projectName", Project.class)
+				.setParameter("projectName", projectName);
+		List<Project> projects = query.getResultList();
+
+		return !projects.isEmpty();
+	}
+
+	/**
+	 * Return true if projectNumber already exist
+	 * @param projectNumber
+	 * @return
+	 */
+	public boolean isProjectNumberExist(String projectNumber) {
+		TypedQuery<Project> query = em.createQuery(
+				"SELECT p FROM Project p WHERE p.projectNumber LIKE :projectNumber", Project.class)
+				.setParameter("projectNumber", projectNumber);
+		List<Project> projects = query.getResultList();
+
+		return !projects.isEmpty();
+	}
 }
