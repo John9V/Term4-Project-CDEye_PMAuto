@@ -24,7 +24,7 @@
     <!-- Need to replace the input value with Employee class members.-->
     <div class="container">
         <h:form>
-            <h:messages globalOnly="false"/>
+            <h:messages globalOnly="false" style="color:red"/>
             <div class="input-row-week">
                 <p>Week Ending</p>
                 <h:inputText id="sheetDate" value="#{createTimesheet.endDate}" required="true">
@@ -32,17 +32,19 @@
                 </h:inputText>
                 <h:message for="sheetDate" style="color:red"/>
             </div>
+
             <h:dataTable value="#{createTimesheet.editableRows}" styleClass="data-table" var="timesheetRow">
                 <h:column>
                     <f:facet name="header">PROJECT</f:facet>
-                    <h:selectOneMenu value="#{timesheetRow.projectNumber}" styleClass="edit-input-dropdown">
+                    <h:selectOneMenu value="#{timesheetRow.projectNumber}" validator="#{createTimesheet.validate}" styleClass="edit-input-dropdown">
                         <f:selectItems value="#{timesheetRow.availProjects}" var="p" itemLabel="#{p.availProjectName}"
                                        itemValue="#{p.availProjectNumber}"/>
+                        <f:attribute name="workPackageNumber" value="#{workPackageNumber}" />
                     </h:selectOneMenu>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Work Pacakge</f:facet>
-                    <h:inputText styleClass="edit-input" id="wpNum" value="#{timesheetRow.workPackageNumber}"
+                    <h:inputText binding="#{workPackageNumber}" styleClass="edit-input" id="wpNum" value="#{timesheetRow.workPackageNumber}"
                                  required="true">
                         <f:validateLength minimum="5" maximum="5" />
                     </h:inputText>

@@ -20,6 +20,7 @@
     </div>
     <div class="container">
         <h:form>
+            <h:messages globalOnly="false" style="color:red"/>
             <h:dataTable value="#{timesheetRowList.getRowList(activeTimesheet)}" var="row" styleClass="data-table">
                 <h:column>
                     <f:facet name="header">
@@ -29,14 +30,15 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">PROJECT</f:facet>
-                    <h:selectOneMenu value="#{row.projectNumber}" styleClass="edit-input-dropdown" rendered="#{row.editable}">
+                    <h:selectOneMenu value="#{row.projectNumber}" validator="#{timesheetRowList.validate}" styleClass="edit-input-dropdown" rendered="#{row.editable}">
                         <f:selectItems value="#{row.availProjects}" var="p" itemLabel="#{p.availProjectName}" itemValue="#{p.availProjectNumber}"/>
+                        <f:attribute name="workPackageNumber" value="#{workPackageNumber}" />
                     </h:selectOneMenu>
                     <h:outputText styleClass="edit-output" value="#{row.projectNumber}" rendered="#{not row.editable}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">WP</f:facet>
-                    <h:inputText id="wpNum" styleClass="edit-input" value="#{row.workPackageNumber}" required="true"
+                    <h:inputText id="wpNum" binding="#{workPackageNumber}" styleClass="edit-input" value="#{row.workPackageNumber}" required="true"
                                  rendered="#{row.editable}">
                         <f:validateLength minimum="5" maximum="5" />
                     </h:inputText>

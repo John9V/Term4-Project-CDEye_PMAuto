@@ -1,17 +1,7 @@
 package CDEye.PMAuto.backend.tsrow;
 
-import CDEye.PMAuto.backend.timesheet.Timesheet;
 import CDEye_PMAuto.backend.project.Project;
-import CDEye_PMAuto.backend.project.ProjectManager;
-import CDEye_PMAuto.backend.workpackage.WorkPackage;
-
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
-import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 
