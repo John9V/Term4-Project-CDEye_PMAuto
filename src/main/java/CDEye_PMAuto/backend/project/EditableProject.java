@@ -5,8 +5,13 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+
 import CDEye_PMAuto.backend.employee.Employee;
 
+@Named("editProject")
+@RequestScoped
 public class EditableProject extends Project implements Serializable {
 	private boolean editable = false;
 	private boolean deletable = false;
