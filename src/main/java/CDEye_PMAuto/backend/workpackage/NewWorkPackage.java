@@ -65,7 +65,7 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 		Project activeProj = new Project();
 		activeProj.setId(apb.getId());
 
-		if (validateWorkPackageNumber()) {
+		//if (validateWorkPackageNumber()) {
 			WorkPackage[] parentWp = workPackageManager.findWpsByPkgNumAndProj(parentWpNumber, activeProj);
 			WorkPackage wp = new WorkPackage(this);
 			wp.setProject(activeProj);
@@ -81,9 +81,9 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 			createWpAllocs(addedWp);
 			createRECEs(addedWp);
 			return "WPList";
-		} else {
-			return "CreateWorkPackage";
-		}
+		//} else {
+			//return "CreateWorkPackage";
+		//}
 	}
 
 	// create a wpalloc for each paygrade
