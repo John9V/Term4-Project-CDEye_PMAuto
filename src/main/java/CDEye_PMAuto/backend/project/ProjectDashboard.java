@@ -19,15 +19,26 @@ public class ProjectDashboard implements Serializable {
 	@Inject
 	EditProjectWrapper epb;
 
+	private EditableProject deletedProject = new EditableProject();
+	
 	public List<EditableProject> getList() {
 		if (!conversation.isTransient()) {
 			conversation.end();
 		}
 		conversation.begin();
-		if (list == null) {
-			refreshList();
-		}
-		return list;
+//		if (list == null) {
+//			refreshList();
+//		}
+//		return list;
+		return refreshList();
+	}
+
+	public EditableProject getDeletedProject() {
+		return deletedProject;
+	}
+
+	public void setDeletedProject(EditableProject deletedProject) {
+		this.deletedProject = deletedProject;
 	}
 
 	public List<EditableProject> refreshList() {
@@ -48,5 +59,10 @@ public class ProjectDashboard implements Serializable {
 		conversation.end();
 		return epb.setActiveProjectBean(p);
 	}
+	
+    public String deleteProject(EditableProject p) {
+    	projectManager.deleteProject(projectManager.findProject(p.projectName));
+    	return "ProjectDashboard";
+    }
 
 }

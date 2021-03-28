@@ -11,8 +11,9 @@ import javax.inject.Named;
 public class CreateProjectBean extends Project implements Serializable {
     @Inject private ProjectManager projectManager;
 
-    public void add() {
+    public String add() {
         Project p = new Project(this);
         projectManager.persist(p);
+        return "ProjectDashboard";
     }
 }

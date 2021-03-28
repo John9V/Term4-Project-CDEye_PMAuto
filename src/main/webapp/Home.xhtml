@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
-	<h:outputStylesheet library="css" name="styles.css"/>
+	<h:outputStylesheet library="css" name="styles.css" />
 	<title>Project Management System</title>
 </h:head>
 
 <!--http://localhost:8080/CDEye_PMAuto/CreateEmployee.xhtml-->
 <h:body>
 	<!-- Side bar panel will control the navigation of the application-->
-	<div class="side-bar">
-
-	</div>
+	<div class="side-bar"></div>
 
 	<!-- The current route -->
 	<div class="header-bar">
@@ -24,11 +22,21 @@
 	<!-- Need to replace the input value with Employee class members.-->
 	<div class="form-container">
 		<h:form>
-			<p>Welcome to employee home at CDEye, #{activeEmployeeBean.firstName} - we value work life balance! </p>
-			<p>Remember that you will be terminated immediately if it would improve the company's valuation by $1 or more for the quarter, so work hard! :)</p>
+			<p style="color: red">Current User:
+				#{activeEmployeeBean.firstName}</p>
+			<p>Welcome to employee home at CDEye,
+				#{activeEmployeeBean.firstName} - we value work life balance!</p>
+			<p>Remember that you will be terminated immediately if it would
+				improve the company's valuation by $1 or more for the quarter, so
+				work hard! :)</p>
 			<!-- Create Employee: Add DB-->
 			<div class="button-container">
-				<h:commandButton value="ProjectDashboard" action="ProjectDashboard" />
+				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+					value="ProjectDashboard" action="ProjectDashboard" />
+				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+					value="Logout" action="#{activeEmployeeBean.logout}" />
+				<h:commandButton rendered="#{empty activeEmployeeBean.userName}"
+					value="Login" action="login" />
 			</div>
 		</h:form>
 	</div>
