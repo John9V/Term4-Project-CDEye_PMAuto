@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.UUID;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -41,12 +42,9 @@ import CDEye_PMAuto.backend.workpackage.WorkPackageManager;
 @Entity
 @Table(name="recepackage")
 @Named("recepackage")
-@DynamicUpdate
-@SessionScoped
+@RequestScoped
 public class RespEngCostEstimate implements Serializable {
 
-    @Inject @Transient
-    private EmployeeManager employeeManager;
     
     /** The ID of the RECE **/
     @Id
@@ -73,8 +71,7 @@ public class RespEngCostEstimate implements Serializable {
     @ManyToOne
     protected Employee employee;
     
-//    @Transient
-//    protected String empUserName = "hihey";
+  
     
     @JoinColumn(name="wp")
     @ManyToOne(fetch = FetchType.EAGER)
@@ -84,7 +81,9 @@ public class RespEngCostEstimate implements Serializable {
     /**
      * Empty Default Constructor
      */
-    public RespEngCostEstimate() {};
+    public RespEngCostEstimate() {
+//    	System.out.println("I exist as a bean " + employeeManager);
+    };
 
     public RespEngCostEstimate(EditableWorkPackage wp, Paygrade paygrade) {
         this.id = UUID.randomUUID();
@@ -93,7 +92,7 @@ public class RespEngCostEstimate implements Serializable {
         this.personDayEstimate = new BigDecimal(0);
     }
 
-
+    
     /**
      * RECEPackage Constructor
      * 
@@ -110,6 +109,15 @@ public class RespEngCostEstimate implements Serializable {
         this.personDayEstimate = personDayEstimate;
         this.employee = employee;
         this.workPackage = workPackage;
+    }
+    
+    public RespEngCostEstimate(EditableRECE erece) {
+        this.id = erece.id;
+        this.parentWp = erece.parentWp;
+        this.paygrade = erece.paygrade;
+        this.personDayEstimate = erece.personDayEstimate;
+        this.employee = erece.employee;
+        this.workPackage = erece.workPackage;
     }
     
     /**Ensures that associated package cost estimates sum to 
@@ -173,32 +181,10 @@ public class RespEngCostEstimate implements Serializable {
         this.workPackage = workPackage;
     }
 
-//    /**
-//     * @return the empUserName
-//     */
-//    public String getEmpUserName() {
-//        System.out.println("returning empUserName: " + empUserName);
-//        return empUserName;
-//    }
-//
-//    /**
-//     * @param empUserName the empUserName to set
-//     */
-//    public void setEmpUserName(String empUserName) {
-//        System.out.println("this: " + this);
-//        System.out.println("empUserName:" + empUserName);
-//        this.empUserName = "";
-//        System.out.println("empUserName:" + empUserName);
-//        
-//        System.out.println("employeeManager:" + employeeManager);
-//        System.out.println("employeeManager:" + employeeManager);
-//        
-//        this.empUserName = empUserName;
-////        this.employee = employeeManager.getEmployeeByUserName(empUserName);
-//        
-//        System.out.println("made it to the end yay");
-//    }
-    
+
+	
+
+   
     
     
     

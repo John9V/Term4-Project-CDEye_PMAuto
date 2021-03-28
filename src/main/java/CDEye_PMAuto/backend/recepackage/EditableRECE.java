@@ -25,8 +25,9 @@ public class EditableRECE extends RespEngCostEstimate {
     
     private String empUserName;
     
+    @Inject
     private EmployeeManager employeeManager;
-    
+    @Inject
     private RECEManager receManager;
     
     /** No-Param Constructor */
@@ -56,7 +57,7 @@ public class EditableRECE extends RespEngCostEstimate {
         super(id, parentwp, paygrade, personDayEstimate, employee, workPackage);
     }
     
-    public void assignEmployee(String empUserName) {
+    public void assignEmployee() {
         System.out.println("employeeManager: " + employeeManager);
         System.out.println("empUserName: " + empUserName);
         Employee e = employeeManager.getEmployeeByUserName(empUserName);

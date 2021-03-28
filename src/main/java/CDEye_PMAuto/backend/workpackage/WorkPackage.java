@@ -3,6 +3,7 @@ package CDEye_PMAuto.backend.workpackage;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +27,7 @@ import org.hibernate.annotations.Type;
 
 import CDEye_PMAuto.backend.employee.Employee;
 import CDEye_PMAuto.backend.project.Project;
+import CDEye_PMAuto.backend.recepackage.EditableRECE;
 import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
 import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocation;
 
@@ -83,7 +85,7 @@ public class WorkPackage implements Serializable {
 	protected Project project;
 	
 	@Fetch(value = FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	protected List<RespEngCostEstimate> RECEs;
 	
 	@Fetch(value = FetchMode.SUBSELECT)
@@ -294,6 +296,14 @@ public class WorkPackage implements Serializable {
             personDays = personDays.add(r.getPersonDayEstimate());
         }
         return personDays;
+    }
+    
+    public ArrayList<EditableRECE> getEditableRECEs() {
+    	ArrayList<EditableRECE> editableRECEs = new ArrayList<EditableRECE>();
+    	for (RespEngCostEstimate rece : this.RECEs) {
+    		editableRECEs.add(new EditableRECE(rece));
+    	}
+    	return editableRECEs;
     }
     
     /**

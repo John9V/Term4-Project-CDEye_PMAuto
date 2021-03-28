@@ -101,7 +101,7 @@
                     <h:dataTable value="#{editableWpLeaf.receList.list}" var="r" styleClass="data-table">
                         <h:column>
                             <f:facet name="header">Pay Grade</f:facet>
-                            #{recepackage.paygrade.name}
+                            #{r.paygrade.name}
                         </h:column>
                         <h:column>
                             <f:facet name="header">Person Days</f:facet>
@@ -111,11 +111,10 @@
                             <f:facet name="header">Assignee</f:facet>
                             
                             
-                            <h:inputText styleClass="edit-input" binding="#{userName}"/>
+                            <h:inputText styleClass="edit-input" value="#{r.empUserName}"/>
                             
                             
-                            <h:commandButton styleClass="secondary-command-button" value="ASSIGN" action="#{r.assignEmployee(userName.value)}">
-                                <f:ajax event="click" listener="#{r.assignEmployee(userName.value)}"/>
+                            <h:commandButton styleClass="secondary-command-button" value="ASSIGN" action="#{r.assignEmployee()}">
                             </h:commandButton>
                         </h:column>
                     </h:dataTable>
@@ -139,6 +138,9 @@
                 </div>
                 <div class="button-container">
                     <h:commandButton value="CANCEL" action="#{editableWpLeaf.cancelEditedWorkPackageLeaf}" />
+                </div>
+                <div class="button-container">
+                    <h:commandButton value="ASSIGN" action="#{editableWpLeaf.receList.assignEmployees()}" />
                 </div>
             </div>
         </div>

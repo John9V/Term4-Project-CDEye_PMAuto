@@ -11,8 +11,10 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import CDEye_PMAuto.backend.employee.Employee;
 import CDEye_PMAuto.backend.employee.EmployeeManager;
 import CDEye_PMAuto.backend.workpackage.ActiveWPBean;
+import CDEye_PMAuto.backend.workpackage.UserNameBean;
 import CDEye_PMAuto.backend.workpackage.WorkPackage;
 
 @Named("receList")
@@ -29,7 +31,7 @@ public class RECEList implements Serializable {
     
     @Inject
     private ActiveWPBean awp;
-    
+   
     /** A list of editable rece packages **/
     private List<EditableRECE> list;
     
@@ -55,6 +57,9 @@ public class RECEList implements Serializable {
         WorkPackage wp = new WorkPackage();
         wp.setId(awp.getId());
         RespEngCostEstimate[] packages = receManager.getByWP(wp);
+        
+        
+        
         return Arrays.asList(packages);
     }
 
@@ -90,5 +95,16 @@ public class RECEList implements Serializable {
         return list;
     }
 
+    public void assignEmployees() {
+        for (EditableRECE erece : list) {
+        	System.out.println("empname: " + erece.getEmpUserName());
+        	Employee e = employeeManager.getEmployeeByUserName(erece.getEmpUserName());
+        	RespEngCostEstimate rece = receManager.find(erece.getId());
+            rece.setEmployee(e);
+            receManager.merge(rece);
+        }
+        
+        //receManager.merge(rece);
+    }
 
 }

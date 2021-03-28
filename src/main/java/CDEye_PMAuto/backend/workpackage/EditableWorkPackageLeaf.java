@@ -2,7 +2,9 @@ package CDEye_PMAuto.backend.workpackage;
 
 import CDEye_PMAuto.backend.paygrade.Paygrade;
 import CDEye_PMAuto.backend.paygrade.PaygradeManager;
+import CDEye_PMAuto.backend.recepackage.EditableRECE;
 import CDEye_PMAuto.backend.recepackage.RECEList;
+import CDEye_PMAuto.backend.recepackage.RECEManager;
 import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
 import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocation;
 
@@ -27,6 +29,9 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
     private WorkPackageManager workPackageManager;
     
     @Inject
+    private RECEManager receManager;
+    
+    @Inject
     private RECEList receList;
 
     @Inject
@@ -40,7 +45,7 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
      * @return Edit selected workpackage leaf
      */
     public String editSelectedWP(WorkPackage selectedWp) {
-    	
+    	receList.refreshList();
         this.id = selectedWp.id;
         this.workPackageNumber = selectedWp.workPackageNumber;
         this.parentWp = selectedWp.parentWp;
@@ -51,7 +56,7 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
         this.isLeaf = selectedWp.isLeaf;
         this.projectBudget = selectedWp.projectBudget;
         this.project = selectedWp.project;
-        this.RECEs = receList.refreshRespEngCostEstimate();
+        this.RECEs = selectedWp.RECEs;
 //        System.out.println("WORK PACKAGE ALLOCS");
 //        for (WorkPackageAllocation w : this.getWpAllocs()) {
 //            System.out.println(w.getPaygrade().getName() + ": " + w.getPersonDaysEstimate());
@@ -92,6 +97,14 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
 
         // Update this selected workpackage leaf data into database
         workPackageManager.updateWorkPackageLeaf(this);
+        
+        //save the list of work packages
+        for (EditableRECE r : receList.getList()) {
+        	RespEngCostEstimate rece = new RespEngCostEstimate(r);
+        	receManager.merge(rece);
+          System.out.println(r.getPaygrade().getName() + ": " + r.getPersonDayEstimate());
+      }
+        
         return "RETURN_WP_LIST";
     }
 

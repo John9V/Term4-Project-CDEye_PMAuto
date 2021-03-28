@@ -25,7 +25,7 @@ import CDEye_PMAuto.backend.paygrade.Paygrade;
 import CDEye_PMAuto.backend.workpackage.WorkPackage;
 import org.hibernate.jdbc.Work;
 
-@SessionScoped
+@RequestScoped
 @Entity
 @Table(name="workpackageallocation")
 @Named("workPackageAllocation")
