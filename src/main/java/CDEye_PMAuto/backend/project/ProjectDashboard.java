@@ -3,30 +3,28 @@ package CDEye_PMAuto.backend.project;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Named("projectDashboard")
-@ConversationScoped
+@SessionScoped
 public class ProjectDashboard implements Serializable {
 	@Inject @Dependent private ProjectManager projectManager;
 	private List<EditableProject> list;
-	@Inject Conversation conversation;
 	@Inject ActiveProjectBean apb;
 	@Inject
 	EditProjectWrapper epb;
 
 	public List<EditableProject> getList() {
-		if (!conversation.isTransient()) {
-			conversation.end();
-		}
-		conversation.begin();
-		if (list == null) {
-			refreshList();
-		}
+		refreshList();
 		return list;
 	}
 
@@ -40,13 +38,11 @@ public class ProjectDashboard implements Serializable {
 	}
 
 	public String viewProjectWPs(EditableProject p) {
-		conversation.end();
 		return apb.setActiveProjectBean(p);
 	}
 
 	public String editProject(EditableProject p) {
-		conversation.end();
-		return epb.setActiveProjectBean(p);
+		return epb.setEditProjectBean(p);
 	}
 
 }

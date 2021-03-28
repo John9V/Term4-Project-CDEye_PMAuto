@@ -21,7 +21,7 @@ public class EditProjectWrapper implements Serializable {
     private Employee[] managers;
     private String selectedManager;
 
-    public String setActiveProjectBean(EditableProject ep) {
+    public String setEditProjectBean(EditableProject ep) {
         System.out.println("setActiveProjectBean id=" + ep.getId());
         Project project = projectManager.find(ep.getId());
 
@@ -46,6 +46,7 @@ public class EditProjectWrapper implements Serializable {
 
     public Project getEditProject() {
         return editProject;
+
     }
 
     public void setEditProject(Project editProject) {
@@ -76,4 +77,5 @@ public class EditProjectWrapper implements Serializable {
     public void setSelectedManager(String selectedManager) {
         this.selectedManager = selectedManager;
     }
+
 }

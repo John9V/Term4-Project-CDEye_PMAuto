@@ -20,21 +20,21 @@ import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocation;
  * Editable version of work package.
  */
 @Named("editableWorkPackage")
-@RequestScoped
+@SessionScoped
 public class EditableWorkPackage extends WorkPackage implements Serializable {
-    
+
     private boolean editable = false;
     private boolean deletable = false;
 
 
-    @Inject 
-    @Dependent 
+    @Inject
+    @Dependent
     private WorkPackageManager workPackageManager;
-    
+
     EditableWorkPackage() {
         super();
     }
-    
+
     /**
      * Constructor that takes an existing work package.
      */
@@ -54,7 +54,7 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
         this.wpAllocs = wp.wpAllocs;
         this.childPackages = wp.childPackages;
     }
-    
+
     /**
      * Constructor with all parameters.
      */
@@ -64,17 +64,17 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
             List<WorkPackageAllocation> wpAllocs, List<WorkPackage> childPackages) {
         super(id, workPackageNumber, parentWp, completedBudget, completedPersonDays, startDate, endDate, isLeaf, projectBudget, project, RECEs, wpAllocs, childPackages);
     }
-    
+
     public void saveEdit() {
         workPackageManager.updateWorkPackage(new WorkPackage(this));
         editable = false;
     }
-    
+
     public String delete() {
         workPackageManager.deleteWorkPackage(new WorkPackage(this));
         return "testWPs";
     }
-    
+
     public void startEdit() {
         editable = true;
     }
@@ -109,5 +109,5 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
 
 
 
-    
+
 }
