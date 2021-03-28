@@ -108,6 +108,10 @@ public class WorkPackageManager implements Serializable {
         }
         return packageArr;
     }
+    
+    public WorkPackage find(UUID id) {
+    	return em.find(WorkPackage.class, id);
+    }
 
     /**
      * Uses a modified workPackage to update a workPackage in the database.
