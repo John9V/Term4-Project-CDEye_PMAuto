@@ -2,6 +2,8 @@ package CDEye_PMAuto.backend.workpackage;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -46,7 +48,7 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 		//make sure it found a parent lol
         if (parentWp.length == 0) {
             String testParentWPNum = workPackageManager.determineParentWPNum(workPackageNumber);
-            workPackageManager.checkAndCreateWP(testParentWPNum);
+            checkAndCreateWP(testParentWPNum);
             // Parent should now be created, check for a parent again
             parentWp = workPackageManager.getByPackageNumber(testParentWPNum);
         }
@@ -65,6 +67,39 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 		createRECEs(addedWp);
 		return "WPList";
 	}
+	
+    /**
+     * A RECURSIVE function that checks to see if a WorkPackage has a parent, if not, 
+     * check parent to see if the parent has a parent. Once the function finds a WorkPackage 
+     * with a parent, creates the desired WorkPackage
+     *
+     * @param wpToCreate, the WorkPackage number, as a String, of the WorkPackage to create
+     */
+    public void checkAndCreateWP(String wpToCreate) {
+        // Determines the wpNum of the WorkPackage that is SUPPOSED to exist
+        String schrodingersWp = workPackageManager.determineParentWPNum(wpToCreate);
+        
+        // Checks to see if the supposed to exist WP really does exist
+        WorkPackage[] arrayOfParentWPs = workPackageManager.getByPackageNumber(schrodingersWp);
+        
+        // Checks to see if parentless WorkPackages parent has a WP
+        if (arrayOfParentWPs.length == 0) { 
+            checkAndCreateWP(schrodingersWp); 
+            // Parent should now be created, check for a parent again
+            arrayOfParentWPs = workPackageManager.getByPackageNumber(schrodingersWp);
+        }
+        
+        WorkPackage newWorkPackage = new WorkPackage(wpToCreate, arrayOfParentWPs[0], BigDecimal.valueOf(0), BigDecimal.valueOf(0), 
+              new Date(), new Date(), false, BigDecimal.valueOf(0), arrayOfParentWPs[0].getProject(), null, null, null);
+        
+        newWorkPackage.setId(UUID.randomUUID());
+        workPackageManager.addWorkPackage(newWorkPackage);
+        
+        WorkPackage addedWp = workPackageManager.getByUUID(newWorkPackage.getId().toString());
+        
+        createWpAllocs(addedWp);
+        createRECEs(addedWp);
+    }
 
 	//create a wpalloc for each paygrade
 	public void createWpAllocs(WorkPackage addedWp) {

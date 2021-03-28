@@ -343,36 +343,6 @@ public class WorkPackageManager implements Serializable {
     }
 	
 	// HELPER FUNCTIONS
-	
-    /**
-     * A RECURSIVE function that checks to see if a WorkPackage has a parent, if not, 
-     * check parent to see if the parent has a parent. Once the function finds a WorkPackage 
-     * with a parent, creates the desired WorkPackage
-     *
-     * @param wpToCreate, the WorkPackage number, as a String, of the WorkPackage to create
-     */
-    public void checkAndCreateWP(String wpToCreate) {
-        // Determines the wpNum of the WorkPackage that is SUPPOSED to exist
-        String schrodingersWp = determineParentWPNum(wpToCreate);
-        
-        // Checks to see if the supposed to exist WP really does exist
-        WorkPackage[] arrayOfParentWPs = getByPackageNumber(schrodingersWp);
-        
-        // Checks to see if parentless WorkPackages parent has a WP
-        if (arrayOfParentWPs.length == 0) { 
-            checkAndCreateWP(schrodingersWp); 
-            // Parent should now be created, check for a parent again
-            arrayOfParentWPs = getByPackageNumber(schrodingersWp);
-        }
-        
-        ArrayList<WorkPackageAllocation> wpAllocation = new ArrayList<WorkPackageAllocation>();
-        
-        // Creates a WorkPackage with a parent that exists
-        WorkPackage newWorkPackage = new WorkPackage(wpToCreate, arrayOfParentWPs[0], BigDecimal.valueOf(0), BigDecimal.valueOf(0), 
-                new Date(), new Date(), false, BigDecimal.valueOf(0), arrayOfParentWPs[0].getProject(), null, wpAllocation, null);
-        
-        addWorkPackage(newWorkPackage);
-    }
     
     //TODO: Need to account for edge cases
     /**
