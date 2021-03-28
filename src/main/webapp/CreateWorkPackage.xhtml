@@ -32,6 +32,8 @@
 			<div class="create-wp-input-row">
 				<p>W.P Number *</p>
 				<h:inputText id="wpNumber"
+					validator="#{newWorkPackage.validateWPNum}"
+					validatorMessage="my custom message"
 					value="#{newWorkPackage.workPackageNumber}" required="true" />
 			</div>
 			<h:message for="wpNumber" style="color:red" />
