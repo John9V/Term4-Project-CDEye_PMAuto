@@ -1,11 +1,11 @@
-CREATE DATABASE IF NOT EXISTS pmautos;
+CREATE DATABASE IF NOT EXISTS pmauto;
 
 CREATE USER IF NOT EXISTS 'test'@'localhost' IDENTIFIED BY 'test';
 CREATE USER IF NOT EXISTS 'test'@'%' IDENTIFIED BY 'test';
-GRANT ALL ON pmautos.* TO 'test'@'localhost';
-GRANT ALL ON pmautos.* TO 'test'@'%';
+GRANT ALL ON pmauto.* TO 'test'@'localhost';
+GRANT ALL ON pmauto.* TO 'test'@'%';
 
-USE pmautos;
+USE pmauto;
 
 DROP TABLE IF EXISTS employees;
 CREATE TABLE employees(id TINYTEXT, empnumber INT, firstname VARCHAR(30), lastname VARCHAR(30), username VARCHAR(30), paygrades TINYTEXT, active BOOLEAN, hr BOOLEAN, manager_id TINYTEXT, flexTime TINYINT, vacationTime TINYINT);
