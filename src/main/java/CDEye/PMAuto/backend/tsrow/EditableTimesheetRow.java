@@ -3,9 +3,14 @@ package CDEye.PMAuto.backend.tsrow;
 import CDEye.PMAuto.backend.timesheet.Timesheet;
 import CDEye_PMAuto.backend.project.Project;
 import CDEye_PMAuto.backend.project.ProjectManager;
+import CDEye_PMAuto.backend.workpackage.WorkPackage;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -21,18 +26,16 @@ public class EditableTimesheetRow extends TimesheetRow implements Serializable {
     private Project[] projects;
     private availProject[] projectNameList;
 
-    public EditableTimesheetRow(){}
-    public EditableTimesheetRow(Project[] projects) {
-        this.projects = projects;
+    public EditableTimesheetRow() {
     }
 
-    public EditableTimesheetRow(Timesheet parent, TimesheetRow target) {
-        super(parent, target);
+    public EditableTimesheetRow(TimesheetRow target) {
+        super(target);
         setProjectNumber(target.project.getProjectNumber());
         setWorkPackageNumber(target.workPackage.getWorkPackageNumber());
     }
 
-    public static class availProject{
+    public static class availProject {
         public String availProjectName;
         public String availProjectNumber;
 
@@ -52,7 +55,7 @@ public class EditableTimesheetRow extends TimesheetRow implements Serializable {
 
     public availProject[] getAvailProjects() {
         projectNameList = new availProject[projects.length];
-        for (int i=0; i < projectNameList.length; i++) {
+        for (int i = 0; i < projectNameList.length; i++) {
             projectNameList[i] = new availProject(
                     projects[i].getProjectName(),
                     projects[i].getProjectNumber()
@@ -91,5 +94,13 @@ public class EditableTimesheetRow extends TimesheetRow implements Serializable {
 
     public void setWorkPackageNumber(String workPackageNumber) {
         this.workPackageNumber = workPackageNumber;
+    }
+
+    public Project[] getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Project[] projects) {
+        this.projects = projects;
     }
 }

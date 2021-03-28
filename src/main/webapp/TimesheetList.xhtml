@@ -24,8 +24,12 @@
             <h:dataTable value="#{timesheetList.getList()}" var="t" styleClass="data-table">
                 <h:column>
                     <f:facet name="header">End Date</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{t.endDate}" rendered="#{t.editable}"/>
-                    <h:outputText styleClass="edit-output" value="#{t.endDate}" rendered="#{not t.editable}"/>
+                    <h:inputText styleClass="edit-input" value="#{t.endDate}" rendered="#{t.editable}">
+                        <f:convertDateTime type="localDate"/>
+                    </h:inputText>
+                    <h:outputText styleClass="edit-output" value="#{t.endDate}" rendered="#{not t.editable}">
+                        <f:convertDateTime type="localDate"/>
+                    </h:outputText>
                 </h:column>
                 <h:column>
                     <f:facet name="header">

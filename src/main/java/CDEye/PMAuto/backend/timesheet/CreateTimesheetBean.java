@@ -12,6 +12,10 @@ import CDEye_PMAuto.backend.workpackage.WorkPackageManager;
 
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -61,10 +65,6 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 	}
 
 	private void saveTimesheetRow() {
-		//System.out.println(this.getId());
-		//Timesheet t = timesheetManager.find(this.getId());
-		//System.out.println(t.getId());
-
 		for (EditableTimesheetRow er : getEditableRows()) {
 			Project p = projectManager.findProjectByNum(er.getProjectNumber());
 			WorkPackage[] wp = workPackageManager.findWpsByPkgNumAndProj(er.getWorkPackageNumber(), p);
@@ -75,15 +75,29 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 				TimesheetRow tsr = new TimesheetRow(er);
 				this.getDetails().add(tsr);
 				rowManager.addRow(tsr);
-			} else System.out.println("Not found");
+			} else {
+				System.out.println("Not found");
+				FacesContext.getCurrentInstance().validationFailed();
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage("Work package not found!"));
+
+			}
 		}
 	}
 
-	//ADD button edit page
 	//Create an approval
 
 	public void addRow() {
-		this.editableRows.add(new EditableTimesheetRow(projectManager.getAll()));
+		EditableTimesheetRow etr = new EditableTimesheetRow();
+		etr.setProjects(projectManager.getAll());
+		this.editableRows.add(etr);
+	}
+
+	public String back() {
+		if (!conversation.isTransient()) {
+			conversation.end();
+		}
+		return "HRHome";
 	}
 
 	public LocalDate getSheetDate() {

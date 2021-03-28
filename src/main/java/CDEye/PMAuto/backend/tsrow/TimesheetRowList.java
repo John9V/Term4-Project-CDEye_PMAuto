@@ -19,7 +19,7 @@ import java.util.List;
 @ConversationScoped
 public class TimesheetRowList implements Serializable {
 
-    @Inject @Dependent private TimesheetRowManager rowManager;
+    @Inject @Dependent TimesheetRowManager rowManager;
     @Inject ProjectManager projectManager;
     @Inject WorkPackageManager workPackageManager;
     @Inject Conversation conversation;
@@ -41,14 +41,17 @@ public class TimesheetRowList implements Serializable {
         TimesheetRow[] rows = rowManager.getRowsForTimesheet(parent);
         rowList = new ArrayList<>();
         for (TimesheetRow row : rows) {
-            rowList.add(new EditableTimesheetRow(parent, row));
+            EditableTimesheetRow etr = new EditableTimesheetRow(row);
+            etr.setProjects(projectManager.getAll());
+            rowList.add(etr);
         }
     }
 
     public void addRow() {
-        EditableTimesheetRow etr = new EditableTimesheetRow(projectManager.getAll());
+        EditableTimesheetRow etr = new EditableTimesheetRow();
         etr.setEditable(true);
         etr.setTimesheet(parentSheet);
+        etr.setProjects(projectManager.getAll());
         rowList.add(etr);
     }
 

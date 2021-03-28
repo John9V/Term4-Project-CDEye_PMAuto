@@ -63,6 +63,15 @@ input:focus {
     font-size: 14px;
 }
 
+.input-row-week {
+    margin: 15px 0;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: #6f6f6f;
+    font-size: 14px;
+    width: 125px;
+}
+
 .input-row img {
     width: 20px;
     height: 20px;
@@ -190,6 +199,22 @@ select {
 
 .edit-input {
     width: 125px;
+    padding: 2px 5px;
+    border-radius: 5px;
+    border: 1px solid #d7d7d7;
+    font-size: 13px;
+}
+
+.edit-input-dropdown {
+    width: 135px;
+    padding: 2px 5px;
+    border-radius: 5px;
+    border: 1px solid #d7d7d7;
+    font-size: 13px;
+}
+
+.edit-input-hour {
+    width: 18px;
     padding: 2px 5px;
     border-radius: 5px;
     border: 1px solid #d7d7d7;

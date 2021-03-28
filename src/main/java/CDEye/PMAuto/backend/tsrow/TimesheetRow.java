@@ -60,22 +60,9 @@ public class TimesheetRow {
 		setThu(new BigDecimal(0));
 	}
 
-	//TODO check
-	public TimesheetRow(Timesheet t) {
-		this.id = UUID.randomUUID();
-		this.timesheet = t;
-		setFri(new BigDecimal(0));
-		setSat(new BigDecimal(0));
-		setSun(new BigDecimal(0));
-		setMon(new BigDecimal(0));
-		setTue(new BigDecimal(0));
-		setWed(new BigDecimal(0));
-		setThu(new BigDecimal(0));
-	}
-
-	public TimesheetRow(Timesheet parent, TimesheetRow row) {
+	public TimesheetRow(TimesheetRow row) {
 		this.id = row.getId();
-		this.timesheet = parent;
+		this.timesheet = row.getTimesheet();
 		this.comments = row.getComments();
 		this.project = row.getProject();
 		this.workPackage = row.getWorkPackage();

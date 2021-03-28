@@ -29,23 +29,24 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">PROJECT</f:facet>
-<!--                    <h:inputText styleClass="edit-input" value="#{row.projectNumber}" required="true"-->
-<!--                                 rendered="#{row.editable}"/>-->
-                    <h:selectOneMenu value="#{row.projectNumber}" styleClass="edit-input" rendered="#{row.editable}">
+                    <h:selectOneMenu value="#{row.projectNumber}" styleClass="edit-input-dropdown" rendered="#{row.editable}">
                         <f:selectItems value="#{row.availProjects}" var="p" itemLabel="#{p.availProjectName}" itemValue="#{p.availProjectNumber}"/>
                     </h:selectOneMenu>
                     <h:outputText styleClass="edit-output" value="#{row.projectNumber}" rendered="#{not row.editable}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">WP</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{row.workPackageNumber}" required="true"
-                                 rendered="#{row.editable}"/>
+                    <h:inputText id="wpNum" styleClass="edit-input" value="#{row.workPackageNumber}" required="true"
+                                 rendered="#{row.editable}">
+                        <f:validateLength minimum="5" maximum="5" />
+                    </h:inputText>
+                    <h:message for="wpNum" style="color:red"/>
                     <h:outputText styleClass="edit-output" value="#{row.workPackageNumber}"
                                   rendered="#{not row.editable}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Mon</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{row.mon}" rendered="#{row.editable}"
+                    <h:inputText styleClass="edit-input-hour" value="#{row.mon}" rendered="#{row.editable}"
                                  converter="weeklyHours">
                         <f:validateDoubleRange minimum="0.0" maximum="24.0"/>
                     </h:inputText>
@@ -53,7 +54,7 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Tue</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{row.tue}" rendered="#{row.editable}"
+                    <h:inputText styleClass="edit-input-hour" value="#{row.tue}" rendered="#{row.editable}"
                                  converter="weeklyHours">
                         <f:validateDoubleRange minimum="0.0" maximum="24.0"/>
                     </h:inputText>
@@ -61,7 +62,7 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Wed</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{row.wed}" rendered="#{row.editable}"
+                    <h:inputText styleClass="edit-input-hour" value="#{row.wed}" rendered="#{row.editable}"
                                  converter="weeklyHours">
                         <f:validateDoubleRange minimum="0.0" maximum="24.0"/>
                     </h:inputText>
@@ -69,7 +70,7 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Thu</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{row.thu}" rendered="#{row.editable}"
+                    <h:inputText styleClass="edit-input-hour" value="#{row.thu}" rendered="#{row.editable}"
                                  converter="weeklyHours">
                         <f:validateDoubleRange minimum="0.0" maximum="24.0"/>
                     </h:inputText>
@@ -77,7 +78,7 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Fri</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{row.fri}" rendered="#{row.editable}"
+                    <h:inputText styleClass="edit-input-hour" value="#{row.fri}" rendered="#{row.editable}"
                                  converter="weeklyHours">
                         <f:validateDoubleRange minimum="0.0" maximum="24.0"/>
                     </h:inputText>
@@ -85,7 +86,7 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Sat</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{row.sat}" rendered="#{row.editable}"
+                    <h:inputText styleClass="edit-input-hour" value="#{row.sat}" rendered="#{row.editable}"
                                  converter="weeklyHours">
                         <f:validateDoubleRange minimum="0.0" maximum="24.0"/>
                     </h:inputText>
@@ -93,7 +94,7 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Sun</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{row.sun}" rendered="#{row.editable}"
+                    <h:inputText styleClass="edit-input-hour" value="#{row.sun}" rendered="#{row.editable}"
                                  converter="weeklyHours">
                         <f:validateDoubleRange minimum="0.0" maximum="24.0"/>
                     </h:inputText>
