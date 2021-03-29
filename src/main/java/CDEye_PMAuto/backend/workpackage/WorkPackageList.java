@@ -49,14 +49,8 @@ public class WorkPackageList implements Serializable {
         return list;
     }
     
-    public List<EditableWorkPackage> getWpsByProj() {
-    	Project activeProj = new Project(apb);
-    	WorkPackage[] wps = workPackageManager.findWpsByProject(activeProj);
-        list = new ArrayList<EditableWorkPackage>();
-        for (int i = 0; i < wps.length; i++) {
-            list.add(new EditableWorkPackage(wps[i]));
-        }
-        return list;
+    public EditableWorkPackage getWpsBy(UUID id) {
+        return new EditableWorkPackage(workPackageManager.getByUUID(id.toString()));     
     }
 
     public List<EditableWorkPackage> refreshList() {
@@ -106,6 +100,7 @@ public class WorkPackageList implements Serializable {
             // Update allocated budget breakdown list and responsible enginner list
             wp.setWpAllocs(wpa);
             wp.setRECEs(receList);
+            System.out.println("added workpackage " + wp.workPackageNumber);
             list.add(wp);
         }
         return list;

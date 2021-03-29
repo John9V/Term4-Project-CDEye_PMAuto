@@ -3,6 +3,7 @@ package CDEye_PMAuto.backend.project;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named("projectDashboard")
-@ConversationScoped
+@RequestScoped
 public class ProjectDashboard implements Serializable {
 	@Inject @Dependent private ProjectManager projectManager;
 	private List<EditableProject> list;
@@ -23,15 +24,26 @@ public class ProjectDashboard implements Serializable {
 	@Inject
 	EditProjectWrapper epb;
 
+	private EditableProject deletedProject = new EditableProject();
+	
 	public List<EditableProject> getList() {
 		if (!conversation.isTransient()) {
 			conversation.end();
 		}
 		conversation.begin();
-		if (list == null) {
-			refreshList();
-		}
-		return list;
+//		if (list == null) {
+//			refreshList();
+//		}
+//		return list;
+		return refreshList();
+	}
+
+	public EditableProject getDeletedProject() {
+		return deletedProject;
+	}
+
+	public void setDeletedProject(EditableProject deletedProject) {
+		this.deletedProject = deletedProject;
 	}
 
 	public List<EditableProject> refreshList() {
@@ -69,5 +81,10 @@ public class ProjectDashboard implements Serializable {
 		conversation.end();
 		return epb.setActiveProjectBean(p);
 	}
+	
+    public String deleteProject(EditableProject p) {
+    	projectManager.deleteProject(projectManager.findProject(p.projectName));
+    	return "ProjectDashboard";
+    }
 
 }

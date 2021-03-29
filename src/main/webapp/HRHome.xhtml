@@ -1,37 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
-	<h:outputStylesheet library="css" name="styles.css"/>
+	<h:outputStylesheet library="css" name="styles.css" />
 	<title>Project Management System</title>
 </h:head>
 
 <!--http://localhost:8080/CDEye_PMAuto/CreateEmployee.xhtml-->
 <h:body>
 	<!-- Side bar panel will control the navigation of the application-->
-	<div class="side-bar">
-
-	</div>
+	<div class="side-bar"></div>
 
 	<!-- The current route -->
 	<div class="header-bar">
 		<h3>HR HOME</h3>
+		<div class="logout-button">
+			<h:form styleClass="">
+				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+					value="Logout" action="#{activeEmployeeBean.logout}" />
+				<h:commandButton rendered="#{empty activeEmployeeBean.userName}"
+					value="Login" action="login" />
+			</h:form>
+		</div>
 	</div>
 
 	<!-- Form Container: reusable horizontal row input style-->
 	<!-- Need to replace the input value with Employee class members.-->
 	<div class="form-container">
 		<h:form>
-			<p>Welcome home, HR. Remember - you are here to protect the company from liability and pay the employees as little as possible. </p>
-			<p>We are hiring! Make sure you hit your hiring quotas to share this award-winning culture with as many people as possible! Or else :) </p>
+			<p style="color: red">Current User:
+				#{activeEmployeeBean.firstName}</p>
+			<br />
+			<p>Welcome home, HR. Remember - you are here to protect the
+				company from liability and pay the employees as little as possible.
+			</p>
+			<p>We are hiring! Make sure you hit your hiring quotas to share
+				this award-winning culture with as many people as possible! Or else
+				:)</p>
 			<!-- Create Employee: Add DB-->
 			<div class="button-container">
-				<h:commandButton value="Create Employee" action="CreateEmployee" />
-				<h:commandButton value="View Employees" action="EditEmployees" />
-				<h:commandButton value="Create Project" action="CreateProject" />
-				<h:commandButton value="View Projects" action="ProjectDashboard" />
+				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+					value="Create Employee" action="CreateEmployee" />
+				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+					value="View Employees" action="EditEmployees" />
+				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+					value="Create Project" action="CreateProject" />
+				<h:commandButton value="Create Timesheet" action="#{createTimesheet.initialize(activeEmployeeBean.userName)}"/>
+				<h:commandButton value="View My Timesheets" action="TimesheetList" />
+				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+					value="View Projects" action="ProjectDashboard" />
 			</div>
 		</h:form>
 	</div>

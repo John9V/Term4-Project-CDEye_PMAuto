@@ -39,7 +39,7 @@ public class ProjectList implements Serializable {
     }
 	
 	public String viewProjectWPs(EditableProject p) {
-		conversation.end();
+		//conversation.end();
 		return apb.setActiveProjectBean(p);
 	}
 	
@@ -52,7 +52,7 @@ public class ProjectList implements Serializable {
 			}
 			if (list.get(i).isDeletable()) {
 				Project p = new Project(list.get(i));
-				projectManager.delete(p);
+				projectManager.deleteProject(p);
 			}
 		}
 		refreshList();
