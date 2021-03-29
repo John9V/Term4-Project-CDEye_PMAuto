@@ -3,6 +3,8 @@ package CDEye_PMAuto.backend.workpackage;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import javax.ejb.Stateless;
@@ -43,13 +45,8 @@ public class WorkPackageManager implements Serializable {
      */
     public WorkPackage[] getAll() {
         TypedQuery<WorkPackage> query = em.createQuery("select wp from WorkPackage wp",
-                WorkPackage.class); 
-        List<WorkPackage> workPackages = query.getResultList();
-        WorkPackage[] wpArr = new WorkPackage[workPackages.size()];
-        for (int i = 0; i < wpArr.length; i++) {
-            wpArr[i] = workPackages.get(i);
-        }
-        return wpArr;
+                WorkPackage.class);
+        return getWorkPackages(query);
     }
     
     /**
@@ -78,61 +75,47 @@ public class WorkPackageManager implements Serializable {
         TypedQuery<WorkPackage> query = em.createQuery(
                 "SELECT wp FROM WorkPackage wp WHERE workpackagenumber LIKE :packageNumber", WorkPackage.class)
                 .setParameter("packageNumber", "%" + packageNumber + "%");
-        List<WorkPackage> workPackages = query.getResultList();
-        
-        WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
-        for (int i = 0; i < packageArr.length; i++) {
-            packageArr[i] = workPackages.get(i);
-        }
-        
-        return packageArr;
+        return getWorkPackages(query);
     }
     
     public WorkPackage[] getByParentId(String parentId) {
         TypedQuery<WorkPackage> query = em.createQuery(
                 "SELECT wp FROM WorkPackage wp WHERE parentworkpackage LIKE :parentId", WorkPackage.class)
                 .setParameter("parentId", "%" + parentId + "%");
-        List<WorkPackage> workPackages = query.getResultList();
-        
-        WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
-        for (int i = 0; i < packageArr.length; i++) {
-            packageArr[i] = workPackages.get(i);
-        }
-        
-        return packageArr;
+        return getWorkPackages(query);
     }
     
     public WorkPackage[] findWpsByProject(Project p) {
         TypedQuery<WorkPackage> query = em.createQuery(
                 "SELECT wp FROM WorkPackage wp WHERE wp.project.id = :projectId ORDER BY wp.workPackageNumber ASC", WorkPackage.class)
                 .setParameter("projectId", p.getId());
-        List<WorkPackage> workPackages = query.getResultList();
-        
-        WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
-        for (int i = 0; i < packageArr.length; i++) {
-            packageArr[i] = workPackages.get(i);
-        }
-        
-        return packageArr;
+        return getWorkPackages(query);
     }
     
     public WorkPackage[] findWpsByPkgNumAndProj(String workPackageNumber, Project p) {
     	System.out.println("the wp num is " + workPackageNumber);
     	System.out.println("the proj is " + p.getProjectName());
+    	System.out.println("the proj id is " + p.getId());
     	TypedQuery<WorkPackage> query = em.createQuery(
                 "SELECT wp FROM WorkPackage wp WHERE wp.workPackageNumber = :workPackageNumber AND wp.project.id = :projectId", WorkPackage.class)
     			.setParameter("workPackageNumber", workPackageNumber)
     			.setParameter("projectId", p.getId());
-    	List<WorkPackage> workPackages = query.getResultList();
+        return getWorkPackages(query);
+    }
 
-    	WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
+    private WorkPackage[] getWorkPackages(TypedQuery<WorkPackage> query) {
+        List<WorkPackage> workPackages = query.getResultList();
+        WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
         for (int i = 0; i < packageArr.length; i++) {
             packageArr[i] = workPackages.get(i);
         }
-        System.out.println(packageArr);
         return packageArr;
     }
     
+    public WorkPackage find(UUID id) {
+    	return em.find(WorkPackage.class, id);
+    }
+
     /**
      * Uses a modified workPackage to update a workPackage in the database.
      * 
@@ -265,31 +248,6 @@ public class WorkPackageManager implements Serializable {
 		return wp.projectBudget.subtract(calculateAllocatedBudget(wp));
 	}
 
-    /**
-     * INCORRECT
-     */
-	public String determineParentWPNum(WorkPackage wp) {
-		return null;
-	}
-
-	/**
-	 *INCORRECT
-	 */
-	public String determineWPNumFromParent(WorkPackage wp) {
-		return null;
-//		if (!wp.isLeaf) {
-//			String WPNumFromParent = "";
-//			WorkPackage[] workpackages = getByParentId(wp.workPackageNumber);
-//			for (WorkPackage workpackage : workpackages) {
-//				WPNumFromParent.concat(workpackage.workPackageNumber);
-//				WPNumFromParent.concat("\n");
-//			}
-//			return WPNumFromParent;
-//		} else {
-//			return null;
-//		}
-	}
-
 	/**
 	 * Get WorkPackage(s) by StartDate
 	 * 
@@ -300,14 +258,8 @@ public class WorkPackageManager implements Serializable {
 		TypedQuery<WorkPackage> query = em
 				.createQuery("SELECT wp FROM WorkPackage wp WHERE startdate LIKE :startDate", WorkPackage.class)
 				.setParameter("startDate", "%" + startDate + "%");
-		List<WorkPackage> workPackages = query.getResultList();
-
-		WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
-		for (int i = 0; i < packageArr.length; i++) {
-			packageArr[i] = workPackages.get(i);
-		}
-		return packageArr;
-	}
+        return getWorkPackages(query);
+    }
 
 	/**
 	 * Get WorkPackage(s) by EndDate
@@ -319,14 +271,8 @@ public class WorkPackageManager implements Serializable {
 		TypedQuery<WorkPackage> query = em
 				.createQuery("SELECT wp FROM WorkPackage wp WHERE enddate LIKE :endDate", WorkPackage.class)
 				.setParameter("endDate", "%" + endDate + "%");
-		List<WorkPackage> workPackages = query.getResultList();
-
-		WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
-		for (int i = 0; i < packageArr.length; i++) {
-			packageArr[i] = workPackages.get(i);
-		}
-		return packageArr;
-	}
+        return getWorkPackages(query);
+    }
 
 	/**
 	 * Get all leaves WorkPackage(s)
@@ -338,14 +284,8 @@ public class WorkPackageManager implements Serializable {
 		TypedQuery<WorkPackage> query = em
 				.createQuery("SELECT wp FROM WorkPackage wp WHERE isleaf LIKE :isLeaf", WorkPackage.class)
 				.setParameter("isLeaf", "%" + isLeaf + "%");
-		List<WorkPackage> workPackages = query.getResultList();
-
-		WorkPackage[] packageArr = new WorkPackage[workPackages.size()];
-		for (int i = 0; i < packageArr.length; i++) {
-			packageArr[i] = workPackages.get(i);
-		}
-		return packageArr;
-	}
+        return getWorkPackages(query);
+    }
 
     /**
      * Updated selected Work Package Leaf details
@@ -363,5 +303,105 @@ public class WorkPackageManager implements Serializable {
         wp.childPackages = w.childPackages;
         em.merge(wp);
         System.out.println("Update work package leaf" + wp.workPackageNumber);
+    }
+	
+	// HELPER FUNCTIONS
+    
+    //TODO: Need to account for edge cases
+    /**
+     * Returns the parent Workpackage of any given workpackage
+     * ex) 13100 return 13000, 14200 return 14000
+     * 
+     * @param wp, the child Workpackage as a WorkPackage
+     * @return the parent work package wpnum, as a string
+     */
+    public String determineParentWPNum(String wpNumber) {
+        //Gets the WP Number(10000) -> 11000, 12000, 13000, 14000, 1500 -> 11100 , 11200
+        String wpNum = wpNumber;
+        
+        //Concatenates any non 0 digit to the blank string (This assumes a wp must have all trailing 0s at the end)
+        
+      
+        String blankString = "";
+        for (int i = 0; i < wpNum.length(); i++) {
+            if (wpNum.charAt(i) != '0') {
+                blankString += wpNum.charAt(i);
+            }
+        }
+      //LOGIC ERROR HERE
+        //Parse the wpNum into an int
+        
+        if (blankString.length() == 0) {
+        	return "-1";
+        }
+        
+        int wpNumAsInt = Integer.parseInt(blankString);
+        //Divide the integer by 10 in order to get the parent WP (Truncates and decimals)
+        int parentWpNumAsInt = wpNumAsInt / 10; 
+        //Convert parentWPNumAsInt back to string
+        String parentWpNumAsString = Integer.toString(parentWpNumAsInt);
+        
+        //Adds the trailing 0s back on (This assumes all wp have 5 digits, can add count variable into first four loop if not
+        while(parentWpNumAsString.length() < 5) {
+            parentWpNumAsString += "0";
+        }
+        
+        return parentWpNumAsString;
+    }
+
+    //TODO: Need to account for edge cases
+    /**
+     * Determines the children WP of any given WP
+     * ex) 13100 return 13110 13120 13130 etc
+     * 
+     * @param wp, the parent WorkPackage, as a WorkPackage
+     * @return an array of child work package numbers, as strings 
+     */
+    public ArrayList<String> determineWPNumFromParent(String wpNum) {
+        //ArrayList containing strings of all ChildWPNums
+        ArrayList<String> potentialWorkPackages = new ArrayList<String>();
+        //The wp num of the ParentWP
+        String parentWpNum = wpNum;
+        
+        //Maintains a count of what char we are at
+        int count = 0;
+        //Counts each non 0 number in the string, in order to get to where the Child WP should be
+        for (int i = 0; i < parentWpNum.length(); i++) {
+            if (parentWpNum.charAt(i) != '0') {
+                count++;
+            } 
+        }
+        
+        //Adds one to the count in order to get to the child work package digit
+        count++;
+        
+        //Replaces each var at count with a num from 1-9 (10000) -> 11000, 12000, 13000
+        for (int i = 1; i < 10; i++) {
+            StringBuilder stringBuilderWP = new StringBuilder(parentWpNum);
+            stringBuilderWP.setCharAt(count, (char)(i + 48));
+            potentialWorkPackages.add(new String(stringBuilderWP.toString()));
+        }
+        
+        return potentialWorkPackages;
+    }
+    
+    /** Gets rid of the 0s on a WorkPackage number **/
+    public String determineChildWPWithoutZeroes(String wpNum) {
+        //The wp num of the ParentWP
+        String parentWpNum = wpNum;
+        
+        String childWP = "";
+        
+        //For each number in the WpNum appends it to childWp, if it's not a 0.
+        //Once a 0 is encountered, breaks from the loop
+        for (int i = 0; i < parentWpNum.length(); i++) {
+            if (parentWpNum.charAt(i) != '0') {
+                childWP += parentWpNum.charAt(i);
+            } else {
+                break;
+            }
+        }
+        
+        return childWP;
     }
 }

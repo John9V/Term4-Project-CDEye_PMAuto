@@ -62,7 +62,7 @@ public class CreateEmployeeBean extends Employee implements Serializable
 	}
 
 	/** Paygrade list to populate each select item. */
-	private static Collection<SelectItem> paygradeList;
+	private static final Collection<SelectItem> paygradeList;
 	static {
 		paygradeList = new ArrayList<SelectItem>();
 
@@ -76,7 +76,6 @@ public class CreateEmployeeBean extends Employee implements Serializable
 		return paygradeList;
 	}
 
-	
 	public void add() {	  
 //	    if (!employeeInSystem()){
 //	        return false

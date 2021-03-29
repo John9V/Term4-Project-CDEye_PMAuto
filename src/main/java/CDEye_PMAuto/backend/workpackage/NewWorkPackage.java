@@ -2,8 +2,14 @@ package CDEye_PMAuto.backend.workpackage;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -11,6 +17,7 @@ import CDEye_PMAuto.backend.paygrade.Paygrade;
 import CDEye_PMAuto.backend.paygrade.PaygradeManager;
 import CDEye_PMAuto.backend.project.ActiveProjectBean;
 import CDEye_PMAuto.backend.project.Project;
+import CDEye_PMAuto.backend.project.ProjectManager;
 import CDEye_PMAuto.backend.recepackage.RECEManager;
 import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
 import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocManager;
@@ -27,41 +34,150 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 	private WorkPackageManager workPackageManager;
 	@Inject
 	ActiveProjectBean apb;
-	@Inject PaygradeManager pgm;
-	@Inject WorkPackageAllocManager wpam;
-	@Inject RECEManager recem;
+	@Inject
+	PaygradeManager pgm;
+	@Inject
+	WorkPackageAllocManager wpam;
+	@Inject
+	RECEManager recem;
+	@Inject ProjectManager pm;
+	@Inject WorkPackageList wpl;
 	
-
 	String parentWpNumber = "";
+    
+	public Boolean validateWorkPackageNumber() {
+		if (workPackageManager.getByPackageNumber(workPackageNumber).length != 0) {
+			System.out.println("already existing workPackage.");
+			return false;
+		}
+		return true;
+	}
+
+	public void validateWPNum(FacesContext context, UIComponent comp, Object value) {
+		String workPackageNumber = (String) value;
+
+		if (workPackageManager.getByPackageNumber(workPackageNumber).length != 0) {
+			((UIInput) comp).setValid(false);
+			FacesMessage message = new FacesMessage("already existing workPackage");
+			context.addMessage(comp.getClientId(context), message);
+		}
+	}
 
 	/**
 	 * Used to persist the new work package.
 	 */
 	public String add() {
 		Project activeProj = new Project();
-		activeProj.setId(apb.getId());
-		WorkPackage[] parentWp = workPackageManager.findWpsByPkgNumAndProj(parentWpNumber, activeProj);
-
-		WorkPackage wp = new WorkPackage(this);
-		wp.setProject(activeProj);
-		//make sure it found a parent lol
-        if (parentWp.length >= 1) {
-        	wp.setParentWp(parentWp[0]);
-        }
-		wp.setId(UUID.randomUUID());
+		//activeProj.setId(apb.getId());
+		
+		activeProj = pm.find(apb.getId());
+		
+		//if (validateWorkPackageNumber()) {
+			WorkPackage[] parentWp = workPackageManager.findWpsByPkgNumAndProj(parentWpNumber, activeProj);
+        if (parentWp.length == 0) {
+            String testParentWPNum = workPackageManager.determineParentWPNum(workPackageNumber);
+            checkAndCreateWP(testParentWPNum);
+            // Parent should now be created, check for a parent again
+            parentWp = workPackageManager.findWpsByPkgNumAndProj(testParentWPNum, activeProj);
+			}
+        
+        WorkPackage wp = new WorkPackage(this);
+        //wp.setProject(parentWp[0].project);
+        wp.setProject(activeProj);
+        wp.setParentWp(parentWp[0]);
+			wp.setId(UUID.randomUUID());
 		wp.setLeaf(wp.isLeaf);
 		
 		System.out.println("Leaf value is" + wp.isLeaf);
-		
-		workPackageManager.addWorkPackage(wp);
-		WorkPackage addedWp = workPackageManager.getByUUID(wp.id.toString());
-		System.out.println("committed work package");
-		createWpAllocs(addedWp);
-		createRECEs(addedWp);
-		return "WPList";
-	}
 
-	//create a wpalloc for each paygrade
+			workPackageManager.addWorkPackage(wp);
+		
+		WorkPackage addedWp = workPackageManager.getByUUID(wp.getId().toString());
+			System.out.println("committed work package");
+			createWpAllocs(addedWp);
+			createRECEs(addedWp);
+			
+			wpl.refreshList();
+			return "WPList";
+		//} else {
+			//return "CreateWorkPackage";
+		//}
+	}
+	
+    /**
+     * A RECURSIVE function that checks to see if a WorkPackage has a parent, if not, 
+     * check parent to see if the parent has a parent. Once the function finds a WorkPackage 
+     * with a parent, creates the desired WorkPackage
+     *
+     * @param wpToCreate, the WorkPackage number, as a String, of the WorkPackage to create
+     */
+    public void checkAndCreateWP(String wpToCreate) {
+    	Project activeProj = new Project();
+		activeProj = pm.find(apb.getId());
+        // Determines the wpNum of the WorkPackage that is SUPPOSED to exist
+        String schrodingersWp = workPackageManager.determineParentWPNum(wpToCreate);
+        System.out.println("shrodingers package num " + schrodingersWp);
+//        if (schrodingersWp.contentEquals("00000")) {
+//        	return;
+//        }
+        // Checks to see if the supposed to exist WP really does exist
+        WorkPackage[] arrayOfParentWPs = workPackageManager.findWpsByPkgNumAndProj(schrodingersWp, activeProj);
+        
+        // Checks to see if parentless WorkPackages parent has a WP
+        if (arrayOfParentWPs.length == 0 && !schrodingersWp.contentEquals("00000")) { 
+            checkAndCreateWP(schrodingersWp); 
+            // Parent should now be created, check for a parent again
+            arrayOfParentWPs = workPackageManager.findWpsByPkgNumAndProj(schrodingersWp, activeProj);
+        } else if (schrodingersWp.contentEquals("00000")) {
+        	
+        	WorkPackage newWorkPackage = new WorkPackage(wpToCreate, null, BigDecimal.valueOf(0), BigDecimal.valueOf(0), 
+                    new Date(), new Date(), false, BigDecimal.valueOf(0), activeProj, null, null, null);
+              
+              
+              
+              newWorkPackage.setId(UUID.randomUUID());
+              newWorkPackage.setProject(activeProj);
+              workPackageManager.addWorkPackage(newWorkPackage);
+              
+              WorkPackage addedWp = workPackageManager.getByUUID(newWorkPackage.getId().toString());
+              System.out.println("committed workpackage " + newWorkPackage.getWorkPackageNumber());
+              if (newWorkPackage.getParentWp() != null) {
+            	  System.out.println("committed package parent " + newWorkPackage.getParentWp());
+                  System.out.println("committed package parent proj " + newWorkPackage.getParentWp().getProject().getProjectName());
+              }
+              //System.out.println("committed package parent " + newWorkPackage.getParentWp());
+              //System.out.println("committed package parent proj " + newWorkPackage.getParentWp().getProject().getProjectName());
+              createWpAllocs(addedWp);
+              createRECEs(addedWp);
+        	
+        	return;
+        }
+        System.out.println("creating wp " + wpToCreate);
+        for (WorkPackage w : arrayOfParentWPs) {
+        	System.out.print("potential parent " + w.getWorkPackageNumber());
+        	System.out.print(" in proj " + w.getProject().getProjectNumber());
+        }
+        System.out.println("end of potential parent list " );
+        WorkPackage newWorkPackage = new WorkPackage(wpToCreate, arrayOfParentWPs[0], BigDecimal.valueOf(0), BigDecimal.valueOf(0), 
+              new Date(), new Date(), false, BigDecimal.valueOf(0), activeProj, null, null, null);
+        
+        
+        
+        newWorkPackage.setId(UUID.randomUUID());
+        newWorkPackage.setProject(activeProj);
+        workPackageManager.addWorkPackage(newWorkPackage);
+        
+        WorkPackage addedWp = workPackageManager.getByUUID(newWorkPackage.getId().toString());
+        System.out.println("committed workpackage " + newWorkPackage.getWorkPackageNumber());
+        if (newWorkPackage.getParentWp() != null) {
+        	  System.out.println("committed package parent " + newWorkPackage.getParentWp());
+              System.out.println("committed package parent proj " + newWorkPackage.getParentWp().getProject().getProjectName());
+          }
+        createWpAllocs(addedWp);
+        createRECEs(addedWp);
+    }
+
+	// create a wpalloc for each paygrade
 	public void createWpAllocs(WorkPackage addedWp) {
 		Paygrade[] paygradeArr = pgm.getAll();
 		for (Paygrade p : paygradeArr) {
@@ -70,13 +186,11 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 			wpa.setWorkPackage(addedWp);
 			wpa.setPaygrade(p);
 			wpa.setPersonDaysEstimate(new BigDecimal(0));
-			System.out.println("right before comitting wpa");
 			wpam.addWorkPackageAlloc(wpa);
-			System.out.println("committed wpa");
 		}
 	}
-	
-	//create a RECE for each paygrade
+
+	// create a RECE for each paygrade
 	public void createRECEs(WorkPackage addedWp) {
 		Paygrade[] paygradeArr = pgm.getAll();
 		for (Paygrade p : paygradeArr) {
@@ -88,7 +202,15 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 			recem.persist(rece);
 		}
 	}
-	
+
+	/**
+	 * Gets the child WP number from a parent WP on keyup event from testCreateWP.xhtml
+	 */
+    public void ajaxEvent() {
+        System.out.println("Called: " + parentWpNumber);
+        workPackageNumber = workPackageManager.determineChildWPWithoutZeroes(parentWpNumber);
+     }
+    
 	public String getParentWpNumber() {
 		return parentWpNumber;
 	}

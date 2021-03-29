@@ -100,6 +100,7 @@ public class WorkPackageList implements Serializable {
             // Update allocated budget breakdown list and responsible enginner list
             wp.setWpAllocs(wpa);
             wp.setRECEs(receList);
+            System.out.println("added workpackage " + wp.workPackageNumber);
             list.add(wp);
         }
         return list;

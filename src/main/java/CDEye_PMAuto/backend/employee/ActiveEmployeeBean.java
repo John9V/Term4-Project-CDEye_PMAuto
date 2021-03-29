@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 import CDEye_PMAuto.backend.credentials.CredentialManager;
 import CDEye_PMAuto.backend.credentials.Credential;
@@ -15,7 +16,7 @@ public class ActiveEmployeeBean extends Employee implements Serializable {
 
 	@Inject CredentialManager credentialManager;
 	@Inject EmployeeManager employeeManager;
-
+	
 	/**
 	 * The username of the currently logged in user.
 	 */
@@ -48,6 +49,8 @@ public class ActiveEmployeeBean extends Employee implements Serializable {
 			this.payGrade = loggedInEmployee.payGrade;
 			this.active = loggedInEmployee.active;
 			this.hr = loggedInEmployee.hr;
+			HttpSession session = SessionUtils.getSession();
+			session.setAttribute("username", userName);
 			if (loggedInEmployee.active) {
 				if (loggedInEmployee.hr) {
 					return "HRHome";
@@ -60,6 +63,17 @@ public class ActiveEmployeeBean extends Employee implements Serializable {
 		} else {
 			return "invalidCredentials";
 		}
+	}
+	
+	/**
+	 * Logout method.
+	 * @return navigation string to login.xthml 
+	 */
+	public String logout() {
+		HttpSession session = SessionUtils.getSession();
+		session.invalidate();
+		System.out.println("logout successfully");
+		return "login?faces-redirect=true";
 	}
 
 	

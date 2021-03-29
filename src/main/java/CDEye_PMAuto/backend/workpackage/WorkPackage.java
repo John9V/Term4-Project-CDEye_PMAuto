@@ -207,7 +207,9 @@ public class WorkPackage implements Serializable {
     }
     
     public BigDecimal calcAllocatedBudget() {
+    	//System.out.println("calculate is being called for " + this.workPackageNumber);
     	if (this.isLeaf) {
+    		
     		BigDecimal personDays = new BigDecimal(0);
             BigDecimal budgetEstimate = new BigDecimal(0);
             for (WorkPackageAllocation w : this.getWpAllocs()) {
@@ -218,11 +220,15 @@ public class WorkPackage implements Serializable {
                 budgetEstimate = budgetEstimate.add(res);
                 personDays = personDays.add(w.getPersonDaysEstimate());
             }
+            //System.out.println("allocation for (leaf) " + this.workPackageNumber + " is " + budgetEstimate);
             return budgetEstimate;
           //this needs to sum children's wp budgets, not children's allocations
     	} else {
     		BigDecimal budgetEstimate = new BigDecimal(0);
+    		//System.out.println("work package " + this.workPackageNumber + " has " + this.childPackages.size() + " children");
     		for (WorkPackage w : this.childPackages) {
+    			//System.out.println("this package is " + w.workPackageNumber);
+    			//System.out.println("its project budget is " + w.projectBudget);
                 budgetEstimate = budgetEstimate.add(w.projectBudget);
             }
 //            for (WorkPackage w : this.childPackages) {
