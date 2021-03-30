@@ -93,9 +93,9 @@ public class WorkPackageManager implements Serializable {
     }
     
     public WorkPackage[] findWpsByPkgNumAndProj(String workPackageNumber, Project p) {
-    	System.out.println("the wp num is " + workPackageNumber);
-    	System.out.println("the proj is " + p.getProjectName());
-    	System.out.println("the proj id is " + p.getId());
+    	//System.out.println("the wp num is " + workPackageNumber);
+    	//System.out.println("the proj is " + p.getProjectName());
+    	//System.out.println("the proj id is " + p.getId());
     	TypedQuery<WorkPackage> query = em.createQuery(
                 "SELECT wp FROM WorkPackage wp WHERE wp.workPackageNumber = :workPackageNumber AND wp.project.id = :projectId", WorkPackage.class)
     			.setParameter("workPackageNumber", workPackageNumber)
