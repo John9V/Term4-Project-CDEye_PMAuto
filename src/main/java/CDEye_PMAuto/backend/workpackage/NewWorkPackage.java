@@ -84,16 +84,17 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
         WorkPackage wp = new WorkPackage(this);
         //wp.setProject(parentWp[0].project);
         wp.setProject(activeProj);
-        wp.setParentWp(parentWp[0]);
-			wp.setId(UUID.randomUUID());
+        wp.setId(UUID.randomUUID());
 		wp.setLeaf(wp.isLeaf);
+        System.out.println("before setting parent committed work package " + wp.getId().toString() + " wpnum " + wp.getWorkPackageNumber());
+        wp.setParentWp(parentWp[0]);
 		
-		System.out.println("Leaf value is" + wp.isLeaf);
+		
 
-			workPackageManager.addWorkPackage(wp);
+		workPackageManager.addWorkPackage(wp);
 		
 		WorkPackage addedWp = workPackageManager.getByUUID(wp.getId().toString());
-			System.out.println("committed work package");
+			System.out.println("committed work package " + wp.getId().toString() + " wpnum " + wp.getWorkPackageNumber());
 			createWpAllocs(addedWp);
 			createRECEs(addedWp);
 			
@@ -117,9 +118,7 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
         // Determines the wpNum of the WorkPackage that is SUPPOSED to exist
         String schrodingersWp = workPackageManager.determineParentWPNum(wpToCreate);
         System.out.println("shrodingers package num " + schrodingersWp);
-//        if (schrodingersWp.contentEquals("00000")) {
-//        	return;
-//        }
+
         // Checks to see if the supposed to exist WP really does exist
         WorkPackage[] arrayOfParentWPs = workPackageManager.findWpsByPkgNumAndProj(schrodingersWp, activeProj);
         
@@ -130,34 +129,36 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
             arrayOfParentWPs = workPackageManager.findWpsByPkgNumAndProj(schrodingersWp, activeProj);
         } else if (schrodingersWp.contentEquals("00000")) {
         	
-        	WorkPackage newWorkPackage = new WorkPackage(wpToCreate, null, BigDecimal.valueOf(0), BigDecimal.valueOf(0), 
+        	WorkPackage[] existingWps = workPackageManager.findWpsByPkgNumAndProj(wpToCreate, activeProj);
                     new Date(), new Date(), false, BigDecimal.valueOf(0), activeProj, null, null, null, null);
-              
-              
-              
-              newWorkPackage.setId(UUID.randomUUID());
-              newWorkPackage.setProject(activeProj);
-              workPackageManager.addWorkPackage(newWorkPackage);
-              
-              WorkPackage addedWp = workPackageManager.getByUUID(newWorkPackage.getId().toString());
-              System.out.println("committed workpackage " + newWorkPackage.getWorkPackageNumber());
-              if (newWorkPackage.getParentWp() != null) {
-            	  System.out.println("committed package parent " + newWorkPackage.getParentWp());
-                  System.out.println("committed package parent proj " + newWorkPackage.getParentWp().getProject().getProjectName());
-              }
-              //System.out.println("committed package parent " + newWorkPackage.getParentWp());
-              //System.out.println("committed package parent proj " + newWorkPackage.getParentWp().getProject().getProjectName());
-              createWpAllocs(addedWp);
-              createRECEs(addedWp);
+        	if (existingWps.length != 0) {
+        		return;
+        	}
+        	
+        	
+        		WorkPackage newWorkPackage = new WorkPackage(wpToCreate, null, BigDecimal.valueOf(0), BigDecimal.valueOf(0), 
+                        new Date(), new Date(), false, BigDecimal.valueOf(0), activeProj, null, null, null);
+                  
+                  newWorkPackage.setId(UUID.randomUUID());
+                  newWorkPackage.setProject(activeProj);
+                  workPackageManager.addWorkPackage(newWorkPackage);
+                  
+                  WorkPackage addedWp = workPackageManager.getByUUID(newWorkPackage.getId().toString());
+                  System.out.println("in conditional " + addedWp.getId().toString() + " number " + addedWp.getWorkPackageNumber());
+                  createWpAllocs(addedWp);
+                  createRECEs(addedWp);
+        	
+        	
         	
         	return;
-        }
-        System.out.println("creating wp " + wpToCreate);
-        for (WorkPackage w : arrayOfParentWPs) {
-        	System.out.print("potential parent " + w.getWorkPackageNumber());
-        	System.out.print(" in proj " + w.getProject().getProjectNumber());
-        }
-        System.out.println("end of potential parent list " );
+        } 
+        
+//        System.out.println("creating wp " + wpToCreate);
+//        for (WorkPackage w : arrayOfParentWPs) {
+//        	System.out.print("potential parent " + w.getWorkPackageNumber());
+//        	System.out.print(" in proj " + w.getProject().getProjectNumber());
+//        }
+//        System.out.println("end of potential parent list " );
         WorkPackage newWorkPackage = new WorkPackage(wpToCreate, arrayOfParentWPs[0], BigDecimal.valueOf(0), BigDecimal.valueOf(0), 
               new Date(), new Date(), false, BigDecimal.valueOf(0), activeProj, null, null, null, null);
         
@@ -168,11 +169,7 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
         workPackageManager.addWorkPackage(newWorkPackage);
         
         WorkPackage addedWp = workPackageManager.getByUUID(newWorkPackage.getId().toString());
-        System.out.println("committed workpackage " + newWorkPackage.getWorkPackageNumber());
-        if (newWorkPackage.getParentWp() != null) {
-        	  System.out.println("committed package parent " + newWorkPackage.getParentWp());
-              System.out.println("committed package parent proj " + newWorkPackage.getParentWp().getProject().getProjectName());
-          }
+        System.out.println("committed workpackage outside conditional " + newWorkPackage.getWorkPackageNumber());
         createWpAllocs(addedWp);
         createRECEs(addedWp);
     }
