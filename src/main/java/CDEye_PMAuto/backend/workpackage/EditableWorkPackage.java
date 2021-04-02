@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Date;
 
+import CDEye_PMAuto.backend.employee.Employee;
 import CDEye_PMAuto.backend.project.Project;
 import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
 import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocation;
@@ -53,6 +54,7 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
         this.RECEs = wp.RECEs;
         this.wpAllocs = wp.wpAllocs;
         this.childPackages = wp.childPackages;
+        this.responsibleEngineer = wp.responsibleEngineer;
     }
     
     /**
@@ -61,8 +63,9 @@ public class EditableWorkPackage extends WorkPackage implements Serializable {
     public EditableWorkPackage(UUID id, String workPackageNumber, WorkPackage parentWp, BigDecimal completedBudget, BigDecimal completedPersonDays,
             Date startDate,
             Date endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs,
-            List<WorkPackageAllocation> wpAllocs, List<WorkPackage> childPackages) {
-        super(id, workPackageNumber, parentWp, completedBudget, completedPersonDays, startDate, endDate, isLeaf, projectBudget, project, RECEs, wpAllocs, childPackages);
+            List<WorkPackageAllocation> wpAllocs, List<WorkPackage> childPackages, Employee responsibleEngineer) {
+        super(id, workPackageNumber, parentWp, completedBudget, completedPersonDays, startDate, endDate, isLeaf, projectBudget, project, RECEs, wpAllocs, childPackages
+                , responsibleEngineer);
     }
     
     public void saveEdit() {

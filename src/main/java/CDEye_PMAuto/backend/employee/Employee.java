@@ -14,6 +14,7 @@ import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,6 +27,7 @@ import org.hibernate.annotations.Type;
 
 import CDEye_PMAuto.backend.paygrade.Paygrade;
 import CDEye_PMAuto.backend.paygrade.PaygradeManager;
+import CDEye_PMAuto.backend.workpackage.WorkPackage;
 
 /**
  * Contains employee information.
@@ -91,11 +93,16 @@ public class Employee implements Serializable {
     /** The employees vaction time, in days remaining **/
     @Column(name="vacationTime", columnDefinition = "TINYINT(4)")
     protected Integer vacationTime;
+    
+    /** If this Employee is not a responsible engineer then collection should be empty. **/
+    @OneToMany(mappedBy="responsibleEngineer", fetch = FetchType.EAGER)
+    protected Collection<WorkPackage> packagesAssignedToRE;
 
     public Employee() {}
 
 	public Employee(UUID id, Integer empNum, String firstName, String lastName, String userName,
-	       Boolean active,  Boolean hr, Paygrade payGrade, Employee manager, Collection<Employee> peons, Integer flexTime, Integer vacationTime) {
+	       Boolean active,  Boolean hr, Paygrade payGrade, Employee manager, Collection<Employee> peons, Integer flexTime, Integer vacationTime,
+	       Collection<WorkPackage> packagesAssignedToRE) {
 		super();
 		this.id = id;
 		this.empNum = empNum;
@@ -109,6 +116,7 @@ public class Employee implements Serializable {
 		this.peons = peons;
 		this.flexTime = flexTime;
 		this.vacationTime = vacationTime;
+		this.packagesAssignedToRE = packagesAssignedToRE;
 	}
 	
 	public Employee(CreateEmployeeBean ceb) {
@@ -125,6 +133,7 @@ public class Employee implements Serializable {
 		this.peons = ceb.peons;
 		this.flexTime = ceb.flexTime;
 		this.vacationTime = ceb.vacationTime;
+		this.packagesAssignedToRE = ceb.packagesAssignedToRE;
 	}
 
 	// GETTERS AND SETTERS =============================================================================
@@ -230,6 +239,21 @@ public class Employee implements Serializable {
     public void setVacationTime(Integer vacationTime) {
         this.vacationTime = vacationTime;
     }
+
+    /**
+     * @return the packagesAssignedToRE
+     */
+    public Collection<WorkPackage> getPackagesAssignedToRE() {
+        return packagesAssignedToRE;
+    }
+
+    /**
+     * @param packagesAssignedToRE the packagesAssignedToRE to set
+     */
+    public void setPackagesAssignedToRE(Collection<WorkPackage> packagesAssignedToRE) {
+        this.packagesAssignedToRE = packagesAssignedToRE;
+    }
+    
 }
 
 	

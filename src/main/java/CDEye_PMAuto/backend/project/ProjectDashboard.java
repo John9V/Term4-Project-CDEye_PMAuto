@@ -52,7 +52,7 @@ public class ProjectDashboard implements Serializable {
 		for (int i = 0; i < projects.length; i++) {
 			list.add(new EditableProject(projects[i]));
 		}
-//		filterProjects();
+		filterProjects();
 		return list;
 	}
 	

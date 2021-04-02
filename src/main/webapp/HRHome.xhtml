@@ -51,6 +51,12 @@
 				<h:commandButton value="View My Timesheets" action="TimesheetList" />
 				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
 					value="View Projects" action="ProjectDashboard" />
+				<h:commandButton rendered="#{not empty workPackageList.listAsRE}"
+					value="View WPs as RE" action="WPListAsRE" />
+				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+					value="View WorkPackages" action="WPListAsEmp" />
+				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+					value="Unapproved Sheets" action="TimesheetListManagerView" />
 			</div>
 		</h:form>
 	</div>

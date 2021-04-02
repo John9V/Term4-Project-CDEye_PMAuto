@@ -301,6 +301,7 @@ public class WorkPackageManager implements Serializable {
         wp.RECEs = w.RECEs;
         wp.wpAllocs = w.wpAllocs;
         wp.childPackages = w.childPackages;
+        wp.responsibleEngineer = w.responsibleEngineer;
         em.merge(wp);
         System.out.println("Update work package leaf" + wp.workPackageNumber);
     }

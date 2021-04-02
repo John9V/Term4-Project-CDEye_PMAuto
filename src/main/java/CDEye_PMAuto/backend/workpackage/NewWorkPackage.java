@@ -131,7 +131,7 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
         } else if (schrodingersWp.contentEquals("00000")) {
         	
         	WorkPackage newWorkPackage = new WorkPackage(wpToCreate, null, BigDecimal.valueOf(0), BigDecimal.valueOf(0), 
-                    new Date(), new Date(), false, BigDecimal.valueOf(0), activeProj, null, null, null);
+                    new Date(), new Date(), false, BigDecimal.valueOf(0), activeProj, null, null, null, null);
               
               
               
@@ -159,7 +159,7 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
         }
         System.out.println("end of potential parent list " );
         WorkPackage newWorkPackage = new WorkPackage(wpToCreate, arrayOfParentWPs[0], BigDecimal.valueOf(0), BigDecimal.valueOf(0), 
-              new Date(), new Date(), false, BigDecimal.valueOf(0), activeProj, null, null, null);
+              new Date(), new Date(), false, BigDecimal.valueOf(0), activeProj, null, null, null, null);
         
         
         

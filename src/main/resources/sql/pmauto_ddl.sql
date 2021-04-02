@@ -269,13 +269,16 @@ CREATE TABLE timesheets
     employee TINYTEXT,
     end_date DATE,
     sick     DECIMAL(10, 2),
-    flex     DECIMAL(10, 2)
+    flex     DECIMAL(10, 2),
+    approved BOOLEAN
 );
 
 INSERT INTO timesheets
-VALUES ("111a1111-e89b-12d4-a456-556642431111", "623e4567-e89b-12d3-a456-556642440710", '2021-03-28', 0, 0);
+VALUES ("111a1111-e89b-12d4-a456-556642431111", "623e4567-e89b-12d3-a456-556642440710", '2021-03-28', 0, 0, true);
 INSERT INTO timesheets
-VALUES ("111a2222-e89b-12d4-a456-556642431111", "623e4567-e89b-12d3-a456-556642440710", '2021-03-07', 1, 1);
+VALUES ("111a2222-e89b-12d4-a456-556642431111", "623e4567-e89b-12d3-a456-556642440710", '2021-03-07', 1, 1, false);
+INSERT INTO timesheets
+VALUES ("111a3333-e89b-12d4-a456-556642431111", "623e4567-e89b-12d3-a456-556642440710", '2021-03-01', 1, 1, true);
 
 DROP TABLE IF EXISTS timesheetrow;
 CREATE TABLE timesheetrow
@@ -362,9 +365,13 @@ CREATE TABLE recepackage
 );
 
 INSERT INTO recepackage
-VALUES ("123e4537-e89b-12d4-a456-556642431111", "123e4567-e89b-12d3-a456-599342400001",
-        "123e4567-e89b-12d3-a451-556644440000", 1, "623e4567-e89b-12d3-a456-556642440710",
-        "123e4567-e89b-12d3-a456-599342400002");
+VALUES (
+	"123e4537-e89b-21a6-a456-550000000000",
+	"123e4537-e89b-b2b2-a456-556642431111",
+	"123e4567-e89b-12d3-a451-556644440000",
+	1,
+	"223e4567-e89b-12d3-a456-556642446010",
+	"123e4537-e89b-a1a1-a456-556642431111");
 
 DROP TABLE IF EXISTS workpackages;
 CREATE TABLE workpackages
@@ -378,7 +385,8 @@ CREATE TABLE workpackages
     startdate           DATE,
     enddate             DATE,
     isleaf              BOOLEAN,
-    project             TINYTEXT
+    project             TINYTEXT,
+    responsibleengineer	TINYTEXT
 );
 
 INSERT INTO workpackages
@@ -391,7 +399,8 @@ VALUES ("123e4537-e89b-a1a1-a456-556642431111",
         '2021-03-07',
         '2021-03-14',
         false,
-        "12121212-e89b-12d3-a456-556665430000");
+        "12121212-e89b-12d3-a456-556665430000",
+        NULL);
 
 INSERT INTO workpackages
 VALUES ("123e4537-e89b-b2b2-a456-556642431111",
@@ -403,7 +412,8 @@ VALUES ("123e4537-e89b-b2b2-a456-556642431111",
         '2021-03-07',
         '2021-03-14',
         false,
-        "12121212-e89b-12d3-a456-556665430000");
+        "12121212-e89b-12d3-a456-556665430000",
+        NULL);
 
 INSERT INTO workpackages
 VALUES ("123e4537-e89b-c3c3-a456-556642431111",
@@ -415,7 +425,8 @@ VALUES ("123e4537-e89b-c3c3-a456-556642431111",
         '2021-03-07',
         '2021-03-14',
         false,
-        "12121212-e89b-12d3-a456-556665430000");
+        "12121212-e89b-12d3-a456-556665430000",
+        NULL);
 
 INSERT INTO workpackages
 VALUES ("123e4537-e89b-d4d4-a456-556642431111",
@@ -427,7 +438,8 @@ VALUES ("123e4537-e89b-d4d4-a456-556642431111",
         '2021-03-07',
         '2021-03-14',
         true,
-        "12121212-e89b-12d3-a456-556665430000");
+        "12121212-e89b-12d3-a456-556665430000",
+        "623e4567-e89b-12d3-a456-556642440710");
 
 INSERT INTO workpackages
 VALUES ("123e4537-e89b-e5e5-a456-556642431111",
@@ -439,4 +451,5 @@ VALUES ("123e4537-e89b-e5e5-a456-556642431111",
         '2021-03-07',
         '2021-03-14',
         true,
-        "12121212-e89b-12d3-a456-556665430000");
+        "12121212-e89b-12d3-a456-556665430000",
+        "223e4567-e89b-12d3-a456-556642446010");
