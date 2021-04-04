@@ -42,18 +42,18 @@
 
             <div class="input-row">
 					<p>Begin Date</p>
-					<h:inputText id="pw" value="#{activeWpBean.startDate}">
+					<h:inputText id="beginDate" value="#{activeWpBean.startDate}">
 						<f:convertDateTime pattern="yyyy-MM-dd" />
 					</h:inputText>
-					<h:message for="pw" style="color:red" />
+					<h:message for="beginDate" style="color:red" />
 				</div>
 
 				<div class="input-row">
 					<p>End Date</p>
-					<h:inputText id="fn" value="#{activeWpBean.endDate}">
+					<h:inputText id="endDate" value="#{activeWpBean.endDate}">
 						<f:convertDateTime pattern="yyyy-MM-dd" />
 					</h:inputText>
-					<h:message for="fn" style="color:red" />
+					<h:message for="endDate" style="color:red" />
             </div>
             
             <div class="input-row">

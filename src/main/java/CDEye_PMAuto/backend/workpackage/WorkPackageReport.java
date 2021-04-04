@@ -13,6 +13,12 @@ public class WorkPackageReport implements Serializable {
 
 	@Inject WorkPackageManager wp;
 	
+	//for each work package, display history of charges by person
+	//think about what information can we show, get trend/current charges/what was expected
+	//find charges against work packages that haven't been started, people that shouldn't be assigned
+	//maybe limit charges temporally, like +- one week ??
+	//start/end date, list of employees assigned to WP, budget for work package (pd)
+	
 	public void spoolReport() {
 		WorkPackage[] wpl = wp.getAll();
 		

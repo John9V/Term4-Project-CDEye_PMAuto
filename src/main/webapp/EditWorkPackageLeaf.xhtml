@@ -53,19 +53,19 @@
 					<div class="subtable-container">
 						<div class="input-column">
 							<p class="sub-title">Begin Date:</p>
-							<h:inputText id="begindate" value="#{editableWpLeaf.startDate}"
+							<h:inputText id="beginDate" value="#{editableWpLeaf.startDate}"
 								required="true">
 								<f:convertDateTime pattern="yyyy-MM-dd" type="date" />
 							</h:inputText>
-							<h:message for="begindate" style="color: red" />
+							<h:message for="beginDate" style="color: red" />
 						</div>
 						<div class="input-column">
 							<p class="sub-title">End Date:</p>
-							<h:inputText id="enddate" value="#{editableWpLeaf.endDate}"
+							<h:inputText id="endDate" value="#{editableWpLeaf.endDate}"
 								required="true">
 								<f:convertDateTime pattern="yyyy-MM-dd" type="date" />
 							</h:inputText>
-							<h:message for="enddate" style="color: red" />
+							<h:message for="endDate" style="color: red" />
 						</div>
 						<div class="input-column">
                         <p class="sub-title">Work Package Budget</p>
@@ -118,7 +118,7 @@
 							styleClass="data-table">
 							<h:column>
 								<f:facet name="header">Pay Grade</f:facet>
-                            #{row.paygrade.name}
+                            #{r.paygrade.name}
                         </h:column>
 							<h:column>
 								<f:facet name="header">Person Days</f:facet>

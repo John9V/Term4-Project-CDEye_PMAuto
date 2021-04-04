@@ -3,6 +3,8 @@ package CDEye_PMAuto.backend.workpackage;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -46,6 +48,15 @@ public class ActiveWPBean extends WorkPackage implements Serializable {
 	}
 	
 	public String mergeActive() {
+		//TODO
+		//check that wp does not exist in project
+		if (this.endDate.before(this.startDate)) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            FacesMessage facesMessage = new FacesMessage("Start Date is before End Date");
+            facesContext.addMessage("beginDate", facesMessage);
+            return null;
+        }
+		
 	    WorkPackage newWp = new WorkPackage();
 	    newWp.id = this.id;
 	    newWp.workPackageNumber = this.workPackageNumber;
