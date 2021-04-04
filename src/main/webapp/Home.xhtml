@@ -11,7 +11,7 @@
 <!--http://localhost:8080/CDEye_PMAuto/CreateEmployee.xhtml-->
 <h:body>
 	<!-- Side bar panel will control the navigation of the application-->
-	<div class="side-bar"></div>
+<!--	<div class="side-bar"></div>-->
 
 	<!-- The current route -->
 	<div class="header-bar">
@@ -26,29 +26,52 @@
 		</div>
 	</div>
 
-	<!-- Form Container: reusable horizontal row input style-->
-	<!-- Need to replace the input value with Employee class members.-->
-	<div class="form-container">
-		<h:form>
-			<p style="color: red">Current User:
-				#{activeEmployeeBean.firstName}</p>
-			<p>Welcome to employee home at CDEye,
-				#{activeEmployeeBean.firstName} - we value work life balance!</p>
-			<p>Remember that you will be terminated immediately if it would
-				improve the company's valuation by $1 or more for the quarter, so
-				work hard! :)</p>
-			<!-- Create Employee: Add DB-->
-			<div class="button-container">
-				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
-					value="ProjectDashboard" action="ProjectDashboard" />
-				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
-					value="View WorkPackages" action="WPListAsEmp" />
-				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
-					value="Unapproved Sheets" action="TimesheetListManagerView" />
-				<h:commandButton rendered="#{not empty workPackageList.listAsRE}"
-					value="View WPs as RE" action="WPListAsRE" />
-			</div>
-		</h:form>
+	<div class="home-container">
+		<div class="home-content-container">
+			<h:form>
+				<div class="welcome-card-container">
+					<h3 class="welcome-card-title">Welcome back,#{activeEmployeeBean.firstName}</h3>
+					<p class="welcome-card-content">Remember that you will be terminated immediately if it would
+						improve the company's valuation by $1 or more for the quarter, so
+						work hard! :)</p>
+				</div>
+
+				<div class="section-container">
+					<h:graphicImage library="images" name="project.png" styleClass="section-image"/>
+					<h3 class="section-title">Projects &amp; WorkPackages</h3>
+				</div>
+				<div class="card-list">
+					<div class="card-container">
+						<p class="card-title">Project Dashboard</p>
+						<p class="card-subtitle">A subheader that concludes what this tab does.</p>
+						<h:commandButton rendered="#{not empty activeEmployeeBean.userName}" value="View" action="ProjectDashboard" styleClass="card-button"/>
+					</div>
+					<div class="card-container">
+						<p class="card-title">View WorkPackages</p>
+						<p class="card-subtitle">A subheader that concludes what this tab does.</p>
+						<h:commandButton rendered="#{not empty activeEmployeeBean.userName}" value="View" action="WPListAsEmp" styleClass="card-button"/>
+					</div>
+					<div class="card-container">
+						<p class="card-title">View WorkPackages as RE</p>
+						<p class="card-subtitle">A subheader that concludes what this tab does.</p>
+						<h:commandButton rendered="#{not empty workPackageList.listAsRE}" value="View" action="WPListAsRE" styleClass="card-button"/>
+					</div>
+				</div>
+
+
+				<div class="section-container">
+					<h:graphicImage library="images" name="timesheet.png" styleClass="section-image"/>
+					<h3 class="section-title">Timesheet Management</h3>
+				</div>
+				<div class="card-list">
+					<div class="card-container">
+						<p class="card-title">View Unapproved Sheets</p>
+						<p class="card-subtitle">A subheader that concludes what this tab does.</p>
+						<h:commandButton rendered="#{not empty activeEmployeeBean.userName}" value="View" action="TimesheetListManagerView" styleClass="card-button"/>
+					</div>
+				</div>
+			</h:form>
+		</div>
 	</div>
 </h:body>
 </html>

@@ -24,7 +24,7 @@ input:focus {
 	position: fixed;
 	top: 0;
 	left: 0;
-	background-color: #03a9f4;
+	background-color: #0075FF;
 	width: 60px;
 	height: 100%;
 }
@@ -37,7 +37,8 @@ input:focus {
 	width: 100%;
 	height: 50px;
 	background-color: white;
-	margin-left: 60px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	z-index: 1;
 }
 
 .header-bar h3 {
@@ -137,8 +138,8 @@ input:focus {
 	border-radius: 25px;
 	padding: 8px;
 	color: white;
-	background-color: #03a9f4;
-	border: 1px solid #03a9f4;
+	background-color: #0075FF;
+	border: 1px solid #0075FF;
 	font-size: 16px;
 	width: 120px;
 	border-radius: 25px;
@@ -149,8 +150,8 @@ input:focus {
 	padding: 8px 30px;
 	margin: 40px 8px 0 8px;
 	color: white;
-	background-color: #03a9f4;
-	border: 1px solid #03a9f4;
+	background-color: #0075FF;
+	border: 1px solid #0075FF;
 	font-size: 16px;
 	width: 200px;
 }
@@ -192,14 +193,14 @@ select {
 .data-table td, .data-table th {
 	padding: 10px 20px;
 	border-collapse: collapse;
-	font-size: 14px;
+	font-size: 16px;
 }
 
 .data-table th {
-	background-color: #03a9f4;
+	background-color: #0075FF;
 	color: white;
 	text-align: left;
-	font-size: 14px;
+	font-size: 16px;
 	font-weight: bold;
 }
 
@@ -216,7 +217,7 @@ select {
 	padding: 2px 5px;
 	border-radius: 5px;
 	border: 1px solid #d7d7d7;
-	font-size: 13px;
+	font-size: 15px;
 }
 
 .edit-input-dropdown {
@@ -224,7 +225,7 @@ select {
     padding: 2px 5px;
     border-radius: 5px;
     border: 1px solid #d7d7d7;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .edit-input-hour {
@@ -232,21 +233,23 @@ select {
     padding: 2px 5px;
     border-radius: 5px;
     border: 1px solid #d7d7d7;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .edit-output {
 	width: 25px;
 	padding: 2px 5px;
-	font-size: 13px;
+	font-size: 15px;
+	font-weight: bold;
+	color: #586d84;
 }
 
 .command-button {
 	border-radius: 15px;
 	padding: 2px 20px;
-	color: #03a9f4;
+	color: #0075FF;
 	background-color: #fff;
-	border: 1px solid #03a9f4;
+	border: 1px solid #0075FF;
 	font-size: 10px;
 	height: 30px;
 	margin: 5px 0;
@@ -256,6 +259,12 @@ select {
 	width: 85%;
 	margin: 80px auto 20px auto;
 	background-color: #fff;
+	border-radius: 10px;
+}
+
+.project-container {
+	width: 85%;
+	margin: 80px auto 20px auto;
 	border-radius: 10px;
 }
 
@@ -281,7 +290,7 @@ select {
 	border-radius: 25px;
 	padding: 5px 20px;
 	color: #fff;
-	background-color: #03a9f4;
+	background-color: #0075FF;
 	border: 1px solid #fff;
 	font-size: 14px;
 	width: 200px;
@@ -339,9 +348,9 @@ select {
 .secondary-command-button {
 	border-radius: 15px;
 	padding: 2px 20px;
-	color: #03a9f4;
+	color: #0075FF;
 	background-color: #fff;
-	border: 1px solid #03a9f4;
+	border: 1px solid #0075FF;
 	font-size: 10px;
 }
 .error-msg {
@@ -362,4 +371,106 @@ select {
 .error-container {
     width: 400px;
     margin: 0 auto;
+}
+
+.home-container {
+	margin-top: 80px;
+}
+
+.welcome-card-container {
+	background-color: white;
+	padding: 25px;
+	border-radius: 5px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	margin-bottom: 30px;
+}
+
+.welcome-card-title {
+	font-size: 30px;
+	margin-bottom: 15px;
+	color: #255484;
+}
+
+.welcome-card-content {
+	color: #586d84;
+	font-size: 16px;
+	line-height: 25px;
+	margin-bottom: 5px;
+}
+
+.card-container {
+	/*width: 340px;*/
+	width: 300px;
+	height: 150px;
+	padding: 20px;
+	background-color: white;
+	border-radius: 15px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	margin-bottom: 15px;
+	position: relative;
+}
+
+.card-title {
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 15px;
+	color: #123B74;
+}
+
+.card-subtitle {
+	font-size: 16px;
+	color: #586d84;
+}
+
+.card-button {
+	color: white;
+	background-color: #0075FF;
+	border: 1px solid rgba(0,0,0,0);
+	padding: 5px 20px;
+	font-size: 16px;
+	border-radius: 25px;
+	margin: 10px 0;
+	position: absolute;
+	bottom: 10px;
+	right: 20px;
+}
+
+.card-button-create {
+	padding: 5px 20px;
+	font-size: 16px;
+	border-radius: 25px;
+	margin: 10px 0;
+	color: #0075FF;
+	border: 1px solid #0075FF;
+	background-color: rgba(0,0,0,0);
+	position: absolute;
+	bottom: 10px;
+	right: 20px;
+}
+
+.card-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+.home-content-container {
+	width: 84%;
+	margin: 0 auto;
+}
+
+.section-container {
+	display: flex;
+	margin: 20px 0 15px 0;
+	align-items: center;
+}
+
+.section-title {
+	font-size: 20px;
+	color: #255484;
+}
+
+.section-image {
+	width: 50px;
+	height: 50px;
+	margin-right: 16px;
 }
