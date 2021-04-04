@@ -94,6 +94,10 @@ public class EditableRECE extends RespEngCostEstimate {
      * @return the empUserName
      */
     public String getEmpUserName() {
+        Employee emp = receManager.getByUUID(this.getId().toString()).getEmployee();
+        if (emp != null) {
+            empUserName = emp.getUserName();
+        }
         return empUserName;
     }
 

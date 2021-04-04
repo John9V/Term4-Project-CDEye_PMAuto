@@ -9,6 +9,8 @@ import java.util.UUID;
 import CDEye_PMAuto.backend.credentials.Credential;
 import CDEye_PMAuto.backend.paygrade.Paygrade;
 import CDEye_PMAuto.backend.paygrade.PaygradeManager;
+import CDEye_PMAuto.backend.workpackage.WorkPackage;
+
 import org.hibernate.sql.Select;
 
 import javax.enterprise.context.RequestScoped;
@@ -92,13 +94,15 @@ public class EditableEmployee extends Employee implements Serializable {
 	}
 
 	public EditableEmployee(Employee e) {
-		super(e.id, e.empNum, e.firstName, e.lastName, e.userName, e.active, e.hr, e.payGrade, e.manager, e.peons, e.flexTime, e.vacationTime);
+		super(e.id, e.empNum, e.firstName, e.lastName, e.userName, e.active, e.hr, e.payGrade, e.manager, e.peons, e.flexTime, e.vacationTime,
+		        e.packagesAssignedToRE);
 	}
 
 	public EditableEmployee(UUID id, Integer empNum, String firstName, String lastName, 
 	        String userName, Boolean active, Boolean hr, Paygrade payGrade, Employee manager, 
-	        Collection<Employee> peons, Integer flexTime, Integer vacationTime) {
-		super(id, empNum, firstName, lastName, userName, active, hr, payGrade, manager, peons, flexTime, vacationTime);
+	        Collection<Employee> peons, Integer flexTime, Integer vacationTime, Collection<WorkPackage> packagesAssignedToRE) {
+		super(id, empNum, firstName, lastName, userName, active, hr, payGrade, manager, peons, flexTime, vacationTime,
+		        packagesAssignedToRE);
 	}
 
 	public boolean isEditable() {

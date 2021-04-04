@@ -1,5 +1,7 @@
 package CDEye_PMAuto.backend.workpackage;
 
+import CDEye_PMAuto.backend.employee.Employee;
+import CDEye_PMAuto.backend.employee.EmployeeManager;
 import CDEye_PMAuto.backend.paygrade.Paygrade;
 import CDEye_PMAuto.backend.paygrade.PaygradeManager;
 import CDEye_PMAuto.backend.recepackage.EditableRECE;
@@ -16,6 +18,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,6 +39,14 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
 
     @Inject
     private PaygradeManager paygradeManager;
+    
+    @Inject
+    private EmployeeManager employeeManager;
+    
+    @Inject
+    private ActiveWPBean activeWP;
+    
+    private String respEngUsername;
 
     EditableWorkPackageLeaf() {}
 
@@ -62,6 +73,7 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
 //            System.out.println(w.getPaygrade().getName() + ": " + w.getPersonDaysEstimate());
 //        }
         this.wpAllocs = selectedWp.wpAllocs;
+        this.responsibleEngineer = selectedWp.responsibleEngineer;
         
         if (this.isLeaf) {
         	return "EDIT_WP_LEAF";
@@ -96,6 +108,7 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
 //        }
 
         // Update this selected workpackage leaf data into database
+        System.out.println("the new resp eng is is: "+ this.responsibleEngineer);
         workPackageManager.updateWorkPackageLeaf(this);
         
         //save the list of work packages
@@ -161,12 +174,6 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
         }
     }
 
-    // TODO
-    // Not sure for now
-    public void assignResponsibleEngineer() {
-        
-    }
-
     /**
      * Cancel edit return the navigation link to WPList View
      * @return Return to WPList view
@@ -187,6 +194,35 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
      */
     public void setReceList(RECEList receList) {
         this.receList = receList;
+    }
+
+    /**
+     * @return the respEngUsername
+     */
+    public String getRespEngUsername() {
+        System.out.println("WP number: " + activeWP.getWorkPackageNumber());
+        System.out.println("WP proj: " + activeWP.getProject().toString());
+        Employee respEng = workPackageManager.findWpsByPkgNumAndProj(
+                activeWP.getWorkPackageNumber(), activeWP.getProject())
+                [0].getResponsibleEngineer();
+        return respEng != null ? respEng.getUserName() : "No One";
+    }
+
+    /**
+     * @param respEngUsername the respEngUsername to set
+     */
+    public void setRespEngUsername(String respEngUsername) {
+        this.respEngUsername = respEngUsername;
+        Employee respEng = employeeManager.getEmployeeByUserName(respEngUsername);
+        System.out.println("the resp eng found: " + respEng + " with username: " + respEngUsername);
+        if (respEng != null) {
+            this.setResponsibleEngineer(respEng);
+            workPackageManager.updateWorkPackageLeaf(this);
+            Collection<WorkPackage> aaa = respEng.getPackagesAssignedToRE();
+            aaa.add(this);
+            respEng.setPackagesAssignedToRE(aaa);
+            employeeManager.editEmployee(respEng);
+        }
     }
     
 }

@@ -2,6 +2,7 @@ package CDEye_PMAuto.backend.workpackage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -9,10 +10,13 @@ import javax.enterprise.context.*;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import CDEye_PMAuto.backend.employee.ActiveEmployeeBean;
+import CDEye_PMAuto.backend.employee.Employee;
 import CDEye_PMAuto.backend.paygrade.Paygrade;
 import CDEye_PMAuto.backend.paygrade.PaygradeManager;
 import CDEye_PMAuto.backend.project.ActiveProjectBean;
 import CDEye_PMAuto.backend.project.Project;
+import CDEye_PMAuto.backend.recepackage.RECEManager;
 import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
 import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocation;
 
@@ -27,9 +31,17 @@ public class WorkPackageList implements Serializable {
     @Inject
     private PaygradeManager paygradeManager;
     
+    @Inject
+    private RECEManager receManager;
+    
+    @Inject
+    private ActiveEmployeeBean activeEmp;
+    
     @Inject ActiveProjectBean apb;
     
-    private List<EditableWorkPackage> list;
+    private List<EditableWorkPackage> list; // WPs for a project
+    private List<EditableWorkPackage> listAsRE; // WPs for a RE
+    private List<EditableWorkPackage> listAsEmp; // WPs for an employee
     
     private String searchId; // = "123e4567-e89b-12d3-a456-599342400003";
     private String searchParentPackageId; // = "123e4567-e89b-12d3-a456-599342400001";
@@ -47,6 +59,32 @@ public class WorkPackageList implements Serializable {
             refreshList();
         }
         return list;
+    }
+    
+    public List<EditableWorkPackage> getListAsRE() {
+        List<WorkPackage> list = Arrays.asList(workPackageManager.getAll());
+        listAsRE = new ArrayList<EditableWorkPackage>();
+        
+        for (WorkPackage wp : list) {
+            Employee tempRespEnj = wp.getResponsibleEngineer();
+            if (tempRespEnj != null && tempRespEnj.getUserName().equals(activeEmp.getUserName())) {
+                listAsRE.add(new EditableWorkPackage(wp));
+            }
+        }
+        return listAsRE;
+    }
+    
+    public List<EditableWorkPackage> getListAsEmp() {
+        RespEngCostEstimate[] costEstimates = receManager.getAll();
+        listAsEmp = new ArrayList<EditableWorkPackage>();
+        
+        for (RespEngCostEstimate costEstimate : costEstimates) {
+            Employee e = costEstimate.getEmployee();
+            if (e != null && e.getUserName().equals(activeEmp.getUserName())) {
+                listAsEmp.add(new EditableWorkPackage(costEstimate.getWorkPackage()));
+            }
+        }
+        return listAsEmp;
     }
     
     public EditableWorkPackage getWpsBy(UUID id) {

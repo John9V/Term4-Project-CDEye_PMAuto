@@ -76,6 +76,9 @@ public class Timesheet {
 	protected BigDecimal sick;
 	@Column(name="flex")
 	protected BigDecimal flex;
+	
+	@Column(name="approved")
+    protected boolean approved;
 
     public Timesheet() {
 		this.id = UUID.randomUUID();
@@ -91,6 +94,7 @@ public class Timesheet {
 		this.details = nts.details;
 		this.sick = nts.sick;
 		this.flex = nts.flex;
+		this.approved = nts.approved;
     }
     
     public Timesheet(EditableTimesheet ets) {
@@ -100,10 +104,11 @@ public class Timesheet {
 		this.details = ets.details;
 		this.sick = ets.sick;
 		this.flex = ets.flex;
+		this.approved = ets.approved;
     }
 
 	public Timesheet(UUID id, Employee employee, LocalDate endDate, List<TimesheetRow> details,
-			BigDecimal flex, BigDecimal sick) {
+			BigDecimal flex, BigDecimal sick, boolean approved) {
 		super();
 		this.id = id;
 		this.employee = employee;
@@ -111,6 +116,7 @@ public class Timesheet {
 		this.details = details;
 		this.sick = sick;
 		this.flex = flex;
+		this.approved = approved;
 	}
 	
 	public Timesheet(Timesheet t) {
@@ -121,6 +127,7 @@ public class Timesheet {
 		this.details = t.details;
 		this.sick = t.sick;
 		this.flex = t.flex;
+		this.approved = t.approved;
 	}
 
 	public UUID getId() {
@@ -154,4 +161,19 @@ public class Timesheet {
 	public void setDetails(List<TimesheetRow> details) {
 		this.details = details;
 	}
+
+    /**
+     * @return the approved
+     */
+    public boolean isApproved() {
+        return approved;
+    }
+
+    /**
+     * @param approved the approved to set
+     */
+    public void setApproved(boolean approved) {
+        this.approved = approved;
+    }
+    
 }

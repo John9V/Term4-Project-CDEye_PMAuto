@@ -17,6 +17,8 @@ public class ActiveTimesheetBean extends Timesheet implements Serializable {
 
 	@Inject TimesheetList editableTimesheetList;
 	@Inject WorkPackageManager wpManager;
+	@Inject TimesheetManager timesheetManager;
+	
 
 	public String setActiveTimesheetBean(EditableTimesheet ets) {
 		this.id = ets.id;
@@ -25,9 +27,22 @@ public class ActiveTimesheetBean extends Timesheet implements Serializable {
 		this.details = ets.details;
 		this.sick = ets.sick;
 		this.flex = ets.flex;
+		this.approved = ets.approved;
 		editableTimesheetList.refreshList();
 		return "TimesheetDetails";
 	}
+	
+	public String setActiveTimesheetBeanManagerView(EditableTimesheet ets) {
+        this.id = ets.id;
+        this.employee = ets.employee;
+        this.endDate = ets.endDate;
+        this.details = ets.details;
+        this.sick = ets.sick;
+        this.flex = ets.flex;
+        this.approved = ets.approved;
+        editableTimesheetList.filterForManagerViewUnapproved();
+        return "TimesheetDetails";
+    }
 	
 	public void approve() {
 		for (TimesheetRow tsr : this.details) {
@@ -76,6 +91,9 @@ public class ActiveTimesheetBean extends Timesheet implements Serializable {
 			
 			sum = sum.add(tsr.getThu().multiply(this.employee.getPayGrade().getSalary()));
 			pdSum = pdSum.add(tsr.getThu());
+			
+			this.setApproved(true);
+			timesheetManager.updateTimesheet(new Timesheet(this));
 			
 			wp.setCompletedBudget(sum);
 			wp.setCompletedPersonDays(pdSum);

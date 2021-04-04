@@ -96,6 +96,10 @@ public class WorkPackage implements Serializable {
     @OneToMany(mappedBy="parentWp", fetch = FetchType.EAGER)
 	protected List<WorkPackage> childPackages;
 	
+	@ManyToOne
+    @JoinColumn(name="responsibleengineer")
+    protected Employee responsibleEngineer;
+	
 	/**
 	 * Default no parameter constructor.
 	 */
@@ -109,7 +113,7 @@ public class WorkPackage implements Serializable {
     public WorkPackage(UUID id, String workPackageNumber, WorkPackage parentWp, BigDecimal completedBudget, BigDecimal completedPersonDays,
             Date startDate,
             Date endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs,
-            List<WorkPackageAllocation> wpAllocs, List<WorkPackage> childPackages) {
+            List<WorkPackageAllocation> wpAllocs, List<WorkPackage> childPackages, Employee responsibleEngineer) {
         super();
         this.id = id;
         this.workPackageNumber = workPackageNumber;
@@ -124,6 +128,7 @@ public class WorkPackage implements Serializable {
         this.RECEs = RECEs;
         this.wpAllocs = wpAllocs;
         this.childPackages = childPackages;
+        this.responsibleEngineer = responsibleEngineer;
     }
 
     /**
@@ -132,7 +137,7 @@ public class WorkPackage implements Serializable {
     public WorkPackage(String workPackageNumber, WorkPackage parentWp, BigDecimal completedBudget, BigDecimal completedPersonDays,
             Date startDate,
             Date endDate, boolean isLeaf, BigDecimal projectBudget, Project project, List<RespEngCostEstimate> RECEs,
-            List<WorkPackageAllocation> wpAllocs, List<WorkPackage> childPackages) {
+            List<WorkPackageAllocation> wpAllocs, List<WorkPackage> childPackages, Employee responsibleEngineer) {
         super();
         this.id = UUID.randomUUID();
         this.workPackageNumber = workPackageNumber;
@@ -147,6 +152,7 @@ public class WorkPackage implements Serializable {
         this.RECEs = RECEs;
         this.wpAllocs = wpAllocs;
         this.childPackages = childPackages;
+        this.responsibleEngineer = responsibleEngineer;
     }
     
     /**
@@ -470,6 +476,20 @@ public class WorkPackage implements Serializable {
      */
     public void setWpAllocs(List<WorkPackageAllocation> wpAllocs) {
         this.wpAllocs = wpAllocs;
+    }
+
+    /**
+     * @return the responsibleEngineer
+     */
+    public Employee getResponsibleEngineer() {
+        return responsibleEngineer;
+    }
+
+    /**
+     * @param responsibleEngineer the responsibleEngineer to set
+     */
+    public void setResponsibleEngineer(Employee responsibleEngineer) {
+        this.responsibleEngineer = responsibleEngineer;
     }
 	
 	

@@ -49,6 +49,14 @@
 								value="#{editableWpLeaf.workPackageNumber}" required="true" />
 							<h:message for="wpnumber" style="color: red" />
 						</div>
+						
+						<div class="input-column">
+							<p class="sub-title">Responsible Engineer (Username):</p>
+							<h:inputText id="respEngUsrName"
+								value="#{editableWpLeaf.respEngUsername}"/>
+							<h:message for="respEngUsrName" style="color: red" />
+						</div>
+						
 					</div>
 					<div class="subtable-container">
 						<div class="input-column">
@@ -161,9 +169,9 @@
 					<div class="button-container">
 						<h:commandButton value="CANCEL"
 							action="#{editableWpLeaf.cancelEditedWorkPackageLeaf}" />
-                </div>
-                <div class="button-container">
-                    <h:commandButton value="ASSIGN" action="#{editableWpLeaf.receList.assignEmployees()}" />
+                	</div>
+                	<div class="button-container">
+                    	<h:commandButton value="ASSIGN" action="#{editableWpLeaf.receList.assignEmployees()}" />
 					</div>
 				</div>
 			</div>

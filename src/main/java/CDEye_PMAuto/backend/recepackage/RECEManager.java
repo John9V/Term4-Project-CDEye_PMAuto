@@ -9,6 +9,11 @@ import javax.enterprise.context.Dependent;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import CDEye_PMAuto.backend.workpackage.WorkPackage;
 
 @Dependent
@@ -44,6 +49,22 @@ public class RECEManager implements Serializable {
         }
         
         return respEngCostEstimateArr;
+    }
+    
+    public RespEngCostEstimate getByUUID(String uuid) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<RespEngCostEstimate> criteriaQuery = criteriaBuilder.createQuery(RespEngCostEstimate.class);
+        Root<RespEngCostEstimate> itemRoot = criteriaQuery.from(RespEngCostEstimate.class);
+        
+        UUID uuidAsString = UUID.fromString(uuid);
+        
+        Predicate predicateForName = criteriaBuilder.equal(itemRoot.get("id"), uuidAsString);
+        
+        criteriaQuery.where(predicateForName);
+        
+        List<RespEngCostEstimate> respEngCostEstimate = em.createQuery(criteriaQuery).getResultList();
+
+        return respEngCostEstimate.get(0);
     }
     
     public void persist(RespEngCostEstimate rece) {
