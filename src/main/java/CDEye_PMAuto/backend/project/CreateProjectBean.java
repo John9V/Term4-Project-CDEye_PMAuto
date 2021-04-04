@@ -10,7 +10,7 @@ import javax.inject.Named;
 @RequestScoped
 public class CreateProjectBean extends Project implements Serializable {
     @Inject private ProjectManager projectManager;
-
+    @Inject private ProjectList projList;
     String errorMsg;
     boolean showError;
 
@@ -32,11 +32,11 @@ public class CreateProjectBean extends Project implements Serializable {
             projectManager.persist(p);
             showError = false;
             errorMsg = "";
-        
+           projList.refreshList();
         return "ProjectDashboard";
         }
-
-        return "";
+        projList.refreshList();
+        return "ProjectDashboard";
     }
 
     public String getErrorMsg() {
