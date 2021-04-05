@@ -23,6 +23,7 @@ public class ProjectDashboard implements Serializable {
 	@Inject ActiveEmployeeBean activeEmp;
 	@Inject
 	EditProjectWrapper epb;
+	@Inject ReportProjectBean rpb;
 
 	private EditableProject deletedProject = new EditableProject();
 	
@@ -85,6 +86,11 @@ public class ProjectDashboard implements Serializable {
     public String deleteProject(EditableProject p) {
     	projectManager.deleteProject(projectManager.findProject(p.projectName));
     	return "ProjectDashboard";
+    }
+    
+    public String reportProject(EditableProject p) {
+        conversation.end();
+        return apb.setReportProjectBean(p);
     }
 
 }
