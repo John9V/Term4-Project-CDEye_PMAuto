@@ -23,7 +23,6 @@ public class ProjectDashboard implements Serializable {
 	@Inject ActiveEmployeeBean activeEmp;
 	@Inject
 	EditProjectWrapper epb;
-	@Inject ReportProjectBean rpb;
 
 	private EditableProject deletedProject = new EditableProject();
 	
