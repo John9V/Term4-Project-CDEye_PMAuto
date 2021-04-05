@@ -295,6 +295,15 @@ public class WorkPackage implements Serializable {
         return budgetEstimate;
     }
     
+    public BigDecimal calcCompletion() {
+    	return calcRespEngBudget().divide(completedBudget);
+    }
+    
+    public BigDecimal calcVariance() {
+    	BigDecimal difference = calcRespEngBudget().subtract(projectBudget);
+    	return projectBudget.divide(difference);
+    }
+    
     public BigDecimal calcRespEngPersonDays() {
     	BigDecimal personDays = new BigDecimal(0);
         BigDecimal budgetEstimate = new BigDecimal(0);
