@@ -5,7 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<h:outputStylesheet library="css" name="styles.css" />
+	<h:outputStylesheet library="css" name="employee.css" />
 	<title>Project Management System</title>
 </h:head>
 
@@ -17,6 +17,7 @@
 	<!-- The current route -->
 	<div class="header-bar">
 		<h3>CREATE A NEW EMPLOYEE</h3>
+		<h:button styleClass="back-button" rendered="#{not empty activeEmployeeBean.userName}" value="Back" outcome="HRHome" />
 		<div class="logout-button">
 			<h:form styleClass="">
 				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
