@@ -97,7 +97,6 @@ input:focus {
 	letter-spacing: 2px;
 	font-weight: bold;
 	color: #6f6f6f;
-	font-size: 14px;
 }
 
 .input-row-week {
@@ -115,14 +114,16 @@ input:focus {
 	position: absolute;
 	left: 15px;
 	margin-top: 18px;
+	font-size: 18px;
 }
 
 .input-row input {
 	width: 100%;
-	padding: 10px 20px 10px 50px;
+	padding: 10px 20px 10px 10px;
 	margin-top: 10px;
 	border-radius: 10px;
 	border: 1px solid #d7d7d7;
+	font-size: 18px;
 }
 
 .input-row input:focus {
