@@ -60,7 +60,7 @@ input:focus {
 	letter-spacing: 2px;
 	font-weight: bold;
 	color: #6f6f6f;
-	font-size: 14px;
+	font-size: 15px;
 }
 
 .input-row-week {
@@ -152,7 +152,7 @@ input:focus {
 	color: white;
 	background-color: #03a9f4;
 	border: 1px solid #03a9f4;
-	font-size: 16px;
+	font-size: 17px;
 	width: 200px;
 }
 
@@ -175,7 +175,7 @@ input:focus {
 	font-weight: bold;
 	letter-spacing: 2px;
 	color: #6f6f6f;
-	font-size: 14px;
+	font-size: 15px;
 }
 
 select {
