@@ -19,6 +19,42 @@ input:focus {
 	outline: none;
 }
 
+/* Employee Create and Edit */
+.back-button {
+	position: absolute;
+	top: 6px;
+	right: 226px;
+	border-radius: 25px;
+	padding: 8px;
+	color: white;
+	background-color: #03a9f4;
+	border: 1px solid #03a9f4;
+	font-size: 16px;
+	width: 120px;
+	border-radius: 25px;
+}
+
+#search-bar-form {
+	width: 85vw;
+}
+
+.search-button{
+	border-radius: 15px;
+	padding: 2px 20px;
+	color: #03a9f4;
+	background-color: #fff;
+	border: 1px solid #03a9f4;
+	font-size: 20px;
+	width: 70px;
+	height: 30px;
+	width: 110px;
+	margin: 5px;
+	margin-right: 20px;
+	float: right;
+}
+
+/** End of employee */
+
 /*Side Bar*/
 .side-bar {
 	position: fixed;
@@ -60,16 +96,15 @@ input:focus {
 	letter-spacing: 2px;
 	font-weight: bold;
 	color: #6f6f6f;
-	font-size: 14px;
 }
 
 .input-row-week {
-	margin: 15px 0;
-	letter-spacing: 2px;
-	font-weight: bold;
-	color: #6f6f6f;
-	font-size: 14px;
-	width: 125px;
+    margin: 15px 0;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: #6f6f6f;
+    font-size: 14px;
+    width: 125px;
 }
 
 .input-row img {
@@ -78,14 +113,16 @@ input:focus {
 	position: absolute;
 	left: 15px;
 	margin-top: 18px;
+	font-size: 18px;
 }
 
 .input-row input {
 	width: 100%;
-	padding: 10px 20px 10px 50px;
+	padding: 10px 20px 10px 10px;
 	margin-top: 10px;
 	border-radius: 10px;
 	border: 1px solid #d7d7d7;
+	font-size: 18px;
 }
 
 .input-row input:focus {
@@ -101,7 +138,7 @@ input:focus {
 	letter-spacing: 2px;
 	font-weight: bold;
 	color: #6f6f6f;
-	font-size: 18px;
+	font-size: 14px;
 	margin: 8px 0;
 }
 
@@ -113,7 +150,7 @@ input:focus {
 	letter-spacing: 2px;
 	font-weight: bold;
 	color: #6f6f6f;
-	font-size: 18px;
+	font-size: 14px;
 	margin: 8px 0;
 	letter-spacing: 2px;
 }
@@ -124,7 +161,6 @@ input:focus {
 	margin-top: 10px;
 	border-radius: 10px;
 	border: 1px solid #d7d7d7;
-	font-size: 18px;
 }
 
 .button-container {
@@ -144,6 +180,7 @@ input:focus {
 	width: 120px;
 	border-radius: 25px;
 }
+
 
 .button-container input {
 	border-radius: 25px;
@@ -183,11 +220,12 @@ select {
 }
 
 .data-table {
-	margin: 30px 0;
+	margin: 0 0;
 	border-radius: 15px;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 	border-spacing: 0;
 	width: 100%;
+	background-color: #fff;
 }
 
 .data-table td, .data-table th {
@@ -200,7 +238,7 @@ select {
 	background-color: #03a9f4;
 	color: white;
 	text-align: left;
-	font-size: 18px;
+	font-size: 14px;
 	font-weight: bold;
 }
 
@@ -213,29 +251,32 @@ select {
 }
 
 .edit-input {
-	width: 150px;
-	height: 25;
-	padding: 2px 5px;
+	width: 170px;
+	height: 25px;
+	padding: 2px 5px ;
 	margin-right: 15px;
+	margin-left: 15px;
+	margin-top: 5px;
 	border-radius: 5px;
 	border: 1px solid #d7d7d7;
 	font-size: 13px;
+	float: right;
 }
 
 .edit-input-dropdown {
-	width: 135px;
-	padding: 2px 5px;
-	border-radius: 5px;
-	border: 1px solid #d7d7d7;
-	font-size: 13px;
+    width: 135px;
+    padding: 2px 5px;
+    border-radius: 5px;
+    border: 1px solid #d7d7d7;
+    font-size: 13px;
 }
 
 .edit-input-hour {
-	width: 18px;
-	padding: 2px 5px;
-	border-radius: 5px;
-	border: 1px solid #d7d7d7;
-	font-size: 13px;
+    width: 18px;
+    padding: 2px 5px;
+    border-radius: 5px;
+    border: 1px solid #d7d7d7;
+    font-size: 13px;
 }
 
 .edit-output {
@@ -250,16 +291,19 @@ select {
 	color: #03a9f4;
 	background-color: #fff;
 	border: 1px solid #03a9f4;
-	font-size: 10px;
+	font-size: 20px;
+	width: 70px;
 	height: 30px;
+	width: 110px;
 	margin: 5px 0;
+	float: right;
 }
 
 .container {
 	width: 85%;
 	margin: 80px auto 20px auto;
-	background-color: #fff;
 	border-radius: 10px;
+	background-color: rgb(248, 248, 248);
 }
 
 .subcontainer {
@@ -347,74 +391,22 @@ select {
 	border: 1px solid #03a9f4;
 	font-size: 10px;
 }
-
 .error-msg {
-	background-color: rgb(253, 236, 234);
-	width: 100%;
-	height: 30px;
-	padding: 10px 20px;
-	color: rgb(97, 26, 21);
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 20px 0;
-	border-radius: 5px;
-	font-size: 14px;
+    background-color: rgb(253, 236, 234);
+    width: 100%;
+    height: 30px;
+    padding: 10px 20px;
+    color: rgb(97, 26, 21);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
 .error-container {
-	width: 400px;
-	margin: 0 auto;
-}
-
-.wplist-header {
-	margin: 64px auto 16px;
-	text-align: center;
-}
-
-.wplist-form-container {
-	margin: 0 auto 32px;
-	width: 50%;
-}
-
-.wplist-search-input-row {
-	display: flex;
-	flex-wrap: nowrap;
-	justify-content: flex-end;
-	align-items: center;
-	margin: 8px 0;
-	letter-spacing: 2px;
-	font-weight: bold;
-	color: #6f6f6f;
-	font-size: 14px;
-	margin: 8px 0;
-	align-items: center;
-}
-
-.wplist-search-input-row input {
-	padding: 8px;
-	border-radius: 10px;
-	border: 1px solid #d7d7d7;
-}
-
-.wplist-button {
-	border-radius: 25px;
-	margin: 0 0 0 8px;
-	padding: 8px;
-	color: white;
-	background-color: #03a9f4;
-	border: 1px solid #03a9f4;
-	font-size: 16px;
-	width: fit-content;
-	border-radius: 25px;
-}
-
-.invalid-credentials {
-	margin-top: 25%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	display: flex;
+    width: 400px;
+    margin: 0 auto;
 }
