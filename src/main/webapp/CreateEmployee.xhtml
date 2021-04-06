@@ -5,7 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<h:outputStylesheet library="css" name="styles.css" />
+	<h:outputStylesheet library="css" name="employee.css" />
 	<title>Project Management System</title>
 </h:head>
 
@@ -17,6 +17,7 @@
 	<!-- The current route -->
 	<div class="header-bar">
 		<h3>CREATE A NEW EMPLOYEE</h3>
+		<h:button styleClass="back-button" rendered="#{not empty activeEmployeeBean.userName}" value="Back" outcome="HRHome" />
 		<div class="logout-button">
 			<h:form styleClass="">
 				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
@@ -35,7 +36,6 @@
 				<!-- Employee Number -->
 				<div class="input-row">
 					<p>Employee Number</p>
-					<h:graphicImage library="images" name="user.png" />
 					<h:inputText id="empId" value="#{createEmployee.empNum}"
 						required="true" validator="#{employeeNumberValidator.validate}" />
 					<h:message for="empId" style="color:red" />
@@ -44,7 +44,6 @@
 				<!-- Manager -->
 				<div class="input-row">
 					<p>Manager</p>
-					<h:graphicImage library="images" name="user.png" />
 					<h:inputText id="man" value="#{createEmployee.manager}">
 						<f:converter binding="#{employeeConverter}" />
 					</h:inputText>
@@ -54,7 +53,6 @@
 				<!-- User Name -->
 				<div class="input-row">
 					<p>User Name</p>
-					<h:graphicImage library="images" name="password.png" />
 					<h:inputText id="uName" value="#{createEmployee.userName}"
 						required="true" validator="#{usernameValidator.validate}">
 					</h:inputText>
@@ -64,7 +62,6 @@
 				<!-- Password secret input-->
 				<div class="input-row">
 					<p>Password</p>
-					<h:graphicImage library="images" name="password.png" />
 					<h:inputSecret id="pw" value="#{createEmployee.password}" />
 					<h:message for="pw" style="color:red" />
 				</div>
@@ -72,7 +69,6 @@
 				<!-- First Name -->
 				<div class="input-row">
 					<p>First Name</p>
-					<h:graphicImage library="images" name="password.png" />
 					<h:inputText id="fn" value="#{createEmployee.firstName}" />
 					<h:message for="fn" style="color:red" />
 				</div>
@@ -80,7 +76,6 @@
 				<!-- Last Name -->
 				<div class="input-row">
 					<p>Last Name</p>
-					<h:graphicImage library="images" name="password.png" />
 					<h:inputText id="ln" value="#{createEmployee.lastName}" />
 					<h:message for="ln" style="color:red" />
 				</div>

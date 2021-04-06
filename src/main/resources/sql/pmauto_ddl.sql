@@ -29,7 +29,54 @@ VALUES ("623e4567-e89b-12d3-a456-556642440710", 123, "john", "ivaganov", "ivagan
 INSERT INTO employees
 VALUES ("223e4567-e89b-12d3-a456-556642446010", 153, "scott", "reid", "sreid", "123e4567-e89b-12d3-a452-556645440100",
         true, false, null, 5, 14);
+        
+INSERT INTO employees
+VALUES ("223e4567-e89b-12d3-a456-556642446011", 160, "Anakin", "Skywalker", "vader", "123e4567-e89b-12d3-a452-556645440100",
+        true, false, null, 5, 14);
+INSERT INTO employees
+VALUES ("223e4567-e89b-12d3-a456-556642446012", 162, "SupremeLeader", "Snoke", "snoke", "123e4567-e89b-12d3-a452-556645440100",
+        true, false, null, 5, 14);
+INSERT INTO employees
+VALUES ("223e4567-e89b-12d3-a456-556642446013", 165, "General", "Greivous", "greiv", "123e4567-e89b-12d3-a452-556645440100",
+        true, false, null, 5, 14);
+INSERT INTO employees
+VALUES ("223e4567-e89b-12d3-a456-556642446014", 168, "Sheev", "Palpatine", "sidious", "123e4567-e89b-12d3-a452-556645440100",
+        true, false, null, 5, 14);
+INSERT INTO employees
+VALUES ("223e4567-e89b-12d3-a456-556642446015", 170, "Galen", "Marek", "starkiller", "123e4567-e89b-12d3-a452-556645440100",
+        true, false, null, 5, 14);
+INSERT INTO employees
+VALUES ("223e4567-e89b-12d3-a456-556642446016", 172, "Quinlan", "Vos", "quin", "123e4567-e89b-12d3-a452-556645440100",
+        true, false, null, 5, 14);
+INSERT INTO employees
+VALUES ("223e4567-e89b-12d3-a456-556642446017", 173, "jeffrey", "lebowski", "thedude", "123e4567-e89b-12d3-a452-556645440100",
+        true, false, null, 5, 14);
+INSERT INTO employees
+VALUES ("223e4567-e89b-12d3-a456-556642446018", 178, "marty", "mcfly", "marty", "123e4567-e89b-12d3-a452-556645440100",
+        true, false, null, 5, 14);
+INSERT INTO employees
+VALUES ("223e4567-e89b-12d3-a456-556642446200", 180, "emmet", "brown", "doc", "123e4567-e89b-12d3-a452-556645440100",
+        true, false, null, 5, 14);
+INSERT INTO employees
+VALUES ("223e4567-e89b-12d3-a456-556642446201", 180, "jennifer", "parker", "jen", "123e4567-e89b-12d3-a452-556645440100",
+        true, false, null, 5, 14);
+INSERT INTO employees
+VALUES ("223e4567-e89b-12d3-a456-556642446203", 180, "bilbo", "baggins", "burglar", "123e4567-e89b-12d3-a452-556645440100",
+        true, false, null, 5, 14);
+INSERT INTO employees
+VALUES ("223e4567-e89b-12d3-a456-556642446220", 180, "gandalf", "thegrey", "gandalf", "123e4567-e89b-12d3-a452-556645440100",
+        true, false, null, 5, 14);
+INSERT INTO employees
+VALUES ("223e4567-e89b-12d3-a456-556642446223", 180, "frodo", "baggins", "sneakyhobbit", "123e4567-e89b-12d3-a452-556645440100",
+        true, false, null, 5, 14);
 
+        
+        
+        
+        
+        
+        
+        
 DROP TABLE IF EXISTS paygrades;
 CREATE TABLE paygrades
 (
