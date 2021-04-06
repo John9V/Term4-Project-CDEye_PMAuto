@@ -25,9 +25,12 @@
 </div>
 
 <ui:fragment rendered="#{not empty activeEmployeeBean.userName}">
+
 	<div class="form-container">
 		<h:form>
-			<h4>Create Work Package</h4>
+			<h2 style="text-align: center">Project Number:
+				#{activeProjectBean.projectNumber}</h2>
+			<h3 style="margin: 32px 0 0 0">Create Work Package</h3>
 
 			<div class="create-wp-input-row">
 				<p>W.P Number *</p>
@@ -39,9 +42,11 @@
 
 			<div class="create-wp-input-row">
 				<p>Parent W.P *</p>
-			<h:inputText id="parentWP" value="#{newWorkPackage.parentWpNumber}" placeholder="Enter Text">  
-				<f:ajax event="keyup" render="wpNumber" listener="#{newWorkPackage.ajaxEvent()}" immediate="false"/>  
-			</h:inputText> 
+				<h:inputText id="parentWP" value="#{newWorkPackage.parentWpNumber}"
+					placeholder="Enter Text">
+					<f:ajax event="keyup" render="wpNumber"
+						listener="#{newWorkPackage.ajaxEvent()}" immediate="false" />
+				</h:inputText>
 			</div>
 			<h:message for="parentWP" style="color:red" />
 
@@ -85,7 +90,7 @@
 			</div>
 
 
-			<div style="text-align: center">
+			<div style="text-align: center; margin-top: 16px">
 				<p>* One of the input of two is required</p>
 			</div>
 

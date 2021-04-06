@@ -34,6 +34,7 @@ public class ActiveEmployeeBean extends Employee implements Serializable {
 	 * type of user that just logged in.
 	 */
 	public String login() {
+		System.out.println("login called");
 		Credential c = new Credential();
 		c.setUserName(userName);
 		c.setPassword(password);

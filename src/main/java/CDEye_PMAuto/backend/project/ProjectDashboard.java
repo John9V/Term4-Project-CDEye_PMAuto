@@ -86,5 +86,10 @@ public class ProjectDashboard implements Serializable {
     	projectManager.deleteProject(projectManager.findProject(p.projectName));
     	return "ProjectDashboard";
     }
+    
+    public String reportProject(EditableProject p) {
+        conversation.end();
+        return apb.setReportProjectBean(p);
+    }
 
 }

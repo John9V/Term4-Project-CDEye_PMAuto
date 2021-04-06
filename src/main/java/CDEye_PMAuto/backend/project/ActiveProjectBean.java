@@ -36,4 +36,21 @@ public class ActiveProjectBean extends Project implements Serializable {
 		return "WPList";
 	}
 	
+	 public String setReportProjectBean(EditableProject ep) {
+	        this.id = ep.getId();
+	        Project activeProject = projectManager.find(this.id);
+	        this.id = activeProject.id;
+	        this.projectName = activeProject.projectName;
+	        this.projectNumber = activeProject.projectNumber;
+	        this.projManager = activeProject.projManager;
+	        this.startDate = activeProject.startDate;
+	        this.endDate = activeProject.endDate;
+	        this.estimateBudget = activeProject.estimateBudget;
+	        this.markUpRate = activeProject.markUpRate;
+	        this.projectBudget = activeProject.projectBudget;
+	        wpl.refreshList();
+	        
+	        return "report";
+	 }
+	
 }
