@@ -2,37 +2,28 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
     <!-- Required meta tags -->
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
-    <link href="resources/css/login.css" rel="stylesheet"/>
+    <link href="resources/css/loginStyles.css" rel="stylesheet"/>
     <title>Sign in</title>
 </h:head>
 <h:body>
-    <div id="login-container">
-        <h:form>
-            <h3 class="login-input-row">
-                <h:outputText value="CDEye"/>
-            </h3>
-            <div class="login-input-row">
-                <h:outputLabel for="userName" value="ID"/>
-                <h:inputText id="userName" value="#{activeEmployeeBean.userName}" class="form-control" required="true"/>
-            </div>
-            <br/>
-            <div class="login-input-row">
-                <h:outputLabel for="password" value="Password"/>
-                <h:inputSecret id="password" value="#{activeEmployeeBean.password}" class="form-control" required="true"/>
-            </div>
-            <br/>
-            <h:commandButton value="Sign in" class="w-100 btn btn-lg btn-primary" action="#{activeEmployeeBean.login}"/>
-        </h:form>
-    </div>
+
+    <h:form styleClass="box">
+        <h1>
+            <h:outputText value="Sign in"/>
+        </h1>
+        <h:inputText value="#{activeEmployeeBean.userName}">
+            <f:passThroughAttribute name="placeholder" value="Username" />
+        </h:inputText>
+        <h:inputSecret value="#{activeEmployeeBean.password}">
+            <f:passThroughAttribute name="placeholder" value="Password" />
+        </h:inputSecret>
+        <h:commandButton value="Sign in" action="#{activeEmployeeBean.login}" />
+    </h:form>
 </h:body>
 </html>
