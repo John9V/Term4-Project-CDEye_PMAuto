@@ -94,12 +94,15 @@ public class CredentialManager implements Serializable {
     			"SELECT c FROM Credential c WHERE c.userName LIKE :userName", Credential.class)
     			.setParameter("userName", "%" + c.getUserName() + "%");
     	List<Credential> credentials = query.getResultList();
-    	
-        Credential cred = credentials.get(0);
+    	System.out.println("credentials size:"+ credentials.size());
+        
         // if credentials not in database
-        if (cred == null) {
+        if (credentials.size() == 0) {
             return false;
+        } else {
+        	Credential cred = credentials.get(0);
+            System.out.println("credentials size:"+ cred);
+            return c.getPassword().equals(cred.getPassword());
         }
-        return c.getPassword().equals(cred.getPassword());
     }
 }

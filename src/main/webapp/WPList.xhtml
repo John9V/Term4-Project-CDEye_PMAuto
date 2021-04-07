@@ -13,7 +13,7 @@
 <!--http://localhost:8080/CDEye_PMAuto/CreateEmployee.xhtml-->
 <h:body>
 	<!-- Side bar panel will control the navigation of the application-->
-	<div class="side-bar"></div>
+	
 
 	<!-- The current route -->
 	<div class="header-bar">
@@ -31,63 +31,68 @@
 	<!-- Form Container: reusable horizontal row input style-->
 	<!-- Need to replace the input value with Employee class members.-->
 	<ui:fragment rendered="#{not empty activeEmployeeBean.userName}">
-		<div class="form-container">
+		<div class="wplist-header">
+			<h2>#{activeProjectBean.projectName}
+				#(#{activeProjectBean.projectNumber})</h2>
+		</div>
+		<div class="wplist-form-container">
 			<h:form>
-				<div class="button-container">
-					<p>"#{activeProjectBean.projectName}"</p>
+				<div class="wplist-search-input-row">
+					<span style="margin-right: 16px">Work Package Number: </span>
+					<h:inputText value="#{workPackageList.searchPackageNumber}" />
+					<h:commandButton class="wplist-button" value="Search"
+						action="#{workPackageList.refreshList()}" />
 				</div>
 
-				<p>
-					Work Package:
-					<h:inputText value="#{workPackageList.searchPackageNumber}" />
-					<h:commandButton value="Search"
-						action="#{workPackageList.refreshList()}" />
-				</p>
-
 				<h:dataTable value="#{workPackageList.list}" var="wp"
-					styleClass="data-table">
+					styleClass="data-table" style="margin:16px 0">
 					<h:column>
-						<f:facet name="header">WP Number</f:facet>
-						<h:inputText styleClass="edit-input"
+						<f:facet name="header" style="font-size: 18px">WP Number</f:facet>
+						<h:inputText styleClass="edit-input" style="font-size: 18px"
 							value="#{wp.workPackageNumber}" rendered="#{wp.editable}" />
-						<h:outputText styleClass="edit-output"
+						<h:outputText styleClass="edit-output" style="font-size: 18px"
 							value="#{wp.workPackageNumber}" rendered="#{not wp.editable}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">Project Name</f:facet>
-						<h:inputText styleClass="edit-input"
+						<h:inputText styleClass="edit-input" style="font-size: 18px"
 							value="#{wp.project.projectName}" rendered="#{wp.editable}" />
-						<h:outputText styleClass="edit-output"
+						<h:outputText styleClass="edit-output" style="font-size: 18px"
 							value="#{wp.project.projectName}" rendered="#{not wp.editable}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">Work Package Budget</f:facet>
-						<h:inputText styleClass="edit-input" value="#{wp.projectBudget}"
-							rendered="#{wp.editable}" />
-						<h:outputText styleClass="edit-output" value="#{wp.projectBudget}"
-							rendered="#{not wp.editable}" />
+						<h:inputText styleClass="edit-input" style="font-size: 18px"
+							value="#{wp.projectBudget}" rendered="#{wp.editable}" />
+						<h:outputText styleClass="edit-output" style="font-size: 18px"
+							value="#{wp.projectBudget}" rendered="#{not wp.editable}" />
 					</h:column>
 					<h:column>
-                    <f:facet name="header">Unallocated Budget</f:facet>
-						<h:outputText styleClass="edit-output"
+						<f:facet name="header">Unallocated Budget</f:facet>
+						<h:outputText styleClass="edit-output" style="font-size: 18px"
 							value="#{wp.calcUnallocatedBudget()}" />
 					</h:column>
 					<h:column>
-                    <f:facet name="header">Allocated Budget</f:facet>
-                    <h:outputText styleClass="edit-output" value="#{wp.calcAllocatedBudget()}"/>
-                </h:column> 
-                <h:column>
-                    <f:facet name="header">Parent WP Number</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{wp.parentWp.workPackageNumber}" rendered="#{wp.editable}"/>
-                    <h:outputText styleClass="edit-output" value="#{wp.parentWp.workPackageNumber}" rendered="#{not wp.editable}" />
-                </h:column>             
+						<f:facet name="header">Allocated Budget</f:facet>
+						<h:outputText styleClass="edit-output" style="font-size: 18px"
+							value="#{wp.calcAllocatedBudget()}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Parent WP Number</f:facet>
+						<h:inputText styleClass="edit-input" style="font-size: 18px"
+							value="#{wp.parentWp.workPackageNumber}"
+							rendered="#{wp.editable}" />
+						<h:outputText styleClass="edit-output" style="font-size: 18px"
+							value="#{wp.parentWp.workPackageNumber}"
+							rendered="#{not wp.editable}" />
+					</h:column>
 					<h:column>
 						<f:facet name="header">Edit</f:facet>
 						<h:commandButton styleClass="command-button" value="Edit"
 							action="#{activeWpBean.setActiveWorkPackage(wp)}" />
 					</h:column>
 				</h:dataTable>
-				<h:commandButton styleClass="command-button" value="NewWorkPackage"
+				<h:commandButton styleClass="wplist-button" value="NewWorkPackage"
 					action="CreateWorkPackage" />
 			</h:form>
 		</div>

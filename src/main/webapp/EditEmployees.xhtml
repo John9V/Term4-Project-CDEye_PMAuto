@@ -5,7 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<h:outputStylesheet library="css" name="styles.css" />
+	<h:outputStylesheet library="css" name="employee.css" />
 	<title>Project Management System</title>
 </h:head>
 <h:body>
@@ -15,6 +15,7 @@
 	<!-- The current route -->
 	<div class="header-bar">
 		<h3>EDIT EMPLOYEE</h3>
+		<h:button styleClass="back-button" rendered="#{not empty activeEmployeeBean.userName}" value="Back" outcome="HRHome" />
 		<div class="logout-button">
 			<h:form styleClass="">
 				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
@@ -27,6 +28,15 @@
 
 	<ui:fragment rendered="#{not empty activeEmployeeBean.userName}">
 		<div class="container">
+			<div id="search-bar-form">	
+				<h:form styleClass="" >
+					<h:commandButton styleClass="search-button" value="Search"
+						action="#{employeeList.findEmployee()}" />
+					<h:inputText styleClass="edit-input" placeholder="Employee Username"
+						value="#{employeeList.search}">
+					</h:inputText>
+				</h:form>
+			</div>
 			<h:form>
 				<h:dataTable value="#{employeeList.list}" var="e"
 					styleClass="data-table">
@@ -118,13 +128,6 @@
 							rendered="#{not e.editable}" />
 					</h:column>
 				</h:dataTable>
-			</h:form>
-			<h:form>
-				<h:inputText styleClass="edit-input"
-					value="#{employeeList.search}">
-				</h:inputText>
-				<h:commandButton styleClass="command-button" value="Search"
-					action="#{employeeList.findEmployee()}" />
 			</h:form>
 		</div>
 	</ui:fragment>

@@ -2,6 +2,7 @@ package CDEye_PMAuto.backend.workpackage;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -293,6 +294,27 @@ public class WorkPackage implements Serializable {
             personDays = personDays.add(r.getPersonDayEstimate());
         }
         return budgetEstimate;
+    }
+    
+    public BigDecimal calcCompletion() {
+        if(completedBudget == null) {
+            completedBudget = new BigDecimal(0);
+        }
+        if(completedBudget.compareTo(BigDecimal.ZERO) == 0 || calcRespEngBudget().compareTo(BigDecimal.ZERO) == 0) {
+            System.out.println("Caught is zero");
+            return new BigDecimal(0);
+        }
+    	return calcRespEngBudget().divide(completedBudget, 2, RoundingMode.HALF_UP);
+    }
+    
+    public BigDecimal calcVariance() {
+    	BigDecimal difference = calcRespEngBudget().subtract(projectBudget);
+    	
+    	if(difference.compareTo(BigDecimal.ZERO) == 0 || projectBudget.compareTo(BigDecimal.ZERO) == 0) {
+    	    System.out.println("Caught is zero for variance");
+    	    return new BigDecimal(0);
+    	}
+    	return difference.divide(projectBudget, 2, RoundingMode.HALF_UP);
     }
     
     public BigDecimal calcRespEngPersonDays() {
