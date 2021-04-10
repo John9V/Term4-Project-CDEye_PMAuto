@@ -86,6 +86,11 @@
 						<h:commandButton styleClass="command-button" value="Edit"
 							action="#{activeWpBean.setActiveWorkPackage(wp)}" />
 					</h:column>
+					<h:column>
+						<f:facet name="header">Delete</f:facet>
+						<h:commandButton styleClass="command-button" value="Delete"
+							action="#{workPackageList.deleteWorkPackageIfLeaf(wp)}" />
+					</h:column>
 				</h:dataTable>
 				<h:commandButton styleClass="command-button" value="NewWorkPackage"
 					action="CreateWorkPackage" />

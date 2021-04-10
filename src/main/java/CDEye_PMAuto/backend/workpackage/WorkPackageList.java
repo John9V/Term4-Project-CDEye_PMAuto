@@ -143,6 +143,25 @@ public class WorkPackageList implements Serializable {
         return list;
     }
     
+    public void deleteWorkPackageIfLeaf(WorkPackage wp) {
+        WorkPackage w = new WorkPackage();
+        w.id = wp.id;
+        w.workPackageNumber = wp.workPackageNumber;
+        w.parentWp = wp.parentWp;
+        w.completedBudget = wp.completedBudget;
+        w.completedPersonDays = wp.completedPersonDays;
+        w.startDate = wp.startDate;
+        w.endDate = wp.endDate;
+        w.isLeaf = wp.isLeaf;
+        w.projectBudget = wp.projectBudget;
+        w.project = wp.project;
+        w.RECEs = wp.RECEs;
+        w.wpAllocs = wp.wpAllocs;
+        w.childPackages = wp.childPackages;
+        w.responsibleEngineer = wp.responsibleEngineer;
+        workPackageManager.deleteWorkPackageIfLeaf(w);
+    }
+    
     public void search() {
         refreshList();
     }

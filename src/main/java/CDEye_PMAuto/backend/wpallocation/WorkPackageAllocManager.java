@@ -30,12 +30,30 @@ public class WorkPackageAllocManager implements Serializable {
     }
 	
 	public WorkPackageAllocation[] getByWP(WorkPackage wp) {
-	    // TODO
-	    return null;
+	    TypedQuery<WorkPackageAllocation> query = em.createQuery(
+                "SELECT wpa FROM WorkPackageAllocation wpa WHERE wpa.workPackage.id = :wpId", WorkPackageAllocation.class)
+                .setParameter("wpId", wp.getId());
+	    List<WorkPackageAllocation> workPackageAllocs = query.getResultList();
+	    WorkPackageAllocation[] workPackageAllocsArr = new WorkPackageAllocation[workPackageAllocs.size()];
+        for (int i = 0; i < workPackageAllocsArr.length; i++) {
+            workPackageAllocsArr[i] = workPackageAllocs.get(i);
+        }
+        return workPackageAllocsArr;
 	}
 	
 	public void addWorkPackageAlloc(WorkPackageAllocation wpa) {
 		em.persist(wpa);
+	}
+	
+	public void deleteWorkPackageAlloc(WorkPackageAllocation wpa) {
+	    em.remove(wpa);
+	}
+	
+	public void deleteAllForWP(WorkPackage wp) {
+	    WorkPackageAllocation[] wpAllocs = getByWP(wp);
+        for (WorkPackageAllocation allocation : wpAllocs) {
+            deleteWorkPackageAlloc(allocation);
+        }
 	}
 	
 }

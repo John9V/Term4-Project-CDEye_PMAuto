@@ -13,7 +13,7 @@
 <!--http://localhost:8080/CDEye_PMAuto/CreateEmployee.xhtml-->
 <h:body>
 	<!-- Side bar panel will control the navigation of the application-->
-	<div class="side-bar"></div>
+	
 
 	<!-- The current route -->
 	<div class="header-bar">
@@ -90,6 +90,11 @@
 						<f:facet name="header">Edit</f:facet>
 						<h:commandButton styleClass="command-button" value="Edit"
 							action="#{activeWpBean.setActiveWorkPackage(wp)}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Delete</f:facet>
+						<h:commandButton styleClass="command-button" value="Delete"
+							action="#{workPackageList.deleteWorkPackageIfLeaf(wp)}" />
 					</h:column>
 				</h:dataTable>
 				<h:commandButton styleClass="wplist-button" value="NewWorkPackage"

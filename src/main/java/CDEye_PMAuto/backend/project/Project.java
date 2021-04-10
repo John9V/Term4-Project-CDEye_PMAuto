@@ -45,7 +45,8 @@ public class Project implements Serializable {
 	@Column(name = "projectnumber")
 	protected String projectNumber;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	// CascadeType.ALL deletes projManager when deleting the project
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "projmanager")
 	protected Employee projManager;
 
