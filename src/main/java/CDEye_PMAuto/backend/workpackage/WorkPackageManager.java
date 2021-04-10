@@ -17,10 +17,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
 import CDEye_PMAuto.backend.project.Project;
 import CDEye_PMAuto.backend.recepackage.RECEManager;
 import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
+import CDEye_PMAuto.backend.tsrow.TimesheetRowManager;
 import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocManager;
 import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocation;
 
@@ -38,6 +40,10 @@ public class WorkPackageManager implements Serializable {
     @Inject 
     @Dependent 
     private RECEManager receManager;
+    
+    @Inject 
+    @Dependent 
+    private TimesheetRowManager timesheetRowManager;
     
     /**
      * Gets all the work packages in the DB.
@@ -79,9 +85,10 @@ public class WorkPackageManager implements Serializable {
     }
     
     public WorkPackage[] getByParentId(String parentId) {
+        UUID parentUUID = UUID.fromString(parentId);
         TypedQuery<WorkPackage> query = em.createQuery(
-                "SELECT wp FROM WorkPackage wp WHERE parentworkpackage LIKE :parentId", WorkPackage.class)
-                .setParameter("parentId", "%" + parentId + "%");
+                "SELECT wp FROM WorkPackage wp WHERE wp.parentWp.id = :parentUUID", WorkPackage.class)
+                .setParameter("parentUUID", parentUUID);
         return getWorkPackages(query);
     }
     
@@ -109,6 +116,7 @@ public class WorkPackageManager implements Serializable {
         for (int i = 0; i < packageArr.length; i++) {
             packageArr[i] = workPackages.get(i);
         }
+        
         return packageArr;
     }
     
@@ -139,7 +147,27 @@ public class WorkPackageManager implements Serializable {
      * @param wp the work package to delete
      */
     public void deleteWorkPackage(WorkPackage wp) {
-        em.remove(em.contains(wp) ? wp : em.merge(wp));
+        WorkPackage w = em.find(WorkPackage.class, wp.getId());
+        em.remove(w);
+    }
+    
+    /**
+     * Deletes a work package from the database along with its data
+     * @param wp the work package to delete
+     */
+    @Transactional
+    public void deleteWorkPackageFully(WorkPackage wp) {
+        timesheetRowManager.deleteRowsForWP(wp);
+        workPackageAllocManager.deleteAllForWP(wp);
+        deleteWorkPackage(wp);
+    }
+    
+    public void deleteWorkPackageIfLeaf(WorkPackage wp) {
+        if (isLeaf(wp)) {
+            deleteWorkPackageFully(wp);
+        } else {
+            System.out.println("couldnt delete workpackage because it is not a leaf");
+        }
     }
     
     /**
@@ -148,7 +176,7 @@ public class WorkPackageManager implements Serializable {
      * @return boolean for whether the work package is a leaf or not
      */
     public boolean isLeaf(WorkPackage wp) {
-        WorkPackage[] childrenWPs = getByParentId(wp.id.toString());
+        WorkPackage[] childrenWPs = getByParentId(wp.getId().toString());
         return childrenWPs.length < 1;
     }
     

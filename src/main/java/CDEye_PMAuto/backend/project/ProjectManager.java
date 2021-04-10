@@ -1,14 +1,22 @@
 package CDEye_PMAuto.backend.project;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+
+import CDEye_PMAuto.backend.tsrow.TimesheetRowManager;
+import CDEye_PMAuto.backend.workpackage.SortByNumber;
+import CDEye_PMAuto.backend.workpackage.WorkPackage;
+import CDEye_PMAuto.backend.workpackage.WorkPackageManager;
 
 @Dependent
 @Stateless
@@ -16,6 +24,8 @@ public class ProjectManager implements Serializable {
 
 	@PersistenceContext(unitName = "inventory-jpa")
 	EntityManager em;
+	
+	@Inject private WorkPackageManager workPackageManager;
 
 	public Project[] getAll() {
 		TypedQuery<Project> query = em.createQuery("select p from Project p", Project.class);
@@ -40,8 +50,21 @@ public class ProjectManager implements Serializable {
 	}
 
 	public void deleteProject(Project p) {
-		em.remove(em.contains(p) ? p : em.merge(p));
+	    deleteAssociatedInfo(p);
+	    Project fp = em.find(Project.class, p.getId());
+	    em.remove(fp);
 		System.out.println("'project name: " + p.getProjectName() + "' was deleted");
+	}
+	
+	/**
+	 * Removes info associated with a given project.
+	 */
+	private void deleteAssociatedInfo(Project p) {
+	    WorkPackage[] projectWPs = workPackageManager.findWpsByProject(p);
+	    Arrays.sort(projectWPs, new SortByNumber());
+	    for (WorkPackage wp : projectWPs) {
+	        workPackageManager.deleteWorkPackageFully(wp);
+	    }
 	}
 
 	public Project findProject(String projectName) {

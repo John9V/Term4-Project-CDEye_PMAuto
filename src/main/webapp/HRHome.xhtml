@@ -44,9 +44,14 @@
 					<h:commandButton styleClass="card-button-create" value="Create" rendered="#{not empty activeEmployeeBean.userName}" action="CreateEmployee" />
 				</div>
 				<div class="card-container">
-					<p class="card-title">View Projects</p>
+					<p class="card-title">View All Projects</p>
 					<p class="card-subtitle">A subheader that concludes what this tab does.</p>
 					<h:commandButton styleClass="card-button" value="View" rendered="#{not empty activeEmployeeBean.userName}"  action="ProjectDashboard" />
+				</div>
+				<div class="card-container">
+					<p class="card-title">View Managed Projects</p>
+					<p class="card-subtitle">A subheader that concludes what this tab does.</p>
+					<h:commandButton styleClass="card-button" value="View" rendered="#{not empty activeEmployeeBean.userName}"  action="ProjectDashboardForPM" />
 				</div>
 				<div class="card-container">
 					<p class="card-title">View WorkPackages</p>

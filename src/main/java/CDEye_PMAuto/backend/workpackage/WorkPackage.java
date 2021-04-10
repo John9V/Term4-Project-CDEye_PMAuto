@@ -90,11 +90,11 @@ public class WorkPackage implements Serializable {
 	protected List<RespEngCostEstimate> RECEs;
 	
 	@Fetch(value = FetchMode.SUBSELECT)
-	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy="workPackage", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     protected List<WorkPackageAllocation> wpAllocs;
 	
 	@Fetch(value = FetchMode.SUBSELECT)
-    @OneToMany(mappedBy="parentWp", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="parentWp", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	protected List<WorkPackage> childPackages;
 	
 	@ManyToOne
@@ -160,6 +160,26 @@ public class WorkPackage implements Serializable {
      * Constructor that accepts a new work package.
      */
     public WorkPackage(NewWorkPackage wp) {
+        super();
+        this.id = wp.id;
+        this.workPackageNumber = wp.workPackageNumber;
+        this.parentWp = wp.parentWp;
+        this.completedBudget = wp.completedBudget;
+        this.completedPersonDays = wp.completedPersonDays;
+        this.startDate = wp.startDate;
+        this.endDate = wp.endDate;
+        this.isLeaf = wp.isLeaf;
+        this.projectBudget = wp.projectBudget;
+        this.project = wp.project;
+        this.RECEs = wp.RECEs;
+        this.wpAllocs = wp.wpAllocs;
+        this.childPackages = wp.childPackages;
+    }
+    
+    /**
+     * Constructor that accepts another work package.
+     */
+    public WorkPackage(WorkPackage wp) {
         super();
         this.id = wp.id;
         this.workPackageNumber = wp.workPackageNumber;
@@ -512,6 +532,20 @@ public class WorkPackage implements Serializable {
      */
     public void setResponsibleEngineer(Employee responsibleEngineer) {
         this.responsibleEngineer = responsibleEngineer;
+    }
+
+    /**
+     * @return the childPackages
+     */
+    public List<WorkPackage> getChildPackages() {
+        return childPackages;
+    }
+
+    /**
+     * @param childPackages the childPackages to set
+     */
+    public void setChildPackages(List<WorkPackage> childPackages) {
+        this.childPackages = childPackages;
     }
 	
 	

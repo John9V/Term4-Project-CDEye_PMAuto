@@ -47,6 +47,11 @@
 						<h:commandButton rendered="#{not empty activeEmployeeBean.userName}" value="View" action="ProjectDashboard" styleClass="card-button"/>
 					</div>
 					<div class="card-container">
+						<p class="card-title">Managed Projects</p>
+						<p class="card-subtitle">A subheader that concludes what this tab does.</p>
+						<h:commandButton rendered="#{not empty activeEmployeeBean.userName}" value="View" action="ProjectDashboardForPM" styleClass="card-button"/>
+					</div>
+					<div class="card-container">
 						<p class="card-title">View WorkPackages</p>
 						<p class="card-subtitle">A subheader that concludes what this tab does.</p>
 						<h:commandButton rendered="#{not empty activeEmployeeBean.userName}" value="View" action="WPListAsEmp" styleClass="card-button"/>
