@@ -16,6 +16,12 @@
 
 <!--	Header bar display the current page the user located-->
 	<div class="header-bar">
+		<div class="back-button">
+			<h:form styleClass="">
+				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+					value="Home" action="HRHome.xhtml?faces-redirect=true" />
+			</h:form>
+		</div>
 		<h3>CREATE A NEW WORK PACKAGE</h3>
 	</div>
 

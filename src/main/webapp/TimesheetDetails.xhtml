@@ -16,6 +16,12 @@
 
     <!-- The current route -->
     <div class="header-bar">
+    <div class="back-button">
+			<h:form styleClass="">
+				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+					value="Home" action="HRHome.xhtml?faces-redirect=true" />
+			</h:form>
+		</div>
         <h3>Edit Timesheet</h3>
     </div>
     <div class="container">

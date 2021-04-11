@@ -15,6 +15,12 @@
 
 	<div class="c_left"></div>
 	<div class="header">
+	<div class="back-button">
+			<h:form styleClass="">
+				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+					value="Home" action="HRHome.xhtml?faces-redirect=true" />
+			</h:form>
+		</div>
 		<h3>Projects Managed by #{activeEmployeeBean.userName}</h3>
 		<div class="logout-button">
 			<h:form styleClass="">
