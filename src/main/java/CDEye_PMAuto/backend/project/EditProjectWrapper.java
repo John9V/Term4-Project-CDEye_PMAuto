@@ -12,7 +12,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 
 
-@Named("editProjectWrapper")
+@Named
 @SessionScoped
 public class EditProjectWrapper implements Serializable {
     @Inject private ProjectManager projectManager;
@@ -21,7 +21,7 @@ public class EditProjectWrapper implements Serializable {
     private Employee[] managers;
     private String selectedManager;
 
-    public String setActiveProjectBean(EditableProject ep) {
+    public void setActiveProjectBean(EditableProject ep) {
         System.out.println("setActiveProjectBean id=" + ep.getId());
         Project project = projectManager.find(ep.getId());
 
@@ -41,7 +41,7 @@ public class EditProjectWrapper implements Serializable {
         }
 
         this.managers = employeeManager.getAll();
-        return "EditProject";
+        System.out.println("Ready to edit.");
     }
 
     public Project getEditProject() {
@@ -66,7 +66,7 @@ public class EditProjectWrapper implements Serializable {
         System.out.println("selectedManager:" + selectedManager);
         editProject.projManager = employeeManager.getEmployeeByUserName(selectedManager);
         projectManager.updateProject(editProject);
-        return "";
+        return "ProjectDashboard?faces-redirect=true";
     }
 
     public String getSelectedManager() {

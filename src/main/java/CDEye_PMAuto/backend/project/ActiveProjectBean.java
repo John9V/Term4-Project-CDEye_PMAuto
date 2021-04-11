@@ -33,7 +33,7 @@ public class ActiveProjectBean extends Project implements Serializable {
 		this.projectBudget = activeProject.projectBudget;
 		wpl.refreshList();
 		
-		return "WPList";
+		return "WPList?faces-redirect=true";
 	}
 	
 	 public String setReportProjectBean(EditableProject ep) {
@@ -50,7 +50,7 @@ public class ActiveProjectBean extends Project implements Serializable {
 	        this.projectBudget = activeProject.projectBudget;
 	        wpl.refreshList();
 	        
-	        return "report";
+	        return "ProjectReport?faces-redirect=true";
 	 }
 	
 }

@@ -28,6 +28,7 @@ public class CreateProjectBean extends Project implements Serializable {
             errorMsg = "The project number " + this.projectNumber + " already exists";
             showError = true;
         } else {
+            String id = this.projectNumber + "#";
             Project p = new Project(this);
             projectManager.persist(p);
             showError = false;

@@ -14,6 +14,8 @@
 
 <div class="header-bar">
 	<h3>Create Work Package</h3>
+	<h:button styleClass="back-button" rendered="#{not empty activeEmployeeBean.userName}" value="Back"
+			  outcome="#{projectDashboard.back()}"/>
 	<div class="logout-button">
 		<h:form styleClass="">
 			<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"

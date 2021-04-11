@@ -14,7 +14,8 @@
 	
 	<!-- The current route -->
 	<div class="header-bar">
-		<h3>WP List</h3>
+		<h3>Project Report</h3>
+		<h:button styleClass="back-button" rendered="#{not empty activeEmployeeBean.userName}" value="Back" outcome="#{projectDashboard.back()}" />
 		<div class="logout-button">
 			<h:form styleClass="">
 				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
@@ -28,12 +29,11 @@
 	<!-- Form Container: reusable horizontal row input style-->
 	<!-- Need to replace the input value with Employee class members.-->
 	<ui:fragment rendered="#{not empty activeEmployeeBean.userName}">
-		<div class="form-container">
+		<div class="container">
 			<h:form>
-				<div class="button-container">
-					<p>"#{activeProjectBean.projectName}"</p>
-				</div>
-
+				<h2>#{activeProjectBean.projectName}
+					#(#{activeProjectBean.projectNumber})</h2>
+				<br/>
 				<h:dataTable value="#{workPackageList.list}" var="wp"
 					styleClass="data-table">
 					<h:column>

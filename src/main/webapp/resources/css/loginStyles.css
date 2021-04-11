@@ -2,10 +2,10 @@ body{
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background: #34495e;
+    background: #fff;
 }
 .box{
-    width: 300px;
+    width: 500px;
     padding: 40px;
     position: absolute;
     top: 50%;
@@ -15,7 +15,7 @@ body{
     text-align: center;
 }
 .box h1{
-    color: white;
+    color: #191919;
     text-transform: uppercase;
     font-weight: 500;
 }

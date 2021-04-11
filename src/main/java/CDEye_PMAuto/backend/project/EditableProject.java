@@ -15,6 +15,7 @@ import CDEye_PMAuto.backend.employee.Employee;
 public class EditableProject extends Project implements Serializable {
 	private boolean editable = false;
 	private boolean deletable = false;
+	private String panelId;
 
 	public EditableProject() {
 		super();
@@ -23,12 +24,9 @@ public class EditableProject extends Project implements Serializable {
 	public EditableProject(Project p) {
 		super(p.id, p.projectName, p.projectNumber, p.projManager, p.startDate, p.endDate, p.estimateBudget,
 				p.markUpRate, p.projectBudget);
+		panelId = p.projectName.replaceAll("\\s", "_");
 	}
 
-	public EditableProject(UUID id, String projectName, String projectNumber, Employee projectManager, Date startDate,
-			Date endDate, BigDecimal estimateBudget, BigDecimal markUpRate, BigDecimal projectBudget) {
-		super(id, projectName, projectNumber, projectManager, startDate, endDate, estimateBudget, markUpRate, projectBudget);
-	}
 
 	public boolean isEditable() {
 		return editable;
@@ -46,4 +44,11 @@ public class EditableProject extends Project implements Serializable {
 		this.deletable = deletable;
 	}
 
+	public String getPanelId() {
+		return panelId;
+	}
+
+	public void setPanelId(String panelId) {
+		this.panelId = panelId;
+	}
 }

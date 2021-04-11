@@ -105,6 +105,12 @@ html, body {
 	cursor: pointer;
 }
 
+.card {
+	position: relative;
+	left: 100px;
+	top: 80px;
+}
+
 .create-btn {
 	display: block;
 	margin: auto;
@@ -158,4 +164,60 @@ html, body {
 	justify-content: space-around;
 }
 
+div.ui-state-hover, .ui-panel {
+	width: 270px;
+	height: 150px;
+	padding: 50px;
+	background-color: white;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	margin: 10px 10px 15px;
+}
+body .ui-panel .ui-panel-titlebar {
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+}
+.ui-panel-titlebar {
+	height: 50px;
+}
 
+body .ui-panel .ui-panel-content {
+	border-bottom: 0 none;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.ui-panel-content {
+	height: 50px;
+}
+body .ui-panel .ui-panel-footer {
+	padding: 0.5rem;
+	text-align: center;
+}
+.ui-panel-footer {
+	height: 50px;
+	border-radius: 0 0 15px 15px;
+}
+
+.ui-dashboard-column {
+	width: 300px;
+}
+
+.back-button {
+	position: absolute;
+	top: 6px;
+	right: 226px;
+	border-radius: 25px;
+	padding: 8px;
+	color: white;
+	background-color: #03a9f4;
+	border: 1px solid #03a9f4;
+	font-size: 16px;
+	width: 120px;
+	border-radius: 25px;
+}
+
+button.ui-button {
+	margin-right: .5rem;
+}
