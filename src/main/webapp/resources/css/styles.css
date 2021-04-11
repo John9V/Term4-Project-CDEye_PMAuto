@@ -253,7 +253,7 @@ select {
 	color: #0075FF;
 	background-color: #fff;
 	border: 1px solid #0075FF;
-	font-size: 10px;
+	font-size: 15px;
 	height: 30px;
 	margin: 5px 0;
 }
@@ -477,4 +477,55 @@ select {
 	width: 50px;
 	height: 50px;
 	margin-right: 16px;
+}
+
+.wplist-header {
+	margin: 120px auto 16px;
+	text-align: center;
+}
+
+.wplist-form-container {
+	margin: 0 auto 32px;
+	width: 50%;
+}
+
+.wplist-search-input-row {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: flex-end;
+	align-items: center;
+	margin: 8px 0;
+	letter-spacing: 2px;
+	font-weight: bold;
+	color: #6f6f6f;
+	font-size: 14px;
+	margin: 8px 0;
+	align-items: center;
+}
+
+.wplist-search-input-row input {
+	padding: 8px;
+	border-radius: 10px;
+	border: 1px solid #d7d7d7;
+}
+
+.wplist-button {
+	border-radius: 25px;
+	margin: 0 0 0 8px;
+	padding: 8px;
+	color: white;
+	background-color: #0075FF;
+	border: 1px solid #0075FF;
+	font-size: 16px;
+	width: fit-content;
+	border-radius: 25px;
+}
+
+.invalid-credentials {
+	margin-top: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	display: flex;
 }
