@@ -108,7 +108,7 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 		createRECEs(addedWp);
 
 		wpl.refreshList();
-		return "WPList";
+		return "WPList?faces-redirect=true";
 		// } else {
 		// return "CreateWorkPackage";
 		// }
