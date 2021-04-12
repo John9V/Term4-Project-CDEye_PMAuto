@@ -9,12 +9,10 @@
  	<title>Project Report</title>
 </h:head>
 <h:body>
-	<!-- Side bar panel will control the navigation of the application-->
 	<div class="side-bar"></div>
 	
-	<!-- The current route -->
 	<div class="header-bar">
-		<h3>WP List</h3>
+		<h3>Project Report</h3>
 		<div class="logout-button">
 			<h:form styleClass="">
 				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
@@ -25,15 +23,14 @@
 		</div>
 	</div>
 	
-	<!-- Form Container: reusable horizontal row input style-->
-	<!-- Need to replace the input value with Employee class members.-->
 	<ui:fragment rendered="#{not empty activeEmployeeBean.userName}">
-		<div class="form-container">
+		<div class="wplist-header">
+			<h2>#{activeProjectBean.projectName}
+				#(#{activeProjectBean.projectNumber}) Report</h2>
+		</div>
+		
+		<div class="wplist-form-container">
 			<h:form>
-				<div class="button-container">
-					<p>"#{activeProjectBean.projectName}"</p>
-				</div>
-
 				<h:dataTable value="#{workPackageList.list}" var="wp"
 					styleClass="data-table">
 					<h:column>
@@ -61,6 +58,8 @@
 						<h:outputText styleClass="edit-output" value="#{wp.calcCompletion()}" />
 					</h:column>           
 				</h:dataTable>
+				<h:commandButton styleClass="wplist-button" value="Back To Project Dashboard"
+					style="margin-top: 16px" action="ProjectDashboard" />
 			</h:form>
 		</div>
 	</ui:fragment>
