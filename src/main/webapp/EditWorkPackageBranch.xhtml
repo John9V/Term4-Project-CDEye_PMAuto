@@ -36,13 +36,13 @@
 			<h:form>
 				<div class="input-row">
 					<p>WorkPackage Number</p>
-					<h:inputText id="empId" value="#{activeWpBean.workPackageNumber}" />
+					<h:outputText id="empId" value="#{activeWpBean.workPackageNumber}" />
 					<h:message for="empId" style="color:red" />
 				</div>
             
 				<div class="input-row">
                 <p>Parent WP Number</p>
-                <h:inputText id="parentWp" value="#{activeWpBean.parentWp.workPackageNumber}" />
+                <h:outputText id="parentWp" value="#{activeWpBean.parentWp.workPackageNumber}" />
                 <h:message for="parentWp" style="color:red" />
             </div>
 

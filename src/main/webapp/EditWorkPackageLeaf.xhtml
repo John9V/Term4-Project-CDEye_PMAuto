@@ -46,12 +46,12 @@
 						</div>
 						<div class="input-column">
 							<p class="sub-title">Parent WorkPackage Number:</p>
-							<h:inputText value="#{editableWpLeaf.parentWp.workPackageNumber}"
+							<h:outputText value="#{editableWpLeaf.parentWp.workPackageNumber}"
 								disabled="true" />
 						</div>
 						<div class="input-column">
 							<p class="sub-title">WorkPackage Number:</p>
-							<h:inputText id="wpnumber"
+							<h:outputText id="wpnumber"
 								value="#{editableWpLeaf.workPackageNumber}" required="true" />
 							<h:message for="wpnumber" style="color: red" />
 						</div>

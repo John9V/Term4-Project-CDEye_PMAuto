@@ -9,8 +9,14 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import CDEye_PMAuto.backend.paygrade.Paygrade;
+import CDEye_PMAuto.backend.paygrade.PaygradeManager;
+import CDEye_PMAuto.backend.recepackage.RECEManager;
+import CDEye_PMAuto.backend.recepackage.RespEngCostEstimate;
 import CDEye_PMAuto.backend.workpackage.WorkPackage;
 import CDEye_PMAuto.backend.workpackage.WorkPackageManager;
+import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocManager;
+import CDEye_PMAuto.backend.wpallocation.WorkPackageAllocation;
 
 @Named("createProject")
 @RequestScoped
@@ -20,7 +26,12 @@ public class CreateProjectBean extends Project implements Serializable {
     @Inject private WorkPackageManager wpManager;
     String errorMsg;
     boolean showError;
-
+    @Inject
+	PaygradeManager pgm;
+	@Inject
+	WorkPackageAllocManager wpam;
+	@Inject
+	RECEManager recem;
     public String add() {
         if (this.projectNumber.isEmpty()) {
             showError = true;
@@ -46,10 +57,12 @@ public class CreateProjectBean extends Project implements Serializable {
             baseWp.setCompletedPersonDays(new BigDecimal(0));
             baseWp.setStartDate(new Date());
             baseWp.setEndDate(new Date());
-            
             projectManager.persist(p);
-            
             wpManager.addWorkPackage(baseWp);
+            
+            WorkPackage addedWp = wpManager.getByUUID(baseWp.getId().toString());
+    		createWpAllocs(addedWp);
+    		createRECEs(addedWp);
             
             showError = false;
             errorMsg = "";
@@ -59,6 +72,32 @@ public class CreateProjectBean extends Project implements Serializable {
         projList.refreshList();
         return "ProjectDashboard";
     }
+    
+ // create a wpalloc for each paygrade
+ 	public void createWpAllocs(WorkPackage addedWp) {
+ 		Paygrade[] paygradeArr = pgm.getAll();
+ 		for (Paygrade p : paygradeArr) {
+ 			WorkPackageAllocation wpa = new WorkPackageAllocation();
+ 			wpa.setId(UUID.randomUUID());
+ 			wpa.setWorkPackage(addedWp);
+ 			wpa.setPaygrade(p);
+ 			wpa.setPersonDaysEstimate(new BigDecimal(0));
+ 			wpam.addWorkPackageAlloc(wpa);
+ 		}
+ 	}
+
+ 	// create a RECE for each paygrade
+ 	public void createRECEs(WorkPackage addedWp) {
+ 		Paygrade[] paygradeArr = pgm.getAll();
+ 		for (Paygrade p : paygradeArr) {
+ 			RespEngCostEstimate rece = new RespEngCostEstimate();
+ 			rece.setId(UUID.randomUUID());
+ 			rece.setWorkPackage(addedWp);
+ 			rece.setPaygrade(p);
+ 			rece.setPersonDayEstimate(new BigDecimal(0));
+ 			recem.persist(rece);
+ 		}
+ 	}
 
     public String getErrorMsg() {
         return errorMsg;

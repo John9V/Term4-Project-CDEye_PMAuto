@@ -87,14 +87,7 @@
                     <h:inputText styleClass="edit-input" value="#{wp.parentWp.workPackageNumber}" rendered="#{wp.editable}"/>
                     <h:outputText styleClass="edit-output" value="#{wp.parentWp.workPackageNumber}" rendered="#{not wp.editable}" />
                 </h:column>             
-					<h:column>
-						<f:facet name="header">Edit</f:facet>
-						<h:commandButton styleClass="command-button" value="Edit"
-							action="#{activeWpBean.setActiveWorkPackage(wp)}" />
-					</h:column>
 				</h:dataTable>
-				<h:commandButton styleClass="command-button" value="NewWorkPackage"
-					action="CreateWorkPackage" />
 			</h:form>
 		</div>
 	</ui:fragment>
