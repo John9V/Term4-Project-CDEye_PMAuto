@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -76,6 +75,8 @@ public class Timesheet {
 	protected BigDecimal sick;
 	@Column(name="flex")
 	protected BigDecimal flex;
+	@Column(name = "vacation")
+	protected BigDecimal vacation;
 	
 	@Column(name="approved")
     protected boolean approved;
@@ -95,6 +96,7 @@ public class Timesheet {
 		this.sick = nts.sick;
 		this.flex = nts.flex;
 		this.approved = nts.approved;
+		this.vacation = nts.vacation;
     }
     
     public Timesheet(EditableTimesheet ets) {
@@ -105,10 +107,11 @@ public class Timesheet {
 		this.sick = ets.sick;
 		this.flex = ets.flex;
 		this.approved = ets.approved;
+		this.vacation = ets.vacation;
     }
 
 	public Timesheet(UUID id, Employee employee, LocalDate endDate, List<TimesheetRow> details,
-			BigDecimal flex, BigDecimal sick, boolean approved) {
+			BigDecimal flex, BigDecimal sick, boolean approved, BigDecimal vacation) {
 		super();
 		this.id = id;
 		this.employee = employee;
@@ -117,6 +120,7 @@ public class Timesheet {
 		this.sick = sick;
 		this.flex = flex;
 		this.approved = approved;
+		this.vacation = vacation;
 	}
 	
 	public Timesheet(Timesheet t) {
@@ -128,6 +132,7 @@ public class Timesheet {
 		this.sick = t.sick;
 		this.flex = t.flex;
 		this.approved = t.approved;
+		this.vacation = t.vacation;
 	}
 
 	public UUID getId() {
@@ -175,5 +180,12 @@ public class Timesheet {
     public void setApproved(boolean approved) {
         this.approved = approved;
     }
-    
+
+	public BigDecimal getVacation() {
+		return vacation;
+	}
+
+	public void setVacation(BigDecimal vacation) {
+		this.vacation = vacation;
+	}
 }

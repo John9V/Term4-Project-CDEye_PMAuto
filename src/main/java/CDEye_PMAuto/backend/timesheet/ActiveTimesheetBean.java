@@ -28,6 +28,7 @@ public class ActiveTimesheetBean extends Timesheet implements Serializable {
 		this.sick = ets.sick;
 		this.flex = ets.flex;
 		this.approved = ets.approved;
+		this.vacation = ets.vacation;
 		editableTimesheetList.refreshList();
 		return "TimesheetDetails";
 	}
@@ -40,11 +41,13 @@ public class ActiveTimesheetBean extends Timesheet implements Serializable {
         this.sick = ets.sick;
         this.flex = ets.flex;
         this.approved = ets.approved;
+        this.vacation = ets.vacation;
         editableTimesheetList.filterForManagerViewUnapproved();
         return "TimesheetDetails";
     }
 	
 	public void approve() {
+		BigDecimal sumOfTimesheetsPersonalDays;
 		for (TimesheetRow tsr : this.details) {
 			WorkPackage wp = wpManager.find(tsr.getWorkPackage().getId());
 			System.out.println(tsr.getFri() 
@@ -98,6 +101,8 @@ public class ActiveTimesheetBean extends Timesheet implements Serializable {
 			wp.setCompletedBudget(sum);
 			wp.setCompletedPersonDays(pdSum);
 			wpManager.updateWorkPackage(wp);
+
+
 		}
 	}
 }

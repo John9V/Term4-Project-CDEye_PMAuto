@@ -29,27 +29,33 @@ VALUES ("623e4567-e89b-12d3-a456-556642440710", 123, "john", "ivaganov", "ivagan
 INSERT INTO employees
 VALUES ("223e4567-e89b-12d3-a456-556642446010", 153, "scott", "reid", "sreid", "123e4567-e89b-12d3-a452-556645440100",
         true, false, null, 5, 14);
-        
+
 INSERT INTO employees
-VALUES ("223e4567-e89b-12d3-a456-556642446011", 160, "Anakin", "Skywalker", "vader", "123e4567-e89b-12d3-a452-556645440100",
+VALUES ("223e4567-e89b-12d3-a456-556642446011", 160, "Anakin", "Skywalker", "vader",
+        "123e4567-e89b-12d3-a452-556645440100",
         true, false, null, 5, 14);
 INSERT INTO employees
-VALUES ("223e4567-e89b-12d3-a456-556642446012", 162, "SupremeLeader", "Snoke", "snoke", "123e4567-e89b-12d3-a452-556645440100",
+VALUES ("223e4567-e89b-12d3-a456-556642446012", 162, "SupremeLeader", "Snoke", "snoke",
+        "123e4567-e89b-12d3-a452-556645440100",
         true, false, null, 5, 14);
 INSERT INTO employees
-VALUES ("223e4567-e89b-12d3-a456-556642446013", 165, "General", "Greivous", "greiv", "123e4567-e89b-12d3-a452-556645440100",
+VALUES ("223e4567-e89b-12d3-a456-556642446013", 165, "General", "Greivous", "greiv",
+        "123e4567-e89b-12d3-a452-556645440100",
         true, false, null, 5, 14);
 INSERT INTO employees
-VALUES ("223e4567-e89b-12d3-a456-556642446014", 168, "Sheev", "Palpatine", "sidious", "123e4567-e89b-12d3-a452-556645440100",
+VALUES ("223e4567-e89b-12d3-a456-556642446014", 168, "Sheev", "Palpatine", "sidious",
+        "123e4567-e89b-12d3-a452-556645440100",
         true, false, null, 5, 14);
 INSERT INTO employees
-VALUES ("223e4567-e89b-12d3-a456-556642446015", 170, "Galen", "Marek", "starkiller", "123e4567-e89b-12d3-a452-556645440100",
+VALUES ("223e4567-e89b-12d3-a456-556642446015", 170, "Galen", "Marek", "starkiller",
+        "123e4567-e89b-12d3-a452-556645440100",
         true, false, null, 5, 14);
 INSERT INTO employees
 VALUES ("223e4567-e89b-12d3-a456-556642446016", 172, "Quinlan", "Vos", "quin", "123e4567-e89b-12d3-a452-556645440100",
         true, false, null, 5, 14);
 INSERT INTO employees
-VALUES ("223e4567-e89b-12d3-a456-556642446017", 173, "jeffrey", "lebowski", "thedude", "123e4567-e89b-12d3-a452-556645440100",
+VALUES ("223e4567-e89b-12d3-a456-556642446017", 173, "jeffrey", "lebowski", "thedude",
+        "123e4567-e89b-12d3-a452-556645440100",
         true, false, null, 5, 14);
 INSERT INTO employees
 VALUES ("223e4567-e89b-12d3-a456-556642446018", 178, "marty", "mcfly", "marty", "123e4567-e89b-12d3-a452-556645440100",
@@ -58,25 +64,24 @@ INSERT INTO employees
 VALUES ("223e4567-e89b-12d3-a456-556642446200", 180, "emmet", "brown", "doc", "123e4567-e89b-12d3-a452-556645440100",
         true, false, null, 5, 14);
 INSERT INTO employees
-VALUES ("223e4567-e89b-12d3-a456-556642446201", 180, "jennifer", "parker", "jen", "123e4567-e89b-12d3-a452-556645440100",
+VALUES ("223e4567-e89b-12d3-a456-556642446201", 180, "jennifer", "parker", "jen",
+        "123e4567-e89b-12d3-a452-556645440100",
         true, false, null, 5, 14);
 INSERT INTO employees
-VALUES ("223e4567-e89b-12d3-a456-556642446203", 180, "bilbo", "baggins", "burglar", "123e4567-e89b-12d3-a452-556645440100",
+VALUES ("223e4567-e89b-12d3-a456-556642446203", 180, "bilbo", "baggins", "burglar",
+        "123e4567-e89b-12d3-a452-556645440100",
         true, false, null, 5, 14);
 INSERT INTO employees
-VALUES ("223e4567-e89b-12d3-a456-556642446220", 180, "gandalf", "thegrey", "gandalf", "123e4567-e89b-12d3-a452-556645440100",
+VALUES ("223e4567-e89b-12d3-a456-556642446220", 180, "gandalf", "thegrey", "gandalf",
+        "123e4567-e89b-12d3-a452-556645440100",
         true, false, null, 5, 14);
 INSERT INTO employees
-VALUES ("223e4567-e89b-12d3-a456-556642446223", 180, "frodo", "baggins", "sneakyhobbit", "123e4567-e89b-12d3-a452-556645440100",
+VALUES ("223e4567-e89b-12d3-a456-556642446223", 180, "frodo", "baggins", "sneakyhobbit",
+        "123e4567-e89b-12d3-a452-556645440100",
         true, false, null, 5, 14);
 
-        
-        
-        
-        
-        
-        
-        
+
+
 DROP TABLE IF EXISTS paygrades;
 CREATE TABLE paygrades
 (
@@ -317,15 +322,19 @@ CREATE TABLE timesheets
     end_date DATE,
     sick     DECIMAL(10, 2),
     flex     DECIMAL(10, 2),
+    vacation DECIMAL(10, 2),
     approved BOOLEAN
 );
 
 INSERT INTO timesheets
-VALUES ("111a1111-e89b-12d4-a456-556642431111", "623e4567-e89b-12d3-a456-556642440710", '2021-03-28', 0, 0, true);
+VALUES ("111a1111-e89b-12d4-a456-556642431111", "623e4567-e89b-12d3-a456-556642440710", '2021-03-28', 0, 0, 0, true);
 INSERT INTO timesheets
-VALUES ("111a2222-e89b-12d4-a456-556642431111", "623e4567-e89b-12d3-a456-556642440710", '2021-03-07', 1, 1, false);
+VALUES ("111a2222-e89b-12d4-a456-556642431111", "623e4567-e89b-12d3-a456-556642440710", '2021-03-07', 1, 10, 10, false);
 INSERT INTO timesheets
-VALUES ("111a3333-e89b-12d4-a456-556642431111", "623e4567-e89b-12d3-a456-556642440710", '2021-03-01', 1, 1, true);
+VALUES ("111a3333-e89b-12d4-a456-556642431111", "623e4567-e89b-12d3-a456-556642440710", '2021-03-01', 1, 5, 5, false);
+INSERT INTO timesheets
+VALUES ("111a4444-e89b-12d4-a456-556642431111", "623e4567-e89b-12d3-a456-556642440710", '2021-04-11', 1, 15, 10, false);
+
 
 DROP TABLE IF EXISTS timesheetrow;
 CREATE TABLE timesheetrow
@@ -399,6 +408,19 @@ VALUES ("123e4537-854b-54a1-a456-556642431111",
         0,
         7,
         0);
+INSERT INTO timesheetrow
+VALUES ("123e4537-777b-54a1-a456-556642432222",
+        "12121212-e89b-12d3-a456-556665430000",
+        "123e4537-e89b-e5e5-a456-556642431111",
+        "111a4444-e89b-12d4-a456-556642431111",
+        "Go vacation",
+        5,
+        5,
+        5,
+        10,
+        0,
+        0,
+        0);
 
 DROP TABLE IF EXISTS recepackage;
 CREATE TABLE recepackage
@@ -412,13 +434,12 @@ CREATE TABLE recepackage
 );
 
 INSERT INTO recepackage
-VALUES (
-	"123e4537-e89b-21a6-a456-550000000000",
-	"123e4537-e89b-b2b2-a456-556642431111",
-	"123e4567-e89b-12d3-a451-556644440000",
-	1,
-	"223e4567-e89b-12d3-a456-556642446010",
-	"123e4537-e89b-a1a1-a456-556642431111");
+VALUES ("123e4537-e89b-21a6-a456-550000000000",
+        "123e4537-e89b-b2b2-a456-556642431111",
+        "123e4567-e89b-12d3-a451-556644440000",
+        1,
+        "223e4567-e89b-12d3-a456-556642446010",
+        "123e4537-e89b-a1a1-a456-556642431111");
 
 DROP TABLE IF EXISTS workpackages;
 CREATE TABLE workpackages
@@ -433,7 +454,7 @@ CREATE TABLE workpackages
     enddate             DATE,
     isleaf              BOOLEAN,
     project             TINYTEXT,
-    responsibleengineer	TINYTEXT
+    responsibleengineer TINYTEXT
 );
 
 INSERT INTO workpackages

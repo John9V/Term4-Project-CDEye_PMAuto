@@ -2,21 +2,27 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
     <h:outputStylesheet library="css" name="styles.css"/>
     <title>Project Management System</title>
 </h:head>
 <h:body>
     <!-- Side bar panel will control the navigation of the application-->
-    <div class="side-bar">
-
-    </div>
+    <div class="side-bar"></div>
 
     <!-- The current route -->
     <div class="header-bar">
-        <h3>Timesheet List</h3>
+        <h3>TIMESHEET LIST</h3>
+        <h:button styleClass="back-button" rendered="#{not empty activeEmployeeBean.userName}" value="Back" outcome="#{timesheetList.back()}" />
+        <div class="logout-button">
+            <h:form styleClass="">
+                <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+                                 value="Logout" action="#{activeEmployeeBean.logout}" />
+                <h:commandButton rendered="#{empty activeEmployeeBean.userName}"
+                                 value="Login" action="login" />
+            </h:form>
+        </div>
     </div>
 
     <div class="container">
@@ -50,7 +56,6 @@
                 </h:column>
             </h:dataTable>
             <h:commandButton styleClass="command-button" value="Save" action="#{timesheetList.save()}"/>
-            <h:commandButton styleClass="command-button" value="Back" action="#{timesheetList.back()}"/>
         </h:form>
     </div>
 </h:body>

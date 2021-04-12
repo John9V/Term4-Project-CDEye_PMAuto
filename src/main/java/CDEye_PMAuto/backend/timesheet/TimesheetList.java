@@ -62,19 +62,17 @@ public class TimesheetList implements Serializable {
 	
 	public List<EditableTimesheet> filterForManagerViewUnapproved() {
 	    List<EditableTimesheet> filtered = new ArrayList<EditableTimesheet>();
-	    List<Timesheet> allSheets = Arrays.asList(timesheetManager.getAll());
+	    Timesheet[] allSheets = timesheetManager.getAll();
 	    for (Timesheet sheet : allSheets) {
 	        Employee manager = sheet.getEmployee().getManager();
-	        if (manager != null && manager.getUserName().equals(activeEmployee.getUserName())
-	                && !sheet.isApproved()) {
+	        if (manager != null && manager.getUserName().equals(activeEmployee.getUserName()) && !sheet.isApproved())
 	            filtered.add(new EditableTimesheet(sheet));
-	        }
 	    }
 	    managerViewList = filtered;
 	    return filtered;
 	}
-	
-	public String save() {
+
+	private void updateTimesheetDB(List<EditableTimesheet> list) {
 		for (EditableTimesheet editableTimesheet : list) {
 			if (editableTimesheet.isEditable()) {
 				Timesheet t = new Timesheet(editableTimesheet);
@@ -86,26 +84,20 @@ public class TimesheetList implements Serializable {
 				timesheetManager.deleteTimesheet(t);
 			}
 		}
+	}
+
+	public String save() {
+		updateTimesheetDB(list);
 		refreshList();
 		if (!conversation.isTransient()) {
 			conversation.end();
 		}
 		return "TimesheetList";
 	}
-	
+
 	public String saveForManagerView() {
-        for (EditableTimesheet editableTimesheet : managerViewList) {
-            if (editableTimesheet.isEditable()) {
-                Timesheet t = new Timesheet(editableTimesheet);
-                timesheetManager.updateTimesheet(t);
-                editableTimesheet.setEditable(false);
-            }
-            if (editableTimesheet.isDeletable()) {
-                Timesheet t = new Timesheet(editableTimesheet);
-                timesheetManager.deleteTimesheet(t);
-            }
-        }
-        filterForManagerViewUnapproved();
+		updateTimesheetDB(managerViewList);
+		filterForManagerViewUnapproved();
         if (!conversation.isTransient()) {
             conversation.end();
         }
@@ -118,5 +110,4 @@ public class TimesheetList implements Serializable {
 		}
 		return activeEmployee.getHr() ? "HRHome" : "Home";
 	}
-	
 }

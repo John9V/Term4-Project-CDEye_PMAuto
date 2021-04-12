@@ -9,8 +9,6 @@
 	<h:outputStylesheet library="css" name="styles.css" />
 	<title>Project Management System</title>
 </h:head>
-
-<!--http://localhost:8080/CDEye_PMAuto/CreateEmployee.xhtml-->
 <h:body>
 	<!-- Side bar panel will control the navigation of the application-->
 	<div class="side-bar"></div>
@@ -18,6 +16,7 @@
 	<!-- The current route -->
 	<div class="header-bar">
 		<h3>WP List</h3>
+		<h:button styleClass="back-button" rendered="#{not empty activeEmployeeBean.userName}" value="Home" outcome="#{workPackageList.home()}" />
 		<div class="logout-button">
 			<h:form styleClass="">
 				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
@@ -31,21 +30,16 @@
 	<!-- Form Container: reusable horizontal row input style-->
 	<!-- Need to replace the input value with Employee class members.-->
 	<ui:fragment rendered="#{not empty activeEmployeeBean.userName}">
-		<div class="form-container">
+		<div class="container">
 			<h:form>
-				<div class="button-container">
-					<p>"Work Packages you are assigned as #{activeEmployeeBean.userName}"</p>
-				</div>
-
+				<p>"Work Packages you are assigned as #{activeEmployeeBean.userName}"</p>
+				<br/>
 				<p>
 					Work Package:
 					<h:inputText value="#{workPackageList.searchPackageNumber}" />
-					<h:commandButton value="Search"
-						action="#{workPackageList.refreshList()}" />
+					<h:commandButton styleClass="command-button" value="Search" action="#{workPackageList.refreshList()}" />
 				</p>
-
-				<h:dataTable value="#{workPackageList.listAsEmp}" var="wp"
-					styleClass="data-table">
+				<h:dataTable value="#{workPackageList.listAsEmp}" var="wp" styleClass="data-table">
 					<h:column>
 						<f:facet name="header">WP Number</f:facet>
 						<h:inputText styleClass="edit-input"

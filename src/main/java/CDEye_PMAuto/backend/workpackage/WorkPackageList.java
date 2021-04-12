@@ -173,6 +173,13 @@ public class WorkPackageList implements Serializable {
         refreshList();
     }
 
+    public String home() {
+        if(!conversation.isTransient()) {
+            conversation.end();
+        }
+        return "HRHome";
+    }
+
     /**
      * @return the searchId
      */

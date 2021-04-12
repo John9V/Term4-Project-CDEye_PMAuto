@@ -39,9 +39,7 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 	private LocalDate sheetDate;
 	private List<EditableTimesheetRow> editableRows;
 
-	public CreateTimesheetBean(){
-		System.out.println("CreateTimeSheetBean");
-	}
+	public CreateTimesheetBean(){ }
 
 	public String initialize(String activeUserName) {
 		if (!conversation.isTransient()) {
@@ -52,7 +50,6 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 		Employee activeEmployee = employeeManager.getEmployeeByUserName(activeUserName);
 		this.setEmployee(activeEmployee);
 		this.editableRows = new ArrayList<>();
-		System.out.println("initialized");
 		return "CreateTimesheet";
 	}
 
@@ -76,7 +73,7 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 				TimesheetRow tsr = new TimesheetRow(er);
 				this.getDetails().add(tsr);
 				rowManager.addRow(tsr);
-			} else System.out.println("Not found");
+			} else System.out.println("findWpsByPkgNumAndProj returns none.");
 		}
 	}
 
@@ -96,8 +93,6 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 		}
 	}
 
-	//Create an approval
-
 	public void addRow() {
 		EditableTimesheetRow etr = new EditableTimesheetRow();
 		etr.setProjects(projectManager.getAll());
@@ -114,6 +109,7 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 	public LocalDate getSheetDate() {
 		return sheetDate;
 	}
+
 	public void setSheetDate(LocalDate sheetDate) {
 		this.sheetDate = sheetDate;
 	}

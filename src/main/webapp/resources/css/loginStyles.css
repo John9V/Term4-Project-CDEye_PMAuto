@@ -13,9 +13,10 @@ body{
     transform: translate(-50%,-50%);
     background: #191919;
     text-align: center;
+    border-radius: 15px;
 }
 .box h1{
-    color: #191919;
+    color: #fff;
     text-transform: uppercase;
     font-weight: 500;
 }

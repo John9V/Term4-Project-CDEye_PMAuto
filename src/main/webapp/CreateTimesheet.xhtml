@@ -7,17 +7,22 @@
     <h:outputStylesheet library="css" name="styles.css"/>
     <title>Project Management System</title>
 </h:head>
-
-<!--http://localhost:8080/CDEye_PMAuto/CreateEmployee.xhtml-->
 <h:body>
     <!-- Side bar panel will control the navigation of the application-->
-    <div class="side-bar">
-
-    </div>
+    <div class="side-bar"></div>
 
     <!-- The current route -->
     <div class="header-bar">
         <h3>CREATE A NEW TIMESHEET</h3>
+        <h:button styleClass="back-button" rendered="#{not empty activeEmployeeBean.userName}" value="Back" outcome="#{createTimesheet.back()}" />
+        <div class="logout-button">
+            <h:form styleClass="">
+                <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+                                 value="Logout" action="#{activeEmployeeBean.logout}" />
+                <h:commandButton rendered="#{empty activeEmployeeBean.userName}"
+                                 value="Login" action="login" />
+            </h:form>
+        </div>
     </div>
 
     <!-- Form Container: reusable horizontal row input style-->
@@ -99,7 +104,6 @@
             </h:dataTable>
             <h:commandButton styleClass="command-button" value="ADD ROW" action="#{createTimesheet.addRow()}"/>
             <h:commandButton styleClass="command-button" value="CREATE" action="#{createTimesheet.add()}"/>
-            <h:commandButton styleClass="command-button" value="Back" action="#{createTimesheet.back()}"/>
         </h:form>
     </div>
 </h:body>
