@@ -100,9 +100,7 @@ public class WorkPackageManager implements Serializable {
     }
     
     public WorkPackage[] findWpsByPkgNumAndProj(String workPackageNumber, Project p) {
-    	//System.out.println("the wp num is " + workPackageNumber);
-    	//System.out.println("the proj is " + p.getProjectName());
-    	//System.out.println("the proj id is " + p.getId());
+    	System.out.println("the wp num being looked up is " + workPackageNumber);
     	TypedQuery<WorkPackage> query = em.createQuery(
                 "SELECT wp FROM WorkPackage wp WHERE wp.workPackageNumber = :workPackageNumber AND wp.project.id = :projectId", WorkPackage.class)
     			.setParameter("workPackageNumber", workPackageNumber)
@@ -347,7 +345,7 @@ public class WorkPackageManager implements Serializable {
     public String determineParentWPNum(String wpNumber) {
         //Gets the WP Number(10000) -> 11000, 12000, 13000, 14000, 1500 -> 11100 , 11200
         String wpNum = wpNumber;
-        
+        System.out.println("running determinewpnum");
         //Concatenates any non 0 digit to the blank string (This assumes a wp must have all trailing 0s at the end)
         
       
