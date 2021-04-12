@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 	<h:outputStylesheet library="css" name="styles.css" />
@@ -17,19 +17,13 @@
 
 	<!-- The current route -->
 	<div class="header-bar">
-	<div class="back-button">
-			<h:form styleClass="">
-				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
-					value="Home" action="HRHome.xhtml?faces-redirect=true" />
-			</h:form>
-		</div>
-		<h3>WP List</h3>
+		<h3>WP List [Employee Cost Estimate]</h3>
 		<div class="logout-button">
 			<h:form styleClass="">
 				<h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
-					value="Logout" action="#{activeEmployeeBean.logout}" />
+								 value="Logout" action="#{activeEmployeeBean.logout}" />
 				<h:commandButton rendered="#{empty activeEmployeeBean.userName}"
-					value="Login" action="login" />
+								 value="Login" action="login" />
 			</h:form>
 		</div>
 	</div>
@@ -37,64 +31,75 @@
 	<!-- Form Container: reusable horizontal row input style-->
 	<!-- Need to replace the input value with Employee class members.-->
 	<ui:fragment rendered="#{not empty activeEmployeeBean.userName}">
-		<div class="form-container">
+		<!--		<div class="form-container">-->
+		<!--			<h:form>-->
+		<div class="wplist-header">
+			<h2>Work Packages you are the employee for as
+				#{activeEmployeeBean.userName}</h2>
+		</div>
+
+
+		<!--				<p>-->
+		<!--					Work Package:-->
+		<!--					<h:inputText value="#{workPackageList.searchPackageNumber}" />-->
+		<!--					<h:commandButton value="Search"-->
+		<!--						action="#{workPackageList.refreshList()}" />-->
+		<!--				</p>-->
+
+		<div class="wplist-form-container">
 			<h:form>
-				<div class="button-container">
-					<p>"Work Packages you are assigned as #{activeEmployeeBean.userName}"</p>
+				<div class="wplist-search-input-row">
+					<span style="margin-right: 16px">Work Package Number: </span>
+					<h:inputText value="#{workPackageList.searchPackageNumber}" />
+					<h:commandButton styleClass="wplist-button" value="Search"
+									 action="#{workPackageList.refreshList()}" />
 				</div>
 
-				<p>
-					Work Package:
-					<h:inputText value="#{workPackageList.searchPackageNumber}" />
-					<h:commandButton value="Search"
-						action="#{workPackageList.refreshList()}" />
-				</p>
-
 				<h:dataTable value="#{workPackageList.listAsEmp}" var="wp"
-					styleClass="data-table">
+							 styleClass="data-table" style="margin:16px 0">
 					<h:column>
-						<f:facet name="header">WP Number</f:facet>
-						<h:inputText styleClass="edit-input"
-							value="#{wp.workPackageNumber}" rendered="#{wp.editable}" />
-						<h:outputText styleClass="edit-output"
-							value="#{wp.workPackageNumber}" rendered="#{not wp.editable}" />
+						<f:facet name="header" style="font-size: 18px">WP Number</f:facet>
+						<h:inputText styleClass="edit-input" style="font-size: 18px"
+									 value="#{wp.workPackageNumber}" rendered="#{wp.editable}" />
+						<h:outputText styleClass="edit-output" style="font-size: 18px"
+									  value="#{wp.workPackageNumber}" rendered="#{not wp.editable}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">Project Name</f:facet>
-						<h:inputText styleClass="edit-input"
-							value="#{wp.project.projectName}" rendered="#{wp.editable}" />
-						<h:outputText styleClass="edit-output"
-							value="#{wp.project.projectName}" rendered="#{not wp.editable}" />
+						<h:inputText styleClass="edit-input" style="font-size: 18px"
+									 value="#{wp.project.projectName}" rendered="#{wp.editable}" />
+						<h:outputText styleClass="edit-output" style="font-size: 18px"
+									  value="#{wp.project.projectName}" rendered="#{not wp.editable}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">Work Package Budget</f:facet>
-						<h:inputText styleClass="edit-input" value="#{wp.projectBudget}"
-							rendered="#{wp.editable}" />
-						<h:outputText styleClass="edit-output" value="#{wp.projectBudget}"
-							rendered="#{not wp.editable}" />
+						<h:inputText styleClass="edit-input" style="font-size: 18px" value="#{wp.projectBudget}"
+									 rendered="#{wp.editable}" />
+						<h:outputText styleClass="edit-output" style="font-size: 18px" value="#{wp.projectBudget}"
+									  rendered="#{not wp.editable}" />
 					</h:column>
 					<h:column>
-                    <f:facet name="header">Unallocated Budget</f:facet>
-						<h:outputText styleClass="edit-output"
-							value="#{wp.calcUnallocatedBudget()}" />
+						<f:facet name="header" >Unallocated Budget</f:facet>
+						<h:outputText styleClass="edit-output" style="font-size: 18px"
+									  value="#{wp.calcUnallocatedBudget()}" />
 					</h:column>
 					<h:column>
-                    <f:facet name="header">Allocated Budget</f:facet>
-                    <h:outputText styleClass="edit-output" value="#{wp.calcAllocatedBudget()}"/>
-                </h:column> 
-                <h:column>
-                    <f:facet name="header">Parent WP Number</f:facet>
-                    <h:inputText styleClass="edit-input" value="#{wp.parentWp.workPackageNumber}" rendered="#{wp.editable}"/>
-                    <h:outputText styleClass="edit-output" value="#{wp.parentWp.workPackageNumber}" rendered="#{not wp.editable}" />
-                </h:column>             
+						<f:facet name="header">Allocated Budget</f:facet>
+						<h:outputText styleClass="edit-output"  style="font-size: 18px" value="#{wp.calcAllocatedBudget()}"/>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Parent WP Number</f:facet>
+						<h:inputText styleClass="edit-input" style="font-size: 18px" value="#{wp.parentWp.workPackageNumber}" rendered="#{wp.editable}"/>
+						<h:outputText styleClass="edit-output" style="font-size: 18px" value="#{wp.parentWp.workPackageNumber}" rendered="#{not wp.editable}" />
+					</h:column>
 					<h:column>
 						<f:facet name="header">Edit</f:facet>
 						<h:commandButton styleClass="command-button" value="Edit"
-							action="#{activeWpBean.setActiveWorkPackage(wp)}" />
+										 action="#{activeWpBean.setActiveWorkPackage(wp)}" />
 					</h:column>
 				</h:dataTable>
-				<h:commandButton styleClass="command-button" value="NewWorkPackage"
-					action="CreateWorkPackage" />
+				<h:commandButton styleClass="wplist-button" value="New Work Package"
+								 style="margin-top: 16px" action="CreateWorkPackage" />
 			</h:form>
 		</div>
 	</ui:fragment>
