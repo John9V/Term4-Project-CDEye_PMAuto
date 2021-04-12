@@ -160,8 +160,9 @@ public class NewWorkPackage extends WorkPackage implements Serializable {
 //		System.out.println("committed work package " + wp.getId().toString() + " wpnum " + wp.getWorkPackageNumber());
 //		createWpAllocs(addedWp);
 //		createRECEs(addedWp);
-
+		System.out.println("about to refreshing wplist");
 		wpl.refreshList();
+		System.out.println("after refreshing wplist");
 		return "WPList";
 	}
 

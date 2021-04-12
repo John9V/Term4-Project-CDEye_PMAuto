@@ -47,14 +47,14 @@ public class WorkPackageList implements Serializable {
     private String searchParentPackageId; // = "123e4567-e89b-12d3-a456-599342400001";
     private String searchPackageNumber; // = "111";
 
-    @Inject 
-    Conversation conversation;
+//    @Inject 
+//    Conversation conversation;
     
     public List<EditableWorkPackage> getList() {
-        if(!conversation.isTransient()) {
-            conversation.end();
-        }
-        conversation.begin();
+//        if(!conversation.isTransient()) {
+//            conversation.end();
+//        }
+//        conversation.begin();
         if (list == null) {
             refreshList();
         }
@@ -92,6 +92,7 @@ public class WorkPackageList implements Serializable {
     }
 
     public List<EditableWorkPackage> refreshList() {
+    	System.out.println("starting to refresh wp list");
     	Project activeProj = new Project(apb.getId(), apb.getProjectName(), apb.getProjectNumber(), 
     			apb.getProjManager(), apb.getStartDate(), apb.getEndDate(), apb.getEstimateBudget(), 
     			apb.getMarkUpRate(), apb.getProjectBudget());
@@ -140,6 +141,7 @@ public class WorkPackageList implements Serializable {
             wp.setRECEs(receList);
             list.add(wp);
         }
+        System.out.println("finishing wp list refresh");
         return list;
     }
     

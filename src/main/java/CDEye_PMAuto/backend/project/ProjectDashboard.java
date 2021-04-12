@@ -18,7 +18,7 @@ import java.util.List;
 public class ProjectDashboard implements Serializable {
 	@Inject @Dependent private ProjectManager projectManager;
 	private List<EditableProject> list;
-	@Inject Conversation conversation;
+//	@Inject Conversation conversation;
 	@Inject ActiveProjectBean apb;
 	@Inject ActiveEmployeeBean activeEmp;
 	@Inject ProjectList projList;
@@ -28,10 +28,10 @@ public class ProjectDashboard implements Serializable {
 	private EditableProject deletedProject = new EditableProject();
 	
 	public List<EditableProject> getList() {
-		if (!conversation.isTransient()) {
-			conversation.end();
-		}
-		conversation.begin();
+//		if (!conversation.isTransient()) {
+//			conversation.end();
+//		}
+//		conversation.begin();
 		if (list == null) {
 			refreshList();
 		}
@@ -56,12 +56,12 @@ public class ProjectDashboard implements Serializable {
 	}
 
 	public String viewProjectWPs(EditableProject p) {
-		conversation.end();
+		//conversation.end();
 		return apb.setActiveProjectBean(p);
 	}
 
 	public String editProject(EditableProject p) {
-		conversation.end();
+//		conversation.end();
 		return epb.setActiveProjectBean(p);
 	}
 	
@@ -72,7 +72,7 @@ public class ProjectDashboard implements Serializable {
     }
     
     public String reportProject(EditableProject p) {
-        conversation.end();
+//        conversation.end();
         return apb.setReportProjectBean(p);
     }
 

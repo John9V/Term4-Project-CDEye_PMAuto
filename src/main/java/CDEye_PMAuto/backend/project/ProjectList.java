@@ -7,26 +7,27 @@ import java.util.List;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import CDEye_PMAuto.backend.employee.ActiveEmployeeBean;
 
 @Named("projectList")
-@ConversationScoped
+@RequestScoped
 public class ProjectList implements Serializable {
 	@Inject @Dependent private ProjectManager projectManager;
 	private List<EditableProject> list;
 	private List<EditableProject> listForPM;
-	@Inject Conversation conversation;
+//	@Inject Conversation conversation;
 	@Inject ActiveProjectBean apb;
 	@Inject ActiveEmployeeBean activeEmp;
 	
 	public List<EditableProject> getList() {
-		if (!conversation.isTransient()) {
-			conversation.end();
-		}
-		conversation.begin();
+//		if (!conversation.isTransient()) {
+//			conversation.end();
+//		}
+//		conversation.begin();
         if (list == null) {
             refreshList();
         }
@@ -34,10 +35,10 @@ public class ProjectList implements Serializable {
     }
 	
 	public List<EditableProject> getListForPM() {
-        if (!conversation.isTransient()) {
-            conversation.end();
-        }
-        conversation.begin();
+//        if (!conversation.isTransient()) {
+//            conversation.end();
+//        }
+//        conversation.begin();
         if (listForPM == null) {
             refreshListForPM();
         }

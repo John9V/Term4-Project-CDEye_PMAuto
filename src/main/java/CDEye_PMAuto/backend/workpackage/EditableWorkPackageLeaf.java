@@ -56,7 +56,8 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
      * @return Edit selected workpackage leaf
      */
     public String editSelectedWP(WorkPackage selectedWp) {
-    	receList.refreshList();
+    	System.out.println("starting in edit bean ");
+    	//receList.refreshList();
         this.id = selectedWp.id;
         this.workPackageNumber = selectedWp.workPackageNumber;
         this.parentWp = selectedWp.parentWp;
@@ -76,7 +77,8 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
         this.responsibleEngineer = selectedWp.responsibleEngineer;
         
         if (this.isLeaf) {
-        	return "EDIT_WP_LEAF";
+        	System.out.println("returning in edit bean ");
+        	return "EditWorkPackageLeaf?faces-redirect=true";
         } else {
         	return "EditWorkPackageBranch";
         }
@@ -202,10 +204,14 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
     public String getRespEngUsername() {
         System.out.println("WP number: " + activeWP.getWorkPackageNumber());
         System.out.println("WP proj: " + activeWP.getProject().toString());
-        Employee respEng = workPackageManager.findWpsByPkgNumAndProj(
-                activeWP.getWorkPackageNumber(), activeWP.getProject())
-                [0].getResponsibleEngineer();
-        return respEng != null ? respEng.getUserName() : "No One";
+        System.out.println("before getrespenglookup");
+//        Employee respEng = workPackageManager.findWpsByPkgNumAndProj(
+//                activeWP.getWorkPackageNumber(), activeWP.getProject())
+//                [0].getResponsibleEngineer();
+//        System.out.println("after getrespenglookup");
+//        return respEng != null ? respEng.getUserName() : "No One";
+        System.out.println("after getrespenglookup");
+        return "No one";
     }
 
     /**

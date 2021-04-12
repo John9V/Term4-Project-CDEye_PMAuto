@@ -234,7 +234,7 @@ public class WorkPackageManager implements Serializable {
      * @return calculated responsible engineer person day estimate
      */
     public BigDecimal calculateREPDEstimate(WorkPackage wp) {
-        RespEngCostEstimate[] respEngPDEstimates = receManager.getByWP(wp);
+        RespEngCostEstimate[] respEngPDEstimates = receManager.getByWP(wp.id);
         BigDecimal personDays = new BigDecimal(0);
         
         for (RespEngCostEstimate estimatePD : respEngPDEstimates) {
@@ -252,7 +252,7 @@ public class WorkPackageManager implements Serializable {
      * @return calculated responsible engineer budget estimate
      */
     public BigDecimal calculateREBudgetEstimate(WorkPackage wp) {
-        RespEngCostEstimate[] respEngCostEstimates = receManager.getByWP(wp);
+        RespEngCostEstimate[] respEngCostEstimates = receManager.getByWP(wp.id);
         BigDecimal budget = new BigDecimal(0);
         
         for (RespEngCostEstimate estimateCost : respEngCostEstimates) {

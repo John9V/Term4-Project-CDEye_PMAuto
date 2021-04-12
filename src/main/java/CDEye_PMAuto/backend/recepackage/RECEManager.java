@@ -37,19 +37,35 @@ public class RECEManager implements Serializable {
         return packageArr;
     }
     
-    public RespEngCostEstimate[] getByWP(WorkPackage wp) {
-        TypedQuery<RespEngCostEstimate> query = em.createQuery(
-                "SELECT r FROM RespEngCostEstimate r WHERE r.workPackage.id = :wpId", RespEngCostEstimate.class)
-                .setParameter("wpId", wp.getId());
-        List<RespEngCostEstimate> respEngCostEstimates = query.getResultList();
-        
-        RespEngCostEstimate[] respEngCostEstimateArr = new RespEngCostEstimate[respEngCostEstimates.size()];
-        for (int i = 0; i < respEngCostEstimateArr.length; i++) {
-            respEngCostEstimateArr[i] = respEngCostEstimates.get(i);
+    public RespEngCostEstimate[] getByWP(UUID wpId) {
+    	TypedQuery<RespEngCostEstimate> query = em.createQuery("select p from RespEngCostEstimate p", RespEngCostEstimate.class); 
+        List<RespEngCostEstimate> packages = query.getResultList();
+        RespEngCostEstimate[] packageArr = new RespEngCostEstimate[9];
+        int j = 0;
+        for (int i = 0; i < packages.size(); i++) {
+        	if (packages.get(i).workPackage.getId().equals(wpId)) {
+        		packageArr[j] = packages.get(i);
+        		j++;
+        	}
         }
-        
-        return respEngCostEstimateArr;
+        System.out.println("returned " + packageArr.length + " wps");
+        return packageArr;
     }
+    
+//    public RespEngCostEstimate[] getByWP(UUID wpId) {
+//    	System.out.println("querying for reces for wp " + wpId);
+//        TypedQuery<RespEngCostEstimate> query = em.createQuery(
+//                "SELECT r FROM RespEngCostEstimate r WHERE r.workPackage.id = :wpId", RespEngCostEstimate.class)
+//                .setParameter("wpId", wpId);
+//        List<RespEngCostEstimate> respEngCostEstimates = query.getResultList();
+//        System.out.println("after query " + wpId + "");
+//        RespEngCostEstimate[] respEngCostEstimateArr = new RespEngCostEstimate[respEngCostEstimates.size()];
+//        for (int i = 0; i < respEngCostEstimateArr.length; i++) {
+//            respEngCostEstimateArr[i] = respEngCostEstimates.get(i);
+//        }
+//        System.out.println("after query before return");
+//        return respEngCostEstimateArr;
+//    }
     
     public RespEngCostEstimate getByUUID(String uuid) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
