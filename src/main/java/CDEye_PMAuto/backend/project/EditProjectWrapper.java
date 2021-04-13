@@ -66,6 +66,12 @@ public class EditProjectWrapper implements Serializable {
         System.out.println("selectedManager:" + selectedManager);
         editProject.projManager = employeeManager.getEmployeeByUserName(selectedManager);
         projectManager.updateProject(editProject);
+        editProject = new Project();
+        return "ProjectDashboard?faces-redirect=true";
+    }
+
+    public String back() {
+        editProject = new Project();
         return "ProjectDashboard?faces-redirect=true";
     }
 

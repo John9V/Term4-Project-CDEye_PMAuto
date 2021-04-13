@@ -11,17 +11,22 @@
 <h:body>
     <div class="side-bar"></div>
     <div class="header-bar">
-        <h3>Create New Project</h3>
-        <h:button styleClass="back-button" rendered="#{not empty activeEmployeeBean.userName}" value="Home"
-                  outcome="HRHome"/>
+        <div class="back-button">
+            <h:form styleClass="">
+                <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+                                 value="Home" action="HRHome.xhtml?faces-redirect=true" />
+            </h:form>
+        </div>
+        <h3>CREATE NEW PROJECT</h3>
         <div class="logout-button">
             <h:form styleClass="">
                 <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
-                                 value="Logout" action="#{activeEmployeeBean.logout}"/>
+                                 value="Logout" action="#{activeEmployeeBean.logout}" />
                 <h:commandButton rendered="#{empty activeEmployeeBean.userName}"
-                                 value="Login" action="login"/>
+                                 value="Login" action="login" />
             </h:form>
         </div>
+
     </div>
     <!-- Form Container: reusable horizontal row input style-->
     <!-- Need to replace the input value with Employee class members.-->

@@ -13,17 +13,13 @@
 
     <!-- The current route -->
     <div class="header-bar">
-        <h3>TIMESHEET LIST</h3>
-        <h:button styleClass="back-button" rendered="#{not empty activeEmployeeBean.userName}" value="Back"
-                  outcome="#{timesheetList.back()}"/>
-        <div class="logout-button">
+        <div class="back-button">
             <h:form styleClass="">
                 <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
-                                 value="Logout" action="#{activeEmployeeBean.logout}"/>
-                <h:commandButton rendered="#{empty activeEmployeeBean.userName}"
-                                 value="Login" action="login"/>
+                                 value="Home" action="HRHome.xhtml?faces-redirect=true" />
             </h:form>
         </div>
+        <h3>TIMESHEET LIST</h3>
     </div>
 
     <div class="container">
@@ -57,6 +53,7 @@
                 </h:column>
             </h:dataTable>
             <h:commandButton styleClass="command-button" value="Save" action="#{timesheetList.save()}"/>
+            <h:commandButton styleClass="command-button" value="Back" action="#{timesheetList.back()}"/>
         </h:form>
     </div>
 </h:body>
