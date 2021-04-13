@@ -14,13 +14,14 @@
     <!-- The current route -->
     <div class="header-bar">
         <h3>TIMESHEET LIST</h3>
-        <h:button styleClass="back-button" rendered="#{not empty activeEmployeeBean.userName}" value="Back" outcome="#{timesheetList.back()}" />
+        <h:button styleClass="back-button" rendered="#{not empty activeEmployeeBean.userName}" value="Back"
+                  outcome="#{timesheetList.back()}"/>
         <div class="logout-button">
             <h:form styleClass="">
                 <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
-                                 value="Logout" action="#{activeEmployeeBean.logout}" />
+                                 value="Logout" action="#{activeEmployeeBean.logout}"/>
                 <h:commandButton rendered="#{empty activeEmployeeBean.userName}"
-                                 value="Login" action="login" />
+                                 value="Login" action="login"/>
             </h:form>
         </div>
     </div>

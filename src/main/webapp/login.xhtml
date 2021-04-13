@@ -16,10 +16,10 @@
         <h1>
             <h:outputText value="CDEye"/><br/>
         </h1>
-        <h:inputText value="#{activeEmployeeBean.userName}">
+        <h:inputText value="#{activeEmployeeBean.userName}" required="true">
             <f:passThroughAttribute name="placeholder" value="Username" />
         </h:inputText>
-        <h:inputSecret value="#{activeEmployeeBean.password}">
+        <h:inputSecret value="#{activeEmployeeBean.password}" required="true">
             <f:passThroughAttribute name="placeholder" value="Password" />
         </h:inputSecret>
         <h:commandButton value="Sign in" action="#{activeEmployeeBean.login}" />

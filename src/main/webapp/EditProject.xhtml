@@ -15,9 +15,13 @@
 
     <!-- The current route -->
     <div class="header-bar">
+        <div class="back-button">
+            <h:form styleClass="">
+                <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+                                 value="Home" action="HRHome.xhtml?faces-redirect=true"/>
+            </h:form>
+        </div>
         <h3>EDIT PROJECT</h3>
-        <h:button styleClass="back-button" rendered="#{not empty activeEmployeeBean.userName}" value="Back"
-                  outcome="#{projectDashboard.back()}"/>
         <div class="logout-button">
             <h:form styleClass="">
                 <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"

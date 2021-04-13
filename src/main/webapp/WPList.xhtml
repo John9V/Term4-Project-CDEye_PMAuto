@@ -13,14 +13,19 @@
 <h:body>
     <div class="side-bar"></div>
     <div class="header-bar">
-        <h3>Project Details</h3>
-        <h:button styleClass="back-button" rendered="#{not empty activeEmployeeBean.userName}" value="Back"
-                  outcome="#{projectDashboard.back()}"/>
+        <div class="back-button">
+            <h:form styleClass="">
+                <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+                                 value="Home" action="HRHome.xhtml?faces-redirect=true"/>
+            </h:form>
+        </div>
+        <h3>WORKPACKAGE LIST</h3>
         <div class="logout-button">
             <h:form styleClass="">
-                <h:commandButton rendered="#{not empty activeEmployeeBean.userName}" value="Logout"
-                                 action="#{activeEmployeeBean.logout}"/>
-                <h:commandButton rendered="#{empty activeEmployeeBean.userName}" value="Login" action="login"/>
+                <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+                                 value="Logout" action="#{activeEmployeeBean.logout}"/>
+                <h:commandButton rendered="#{empty activeEmployeeBean.userName}"
+                                 value="Login" action="login"/>
             </h:form>
         </div>
     </div>

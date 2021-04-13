@@ -29,15 +29,15 @@
             <h:panelGrid columns="2" cellpadding="10">
                 <p:outputLabel for="@next" value="Week Ending: "/>
                 <p:inputText placeholder="MMM. DD, YYYY" id="sheetDate" value="#{createTimesheet.endDate}"
-                             required="true" styleClass="week-input" >
+                             required="true" styleClass="week-input">
                     <f:convertDateTime type="localDate"/>
                 </p:inputText>
 
                 <p:outputLabel for="@next" value="Flex hours: "/>
-                <p:spinner id="flex" value="#{createTimesheet.flex}" stepFactor="0.5" min="0.0" max="40.0" />
+                <p:spinner id="flex" value="#{createTimesheet.flex}" stepFactor="0.5" min="0.0" max="40.0"/>
 
                 <p:outputLabel for="@next" value="Vacation hours: "/>
-                <p:spinner id="vacation" value="#{createTimesheet.vacation}" stepFactor="0.5" min="0.0" max="40.0" />
+                <p:spinner id="vacation" value="#{createTimesheet.vacation}" stepFactor="0.5" min="0.0" max="40.0"/>
             </h:panelGrid>
 
             <h:dataTable value="#{createTimesheet.editableRows}" styleClass="data-table" var="timesheetRow">

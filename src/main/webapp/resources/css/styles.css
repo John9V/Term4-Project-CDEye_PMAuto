@@ -29,6 +29,39 @@ input:focus {
 	height: 100%;
 }
 
+.header-bar h3 {
+	text-align: center;
+	margin-left: -7vw;
+}
+
+.back-button input {
+	position: absolute;
+	top: 6px;
+	left: 96px;
+	border-radius: 25px;
+	padding: 8px;
+	color: white;
+	background-color: #0075FF;
+	border: 1px solid #0075FF;
+	font-size: 16px;
+	width: 120px;
+	border-radius: 25px;
+}
+
+.header-bar h3 {
+	font-size: 20px;
+	text-align: center;
+}
+
+
+.header h3 {
+	margin-left: -7vw;
+	font-size: 20px;
+	text-align: center;
+}
+
+
+
 /*Header Bar*/
 .header-bar {
 	position: fixed;

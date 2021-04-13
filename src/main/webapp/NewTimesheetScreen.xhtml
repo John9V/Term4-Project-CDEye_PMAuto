@@ -17,6 +17,12 @@
 
     <!-- The current route -->
     <div class="header-bar">
+        <div class="back-button">
+            <h:form styleClass="">
+                <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+                                 value="Home" action="HRHome.xhtml?faces-redirect=true"/>
+            </h:form>
+        </div>
         <h3>CREATE A NEW TIMESHEET</h3>
     </div>
 
@@ -28,7 +34,7 @@
             <div class="input-row">
                 <p>Week Ending</p>
                 <h:inputText value="#{createTimesheet.endDate}" required="true">
-                    <f:convertDateTime type="localDate" />
+                    <f:convertDateTime type="localDate"/>
                 </h:inputText>
             </div>
 
@@ -38,97 +44,105 @@
                     <h:column>
                         <f:facet name="header">PROJECT</f:facet>
                         <h:inputText value="#{timesheetRow.projectID}"/>
-                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}" name="footer">#{msgs['timesheetRow.total']}</f:facet>
+                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}"
+                                 name="footer">#{msgs['timesheetRow.total']}</f:facet>
                     </p:column>
                     <p:column>
                         <f:facet name="header">#{msgs['timesheetRow.workPackage']}</f:facet>
                         <h:outputText value="#{timesheetRow.workPackage}"
-                                      rendered="#{not timesheetController.editTimesheet.editable}" />
+                                      rendered="#{not timesheetController.editTimesheet.editable}"/>
                         <p:inputText value="#{timesheetRow.workPackage}"
-                                     rendered="#{timesheetController.editTimesheet.editable}" />
+                                     rendered="#{timesheetController.editTimesheet.editable}"/>
                     </p:column>
                     <p:column rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}">
                         <f:facet name="header">#{msgs['timesheetRow.total']}</f:facet>
-                        <h:outputText value="#{timesheetRow.sum}" />
+                        <h:outputText value="#{timesheetRow.sum}"/>
                         <f:facet name="footer">#{timesheetController.editTimesheet.timesheet.totalHours}</f:facet>
                     </p:column>
                     <p:column>
                         <f:facet name="header">#{msgs['timesheetRow.saturday']}</f:facet>
                         <h:outputText value="#{timesheetRow.hoursForWeek[0]}" converter="weeklyHours"
-                                      rendered="#{not timesheetController.editTimesheet.editable}" />
+                                      rendered="#{not timesheetController.editTimesheet.editable}"/>
 
                         <p:inputText value="#{timesheetRow.hoursForWeek[0]}" converter="weeklyHours"
                                      rendered="#{timesheetController.editTimesheet.editable}">
-                            <f:validateDoubleRange minimum="0.0" maximum="24.0" />
+                            <f:validateDoubleRange minimum="0.0" maximum="24.0"/>
                         </p:inputText>
-                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}" name="footer">#{timesheetController.editTimesheet.timesheet.dailyHours[0]}</f:facet>
+                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}"
+                                 name="footer">#{timesheetController.editTimesheet.timesheet.dailyHours[0]}</f:facet>
                     </p:column>
                     <p:column>
                         <f:facet name="header">#{msgs['timesheetRow.sunday']}</f:facet>
                         <h:outputText value="#{timesheetRow.hoursForWeek[1]}" converter="weeklyHours"
-                                      rendered="#{not timesheetController.editTimesheet.editable}" />
+                                      rendered="#{not timesheetController.editTimesheet.editable}"/>
                         <p:inputText value="#{timesheetRow.hoursForWeek[1]}" converter="weeklyHours"
                                      rendered="#{timesheetController.editTimesheet.editable}">
-                            <f:validateDoubleRange minimum="0.0" maximum="24.0" />
+                            <f:validateDoubleRange minimum="0.0" maximum="24.0"/>
                         </p:inputText>
-                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}" name="footer">#{timesheetController.editTimesheet.timesheet.dailyHours[1]}</f:facet>
+                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}"
+                                 name="footer">#{timesheetController.editTimesheet.timesheet.dailyHours[1]}</f:facet>
                     </p:column>
                     <p:column>
                         <f:facet name="header">#{msgs['timesheetRow.monday']}</f:facet>
                         <h:outputText value="#{timesheetRow.hoursForWeek[2]}" converter="weeklyHours"
-                                      rendered="#{not timesheetController.editTimesheet.editable}" />
+                                      rendered="#{not timesheetController.editTimesheet.editable}"/>
                         <p:inputText value="#{timesheetRow.hoursForWeek[2]}" converter="weeklyHours"
                                      rendered="#{timesheetController.editTimesheet.editable}">
-                            <f:validateDoubleRange minimum="0.0" maximum="24.0" />
+                            <f:validateDoubleRange minimum="0.0" maximum="24.0"/>
                         </p:inputText>
-                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}" name="footer">#{timesheetController.editTimesheet.timesheet.dailyHours[2]}</f:facet>
+                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}"
+                                 name="footer">#{timesheetController.editTimesheet.timesheet.dailyHours[2]}</f:facet>
                     </p:column>
                     <p:column>
                         <f:facet name="header">#{msgs['timesheetRow.tuesday']}</f:facet>
                         <h:outputText value="#{timesheetRow.hoursForWeek[3]}" converter="weeklyHours"
-                                      rendered="#{not timesheetController.editTimesheet.editable}" />
+                                      rendered="#{not timesheetController.editTimesheet.editable}"/>
                         <p:inputText value="#{timesheetRow.hoursForWeek[3]}" converter="weeklyHours"
                                      rendered="#{timesheetController.editTimesheet.editable}">
-                            <f:validateDoubleRange minimum="0.0" maximum="24.0" />
+                            <f:validateDoubleRange minimum="0.0" maximum="24.0"/>
                         </p:inputText>
-                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}" name="footer">#{timesheetController.editTimesheet.timesheet.dailyHours[3]}</f:facet>
+                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}"
+                                 name="footer">#{timesheetController.editTimesheet.timesheet.dailyHours[3]}</f:facet>
                     </p:column>
                     <p:column>
                         <f:facet name="header">#{msgs['timesheetRow.wednesday']}</f:facet>
                         <h:outputText value="#{timesheetRow.hoursForWeek[4]}" converter="weeklyHours"
-                                      rendered="#{not timesheetController.editTimesheet.editable}" />
+                                      rendered="#{not timesheetController.editTimesheet.editable}"/>
                         <p:inputText value="#{timesheetRow.hoursForWeek[4]}" converter="weeklyHours"
                                      rendered="#{timesheetController.editTimesheet.editable}">
-                            <f:validateDoubleRange minimum="0.0" maximum="24.0" />
+                            <f:validateDoubleRange minimum="0.0" maximum="24.0"/>
                         </p:inputText>
-                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}" name="footer">#{timesheetController.editTimesheet.timesheet.dailyHours[4]}</f:facet>
+                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}"
+                                 name="footer">#{timesheetController.editTimesheet.timesheet.dailyHours[4]}</f:facet>
                     </p:column>
                     <p:column>
                         <f:facet name="header">#{msgs['timesheetRow.thursday']}</f:facet>
                         <h:outputText value="#{timesheetRow.hoursForWeek[5]}" converter="weeklyHours"
-                                      rendered="#{not timesheetController.editTimesheet.editable}" />
+                                      rendered="#{not timesheetController.editTimesheet.editable}"/>
                         <p:inputText value="#{timesheetRow.hoursForWeek[5]}" converter="weeklyHours"
                                      rendered="#{timesheetController.editTimesheet.editable}">
-                            <f:validateDoubleRange minimum="0.0" maximum="24.0" />
+                            <f:validateDoubleRange minimum="0.0" maximum="24.0"/>
                         </p:inputText>
-                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}" name="footer">#{timesheetController.editTimesheet.timesheet.dailyHours[5]}</f:facet>
+                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}"
+                                 name="footer">#{timesheetController.editTimesheet.timesheet.dailyHours[5]}</f:facet>
                     </p:column>
                     <p:column>
                         <f:facet name="header">#{msgs['timesheetRow.friday']}</f:facet>
                         <h:outputText value="#{timesheetRow.hoursForWeek[6]}" converter="weeklyHours"
-                                      rendered="#{not timesheetController.editTimesheet.editable}" />
+                                      rendered="#{not timesheetController.editTimesheet.editable}"/>
                         <p:inputText value="#{timesheetRow.hoursForWeek[6]}" converter="weeklyHours"
                                      rendered="#{timesheetController.editTimesheet.editable}">
-                            <f:validateDoubleRange minimum="0.0" maximum="24.0" />
+                            <f:validateDoubleRange minimum="0.0" maximum="24.0"/>
                         </p:inputText>
-                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}" name="footer">#{timesheetController.editTimesheet.timesheet.dailyHours[6]}</f:facet>
+                        <f:facet rendered="#{view.viewId eq '/views/timesheets/view.xhtml'}"
+                                 name="footer">#{timesheetController.editTimesheet.timesheet.dailyHours[6]}</f:facet>
                     </p:column>
                     <p:column>
                         <f:facet name="header">#{msgs['timesheetRow.comments']}</f:facet>
                         <h:outputText value="#{timesheetRow.notes}"
-                                      rendered="#{not timesheetController.editTimesheet.editable}" />
+                                      rendered="#{not timesheetController.editTimesheet.editable}"/>
                         <p:inputText value="#{timesheetRow.notes}"
-                                     rendered="#{timesheetController.editTimesheet.editable}" />
+                                     rendered="#{timesheetController.editTimesheet.editable}"/>
                     </p:column>
                 </p:dataTable>
             </div>
@@ -136,7 +150,7 @@
             <!-- Create Timesheet: Add DB-->
             <div class="button-container">
                 <h:commandButton value="CREATE" action="home">
-                    <f:actionListener binding="#{createTimesheet.add()}" />
+                    <f:actionListener binding="#{createTimesheet.add()}"/>
                 </h:commandButton>
             </div>
         </h:form>

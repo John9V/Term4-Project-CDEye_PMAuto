@@ -16,6 +16,12 @@
 
     <!-- The current route -->
     <div class="header-bar">
+        <div class="back-button">
+            <h:form styleClass="">
+                <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
+                                 value="Home" action="HRHome.xhtml?faces-redirect=true"/>
+            </h:form>
+        </div>
         <h3>Edit Timesheet</h3>
     </div>
     <div class="container">
@@ -30,17 +36,20 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">PROJECT</f:facet>
-                    <h:selectOneMenu value="#{row.projectNumber}" validator="#{timesheetRowList.validate}" styleClass="edit-input-dropdown" rendered="#{row.editable}">
-                        <f:selectItems value="#{row.availProjects}" var="p" itemLabel="#{p.availProjectName}" itemValue="#{p.availProjectNumber}"/>
-                        <f:attribute name="workPackageNumber" value="#{workPackageNumber}" />
+                    <h:selectOneMenu value="#{row.projectNumber}" validator="#{timesheetRowList.validate}"
+                                     styleClass="edit-input-dropdown" rendered="#{row.editable}">
+                        <f:selectItems value="#{row.availProjects}" var="p" itemLabel="#{p.availProjectName}"
+                                       itemValue="#{p.availProjectNumber}"/>
+                        <f:attribute name="workPackageNumber" value="#{workPackageNumber}"/>
                     </h:selectOneMenu>
                     <h:outputText styleClass="edit-output" value="#{row.projectNumber}" rendered="#{not row.editable}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">WP</f:facet>
-                    <h:inputText id="wpNum" binding="#{workPackageNumber}" styleClass="edit-input" value="#{row.workPackageNumber}" required="true"
+                    <h:inputText id="wpNum" binding="#{workPackageNumber}" styleClass="edit-input"
+                                 value="#{row.workPackageNumber}" required="true"
                                  rendered="#{row.editable}">
-                        <f:validateLength minimum="5" maximum="5" />
+                        <f:validateLength minimum="5" maximum="5"/>
                     </h:inputText>
                     <h:message for="wpNum" style="color:red"/>
                     <h:outputText styleClass="edit-output" value="#{row.workPackageNumber}"
@@ -117,7 +126,7 @@
             <h:commandButton styleClass="command-button" value="Save" action="#{timesheetRowList.save()}"/>
             <h:commandButton styleClass="command-button" value="Add row" action="#{timesheetRowList.addRow()}"/>
             <h:commandButton styleClass="command-button" value="Back" action="#{timesheetRowList.back()}"/>
-        	<h:commandButton styleClass="command-button" value="Approve" action="#{activeTimesheet.approve()}"/>
+            <h:commandButton styleClass="command-button" value="Approve" action="#{activeTimesheet.approve()}"/>
         </h:form>
     </div>
 </h:body>

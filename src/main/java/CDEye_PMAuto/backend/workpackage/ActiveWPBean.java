@@ -40,8 +40,9 @@ public class ActiveWPBean extends WorkPackage implements Serializable {
         this.childPackages = wp.childPackages;
         
 		if (wp.isLeaf) {
-			ewpl.editSelectedWP(this);
-			return "EditWorkPackageLeaf";
+			System.out.println("setting active wp: ");
+			return ewpl.editSelectedWP(this);
+			//return "EditWorkPackageLeaf";
 		} else {
 			return "EditWorkPackageBranch";
 		}
