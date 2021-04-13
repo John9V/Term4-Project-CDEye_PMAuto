@@ -42,14 +42,11 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 	public CreateTimesheetBean(){ }
 
 	public String initialize(String activeUserName) {
-		if (!conversation.isTransient()) {
-			conversation.end();
-		}
+		if (!conversation.isTransient()) conversation.end();
 		conversation.begin();
 
 		Employee activeEmployee = employeeManager.getEmployeeByUserName(activeUserName);
 		this.setEmployee(activeEmployee);
-		System.out.println(this.getEmployee());
 		return "CreateTimesheet";
 	}
 
@@ -94,18 +91,14 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 	}
 
 	public void addRow() {
-		System.out.println(this.getEmployee());
 		if (editableRows == null) editableRows = new ArrayList<>();
 		EditableTimesheetRow etr = new EditableTimesheetRow();
 		etr.setProjects(projectManager.getAll());
-		System.out.println(editableRows);
 		this.editableRows.add(etr);
 	}
 
 	public String back() {
-		if (!conversation.isTransient()) {
-			conversation.end();
-		}
+		if (!conversation.isTransient()) conversation.end();
 		return "HRHome";
 	}
 

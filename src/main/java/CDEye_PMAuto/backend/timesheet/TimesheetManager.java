@@ -58,7 +58,6 @@ public class TimesheetManager implements Serializable {
 	}
 
 	public Timesheet find(UUID id) {
-		System.out.println("Manager Class :" + id);
 		return em.find(Timesheet.class, id);
 	}
 }

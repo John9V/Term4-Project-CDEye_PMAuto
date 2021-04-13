@@ -39,33 +39,23 @@ public class ProjectDashboard implements Serializable {
 		DashboardColumn col2 = new DefaultDashboardColumn();
 		DashboardColumn col3 = new DefaultDashboardColumn();
 
-		System.out.println(list.size());
 		int numberOfRows = list.size()/3;
 		int remainder = list.size()%3;
 		int count = 0;
 		if (numberOfRows != 0) {
-			for (int i=0; i<numberOfRows; i++, count++) {
+			for (int i=0; i<numberOfRows; i++, count++)
 				col1.addWidget(list.get(count).projectName.replaceAll("\\s", "_"));
-				System.out.println(list.get(count).projectNumber);
-			}
-			for (int j=0; j<numberOfRows; j++, count++) {
+			for (int j=0; j<numberOfRows; j++, count++)
 				col2.addWidget(list.get(count).projectName.replaceAll("\\s", "_"));
-				System.out.println(list.get(count).projectNumber);
-			}
-
-			for (int k=0; k<numberOfRows; k++, count++) {
+			for (int k=0; k<numberOfRows; k++, count++)
 				col3.addWidget(list.get(count).projectName.replaceAll("\\s", "_"));
-				System.out.println(list.get(count).projectNumber);
-			}
 		}
 		if (remainder == 1)
 			col1.addWidget(list.get(count).projectName.replaceAll("\\s", "_"));
 		else if (remainder == 2) {
 			col1.addWidget(list.get(count).projectName.replaceAll("\\s", "_"));
-			System.out.println(list.get(count).projectNumber);
 			count++;
 			col2.addWidget(list.get(count).projectName.replaceAll("\\s", "_"));
-			System.out.println(list.get(count).projectNumber);
 		}
 		model.addColumn(col1);
 		model.addColumn(col2);
@@ -79,7 +69,6 @@ public class ProjectDashboard implements Serializable {
 		}
 		conversation.begin();
 		if (list == null) refreshList();
-		System.out.println("List Returned size of "+ list.size());
 		return list;
 	}
 

@@ -3,16 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <h:outputStylesheet library="css" name="styles.css"/>
     <title>Project Management System</title>
 </h:head>
 <h:body>
     <!-- Side bar panel will control the navigation of the application-->
-    <div class="side-bar">
-
-    </div>
+    <div class="side-bar"></div>
 
     <!-- The current route -->
     <div class="header-bar">
@@ -22,17 +20,33 @@
                                  value="Home" action="HRHome.xhtml?faces-redirect=true"/>
             </h:form>
         </div>
-        <h3>Edit Timesheet</h3>
+        <h3>EDIT TIMESHEET</h3>
     </div>
+
     <div class="container">
         <h:form>
             <h:messages globalOnly="false" style="color:red"/>
-            <h:dataTable value="#{timesheetRowList.getRowList(activeTimesheet)}" var="row" styleClass="data-table">
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:outputLabel for="@next" value="Week Ending: "/>
+                <p:inputText placeholder="MMM. DD, YYYY" id="sheetDate" value="#{timesheetRowList.endDate}"
+                             required="true" styleClass="week-input" disabled="#{activeTimesheet.approved}">
+                    <f:convertDateTime type="localDate"/>
+                </p:inputText>
+
+                <p:outputLabel for="@next" value="Flex hours: "/>
+                <p:spinner id="flex" value="#{timesheetRowList.flex}" stepFactor="1"
+                           min="0" max="40" disabled="#{activeTimesheet.approved}"/>
+
+                <p:outputLabel for="@next" value="Vacation hours: "/>
+                <p:spinner id="vacation" value="#{timesheetRowList.vacation}" stepFactor="1"
+                           min="0" max="40" disabled="#{activeTimesheet.approved}"/>
+            </h:panelGrid>
+            <h:dataTable value="#{timesheetRowList.rowList}" var="row" styleClass="data-table">
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Edit"/>
                     </f:facet>
-                    <h:selectBooleanCheckbox value="#{row.editable}" onclick="submit()"/>
+                    <h:selectBooleanCheckbox value="#{row.editable}" onclick="submit()" disabled="#{activeTimesheet.approved}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">PROJECT</f:facet>
@@ -120,13 +134,14 @@
                     <f:facet name="header">
                         <h:outputText value="Delete"/>
                     </f:facet>
-                    <h:selectBooleanCheckbox value="#{row.deletable}" onclick="submit()"/>
+                    <h:selectBooleanCheckbox value="#{row.deletable}" onclick="submit()" disabled="#{activeTimesheet.approved}"/>
                 </h:column>
             </h:dataTable>
-            <h:commandButton styleClass="command-button" value="Save" action="#{timesheetRowList.save()}"/>
-            <h:commandButton styleClass="command-button" value="Add row" action="#{timesheetRowList.addRow()}"/>
+
+            <h:commandButton styleClass="command-button" value="Save" action="#{timesheetRowList.save()}" rendered="#{not activeTimesheet.approved}" />
+            <h:commandButton styleClass="command-button" value="Add row" action="#{timesheetRowList.addRow()}" rendered="#{not activeTimesheet.approved}" />
             <h:commandButton styleClass="command-button" value="Back" action="#{timesheetRowList.back()}"/>
-            <h:commandButton styleClass="command-button" value="Approve" action="#{activeTimesheet.approve()}"/>
+            <h:commandButton styleClass="command-button" value="Approve" action="#{timesheetRowList.approve()}" rendered="#{not activeTimesheet.approved}" />
         </h:form>
     </div>
 </h:body>
