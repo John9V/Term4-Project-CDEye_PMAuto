@@ -84,6 +84,11 @@
 							value="#{wp.calcAllocatedBudget()}" />
 					</h:column>
 					<h:column>
+						<f:facet name="header">Responsible Engineer Estimate</f:facet>
+						<h:outputText styleClass="edit-output" style="font-size: 18px"
+							value="#{wp.calcRespEngBudget()}" />
+					</h:column>
+					<h:column>
 						<f:facet name="header">Parent WP Number</f:facet>
 						<h:inputText styleClass="edit-input" style="font-size: 18px"
 							value="#{wp.parentWp.workPackageNumber}"

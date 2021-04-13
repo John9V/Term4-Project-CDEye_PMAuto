@@ -253,9 +253,7 @@ public class WorkPackage implements Serializable {
     }
     
     public BigDecimal calcAllocatedBudget() {
-    	//System.out.println("calculate is being called for " + this.workPackageNumber);
     	if (this.isLeaf) {
-    		
     		BigDecimal personDays = new BigDecimal(0);
             BigDecimal budgetEstimate = new BigDecimal(0);
             for (WorkPackageAllocation w : this.getWpAllocs()) {
@@ -266,20 +264,12 @@ public class WorkPackage implements Serializable {
                 budgetEstimate = budgetEstimate.add(res);
                 personDays = personDays.add(w.getPersonDaysEstimate());
             }
-            //System.out.println("allocation for (leaf) " + this.workPackageNumber + " is " + budgetEstimate);
             return budgetEstimate;
-          //this needs to sum children's wp budgets, not children's allocations
     	} else {
-    		BigDecimal budgetEstimate = new BigDecimal(0);
-    		//System.out.println("work package " + this.workPackageNumber + " has " + this.childPackages.size() + " children");
+    		BigDecimal budgetEstimate = new BigDecimal(0); 
     		for (WorkPackage w : this.childPackages) {
-    			//System.out.println("this package is " + w.workPackageNumber);
-    			//System.out.println("its project budget is " + w.projectBudget);
                 budgetEstimate = budgetEstimate.add(w.projectBudget);
             }
-//            for (WorkPackage w : this.childPackages) {
-//                budgetEstimate = budgetEstimate.add(w.calcAllocatedBudget());
-//            }
             return budgetEstimate;
     	}
     }
@@ -303,17 +293,25 @@ public class WorkPackage implements Serializable {
     }
     
     public BigDecimal calcRespEngBudget() {
-    	BigDecimal personDays = new BigDecimal(0);
-        BigDecimal budgetEstimate = new BigDecimal(0);
-        for (RespEngCostEstimate r : this.RECEs) {
-            BigDecimal salary = r.getPaygrade().getSalary();
-            BigDecimal days = r.getPersonDayEstimate();
-            BigDecimal res = salary.multiply(days);
+    	if (this.isLeaf()) {
+    		BigDecimal personDays = new BigDecimal(0);
+            BigDecimal budgetEstimate = new BigDecimal(0);
+            for (RespEngCostEstimate r : this.RECEs) {
+                BigDecimal salary = r.getPaygrade().getSalary();
+                BigDecimal days = r.getPersonDayEstimate();
+                BigDecimal res = salary.multiply(days);
 
-            budgetEstimate = budgetEstimate.add(res);
-            personDays = personDays.add(r.getPersonDayEstimate());
-        }
-        return budgetEstimate;
+                budgetEstimate = budgetEstimate.add(res);
+                personDays = personDays.add(r.getPersonDayEstimate());
+            }
+            return budgetEstimate;
+    	} else {
+    		BigDecimal budgetEstimate = new BigDecimal(0);
+    		for (WorkPackage w : this.childPackages) {
+                budgetEstimate = budgetEstimate.add(w.calcRespEngBudget());
+            }
+            return budgetEstimate;
+    	}
     }
     
     public BigDecimal calcCompletion() {
