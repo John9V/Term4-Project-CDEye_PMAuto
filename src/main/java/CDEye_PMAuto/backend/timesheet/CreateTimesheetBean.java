@@ -53,9 +53,10 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 	public String add() {
 		timesheetManager.addTimesheet(new Timesheet(this));
 		saveTimesheetRow();
-		if (!conversation.isTransient()) {
-			conversation.end();
-		}
+		conversation.end();
+//		if (!conversation.isTransient()) {
+//			conversation.end();
+//		}
 		return "TimesheetList";
 	}
 
