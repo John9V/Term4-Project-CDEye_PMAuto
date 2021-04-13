@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <h:outputStylesheet library="css" name="styles.css"/>
     <title>Project Management System</title>
@@ -13,46 +14,49 @@
 
     <!-- The current route -->
     <div class="header-bar">
-        <h3>CREATE A NEW TIMESHEET</h3>
-        <h:button styleClass="back-button" rendered="#{not empty activeEmployeeBean.userName}" value="Back" outcome="#{createTimesheet.back()}" />
-        <div class="logout-button">
+        <div class="back-button">
             <h:form styleClass="">
                 <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
-                                 value="Logout" action="#{activeEmployeeBean.logout}" />
-                <h:commandButton rendered="#{empty activeEmployeeBean.userName}"
-                                 value="Login" action="login" />
+                                 value="Home" action="HRHome.xhtml?faces-redirect=true"/>
             </h:form>
         </div>
+        <h3>CREATE A NEW TIMESHEET</h3>
     </div>
 
-    <!-- Form Container: reusable horizontal row input style-->
-    <!-- Need to replace the input value with Employee class members.-->
     <div class="container">
         <h:form>
             <h:messages globalOnly="false" style="color:red"/>
-            <div class="input-row-week">
-                <p>Week Ending</p>
-                <h:inputText id="sheetDate" value="#{createTimesheet.endDate}" required="true">
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:outputLabel for="@next" value="Week Ending: "/>
+                <p:inputText placeholder="MMM. DD, YYYY" id="sheetDate" value="#{createTimesheet.endDate}"
+                             required="true" styleClass="week-input" >
                     <f:convertDateTime type="localDate"/>
-                </h:inputText>
-                <h:message for="sheetDate" style="color:red"/>
-            </div>
+                </p:inputText>
+
+                <p:outputLabel for="@next" value="Flex hours: "/>
+                <p:spinner id="flex" value="#{createTimesheet.flex}" stepFactor="0.5" min="0.0" max="40.0" />
+
+                <p:outputLabel for="@next" value="Vacation hours: "/>
+                <p:spinner id="vacation" value="#{createTimesheet.vacation}" stepFactor="0.5" min="0.0" max="40.0" />
+            </h:panelGrid>
 
             <h:dataTable value="#{createTimesheet.editableRows}" styleClass="data-table" var="timesheetRow">
                 <h:column>
                     <f:facet name="header">PROJECT</f:facet>
-                    <h:selectOneMenu value="#{timesheetRow.projectNumber}" validator="#{createTimesheet.validate}" styleClass="edit-input-dropdown">
+                    <h:selectOneMenu value="#{timesheetRow.projectNumber}" validator="#{createTimesheet.validate}"
+                                     styleClass="edit-input-dropdown">
                         <f:selectItems value="#{timesheetRow.availProjects}" var="p" itemLabel="#{p.availProjectName}"
                                        itemValue="#{p.availProjectNumber}"/>
-                        <f:attribute name="workPackageNumber" value="#{workPackageNumber}" />
+                        <f:attribute name="workPackageNumber" value="#{workPackageNumber}"/>
                     </h:selectOneMenu>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Work Pacakge</f:facet>
-                    <h:inputText binding="#{workPackageNumber}" styleClass="edit-input" id="wpNum" value="#{timesheetRow.workPackageNumber}"
-                                 required="true">
-                        <f:validateLength minimum="5" maximum="5" />
-                    </h:inputText>
+                    <p:inputText binding="#{workPackageNumber}" styleClass="wp-input" id="wpNum"
+                                 value="#{timesheetRow.workPackageNumber}"
+                                 required="true" placeholder="#####">
+                        <f:validateLength minimum="5" maximum="5"/>
+                    </p:inputText>
                     <h:message for="wpNum" style="color:red"/>
                 </h:column>
                 <h:column>

@@ -11,14 +11,13 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    background: #191919;
+    background: #f8f8f8;
     text-align: center;
     border-radius: 15px;
 }
 .box h1{
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: 500;
+    color: #4d4646;
+    font-weight: bold;
 }
 .box input[type = "text"],.box input[type = "password"]{
     border:0;
@@ -30,7 +29,7 @@ body{
     padding: 14px 10px;
     width: 200px;
     outline: none;
-    color: white;
+    color: black;
     border-radius: 24px;
     transition: 0.25s;
 }
@@ -47,7 +46,7 @@ body{
     border: 2px solid #2ecc71;
     padding: 14px 40px;
     outline: none;
-    color: white;
+    color: black;
     border-radius: 24px;
     transition: 0.25s;
     cursor: pointer;

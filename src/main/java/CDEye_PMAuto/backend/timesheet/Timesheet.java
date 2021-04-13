@@ -77,7 +77,6 @@ public class Timesheet {
 	protected BigDecimal flex;
 	@Column(name = "vacation")
 	protected BigDecimal vacation;
-	
 	@Column(name="approved")
     protected boolean approved;
 
@@ -85,6 +84,9 @@ public class Timesheet {
 		this.id = UUID.randomUUID();
 		this.details = new ArrayList<TimesheetRow>();
 		this.endDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		this.flex = BigDecimal.valueOf(0);
+		this.vacation = BigDecimal.valueOf(0);
+		this.sick = BigDecimal.valueOf(0);
 	}
 
     public Timesheet(CreateTimesheetBean nts) {
@@ -187,5 +189,13 @@ public class Timesheet {
 
 	public void setVacation(BigDecimal vacation) {
 		this.vacation = vacation;
+	}
+
+	public BigDecimal getFlex() {
+		return flex;
+	}
+
+	public void setFlex(BigDecimal flex) {
+		this.flex = flex;
 	}
 }

@@ -49,7 +49,7 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 
 		Employee activeEmployee = employeeManager.getEmployeeByUserName(activeUserName);
 		this.setEmployee(activeEmployee);
-		this.editableRows = new ArrayList<>();
+		System.out.println(this.getEmployee());
 		return "CreateTimesheet";
 	}
 
@@ -94,8 +94,11 @@ public class CreateTimesheetBean extends Timesheet implements Serializable {
 	}
 
 	public void addRow() {
+		System.out.println(this.getEmployee());
+		if (editableRows == null) editableRows = new ArrayList<>();
 		EditableTimesheetRow etr = new EditableTimesheetRow();
 		etr.setProjects(projectManager.getAll());
+		System.out.println(editableRows);
 		this.editableRows.add(etr);
 	}
 
