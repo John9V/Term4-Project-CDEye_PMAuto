@@ -29,8 +29,7 @@
             <h:form>
                 <div class="welcome-card-container">
                     <h3 class="welcome-card-title">Welcome back, #{activeEmployeeBean.firstName}</h3>
-                    <p class="welcome-card-content">As a HR, you are here to protect the company from liability and pay the employees as little as possible.</p>
-                    <p class="welcome-card-content">We are hiring! Make sure you hit your hiring quotas to share this award-winning culture with as many people as possible! Or else :)</p>
+                    <p class="welcome-card-content">Welcome, HR</p>
                 </div>
 
                 <div class="section-container">
@@ -40,33 +39,33 @@
                 <div class="card-list">
                     <div class="card-container">
                         <p class="card-title">Create Project</p>
-                        <p class="card-subtitle">A subheader that concludes what this tab does.</p>
+                        <p class="card-subtitle">Create a project.</p>
                         <h:commandButton styleClass="card-button-create" value="Create"
                                          rendered="#{not empty activeEmployeeBean.userName}" action="CreateProject"/>
                     </div>
                     <div class="card-container">
                         <p class="card-title">View All Projects</p>
-                        <p class="card-subtitle">A subheader that concludes what this tab does.</p>
+                        <p class="card-subtitle">View all projects in the system.</p>
                         <h:commandButton styleClass="card-button" value="View"
                                          rendered="#{not empty activeEmployeeBean.userName}" action="ProjectDashboard"/>
                     </div>
                     <div class="card-container">
                         <p class="card-title">View Managed Projects</p>
-                        <p class="card-subtitle">A subheader that concludes what this tab does.</p>
+                        <p class="card-subtitle">View the projects you're managing.</p>
                         <h:commandButton styleClass="card-button" value="View"
                                          rendered="#{not empty activeEmployeeBean.userName}"
                                          action="ProjectDashboardForPM"/>
                     </div>
                     <div class="card-container">
                         <p class="card-title">View WorkPackages</p>
-                        <p class="card-subtitle">A subheader that concludes what this tab does.</p>
+                        <p class="card-subtitle">View the work packages you've been assigned to work on.</p>
 
                         <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
                                          value="View" action="WPListAsEmp" styleClass="card-button"/>
                     </div>
                     <div class="card-container">
                         <p class="card-title">View WPs as RE</p>
-                        <p class="card-subtitle">A subheader that concludes what this tab does.</p>
+                        <p class="card-subtitle">View the work packages for which you are the responsible engineer.</p>
                         <h:commandButton rendered="#{not empty workPackageList.listAsRE}"
                                          value="View" action="WPListAsRE" styleClass="card-button"/>
                     </div>
@@ -79,13 +78,13 @@
                 <div class="card-list">
                     <div class="card-container">
                         <p class="card-title">Create Employee</p>
-                        <p class="card-subtitle">A subheader that concludes what this tab does.</p>
+                        <p class="card-subtitle">Add an employee to the system.</p>
                         <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
                                          value="Create" action="CreateEmployee" styleClass="card-button-create"/>
                     </div>
                     <div class="card-container">
-                        <p class="card-title">View Employee</p>
-                        <p class="card-subtitle">A subheader that concludes what this tab does.</p>
+                        <p class="card-title">View Employees</p>
+                        <p class="card-subtitle">View a list of the employees in the system.</p>
                         <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
                                          value="View" action="EditEmployees" styleClass="card-button"/>
                     </div>
@@ -98,19 +97,19 @@
                 <div class="card-list">
                     <div class="card-container">
                         <p class="card-title">Create Timesheet</p>
-                        <p class="card-subtitle">A subheader that concludes what this tab does.</p>
+                        <p class="card-subtitle">Add a timesheet to the system for yourself.</p>
                         <h:commandButton value="Create"
                                          action="#{createTimesheet.initialize(activeEmployeeBean.userName)}"
                                          styleClass="card-button-create"/>
                     </div>
                     <div class="card-container">
                         <p class="card-title">View Timesheets</p>
-                        <p class="card-subtitle">A subheader that concludes what this tab does.</p>
+                        <p class="card-subtitle">View a list of your timesheets.</p>
                         <h:commandButton value="View" action="TimesheetList" styleClass="card-button"/>
                     </div>
                     <div class="card-container">
                         <p class="card-title">View Unapproved Sheets</p>
-                        <p class="card-subtitle">A subheader that concludes what this tab does.</p>
+                        <p class="card-subtitle">View timesheets for your employees that you need to review and approve.</p>
                         <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
                                          value="View" action="TimesheetListManagerView" styleClass="card-button"/>
                     </div>

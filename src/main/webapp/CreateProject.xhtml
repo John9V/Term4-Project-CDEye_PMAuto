@@ -14,7 +14,7 @@
         <div class="back-button">
             <h:form styleClass="">
                 <h:commandButton rendered="#{not empty activeEmployeeBean.userName}"
-                                 value="Home" action="HRHome.xhtml?faces-redirect=true" />
+                                 value="Home" action="#{activeEmployeeBean.navHome()}" />
             </h:form>
         </div>
         <h3>CREATE NEW PROJECT</h3>

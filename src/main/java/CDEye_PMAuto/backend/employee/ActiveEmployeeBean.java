@@ -66,6 +66,14 @@ public class ActiveEmployeeBean extends Employee implements Serializable {
 		}
 	}
 	
+	public String navHome() {
+		if (this.hr) {
+			return "HRHome";
+		} else {
+			return "Home";
+		}
+	}
+	
 	/**
 	 * Logout method.
 	 * @return navigation string to login.xthml 

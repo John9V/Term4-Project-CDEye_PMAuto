@@ -293,7 +293,9 @@ public class WorkPackage implements Serializable {
     }
     
     public BigDecimal calcRespEngBudget() {
+    	//If lowest level
     	if (this.isLeaf()) {
+    		//sum RECEs
     		BigDecimal personDays = new BigDecimal(0);
             BigDecimal budgetEstimate = new BigDecimal(0);
             for (RespEngCostEstimate r : this.RECEs) {
@@ -305,7 +307,9 @@ public class WorkPackage implements Serializable {
                 personDays = personDays.add(r.getPersonDayEstimate());
             }
             return budgetEstimate;
+            //If not lowest level
     	} else {
+    		//Sum respEngBudgetOfChildren
     		BigDecimal budgetEstimate = new BigDecimal(0);
     		for (WorkPackage w : this.childPackages) {
                 budgetEstimate = budgetEstimate.add(w.calcRespEngBudget());

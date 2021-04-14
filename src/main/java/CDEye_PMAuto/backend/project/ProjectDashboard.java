@@ -13,6 +13,8 @@ import org.primefaces.model.DashboardModel;
 import org.primefaces.model.DefaultDashboardColumn;
 import org.primefaces.model.DefaultDashboardModel;
 
+import CDEye_PMAuto.backend.employee.ActiveEmployeeBean;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,7 @@ public class ProjectDashboard implements Serializable {
 	@Inject ActiveProjectBean activeProjectBean;
 	@Inject EditProjectWrapper editProjectWrapper;
 	@Inject ProjectList projList;
-
+	@Inject ActiveEmployeeBean aeb;
 	private EditableProject deletedProject = new EditableProject();
 	private DashboardModel model;
 
@@ -121,7 +123,14 @@ public class ProjectDashboard implements Serializable {
 		if (!conversation.isTransient()) {
 			conversation.end();
 		}
-		return "HRHome?faces-redirect=true";
+		
+		if (aeb.getHr()) {
+			return "HRHome?faces-redirect=true";
+		} else {
+			return "Home";
+		}
+		
+		
 	}
 
 	public DashboardModel getModel() {
