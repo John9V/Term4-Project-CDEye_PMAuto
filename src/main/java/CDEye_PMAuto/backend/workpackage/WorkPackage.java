@@ -274,6 +274,25 @@ public class WorkPackage implements Serializable {
     	}
     }
     
+    public BigDecimal calcCompletedBudget() {
+    	if (this.isLeaf) {
+    		if(completedBudget == null) {
+                completedBudget = new BigDecimal(0);
+            }
+    		return completedBudget;
+    	} else {
+    		
+    		BigDecimal budgetEstimate = new BigDecimal(0); 
+    		for (WorkPackage w : this.childPackages) {
+    			if (w.completedBudget == null) {
+                    w.completedBudget = new BigDecimal(0);
+                }
+                budgetEstimate = budgetEstimate.add(w.calcCompletedBudget());
+            }
+            return budgetEstimate;
+    	}	
+    }
+    
     public BigDecimal calcUnallocatedBudget() {
     	return this.projectBudget.subtract(calcAllocatedBudget());
     }
@@ -319,13 +338,14 @@ public class WorkPackage implements Serializable {
     }
     
     public BigDecimal calcCompletion() {
-        if(completedBudget == null) {
-            completedBudget = new BigDecimal(0);
-        }
+//        if(completedBudget == null) {
+//            completedBudget = new BigDecimal(0);
+//        }
+    	completedBudget = calcCompletedBudget();
         if(completedBudget.compareTo(BigDecimal.ZERO) == 0 || calcRespEngBudget().compareTo(BigDecimal.ZERO) == 0) {
-            System.out.println("Caught is zero");
             return new BigDecimal(0);
         }
+        completedBudget = calcCompletedBudget();
     	return calcRespEngBudget().divide(completedBudget, 2, RoundingMode.HALF_UP);
     }
     
@@ -333,7 +353,6 @@ public class WorkPackage implements Serializable {
     	BigDecimal difference = calcRespEngBudget().subtract(projectBudget);
     	
     	if(difference.compareTo(BigDecimal.ZERO) == 0 || projectBudget.compareTo(BigDecimal.ZERO) == 0) {
-    	    System.out.println("Caught is zero for variance");
     	    return new BigDecimal(0);
     	}
     	return difference.divide(projectBudget, 2, RoundingMode.HALF_UP);
