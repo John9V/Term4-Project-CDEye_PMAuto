@@ -205,13 +205,13 @@ public class EditableWorkPackageLeaf extends WorkPackage implements Serializable
         System.out.println("WP number: " + activeWP.getWorkPackageNumber());
         System.out.println("WP proj: " + activeWP.getProject().toString());
         System.out.println("before getrespenglookup");
-//        Employee respEng = workPackageManager.findWpsByPkgNumAndProj(
-//                activeWP.getWorkPackageNumber(), activeWP.getProject())
-//                [0].getResponsibleEngineer();
-//        System.out.println("after getrespenglookup");
-//        return respEng != null ? respEng.getUserName() : "No One";
+        Employee respEng = workPackageManager.findWpsByPkgNumAndProj(
+                activeWP.getWorkPackageNumber(), activeWP.getProject())
+                [0].getResponsibleEngineer();
         System.out.println("after getrespenglookup");
-        return "No one";
+        return respEng != null ? respEng.getUserName() : "No One";
+//        System.out.println("after getrespenglookup");
+//        return "No one";
     }
 
     /**

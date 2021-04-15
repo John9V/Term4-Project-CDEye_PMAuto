@@ -191,6 +191,7 @@ public class EmployeeManager implements Serializable {
         e.payGrade = employeeToUpdate.payGrade;
         e.active = employeeToUpdate.active;
         e.hr = employeeToUpdate.hr;
+        e.manager = employeeToUpdate.manager;
         em.merge(e);
 
         System.out.println("Update employee " + e.firstName + " successfully");
